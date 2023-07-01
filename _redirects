@@ -1,0 +1,2 @@
+/:controller/:action/*  /:controller/:action/:splat
+# /* /Error.html 404
