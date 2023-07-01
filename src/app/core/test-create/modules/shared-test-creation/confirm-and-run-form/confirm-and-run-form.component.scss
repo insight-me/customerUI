@@ -1,0 +1,59 @@
+@import "variables";
+
+.right-margin {
+  margin-left: 8px;
+}
+
+.bt {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.top-margin {
+  margin: 5px 0 0;
+  text-align: right;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+
+  &.mobile {
+    display: none;
+  }
+
+  &.desktop {
+    display: flex;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  &.mobile {
+    display: none;
+  }
+
+  &.desktop {
+    display: flex;
+  }
+}
+
+@media #{$mobile} {
+  .column {
+    &.mobile {
+      display: flex;
+      margin-top: 0;
+    }
+
+    &.desktop {
+      display: none;
+    }
+
+    .cost {
+      margin: 0 0 8px;
+    }
+  }
+}

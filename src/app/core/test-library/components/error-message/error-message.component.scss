@@ -1,0 +1,41 @@
+@import './src/assets/styles/mixins.scss';
+
+.tooltip {
+  z-index: 100;
+  width: fit-content;
+  min-width: max-content;
+  max-width: 200px;
+  color: $white;
+  cursor: default;
+  filter: drop-shadow(0 3px 28px rgba(0, 0, 0, 0.26));
+
+  &-arrow {
+    position: absolute;
+    top: -5px;
+    left: 9%;
+    width: 0;
+    height: 0;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid $white;
+    border-left: 10px solid transparent;
+    transform: translate(-50%, -50%);
+  }
+
+  &-content {
+    @include flex-column;
+
+    align-items: center;
+    width: fit-content;
+    max-width: 300px;
+    padding: 0 8px;
+    background: $white;
+    border-radius: 8px;
+
+    &-title {
+      @include regular-14;
+
+      width: 100%;
+      padding: 8px 0;
+    }
+  }
+}

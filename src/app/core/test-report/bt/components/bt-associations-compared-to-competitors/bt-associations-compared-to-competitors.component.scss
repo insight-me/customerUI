@@ -1,0 +1,8 @@
+@import "variables";
+
+.association-element {
+  @include flex-column-stretch;
+
+  width: 100%;
+  max-width: 1000px;
+}

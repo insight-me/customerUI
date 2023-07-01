@@ -1,0 +1,107 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-why-insightme {
+  @include flex-center;
+
+  flex-direction: column;
+  margin: 0 -100px;
+  padding: 100px;
+  background: $yellow;
+
+  &__title {
+    @include medium-32;
+
+    margin-bottom: 60px;
+  }
+
+  &__content {
+    display: grid;
+    grid-gap: 60px 100px;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+
+    .item {
+      display: flex;
+
+      &-image {
+        margin-right: 40px;
+      }
+
+      &-text {
+        .title {
+          @include medium-24;
+
+          margin: 0 0 24px;
+        }
+
+        .text {
+          @include regular-16;
+
+          margin: 0 0 16px;
+        }
+      }
+    }
+  }
+}
+
+@media #{$desktop} {
+  .c-why-insightme {
+    margin: 0 -32px;
+  }
+}
+
+@media #{$tablet} {
+  .c-why-insightme {
+    padding: 100px 32px;
+
+    &__title {
+      @include medium-28;
+
+      margin-bottom: 40px;
+    }
+
+    &__content {
+      grid-gap: 60px;
+      grid-template-columns: 1fr;
+
+      .item {
+        &-image {
+          img {
+            max-width: 100px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media #{$mobile-main-page} {
+  .c-why-insightme {
+    margin: 0 -20px;
+    padding: 60px 20px;
+
+    &__title {
+      @include medium-24;
+    }
+
+    &__content {
+      grid-gap: 32px;
+
+      .item {
+        display: flex;
+
+        &-image {
+          margin-right: 20px;
+        }
+
+        &-text {
+          .title {
+            @include medium-20;
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,15 @@
+<div *ngIf="imagesList.length" class="c-images-list" [ngClass]="{'center': test?.isRecommendation}">
+  <div *ngFor="let brand of imagesList"
+       class="c-images-list__element flex-center-center-class" [ngClass]="{'m-0': test?.isRecommendation}">
+    <div *ngIf="brand.image || brand.imageData; else text" class="c-images-list__container">
+      <img [src]="brand.image? brand.image: brand.imageData" [alt]="brand.name"
+           class="c-images-list__element__image">
+    </div>
+    <ng-template #text>
+      <div class="c-preview__section__image-container">
+        {{brand.name}}
+      </div>
+    </ng-template>
+  </div>
+
+</div>

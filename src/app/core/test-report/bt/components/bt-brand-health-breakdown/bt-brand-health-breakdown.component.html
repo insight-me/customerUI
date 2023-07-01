@@ -1,0 +1,63 @@
+<div class="bt-test-report bt-widget-wrapper">
+
+  <div class="bt-test-report__header">
+    <div
+      class="bt-test-report__header-title">{{"report.Brand health in target group(s) and/or filtered demography" | translate}}</div>
+    <div class="bt-test-report__header-filter">
+      <span>{{"report.Graph option" | translate}}:</span>
+      <div class="bt-test-report__header-filter-button"
+           (click)="isFilterActive = !isFilterActive">
+        <div>{{"report.Demography" | translate}}</div>
+        <app-expand-button [active]="isFilterActive"></app-expand-button>
+      </div>
+    </div>
+  </div>
+  <!--Filter-->
+  <app-demography-filter *ngIf="isFilterActive"
+                         [min]="btRSS.min"
+                         [max]="btRSS.max"
+                         [form]="btRSS.brandHealthDemography"
+                         [genderOptions]="btRSS.genderOptions | async"
+                         [filterSource]="btRSS.healthInTargetGroupsFilterSource"
+                         [marketOptions]="btRSS.marketOptions | async"
+                         [segmentOptions]="btRSS.segmentOptions | async"
+                         [purchaseFrequenciesOptions]="btRSS.purchaseFrequenciesOptions | async"
+                         [purchaseInvolvementsOptions]="btRSS.purchaseInvolvementsOptions | async"></app-demography-filter>
+
+  <div [style]="btStyle.content"
+       *ngIf="btRSS.healthInTargetGroups$ | async as dataSet">
+<!--    task 1955 on hold don't remove it-->
+<!--    <app-warning-message-->
+<!--      [text]="'BT.Warning! Amount of respondents is too low (<60)'"-->
+<!--      [isCentered]="true"-->
+<!--      [color]="'#585858'"></app-warning-message>-->
+    <ng-container *ngIf="dataSet[0].values.length">
+      <app-bt-grouped-bar-chart *ngIf="dataSet[0].values.length < 4; else separateCharts"
+                                [dataSet]="dataSet"
+                                aspectRatio="0.5"></app-bt-grouped-bar-chart>
+
+      <ng-template #separateCharts>
+        <app-bt-health-in-target-groups [dataSet]="dataSet"></app-bt-health-in-target-groups>
+      </ng-template>
+    </ng-container>
+
+  </div>
+
+</div>
+
+
+<div class="bt-test-report bt-widget-wrapper">
+
+  <div class="bt-test-report__header">
+    <div class="bt-test-report__header-title">{{"report.Brand health compared to competitors" | translate}}</div>
+    <app-bt-multiselect-filter *ngIf="btRSS.brands$ | async as brands"
+                               [options]="brands"
+                               [control]="btRSS.brandHealthComparedToCompetitorsFilter"></app-bt-multiselect-filter>
+  </div>
+
+  <div [style]="btStyle.content"
+       *ngIf="btRSS.brandFunnelDataSet$ | async">
+    <app-bt-brand-health-compared-to-competitors></app-bt-brand-health-compared-to-competitors>
+  </div>
+
+</div>

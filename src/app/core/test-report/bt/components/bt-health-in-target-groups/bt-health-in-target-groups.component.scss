@@ -1,0 +1,11 @@
+@import "./src/assets/styles/variables.scss";
+
+.association-element {
+  @include flex-column-stretch;
+
+  width: 45%;
+
+  @media #{$tablet} {
+    width: 100%;
+  }
+}

@@ -1,0 +1,64 @@
+<div #createSegmentation
+     class="c-create-segmentation show">
+  <div class="c-create-segmentation__header">
+    <div class="c-create-segmentation__header__nav">
+      <div *ngFor="let item of navItems; let i = index; let isFirst = first"
+           class="c-create-segmentation__header__nav-element">
+        <div class="c-create-segmentation__header__nav-container">
+          <p [class.icon]="!isFirst"
+             [class.active]="step === +item.link"
+             class="c-create-segmentation__header__nav-element__text">{{item.text | translate}}</p>
+          <div *ngIf="isDone(i) || isScaleDone(i)"
+               class="c-create-segmentation__header__nav-check">
+            <app-icon [iconType]="IconsType.Success"></app-icon>
+          </div>
+        </div>
+        <div class="progress"
+             [style.opacity]="step === +item.link ? 1 : 0">
+          <p class="done"
+             [style.width]="getProgressWidth(i) + '%'"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="c-create-segmentation__container"
+       [ngSwitch]="step">
+    <!--    Create segments-->
+    <ng-template ngSwitchCase="1">
+      <app-create-segments [customSegments]="customSegments"
+                           [isEditMode]="isEditMode"
+                           (cancelChanges)="cancelChanges()"
+                           (goToNext)="goToNext()"></app-create-segments>
+    </ng-template>
+
+    <!--    Select scale-->
+    <ng-template ngSwitchCase="2">
+      <app-select-scale [isEditMode]="isEditMode"
+                        [initValues]="[customSegments.minValue, customSegments.maxValue]"
+                        (cancelChanges)="cancelChanges()"
+                        (goToNext)="setCustomSegmentationMinMaxValue($event)">
+      </app-select-scale>
+    </ng-template>
+
+    <!--    Create questions-->
+    <ng-template ngSwitchCase="3">
+      <app-create-questions [customSegments]="customSegments"
+                            [isEditMode]="isEditMode"
+                            [minValue]="customSegments.minValue"
+                            [maxValue]="customSegments.maxValue"
+                            (cancelChanges)="cancelChanges()"
+                            (goToNext)="goToNext()"></app-create-questions>
+    </ng-template>
+    <!--    Matrix-->
+    <ng-template ngSwitchCase="4">
+      <app-create-matrix [customSegments]="customSegments"
+                         [isEditMode]="isEditMode"
+                         (cancelChanges)="cancelChanges()"></app-create-matrix>
+    </ng-template>
+  </div>
+
+</div>
+<div class="mobile">
+  <app-desktop-alert *ngIf="isAlertExist"
+                     (closeAlert)="closeAlert()"></app-desktop-alert>
+</div>

@@ -1,0 +1,128 @@
+<div *ngIf="test && form"
+     class="c-open-questions">
+  <button *ngIf="
+      !isShowQuestions || test.customQuestions.length > 4;
+      else questionBlock"
+          class="c-common__button c-common__button--border"
+          [disabled]="test.customQuestions?.length > 4"
+          (click)="resetData();toggleIsShowQuestion()">
+    {{ "BIC.Add question" | translate }}
+  </button>
+  <ng-template #questionBlock>
+    <input pInputText
+           class="c-common__input"
+           [formControl]="convertToFormControl(form.controls.value)"
+           [placeholder]="'additional.type-additional-questions' | translate"
+           (blur)="trimValue()" />
+    <small *ngIf="controlHasError()">
+      <small class="p-error c-common__form-field-error">{{
+        getErrorMessage(controlHasError()) | translate
+        }}</small>
+    </small>
+
+    <app-add-image [imageFormControl]="convertToFormControl(form.controls.imageBase)"></app-add-image>
+    <div class="ask-buttons"
+         *ngIf="isBic"
+         [formGroup]="form">
+        <ng-container *ngFor="let radioBtn of askRadioBtns">
+          <input class="c-common__radiobutton"
+                 type="radio"
+                 [id]="radioBtn.id"
+                 [value]="radioBtn.value"
+                 [formControlName]="radioBtn.controlName" />
+          <label class="c-common__radiobutton-label"
+                 [for]="radioBtn.id">{{ radioBtn.name | translate }}
+          </label>
+        </ng-container>
+    </div>
+    <p class="c-open-questions__text">
+      {{
+      "BIC.Select what type of answer the respondent should use" | translate
+      }}
+    </p>
+    <div *ngFor="let btn of radioBtnsList; let i = index">
+      <input class="c-common__radiobutton"
+             type="radio"
+             [formControl]="btn.formControl"
+             [value]="btn.value"
+             [id]="btn.name"
+             (change)="onChangeType()" />
+      <label class="c-common__radiobutton-label"
+             [for]="btn.name">{{ "BIC." + btn.name | translate }}
+        <div *ngIf="btn.withHint"
+             class="c-open-questions__hint"
+             [matMenuTriggerFor]="hintContainer"
+             (click)="openHint($event)">
+          <app-icon [iconType]="IconsType.Question"></app-icon>
+          <!--          HINT-->
+          <mat-menu #hintContainer>
+            <div class="c-open-questions__hint-container">
+              {{ btn.hintText | translate }}
+            </div>
+          </mat-menu>
+        </div>
+      </label>
+      <!--      Single and Multi-->
+      <ng-container *ngIf="
+          (i === 2 && form.controls.type.value === CustomQuestionType.Single) ||
+          (i === 3 && form.controls.type.value === CustomQuestionType.Multi)
+        ">
+        <app-option-list [min]="2"
+                         [max]="5"
+                         [orderForm]="convertToFormControl(form.controls.answerOrderType)"
+                         (updateOptions)="updateOptions($event)"></app-option-list>
+      </ng-container>
+      <!--      Grid-->
+      <ng-container *ngIf="
+          (i === 5 &&
+            form.controls.type.value === CustomQuestionType.MultiGrid) ||
+          (i === 4 &&
+            form.controls.type.value === CustomQuestionType.SingleGrid)
+        ">
+        <p class="c-open-questions__grid-text">
+          {{ "BIC.Options (columns)" | translate }}
+        </p>
+        <app-option-list [min]="2"
+                         [max]="7"
+                         [addIncludeDontKnowOption]="true"
+                         [orderForm]="convertToFormControl(form.controls.columnOrderType)"
+                         (updateOptions)="updateColumns($event)"
+                         (updateDoNotKnowOption)="onUpdateDoNotKnowOption($event)"></app-option-list>
+        <p class="c-open-questions__grid-text">
+          {{ "BIC.Options (rows)" | translate }}
+        </p>
+        <app-option-list [min]="1"
+                         [max]="30"
+                         [orderForm]="convertToFormControl(form.controls.answerOrderType)"
+                         (updateOptions)="updateOptions($event)"></app-option-list>
+        <app-open-questions-preview [columnsOrder]="form.controls.columnOrderType.value"
+                                    [answersOrder]="form.controls.answerOrderType.value"
+                                    [columns]="columns"
+                                    [includeDoNotKnow]="includeDoNotKnow"
+                                    [type]="form.controls.type.value"
+                                    [rows]="answers"></app-open-questions-preview>
+      </ng-container>
+    </div>
+    <div class="c-open-questions__close-block">
+      <button class="c-common__button c-common__button--border"
+              [disabled]="
+          form.invalid ||
+          ((form.controls.type.value === CustomQuestionType.Single ||
+            form.controls.type.value === CustomQuestionType.Multi) &&
+            answers.length < 2) ||
+          ((form.controls.type.value === CustomQuestionType.SingleGrid ||
+            form.controls.type.value === CustomQuestionType.MultiGrid) &&
+            (answers.length < 1 || columns.length < 2))
+        "
+              (click)="saveQuestion()">
+        {{ "BIC.save question" | translate }}
+      </button>
+      <button class="c-common__button c-common__button--regular"
+              (click)="toggleIsShowQuestion()">
+        {{ "KPI.cancel" | translate }}
+      </button>
+    </div>
+  </ng-template>
+  <app-added-questions [questions]="test.customQuestions"
+                       (deleteCustomQuestion)="deleteQuestion($event)"></app-added-questions>
+</div>

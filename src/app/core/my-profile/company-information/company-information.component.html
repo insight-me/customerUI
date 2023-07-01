@@ -1,0 +1,183 @@
+<div *ngIf="currentCompany" class="c-personal-information">
+  <div class="c-common__profile__header">
+    <div class="c-common__profile__header-title">{{'header.my-organization' | translate}}</div>
+    <div *ngIf="isNotManager" class="desktop">
+      <button type="button" class="c-common__button--text c-common__button" (click)="requestToDeleteCompany()">
+        <img src="../../../../assets/images/svg/ic_delete.svg" class="icon">{{'my-profile.delete-company' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <div class="c-common__profile__main">
+    <div class="c-common__profile__main-title">{{'my-profile.company-information' | translate}}</div>
+    <div class="c-company-information__form" [class.edit]="isEditMode">
+      <div class="c-company-information__image">
+        <div *ngIf="!isEditMode; else editAvatarBlock">
+          <div class="c-company-information__image-container"
+               [ngStyle]="{'border-color':currentCompany.logotypeUrl?'transparent':'#FFCBADFF'}"><img
+            *ngIf="currentCompany.logotypeUrl; else noAvatar"
+            [src]="currentCompany.logotypeUrl"
+            alt="avatar"
+            class="c-company-information__image-container__avatar">
+            <ng-template #noAvatar>
+              <img
+                src="../../../../assets/images/svg/ic_image-icon-little.svg"
+                alt="avatar"
+                class="c-company-information__image-container__image">
+            </ng-template>
+          </div>
+
+        </div>
+        <ng-template #editAvatarBlock>
+          <app-image-upload (updateImage)="onUpdateImage($event)" [disabled]="!isNotManager"
+                            [imageFile]="currentCompany?.logotypeUrl"></app-image-upload>
+        </ng-template>
+      </div>
+      <form [formGroup]="form" class="c-company-information__form">
+
+        <!--        NOT EDIT MODE-->
+
+        <!--            firstName -->
+        <div class="c-company-information__data" [class.edit]="isEditMode">
+          <div *ngIf="!isEditMode" class="c-company-information__data__text first">
+            <p class="c-common__profile__info-block__label">{{'confirm-test.company-name' | translate}}</p>
+            <p class="c-common__profile__info-block__item">{{currentCompany.companyName}}</p>
+          </div>
+
+          <!--            VAT -->
+          <div *ngIf="!isEditMode" class="c-company-information__data__text third">
+            <p class="c-common__profile__info-block__label">{{'payment.VAT number' | translate}}</p>
+            <p
+              class="c-common__profile__info-block__item">{{currentCompany.vatNumber ? currentCompany.vatNumber : '-'}}</p>
+          </div>
+
+          <!--            company first Name -->
+          <div *ngIf="!isEditMode"
+               class="c-company-information__data__text fourth">
+            <p class="c-common__profile__info-block__label">{{'confirm-test.company-person-name' | translate}}</p>
+            <p
+              class="c-common__profile__info-block__item">{{currentCompany.contactName}} {{currentCompany.contactSurname}}</p>
+          </div>
+
+          <!--            companyOrgNumber -->
+          <div *ngIf="!isEditMode" class="c-company-information__data__text second">
+            <p class="c-common__profile__info-block__label">{{'confirm-test.org-num' | translate}}</p>
+            <p class="c-common__profile__info-block__item">{{currentCompany.orgNumber}}</p>
+          </div>
+
+          <!--            adress -->
+          <div *ngIf="!isEditMode"
+               class="c-company-information__data__text fifth">
+            <p class="c-common__profile__info-block__label">{{'confirm-test.address' | translate}}</p>
+            <p class="c-common__profile__info-block__item">{{currentCompany.street}}, {{currentCompany.city}}, {{currentCompany.postalCode}},
+              {{currentCountry}}</p>
+          </div>
+
+          <!--            companyemail -->
+          <div *ngIf="!isEditMode" class="c-company-information__data__text">
+            <p class="c-common__profile__info-block__label">{{'confirm-test.company-person-mail' | translate}}</p>
+            <p [class.not-redact]="isEditMode"
+               class="c-common__profile__info-block__item">{{currentCompany.contactMail}}</p>
+          </div>
+
+          <!--          EDIT MODE-->
+          <div *ngIf="isEditMode" class="c-company-information__edit-table">
+            <!--       EDIT     firstName -->
+            <div *ngIf="isEditMode" class="c-common__profile__info-block c-company-information__data__item">
+              <p class="c-common__profile__info-block__label">{{'confirm-test.company-name' | translate}}</p>
+              <app-form-input [placeholder]="currentCompany.companyName"
+                              [control]="convertToFormControl(form.controls.companyName)"
+                              controlName="companyName"></app-form-input>
+            </div>
+            <!--            zip -->
+            <div class="c-common__profile__info-block c-company-information__data__item">
+              <p class="c-common__profile__info-block__label">{{'confirm-test.zip' | translate}}</p>
+              <app-form-input [placeholder]="currentCompany.postalCode"
+                              [control]="convertToFormControl(form.controls.postalCode)"
+                              controlName="zip"></app-form-input>
+            </div>
+            <!--        EDIT    companyOrgNumber -->
+            <div class="c-common__profile__info-block c-company-information__data__item">
+              <p class="c-common__profile__info-block__label">{{'confirm-test.org-num' | translate}}</p>
+              <p class="c-common__profile__info-block__item not-redact">{{currentCompany.orgNumber}}</p>
+            </div>
+            <!--            country -->
+            <div class="c-common__profile__info-block c-company-information__data__item">
+              <p class="c-common__profile__info-block__label">{{'confirm-test.country' | translate}}</p>
+              <p class="c-common__profile__info-block__item not-redact">{{currentCountry}}</p>
+            </div>
+            <!--        EDIT    address -->
+            <div class="c-common__profile__info-block c-company-information__data__item">
+              <p class="c-common__profile__info-block__label">{{'confirm-test.address' | translate}}</p>
+              <app-form-input [placeholder]="currentCompany.street"
+                              [control]="convertToFormControl(form.controls.companyAddress)"
+                              controlName="companyAddress"></app-form-input>
+            </div>
+            <!--            city -->
+            <div class="c-common__profile__info-block c-company-information__data__item">
+              <p class="c-common__profile__info-block__label">{{'confirm-test.city' | translate}}</p>
+              <app-form-input [placeholder]="currentCompany.city" [control]="convertToFormControl(form.controls.city)"
+                              controlName="city"></app-form-input>
+            </div>
+            <!--            company first Name -->
+            <div class="c-common__profile__info-block c-company-information__data__item">
+              <p
+                class="c-common__profile__info-block__label">{{'confirm-test.company-person-name-first' | translate}}</p>
+              <app-form-input [placeholder]="currentCompany.contactName"
+                              [control]="convertToFormControl(form.controls.contactName)"
+                              controlName="contactName"></app-form-input>
+            </div>
+
+            <!--            company last Name -->
+            <div class="c-common__profile__info-block c-company-information__data__item">
+              <p
+                class="c-common__profile__info-block__label">{{'confirm-test.company-person-last-name' | translate}}</p>
+              <app-form-input [placeholder]="currentCompany.contactSurname"
+                              [control]="convertToFormControl(form.controls.contactSurname)"
+                              controlName="contactSurname"></app-form-input>
+            </div>
+
+            <!--           VAT -->
+            <div class="c-common__profile__info-block c-company-information__data__item">
+              <p
+                class="c-common__profile__info-block__label">{{'payment.VAT number' | translate}}</p>
+              <app-form-input [placeholder]="currentCompany.vatNumber ? currentCompany.vatNumber.toString() : ''"
+                              [control]="convertToFormControl(form.controls.vatNumber)"
+                              controlName="contactSurname"></app-form-input>
+            </div>
+            <!--     EDIT       companyemail -->
+            <div class="c-common__profile__info-block c-company-information__data__item">
+              <p class="c-common__profile__info-block__label">{{'confirm-test.company-person-mail' | translate}}</p>
+              <p class="c-common__profile__info-block__item not-redact">{{currentCompany.contactMail}}</p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngIf="isNotManager">
+      <div *ngIf="!isEditMode; else editButtonsBlock" class="c-personal-information__edit">
+        <button type="button" class="c-common__button c-common__button--border tiny c-common__profile__button"
+                (click)="toggleEditMode()"><img src="../../../../assets/images/svg/edit.svg"
+                                                class="icon">{{'my-profile.edit' | translate}}</button>
+      </div>
+    </div>
+    <ng-template #editButtonsBlock>
+      <div class="c-common__profile__buttons">
+        <button type="button"
+                class="c-common__button c-common__button--gradient tiny c-common__profile__button"
+                [disabled]="form.invalid"
+                (click)="onSubmit()">{{'my-profile.save' | translate}}</button>
+        <button type="button"
+                class="c-common__button c-common__button--text tiny c-common__profile__button"
+                (click)="closeEditMode()">{{'my-profile.cancel' | translate}}</button>
+      </div>
+    </ng-template>
+  </div>
+
+  <div *ngIf="isNotManager" class="mobile">
+    <button type="button" class="c-common__button--text c-common__button" (click)="requestToDeleteCompany()">
+      <img src="../../../../assets/images/svg/ic_delete.svg" class="icon">{{'my-profile.delete-company' | translate}}
+    </button>
+  </div>
+</div>
+

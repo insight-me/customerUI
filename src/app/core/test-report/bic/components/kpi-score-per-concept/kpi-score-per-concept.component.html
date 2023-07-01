@@ -1,0 +1,36 @@
+<div class="app-concept-definitions__container">
+  <div class="app-concept-definitions__card-title">
+    {{ title | translate }}
+    <app-question-tooltip
+      [texts]="tooltipTexts"
+      [type]="tooltipType"
+    ></app-question-tooltip>
+  </div>
+  <app-multi-select-filter *ngIf="bicRSS.concepts.length > 1 && filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           allLabel="report.All concepts"
+                           [needApplyBtn]="false"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+<div *ngIf="dataSet$ | async as dataSet" class="c-kpi-score-per-concept">
+  <div class="c-kpi-score-per-concept__header"
+       [style.grid-template-columns]="'minmax(240px, 1fr) repeat('  + (dataSet.length + 1) + ', 1fr)'">
+    <div>{{'report.KPI (T3B)' | translate}}</div>
+    <div *ngFor="let concept of dataSet">{{concept.label}}</div>
+    <div>{{'report.Benchmark' | translate}}</div>
+  </div>
+  <div *ngFor="let row of tableRows; index as i; let isFirst=first; let isLast=last; let isOdd=odd"
+       class="c-kpi-score-per-concept__table"
+       [style.grid-template-columns]="'minmax(240px, 1fr) repeat('  + (dataSet?.length + 1) + ', 1fr)'">
+    <div class="c-kpi-score-per-concept__table-elem"
+         [style.border-radius]="isFirst ? '8px 0 0 0' : isLast ?  '0 0 0 8px' :'0 0 0 0'">{{"report." + row | translate}}</div>
+    <div *ngFor="let concept of dataSet"
+         class="c-kpi-score-per-concept__table-elem">
+      {{concept.benchmarks[row].total}}%
+    </div>
+    <div class="c-kpi-score-per-concept__table-elem"
+         [style.background]="'#E9ECEF'"
+         [style.border-radius]="isFirst ? '0 8px 0 0' : isLast ?  '0 0 8px 0' :'0 0 0 0'">{{dataSet[0]?.benchmarks[row]?.benchmark > 0 ? dataSet[0]?.benchmarks[row]?.benchmark + '%' : '-'}}</div>
+  </div>
+</div>

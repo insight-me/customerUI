@@ -1,0 +1,28 @@
+<div class="c-concept-overview">
+  <!--  CONCEPT NAME-->
+  <div class="c-concept-overview__name">{{ concept.concept.conceptName }}</div>
+  <!--  MOODBOARD-->
+  <app-moodboard-preview *ngIf="concept.concept.moodboard"
+                         [moodboard]="concept.concept.moodboard"></app-moodboard-preview>
+  <!--  DESCRIPTION-->
+  <div class="c-concept-overview__description">
+    <div *ngFor="let insight of getConsumerInsight(concept.concept.consumerInsight)">
+      <br *ngIf="!insight.length">
+      <p class="c-concept-overview__description-text">{{insight}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="concept.concept.benefits.length"
+       class="c-concept-overview__description">
+    <p class="c-concept-overview__description-text">{{getBenefits()}}
+    </p>
+  </div>
+
+  <div *ngIf="concept.concept.reasons.length"
+       class="c-concept-overview__description">
+    <p *ngFor="let reason of concept.concept.reasons"
+       class="c-concept-overview__description-text">{{getReason(reason.value)}}
+    </p>
+  </div>
+</div>
+

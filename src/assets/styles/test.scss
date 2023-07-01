@@ -1,0 +1,165 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.c-test {
+  &__card {
+    @include card-shadow;
+
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 32px;
+    background: $white;
+    border-radius: 8px;
+
+    &.column {
+      flex-direction: column;
+    }
+
+    &__wrapper {
+      width: 100%;
+    }
+
+    &__title {
+      @include medium-20;
+
+      display: flex;
+      margin: 0 0 32px;
+
+      &.mandatory {
+        &:after {
+          content: '*';
+          margin-left: 5px;
+          color: $errorred;
+        }
+      }
+    }
+
+    &__number {
+      @include medium-20;
+
+      margin-right: 14px;
+      color: $darkorange !important;
+    }
+
+    &__optional {
+      @include regular-oblique-14;
+
+      display: flex;
+      align-items: center;
+      position: relative;
+      margin: -28px 0 28px;
+      color: $dark-gray !important;
+    }
+  }
+
+  &__label {
+    @include medium-16;
+
+    margin: 0 0 4px;
+    color: $dark-gray;
+  }
+
+  &__table-mobile {
+    display: none;
+  }
+}
+
+@media #{$mobile} {
+  .c-test {
+    &__card {
+      padding: 20px;
+
+      &__title {
+        @include medium-18;
+
+        margin: 0 0 20px;
+      }
+
+      &__number {
+        @include medium-18;
+
+        margin-right: 7px;
+      }
+
+      &__optional {
+        margin: -22px 0 20px;
+      }
+    }
+
+    &__table-mobile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
+      &__card {
+        @include card-shadow;
+
+        width: 100%;
+        height: 100%;
+        margin-top: 12px;
+        overflow: hidden;
+        border-radius: 8px;
+
+        &-tr {
+          display: grid;
+          grid-template-columns: 1.2fr 2fr;
+          width: 100%;
+          min-height: 56px;
+
+          &.colored {
+            background: $table-highlight;
+          }
+
+          &__name {
+            color: $gray;
+          }
+
+          &__text,
+          &__name {
+            @include regular-14;
+
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 12px 10px;
+          }
+
+          &__text {
+            &.pending,
+            &.standard {
+              color: #867BDB;
+              text-transform: uppercase;
+            }
+
+            &.active,
+            &.additional {
+              color: #4DAC48;
+              text-transform: uppercase;
+            }
+
+            &.recommended {
+              color: $darkorange;
+              text-transform: uppercase;
+            }
+          }
+        }
+
+        &-centred {
+          @include flex-center;
+
+          padding: 12px 10px;
+
+          &.colored {
+            background: $table-highlight;
+          }
+        }
+      }
+    }
+  }
+}
+
+.m-bt-0 {
+  margin-bottom: 0;
+}

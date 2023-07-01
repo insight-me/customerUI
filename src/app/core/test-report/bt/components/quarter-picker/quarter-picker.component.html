@@ -1,0 +1,58 @@
+<ng-template #quarter
+             let-isFirst="isFirst"
+             let-key="key">
+  <div class="quarter">
+    <div class="top-bar">
+      <button class="arrow"
+              (click)="decrementYear()">
+        <img src="/assets/images/svg/small_forward.svg">
+      </button>
+      <div class="date">{{year}}</div>
+      <button class="arrow"
+              (click)="incrementYear()">
+        <img src="/assets/images/svg/small_forward.svg"
+             [ngStyle]="{transform:'rotate(180deg)'}">
+      </button>
+    </div>
+    <div class="quarter-wrapper"
+         appRangePicker
+         [quarterItems]="quarterItems"
+         [selectedItem]="selectedQuarter">
+      <ng-container *ngFor="let quarter of quarters">
+        <div #quarterItem
+             class="quarter-item"
+             [id]="quarter.name + year"
+             [class.disabled]="disable(quarter.name + year)"
+             (click)="selectQuarter(quarter.name + year, disable(quarter.name + year))">
+          {{quarter.name}}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<div class="wrapper"
+     (appClickOutside)="close()">
+  <form [formGroup]="form"
+        class="input-picker-wrapper"
+        [class.open]="isOpened">
+    <input type="text"
+           [id]="inputId"
+           #input
+           autocomplete="off"
+           formControlName="date"
+           [class.background]="isOpened"
+           (focus)="isOpened = true"
+           (blur)="patchInput()">
+    <label [for]="inputId"
+           *ngIf="!form.get('date')?.value">{{'quarter_picker.select_date' | translate}}</label>
+  </form>
+
+  <ng-container *ngIf="isOpened">
+    <div class="quarter-multi-container slide-down"
+         [ngClass]="{'show': isOpened}"
+         (click)="handleContainerClick($event)">
+      <ng-container *ngTemplateOutlet="quarter"></ng-container>
+    </div>
+  </ng-container>
+</div>

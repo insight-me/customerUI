@@ -1,0 +1,31 @@
+@import "variables";
+
+.c-total-relevance {
+  padding: 0 200px 100px;
+
+  &__pagination {
+    justify-content: flex-end;
+    margin-top: 110px;
+  }
+
+  &__label {
+    background-color: $white
+  }
+}
+
+.total-axis {
+  position: absolute;
+  width: 100%;
+  border: 1px dashed $dislike;
+}
+
+@media #{$tablet} {
+  .c-total-relevance {
+    padding: 0 10px 100px;
+
+    &__pagination {
+      justify-content: flex-end;
+      margin-top: 110px;
+    }
+  }
+}

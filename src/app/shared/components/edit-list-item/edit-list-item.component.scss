@@ -1,0 +1,64 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+:host {
+  display: contents;
+}
+
+.c-edit-list-item-mobile {
+  display: none;
+}
+
+.c-edit-list-item {
+  &__control-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 570px;
+  }
+
+  &__input {
+    margin-bottom: 0;
+  }
+
+  &__edit-btn {
+    margin-left: 24px;
+  }
+
+  &__tr {
+    align-items: flex-start !important;
+  }
+}
+
+@media #{$mobile} {
+  .desktop {
+    display: none;
+  }
+
+  .c-edit-list-item-mobile {
+    display: flex;
+  }
+
+  .c-edit-list-item {
+    &__text {
+      @include medium-18;
+
+      margin: 0 0 16px;
+    }
+
+    &__modal-window {
+      max-width: 335px;
+    }
+
+    &__input {
+      max-width: 300px;
+    }
+
+    &__btn-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+  }
+}

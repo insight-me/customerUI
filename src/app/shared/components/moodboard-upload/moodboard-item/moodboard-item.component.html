@@ -1,0 +1,6 @@
+<div appResize class="c-moodboard-item" [container]="container" cdkDragBoundary=".c-moodboard-upload__view-block" cdkDrag [cdkDragFreeDragPosition]="dragPosition"
+  (cdkDragEnded)="dragEnded($event)" (updatePosition)="updatePosition($event)" (getNewPosition)="getNewPosition()" [ngStyle]="styleForImage">
+  <img [src]="image" class="c-moodboard-item__image">
+  <div class="c-moodboard-item__handle" cdkDragHandle (mousedown)="selectImage.emit()">
+  </div>
+</div>

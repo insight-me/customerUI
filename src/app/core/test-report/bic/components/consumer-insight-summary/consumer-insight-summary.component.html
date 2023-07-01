@@ -1,0 +1,19 @@
+<div class="app-consumer-insight">
+
+  <ng-container *ngFor="let consumerInsight of dataSet$ | async">
+    <ng-container *ngIf="getAccumulatedLikes(consumerInsight.accumulatedLikes) as dataSet">
+      <ng-container *ngIf="dataSet.length">
+        <!--Title-->
+        <div class="app-consumer-insight__title">
+          {{"report.Consumer insights" | translate}} - {{consumerInsight.concept?.conceptName}}
+        </div>
+
+        <!--Summary table-->
+        <app-summary-table [accumulatedLikes]="dataSet"
+                           [likeConfig]="likeConfig"></app-summary-table>
+      </ng-container>
+    </ng-container>
+
+  </ng-container>
+
+</div>

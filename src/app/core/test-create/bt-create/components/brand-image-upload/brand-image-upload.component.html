@@ -1,0 +1,7 @@
+<div appDragDrop (fileDropped)="handleFileInput($event)" class="c-brand-image-upload" (click)="fileUpload.click()">
+    <img class="c-brand-image-upload__image"
+      [src]="'../../../../../../assets/images/png/img_BT-brand.png'"
+      [alt]="currentBrand.name">
+</div>
+<input hidden type="file" #fileUpload (change)="handleFileInput($event.target.files)"
+       accept="image/jpeg,image/x-png,image/svg+xml" multiple>

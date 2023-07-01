@@ -1,0 +1,23 @@
+@import "./src/assets/styles/variables.scss";
+
+.c-brands-list {
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: 1fr 1fr;
+  margin: 16px 0 10px 68px;
+}
+
+@media #{$tablet} {
+  .c-brands-list {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 650px;
+    margin: 16px 0 10px;
+  }
+}
+
+@media #{$mobile} {
+  .c-brands-list {
+    grid-template-columns: 295px;
+  }
+}

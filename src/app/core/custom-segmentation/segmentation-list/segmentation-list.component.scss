@@ -1,0 +1,97 @@
+@import "./src/assets/styles/variables.scss";
+
+.c-segmentation-list {
+  transform-origin: top left;
+
+  &__start-align {
+    align-items: flex-start !important;
+  }
+
+  &__fieldset {
+    flex-direction: column;
+
+    &__error {
+      font-size: 11px !important;
+    }
+  }
+
+  &__control {
+    &-wrapper {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    &-button {
+      min-width: 109px;
+      margin-left: 24px;
+    }
+  }
+
+  &__table {
+    display: grid;
+    grid-template-columns: minmax(205px, 3fr) minmax(106px, 0.5fr) minmax(106px, 0.5fr) minmax(53px, 0.3fr);
+
+    //&.segment {
+    //  grid-template-columns: minmax(205px, 3fr) minmax(0, 0.5fr) minmax(106px, 0.5fr) minmax(53px, 0.3fr);
+    //}
+
+    &__header {
+      font-family: GT Walsheim Pro Regular;
+      font-size: 14px;
+      line-height: 150%;
+      font-weight: normal;
+      text-align: start;
+      color: $lightgray;
+      font-style: italic;
+      border-bottom: 1px solid $lightgrayWhite;
+    }
+
+    &__fieldset {
+      min-width: 103px !important;
+      margin-right: 12px;
+
+      .input {
+        padding: 10px 21px 10px 10px !important;
+      }
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-segmentation-list {
+    &__control {
+      &-wrapper {
+        flex-direction: column;
+      }
+
+      &-button {
+        width: 79vw;
+        margin-left: 0;
+      }
+    }
+
+    &__table {
+      grid-template-columns: minmax(10vw, 3fr) minmax(23vw, 0.5fr) minmax(22vw, 0.5fr) minmax(10vw, 0.3fr);
+
+      &.segment {
+        grid-template-columns: minmax(133px, 3fr) minmax(0, 0.5fr) minmax(106px, 0.5fr) minmax(53px, 0.3fr);
+      }
+
+      &__header {
+        font-size: 12px;
+      }
+
+      &__fieldset {
+        min-width: 10vw !important;
+        margin-right: 12px;
+
+        .input {
+          padding: 10px !important;
+        }
+      }
+    }
+  }
+}
+
+

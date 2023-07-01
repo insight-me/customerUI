@@ -1,0 +1,138 @@
+@import "./src/assets/styles/mixins.scss";
+
+.c-market-section {
+  &__form-group {
+    width: 100%;
+    max-width: 900px;
+
+    &:not(:first-of-type) {
+      padding-top: 20px;
+      border-top: 1px solid $border;
+    }
+  }
+
+  &__add-group-section {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    padding: 6px 0 28px 25px;
+    cursor: pointer;
+
+    &__button {
+      @include flex-center;
+
+      width: 30px;
+      height: 30px;
+      background-color: $white;
+      border: 1px solid $lightornge;
+      border-radius: 20px;
+      box-shadow: 0 0 4px 0 rgba(114, 109, 157, 0.17);
+      cursor: pointer;
+    }
+
+    &__text {
+      @include medium-14;
+
+      margin-left: 9px;
+    }
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.c-market {
+  display: flex;
+  flex-direction: column;
+  width: min-content;
+
+  &__form-group {
+    display: flex;
+  }
+
+  &__market {
+    display: flex;
+    width: 100%;
+
+    div:first-of-type {
+      margin-right: 20px;
+    }
+  }
+
+  &__number-field {
+    width: 200px;
+  }
+
+  &__block-title {
+    @include medium-20;
+
+    display: flex;
+    align-items: center;
+    margin: 0 0 20px;
+  }
+
+  &__form-field {
+    width: 399px;
+    height: 52px;
+
+    &__country {
+      margin-right: 40px;
+    }
+  }
+
+  &__delete {
+    margin: 7px;
+  }
+
+  &__delete-mobile {
+    display: none
+  }
+}
+
+.disable {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+@media (max-width: 1235px) {
+  .c-market {
+    &__market {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-market {
+    div:first-of-type {
+      margin-right: 10px;
+    }
+
+    &__form-field {
+      width: 100%;
+      min-width: 242px;
+      max-width: 350px;
+      height: 42px;
+    }
+
+    &__form {
+      flex-direction: row;
+    }
+
+    &__form-group {
+      flex-direction: column;
+    }
+
+    &__delete {
+      display: none;
+    }
+
+    &__delete-mobile {
+      display: flex;
+      margin-bottom: 20px;
+    }
+  }
+}

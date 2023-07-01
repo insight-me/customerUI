@@ -1,0 +1,51 @@
+<div class="c-segmentation-section__block">
+  <div class="c-segmentation-section__block__section" >
+    <div class="c-segmentation-section__block__section__title">
+      <span class="c-segmentation-section__block__section__title-num">2</span>{{'segmentation.section-2' | translate}}
+    </div>
+    <p class="c-segmentation-section__block__section__subtitle">{{'segmentation.max-30' | translate}}</p>
+    <div class="c-segmentation-section__block__info tablet">{{'segmentation.section-2-info' | translate}}</div>
+
+    <ng-container *ngTemplateOutlet="radio; context: {values: [1,5], controlName: 'first_range'}"></ng-container>
+    <ng-container *ngTemplateOutlet="radio; context: {values: [1,7], controlName: 'second_range'}"></ng-container>
+    <ng-container *ngTemplateOutlet="radio; context: {values: [1,10], controlName: 'third_range'}"></ng-container>
+
+    <ng-template #radio
+                 let-values="values"
+                 let-controlName="controlName">
+      <input class="c-common__radiobutton"
+             #radioItem
+             type="radio"
+             [value]="true"
+             [name]="controlName"
+             [id]="controlName"
+             [checked]="radioHash.get(controlName)"/>
+      <label class="c-common__radiobutton-label"
+      (click)="switch(controlName, values)">
+        <div class="square"
+             *ngFor="let value of values">{{value}}</div>
+      </label>
+
+      <ng-template #radio
+                   let-values="values"
+                   let-controlName="controlName">
+      </ng-template>
+    </ng-template>
+  </div>
+  <div class="c-segmentation-section__block__info desktop">{{'segmentation.section-2-info' | translate}}</div>
+</div>
+
+
+
+<div class="c-segmentation-section__footer"
+     [class.space]="isEditMode">
+  <button *ngIf="isEditMode;"
+          class="c-common__button c-common__button--border tiny"
+          (click)="cancelChanges.emit()">{{'segmentation.cancel-changes' | translate}}</button>
+  <div>
+    <button class="c-segmentation-section__footer__btn c-common__button c-common__button--gradient tiny"
+          (click)="nextStep()" >{{'buttons.save' | translate}}</button>
+  </div>
+</div>
+
+

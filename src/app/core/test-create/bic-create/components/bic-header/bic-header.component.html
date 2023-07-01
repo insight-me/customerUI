@@ -1,0 +1,59 @@
+<div *ngIf="test && concept" class="c-bic-header">
+  <div class="c-bic-header__panel">
+    <div class="c-bic-header__panel-logo" routerLink="/personal-area/dashboard">
+      <app-icon [iconType]="IconsType.Menu"></app-icon>
+    </div>
+
+    <div class="c-bic-header__panel-names">
+      <span class="type" [pTooltip]="'BIC.Brand concept test' | translate">{{
+        "BIC.Brand concept test" | translate
+        }}</span>
+      <p [pTooltip]="test.testName" class="test-name">{{ test.testName }}</p>
+    </div>
+
+    <div class="desktop">
+      <ng-container *ngTemplateOutlet="conceptPanel; context: {color: '#fff'}"></ng-container>
+    </div>
+  </div>
+  <div class="c-bic-header__menu">
+    <app-header-menu [theme]="'white'"></app-header-menu>
+  </div>
+</div>
+<div class="c-bic-header__concept">
+  <ng-container *ngTemplateOutlet="conceptPanel; context: {color: '#FFA56F'}"></ng-container>
+</div>
+
+<ng-template #conceptPanel let-color="color">
+  <div class="c-bic-header__panel-concept"
+       (click)="op.toggle($event)">
+    <div class="c-bic-header__panel-concept-panel">
+      <p [pTooltip]="concept?.conceptName"
+         class="name">{{ concept?.conceptName }}</p>
+      <app-icon [iconType]="IconsType.OpenDownArrow"
+                [color]="color"></app-icon>
+      <!--      <img src="../../../../../../assets/images/png/arrow-white-down.png">-->
+    </div>
+    <div class="panel-container">
+      <p-overlayPanel #op>
+        <ng-template pTemplate>
+          <div class="panel">
+            <div *ngFor="let concept of test.concepts"
+                 [class.active]="isSelectedConcept(concept.conceptName)"
+                 class="panel-element"
+                 (click)="onChangeCurrentConcept(concept.id)">
+                      <span
+                        class="text"
+                        [pTooltip]="concept?.conceptName">{{concept.conceptName}}</span>
+              <button class="c-common__button c-common__button--icon"
+                      [class.disabled]="test.concepts.length === 1"
+                      (click)="test.concepts.length === 1 ? false : onOpenDialog(concept.id)">
+                <app-icon [iconType]="IconsType.DeleteGray" [height]="24"></app-icon>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </p-overlayPanel>
+    </div>
+
+  </div>
+</ng-template>

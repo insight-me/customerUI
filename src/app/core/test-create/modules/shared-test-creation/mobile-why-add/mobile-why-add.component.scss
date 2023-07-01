@@ -1,0 +1,31 @@
+@import "../../../../../../assets/styles/variables";
+@import "../../../../../../assets/styles/mixins";
+
+.c-mobile-why-add {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  min-width: 200px;
+  height: 100%;
+  margin-bottom: 32px;
+  padding: 10px 14px;
+  background: $tab-nav;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &__title {
+    @include medium-16;
+
+    max-width: 70vw;
+    margin: 5px 0 5px 14px;
+  }
+
+  &__text {
+    @include regular-16;
+
+    max-height: 75vh;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,123 @@
+<div class="c-segmentation-list">
+  <div class="c-segmentation-list__control-wrapper">
+    <div class="c-common__form-field c-section__form-field c-list-items__control">
+      <input type="text"
+             #segmentationInput
+             pInputText
+             [placeholder]="getPlaceholder()"
+             [formControl]="nameControl"
+             (blur)="trimValue()"
+             (keypress)="handleKeyPress($event)"
+             class="c-common__input" />
+      <small *ngIf="controlHasError()">
+        <small class="p-error c-common__form-field-error">{{getErrorMessage(controlHasError())}}</small>
+      </small>
+    </div>
+    <div [pTooltip]="(getLimit() | translate)"
+         tooltipPosition="top"
+         tooltipEvent="hover">
+      <button class="c-common__button c-common__button--border c-segmentation-list__control-button"
+              [disabled]="nameControl.invalid || list.length > limitNumber"
+              (click)="saveValue()">{{'test-concept.add' | translate}}</button>
+    </div>
+  </div>
+  <table *ngIf="list.length"
+         class="c-segmentation-list__table">
+    <thead class="c-base__grid-table-head">
+      <th class="c-base__grid-table-head-item"></th>
+      <th *ngIf="dataType == 'Statement'"
+          class="c-segmentation-list__table__header">{{'segmentation.min' | translate}}</th>
+      <th *ngIf="dataType == 'Segment'"
+          class="c-segmentation-list__table__header">
+        {{'segmentation.IR' | translate}}
+      </th>
+      <th *ngIf="dataType == 'Statement'"
+          class="c-segmentation-list__table__header">{{'segmentation.max' | translate}}</th>
+      <th *ngIf="dataType == 'Segment'"
+          class="c-segmentation-list__table__header">
+        {{'segmentation.constant' | translate}}
+      </th>
+      <th class="c-base__grid-table-head-item"></th>
+    </thead>
+    <tbody *ngIf="constantGroup && list.length"
+           [formGroup]="constantGroup"
+           class="c-base__grid-table-body">
+      <tr *ngFor="let item of list; let i = index"
+          class="c-base__grid-table-body-row c-segmentation-list__table__contents">
+        <td class="c-base__grid-table-body-item">{{item.displayText}}</td>
+        <td *ngIf="dataType == 'Statement'"
+            class="c-base__grid-table-body-item c-segmentation-list__start-align">
+          <div *ngIf="constantGroup.controls[item.count]"
+               class="c-common__form-field--with-icon c-segmentation-list__fieldset">
+            <fieldset class="c-common__fieldset c-segmentation-list__table__fieldset statement">
+              <input pInputText
+                     class="c-common__input password input"
+                     [formControl]="constantGroup.controls[item.count]?.controls.min"
+                     (input)="saveMin(i, item.count)"
+                     placeholder="Nr">
+            </fieldset>
+            <small *ngIf="constantGroup.controls[item.count]?.controls.min.invalid && constantGroup.controls[item.count]?.controls.min.touched">
+              <pre>{{ item.count | json }}</pre>
+              <small class="p-error c-common__form-field-error c-segmentation-list__fieldset__error">{{getErrorMessageForStatements(item.count, 'min') | translate}}</small>
+            </small>
+          </div>
+        </td>
+        <td *ngIf="dataType == 'Statement'"
+            class="c-base__grid-table-body-item c-segmentation-list__start-align">
+          <div *ngIf="constantGroup.controls[item.count]"
+               class="c-common__form-field--with-icon c-segmentation-list__fieldset">
+            <fieldset class="c-common__fieldset c-segmentation-list__table__fieldset statement">
+              <input pInputText
+                     class="c-common__input password input"
+                     [formControl]="constantGroup.controls[item.count]?.controls.max"
+                     (input)="saveMax(i, item.count)"
+                     placeholder="Nr">
+            </fieldset>
+            <small *ngIf="constantGroup.controls[item.count]?.controls.max.invalid && constantGroup.controls[item.count]?.controls.max.touched">
+              <small class="p-error c-common__form-field-error c-segmentation-list__fieldset__error">{{getErrorMessageForStatements(item.count, 'max') | translate}}</small>
+            </small>
+          </div>
+        </td>
+
+        <!--      IR-->
+        <td *ngIf="dataType == 'Segment'"
+            class="c-base__grid-table-body-item c-segmentation-list__start-align">
+          <div class="c-common__form-field--with-icon c-segmentation-list__fieldset">
+            <fieldset class="c-common__fieldset c-segmentation-list__table__fieldset segment">
+              <input pInputText
+                     class="c-common__input input password"
+                     [formControl]="constantGroup.controls[item.count]?.controls.IR"
+                     (input)="saveIR(i, item.count)"
+                     placeholder="Nr">
+            </fieldset>
+            <small *ngIf="constantGroup.controls[item.count]?.controls.IR.invalid && constantGroup.controls[item.count]?.controls.IR.touched">
+              <small class="p-error c-common__form-field-error c-segmentation-list__fieldset__error">{{getErrorMessageForCount(item.count, 'IR') | translate}}</small>
+            </small>
+          </div>
+        </td>
+        <td *ngIf="dataType == 'Segment'"
+            class="c-base__grid-table-body-item c-segmentation-list__start-align">
+          <div class="c-common__form-field--with-icon c-segmentation-list__fieldset">
+            <fieldset class="c-common__fieldset c-segmentation-list__table__fieldset segment">
+              <input pInputText
+                     class="c-common__input input password"
+                     pattern="(-?)[0-9]+([.,][0-9]{1,3})?$"
+                     [formControl]="constantGroup.controls[item.count]?.controls.constant"
+                     (input)="saveConstant(i, item.count)"
+                     placeholder="Nr">
+            </fieldset>
+            <small *ngIf="constantGroup.controls[item.count]?.controls.constant.invalid && constantGroup.controls[item.count]?.controls.constant.touched">
+              <small class="p-error c-common__form-field-error c-segmentation-list__fieldset__error">{{getErrorMessageForCount(item.count, 'constant') | translate}}</small>
+            </small>
+          </div>
+        </td>
+        <td class="c-base__grid-table-body-item actions">
+          <button class="c-common__button c-common__button--icon"
+                  (click)="removeItem(i)"><app-icon [iconType]="IconsType.DeleteGray"
+                      [height]="24"></app-icon></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--              pattern="([0-9]{1,2})+([\.][0-9]{1,3})?"-->

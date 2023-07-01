@@ -1,0 +1,162 @@
+<div *ngIf="!isTabletVersion; else swiperTable"
+     class="c-open-questions-preview__table-container">
+  <table class="c-open-questions-preview__table desktop c-grid-table__table">
+    <tr #tableHeader
+        class="c-open-questions-preview__table-row header"
+        [style.grid-template-columns]="
+        'minmax(240px, 2fr) repeat(' +
+        (includeDoNotKnow ? columns.length + 1 : columns.length) +
+        ', 1fr)'
+      ">
+      <th class="c-open-questions-preview__table-header"></th>
+      <th *ngFor="let column of columns"
+          class="c-open-questions-preview__table-header">
+        {{ column.value }}
+      </th>
+      <th *ngIf="includeDoNotKnow"
+          class="c-open-questions-preview__table-header">
+        {{ "BIC.Don't know" | translate }}
+      </th>
+    </tr>
+    <tbody #tableBody
+           class="c-open-questions-preview__table-body c-grid-table__table-body">
+      <tr *ngFor="let row of rows; let isLast = last"
+          class="c-open-questions-preview__table-row c-grid-table__table-body__row"
+          [style.grid-template-columns]="
+          'minmax(240px, 2fr) repeat(' +
+          (includeDoNotKnow ? columns.length + 1 : columns.length) +
+          ', 1fr)'
+        ">
+        <td [style.justify-content]="'flex-start'"
+            [class.last]="isLast"
+            class="c-open-questions-preview__table-row-cell">
+          {{ row.value }}
+        </td>
+        <td *ngFor="let column of columns"
+            [class.last]="!includeDoNotKnow && isLast"
+            class="c-open-questions-preview__table-row-cell checkbox">
+          <div *ngIf="type === CustomQuestionType.SingleGrid; else multiGrid">
+            <input class="c-common__radiobutton-small"
+                   type="radio"
+                   [name]="row.value"
+                   [value]="row.value + ' / ' + column.value"
+                   [id]="row.value + ' / ' + column.value"
+                   [checked]="isChecked(row.value + ' / ' + column.value)"
+                   (change)="saveSingleSelectedItems($event)" />
+            <label class="c-common__radiobutton-label"
+                   [for]="row.value + ' / ' + column.value"></label>
+          </div>
+          <ng-template #multiGrid>
+            <div class="c-common__checkbox-wrapper">
+              <p-checkbox [value]="row.value + ' / ' + column.value"
+                          [(ngModel)]="selectedOptions"
+                          (onChange)="saveSelectedItems()"
+                          class="c-common__checkbox small"></p-checkbox>
+            </div>
+          </ng-template>
+        </td>
+        <td *ngIf="includeDoNotKnow"
+            class="c-open-questions-preview__table-row-cell checkbox last">
+          <div *ngIf="type === CustomQuestionType.SingleGrid; else multiGrid">
+            <input class="c-common__radiobutton-small"
+                   type="radio"
+                   [name]="''"
+                   [value]="row.value + ' / ' + '-1'"
+                   [id]="row.value + '-1'"
+                   [disabled]="true" />
+            <label class="c-base__radiobutton-label"
+                   [for]="row.value + '-1'"></label>
+          </div>
+          <ng-template #multiGrid>
+            <div class="c-common__checkbox-wrapper">
+              <p-checkbox [value]="row.value + ' / ' + '-1'"
+                          [disabled]="true"
+                          class="c-common__checkbox small"></p-checkbox>
+            </div>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--      mobile-->
+<ng-template #swiperTable>
+  <div class="c-open-question__table mobile app-grid-tablet__swiper">
+    <div class="c-open-question__table_col">
+      <div>
+        <div class="swiper-pagination pagination-test c-swiper-container__pagination c-open-question__table-header__text page"></div>
+      </div>
+      <div *ngFor="let column of columns"
+           class="c-open-question__table_col_element text">
+        {{ column.value }}
+      </div>
+      <div *ngIf="includeDoNotKnow"
+           class="c-open-question__table_col_element text">
+        {{ "BIC.Don't know" | translate }}
+      </div>
+    </div>
+    <div class="c-swiper-container">
+      <swiper [config]="config"
+              class="swiper">
+        <div *ngFor="let row of rows; let isLast = last; let i = index"
+             class="container-for-sticky">
+          <div>
+            <div class="c-open-question__table-header">
+              <div class="c-open-question__table-header__container">
+                <p class="c-open-question__table-header__text">
+                  {{ row.value }}
+                </p>
+              </div>
+              <div class="c-open-question__table-header__progress">
+                <div [ngStyle]="{'width': getWidthForProgress() + '%'}"
+                     class="c-open-question__table-header__progress-done"></div>
+              </div>
+            </div>
+          </div>
+          <div *ngFor="let column of columns"
+               class="c-open-question__center">
+            <div *ngIf="type === CustomQuestionType.SingleGrid; else multiGrid">
+              <input class="c-common__radiobutton-small"
+                     type="radio"
+                     [name]="row.value"
+                     [value]="row.value + ' / ' + column.value"
+                     [id]="row.value + ' / ' + column.value"
+                     [checked]="isChecked(row.value + ' / ' + column.value)"
+                     (change)="saveSingleSelectedItems($event)" />
+              <label class="c-base__radiobutton-label"
+                     [for]="row.value + ' / ' + column.value"></label>
+            </div>
+            <ng-template #multiGrid>
+              <div class="c-common__checkbox-wrapper">
+                <p-checkbox [value]="row.value + ' / ' + column.value"
+                            [(ngModel)]="selectedOptions"
+                            (onChange)="saveSelectedItems()"
+                            class="c-common__checkbox small"></p-checkbox>
+              </div>
+            </ng-template>
+          </div>
+          <div *ngIf="includeDoNotKnow"
+               class="c-open-question__center">
+            <div *ngIf="type === CustomQuestionType.SingleGrid; else multiGrid">
+              <input class="c-common__radiobutton-small"
+                     type="radio"
+                     [name]="''"
+                     [value]="row.value + ' / ' + '-1'"
+                     [id]="row.value + '-1'"
+                     [disabled]="true" />
+              <label class="c-base__radiobutton-label"
+                     [for]="row.value + '-1'"></label>
+            </div>
+            <ng-template #multiGrid>
+              <div class="c-common__checkbox-wrapper">
+                <p-checkbox [value]="row.value + ' / ' + '-1'"
+                            [disabled]="true"
+                            class="c-common__checkbox small"></p-checkbox>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </swiper>
+    </div>
+  </div>
+</ng-template>

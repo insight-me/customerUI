@@ -1,0 +1,25 @@
+<div class="app-concept-definitions__container">
+  <div class="app-concept-definitions__card-title">
+    {{ "report.Overall Score" | translate }}
+    <app-question-tooltip
+      [texts]="tooltipTexts"
+      [type]="tooltipType"
+    ></app-question-tooltip>
+  </div>
+  <app-multi-select-filter *ngIf="bicRSS.concepts.length > 1 && filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           allLabel="report.All concepts"
+                           [needApplyBtn]="false"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+<app-bubble-chart
+  [dataSet]="dataSet$ | async"
+  [xBenchmark]="bicRSS.getBenchmark(KPITitle.Uniqueness) | async"
+  [yBenchmark]="bicRSS.getBenchmark(KPITitle.PurchaseIntent) | async"
+  [xAxesLabel]="'report.Uniqueness' | translate"
+  [yAxesLabel]="'report.Purchase Intent' | translate"
+  [showZoom]="false"
+  aspectRatio="0.3"
+  showDefaultLegend="true"
+></app-bubble-chart>

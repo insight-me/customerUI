@@ -1,0 +1,9 @@
+.c-resp-number-element {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(0, 249px));
+  width: fit-content;
+  max-width: 820px;
+  margin-left: 32px;
+  padding-bottom: 20px;
+}

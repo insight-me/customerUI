@@ -1,0 +1,30 @@
+<div *ngIf="isSuccessPayment$ | async"
+     class="c-payment-success">
+  <div class="c-payment-success__message">
+    <button class="c-payment-success__close c-common__button c-common__button--icon"
+            (click)="close()">
+      <img src="../../../../assets/images/svg/ic_close-modal.svg">
+    </button>
+
+    <div class="c-payment-success__message__image">
+      <img class="c-payment-success__message__img"
+           src="../../../../assets/images/png/payment-success.png">
+    </div>
+
+    <div class="c-payment-success__message__title">
+      {{'confirm-test.congratulation' | translate}}
+    </div>
+    <div class="c-payment-success__message__text">
+      <p>{{getText(cardPayment$ | async) | translate}}</p>
+      <p *ngIf="cardPayment$ | async">{{'payment.We will launch your test once we will receive the payment, this can take up to several minutes.' | translate}}</p>
+    </div>
+
+    <div class="c-payment-success__message__close">
+      <div class="c-payment-success__button">
+        <button class="c-common__button--filled c-common__button"
+                (click)="close()">{{'buttons.close' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,163 @@
+<ng-container *ngIf="countries.length && test">
+  <div *ngIf="!isPay; else paymentBlock"
+       class="c-section__wrapper c-payment">
+    <table *ngIf="test"
+           class="c-payment__payment">
+      <tbody class="c-base__grid-table-body c-payment__payment-table">
+        <!--      BIC Number of concepts-->
+        <tr *ngIf="isBic"
+            class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title">{{ "confirm-test.Nr-of-concepts" | translate }}:</td>
+          <td class="c-payment__payment__line-text">
+            <span>{{ test.concepts.length }}: </span><span>{{ getConceptNames() }}</span>
+          </td>
+        </tr>
+        <!--      Markets -->
+        <tr class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title">{{ "confirm-test.markets" | translate }}:</td>
+          <td class="c-payment__payment__line-text">
+            <span *ngFor="let market of getMarkets()">{{ market | translate }}<br /></span>
+          </td>
+        </tr>
+        <!--      BIC Age -->
+        <ng-container *ngIf="isBic">
+          <ng-container *ngTemplateOutlet="ageLine"></ng-container>
+        </ng-container>
+        <!--      BIC Gender -->
+        <ng-container *ngIf="isBic">
+          <ng-container *ngTemplateOutlet="genderLine"></ng-container>
+        </ng-container>
+        <!--      BIC Category & Subcategory -->
+        <ng-container *ngIf="isBic">
+          <ng-container *ngTemplateOutlet="categoryAndSubcategoryLine"></ng-container>
+        </ng-container>
+        <!--      BT Segments -->
+        <ng-container *ngIf="isBic">
+          <ng-container *ngTemplateOutlet="segmentsLine"></ng-container>
+        </ng-container>
+        <!--      Number of respondents-->
+        <tr class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title">{{ "confirm-test.Nr-of-respondents" | translate }}:</td>
+          <td class="c-payment__payment__line-text">{{ getNumberOfRespondents()?.toLocaleString("ru-RU") }}</td>
+        </tr>
+        <!--      BT Gender -->
+        <ng-container *ngIf="isBt">
+          <ng-container *ngTemplateOutlet="genderLine"></ng-container>
+        </ng-container>
+        <!--      BT Age -->
+        <ng-container *ngIf="isBt">
+          <ng-container *ngTemplateOutlet="ageLine"></ng-container>
+        </ng-container>
+        <!--      BT Segments -->
+        <ng-container *ngIf="isBt">
+          <ng-container *ngTemplateOutlet="segmentsLine"></ng-container>
+        </ng-container>
+        <!--      BT Category & Subcategory -->
+        <ng-container *ngIf="isBt">
+          <ng-container *ngTemplateOutlet="categoryAndSubcategoryLine"></ng-container>
+        </ng-container>
+        <!--      BIC Field time-->
+        <tr *ngIf="isBic"
+            class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title">{{ "confirm-test.Field time" | translate }}:</td>
+          <td class="c-payment__payment__line-text">{{"confirm-test.1-5 days, you will receive an email once your report is ready to export" | translate}}</td>
+        </tr>
+        <!--      Estimated IR -->
+        <tr class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title note">{{ "confirm-test.Estimated IR" | translate }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="c-payment__payment-summery"
+         *ngIf="isBic">
+      <tr class="c-payment__payment__line">
+        <td class="c-payment__payment__line-title c-payment__payment-summery__line-title">
+          {{ "confirm-test.total-cost" | translate }}:
+          <div class="column mobile">
+            <p class="cost">{{ getCost() }}</p>
+            <p *ngIf="test?.testCurrency !== 'SEK'"
+               class="cost">
+              {{ getCostInCurrency() }}
+            </p>
+          </div>
+        </td>
+        <td class="c-payment__payment__line-text c-payment__payment-summery__line-text">
+          <div class="column desktop">
+            <p class="top-margin">{{ getCost() }}</p>
+            <p *ngIf="test?.testCurrency !== 'SEK'"
+               class="top-margin">
+              {{ getCostInCurrency() }}
+            </p>
+          </div>
+          <button class="c-common__button--filled c-common__button normal c-payment__button"
+                  (click)="placeOrder()">
+            {{'confirm-test.place-order' | translate }}
+            <app-icon [iconType]="IconsType.RightArrow"
+                      [color]="'#FFFFFF'"
+                      class="icon-right"></app-icon>
+          </button>
+        </td>
+      </tr>
+    </div>
+
+    <div class="c-payment__payment-summery bt"
+         *ngIf="test.testType === 2">
+      <button class="c-common__button--filled c-common__button normal c-payment__button"
+              (click)="placeOrder()">
+        {{'confirm-test.place-order' | translate }}
+        <app-icon [iconType]="IconsType.RightArrow"
+                  [color]="'#FFFFFF'"
+                  class="icon-right"></app-icon>
+      </button>
+    </div>
+    <ng-container *ngIf="paymentVerificationFailed">
+      <app-notification-message></app-notification-message>
+    </ng-container>
+  </div>
+  <ng-template #paymentBlock
+               class="c-section__wrapper c-payment">
+    <app-payment-selection [test]="test"
+                           [cost]="getCost()"
+                           [testType]="test.testType"
+                           [currencyCost]="getCostInCurrency()"
+                           (closeSection)="isPay = false"></app-payment-selection>
+  </ng-template>
+</ng-container>
+
+<ng-template #ageLine>
+  <tr class="c-payment__payment__line">
+    <td class="c-payment__payment__line-title">{{ "respondents.age" | translate }}:</td>
+    <td class="c-payment__payment__line-text">
+      {{ test.respondentRequirements?.minAge }} -
+      {{ test.respondentRequirements?.maxAge }}
+    </td>
+  </tr>
+</ng-template>
+
+<ng-template #genderLine>
+  <tr class="c-payment__payment__line">
+    <td class="c-payment__payment__line-title">{{ "confirm-test.genders" | translate }}:</td>
+    <td class="c-payment__payment__line-text">{{ getGenders() }}</td>
+  </tr>
+</ng-template>
+
+<ng-template #categoryAndSubcategoryLine>
+  <tr *ngIf="categoryService.categoryName as categoryName"
+      class="c-payment__payment__line">
+    <td class="c-payment__payment__line-title">{{ "confirm-test.Category" | translate }}:</td>
+    <td class="c-payment__payment__line-text">{{ categoryName }}</td>
+  </tr>
+  <tr *ngIf="(categoryService.selectedSubcategoriesNames$ | async).length"
+      class="c-payment__payment__line">
+    <td class="c-payment__payment__line-title">{{ "confirm-test.Sub-category (IR*)" | translate }}:</td>
+    <td class="c-payment__payment__line-text">{{ getSubcategoriesNames(categoryService.subcategories$ | async) }}</td>
+  </tr>
+</ng-template>
+
+<ng-template #segmentsLine>
+  <tr class="c-payment__payment__line">
+    <td class="c-payment__payment__line-title">{{ "confirm-test.Segments (IR*)" | translate }}:</td>
+    <td *ngIf="hasSegmentation"
+        class="c-payment__payment__line-text">{{ getSegments() | translate }}</td>
+  </tr>
+</ng-template>

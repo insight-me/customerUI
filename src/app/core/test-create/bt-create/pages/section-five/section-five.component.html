@@ -1,0 +1,138 @@
+<div class="c-section-two-bt">
+  <div class="c-test__card section-one-wrapper m-bt-0">
+    <div>
+      <div>
+        <div class="section-one-position_title space-between">
+          <div class="c-test__card__title">
+            {{'BT-associations.Select associations and understand how your brand is perceived' | translate}}
+          </div>
+          <div class="c-section-five-bt">
+            <span class="market-tip"><app-question-tooltip [title]="'BT-associations.Why do this?'"
+                                    [texts]="['BT-associations.By tracking associations you get a good understanding how your and competitors\' brands are perceived and how this changes over time.',
+              'BT-associations.We recommend to include associations that reflects your brand strategy to understand if your brand building activities drive your desired position. We also recommend to include associations that are top preference drivers in the category to understand how well your brand performs on the drivers.']"
+                                    additionalClass="mobilemax"
+                                    [arrowShift]="marketArrowShiftBetween"></app-question-tooltip></span>
+          </div>
+        </div>
+        <div>
+          <p class="c-test__card__optional c-section-three__limit">{{'BT-associations.Limitation for associations: min - 5, max - 20' | translate}}</p>
+        </div>
+        <div class="c-section-two-bt__container">
+          <div class="c-test-create__associations">
+            <div class="c-test-create__associations__add">
+              <app-list-items [items]="customAssociations"
+                              [isHideAdded]="true"
+                              [associations]="associationsList()"
+                              [allAssociations]="associations"
+                              [disabledField]="editedAssociationIndex !== null"
+                              max="20"
+                              [isLimitExceeded]="selectedAssociations.length + customAssociations.length + 1 > 20"
+                              dataType="Associations"
+                              inputMaxLength=50
+                              (addDefaultAssociation)="addAssociationFromList($event)"
+                              (updateItems)="updateCustomAssociations($event)"></app-list-items>
+              <button type="button"
+                      class="c-common__button--border normal c-common__button mobile-stretch"
+                      [disabled]="getIsDisabledButtons() || editedAssociationIndex !== null"
+                      (click)="getIsDisabledButtons() ? false : addAssociation()">
+                <img src="../../../../../../assets/images/svg/ic_plus_mini.svg"
+                     class="icon">{{'BT-associations.Add more associations' | translate}}
+              </button>
+            </div>
+            <p class="c-test__card__optional c-section-two-bt__added">{{'BT-associations.Already added associations:' | translate}}</p>
+            <hr class="c-section-two-bt__line">
+            <!--  DESKTOP-->
+            <table class="c-base__grid-table c-common-grid-table-template-four c-section-two-bt__table">
+              <tbody class="c-base__grid-table-body">
+                <tr *ngFor="let association of associationsList(); let i = index"
+                    class="c-base__grid-table-body-row">
+                  <td *ngIf="editedAssociationIndex !== i"
+                      class="c-base__grid-table-body-item c-common__bold">
+                    <div class="c-section-three__table-col">
+                      <span class="c-section-three__table-col__text">{{association?.text ? association?.text :
+                        association?.value}}</span>
+                    </div>
+                  </td>
+                  <td *ngIf="editedAssociationIndex !== i"
+                      class="c-common__grid-table-body-item actions">
+                    <button *ngIf="isCustomAssociation(association?.text ? association?.text : association?.value)"
+                            class="c-common__button c-common__button--icon"
+                            [disabled]="editedAssociation !== null && editedAssociationIndex !== i"
+                            (click)="openEditMode(i, association)">
+                      <app-icon [iconType]="IconsType.Edit"
+                                [height]="24"></app-icon>
+                    </button>
+                  </td>
+                  <ng-container *ngIf="editedAssociationIndex === i">
+                    <ng-container *ngTemplateOutlet="editListItem; context:{association: association}"></ng-container>
+                  </ng-container>
+                  <td class="c-base__grid-table-body-item actions">
+                    <button class="c-common__button c-common__button--icon"
+                            [disabled]="editedAssociation !== null && editedAssociationIndex !== i"
+                            (click)="removeAssociation(association)">
+                      <app-icon [iconType]="IconsType.DeleteGray"
+                                [height]="24"></app-icon>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!--  MOBILE-->
+            <div class="c-test__table-mobile">
+              <div *ngFor="let association of associationsList(); let i = index"
+                   class="c-test__table-mobile__card">
+                <div class="c-test__table-mobile__card-tr">
+                  <div class="c-test__table-mobile__card-tr__name">
+                    <span>{{'BT-associations.Association' | translate}}</span>
+                  </div>
+                  <div class="c-test__table-mobile__card-tr__text"><span>{{association.text ? association.text :
+                      association.value}}</span></div>
+                </div>
+                <ng-container *ngIf="editedAssociationIndex === i">
+                  <ng-container *ngTemplateOutlet="editListItem; context:{association: association}"></ng-container>
+                </ng-container>
+                <div class="c-test__table-mobile__card-centred colored">
+                  <button *ngIf="isCustomAssociation(association.text ? association.text : association.value)"
+                          class="c-common__button c-common__button--icon"
+                          [disabled]="editedAssociation !== null && editedAssociationIndex !== i"
+                          (click)="openEditMode(i, association)">
+                    <app-icon [iconType]="IconsType.Edit"
+                              [height]="24"></app-icon>
+                  </button>
+                  <button class="c-common__button c-common__button--icon"
+                          [disabled]="editedAssociation !== null && editedAssociationIndex !== i"
+                          (click)="removeAssociation(association)"><img src="../../../../../../assets/images/png/delete.png"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section__subtext market">
+        <div class="c-why-add__title">
+          {{ "BT-associations.Why do this?" | translate }}
+        </div>
+        <p class="c-why-add__text">
+          {{ "BT-associations.By tracking associations you get a good understanding how your and competitors' brands are perceived and how this changes over time." | translate }}
+        </p>
+        <p class="c-why-add__text">
+          {{ "BT-associations.We recommend to include associations that reflects your brand strategy to understand if your brand building activities drive your desired position. We also recommend to include associations that are top preference drivers in the category to understand how well your brand performs on the drivers." | translate }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="c-test-create__footer-wrapper">
+  <app-next-button [testType]="TestType.BT"
+                   [nextSection]="'section-6'"></app-next-button>
+</div>
+<ng-template #editListItem
+             let-association='association'>
+  <app-edit-list-item [association]="association"
+                      [hideAdditional]="true"
+                      [associations]="associationsList()"
+                      (editAssociation)="editAssociation($event)"
+                      (cancelEditMode)="cancelEditMode()"></app-edit-list-item>
+</ng-template>

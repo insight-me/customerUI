@@ -1,0 +1,43 @@
+<div class="bt-test-report__header-filter">
+  <span>{{infoLabel | translate}}:</span>
+  <div class="bt-test-report__header-filter-button" (click)="op.toggle($event)">
+    <div>{{valuesLabel | translate}}</div>
+    <app-expand-button [active]="isFilterActive"></app-expand-button>
+  </div>
+  <div class="bt-test-report__header-filter-panel">
+    <p-overlayPanel
+      #op
+      [style]="btStyle.overlayPanel"
+      (onShow)="isFilterActive = true; setInitialSelection()"
+      (onHide)="isFilterActive = false; apply()"
+    >
+      <ng-template pTemplate>
+        <div class="p-d-flex p-ai-center bt-test-report__header-filter-panel-item">
+          <div class="p-field-checkbox c-common__checkbox-wrapper">
+            <p-checkbox
+              [(ngModel)]="all"
+              binary="true"
+              label="{{allLabel | translate}}"
+              class="c-common__checkbox small"
+              (onChange)="toggle('all')"
+            ></p-checkbox>
+          </div>
+        </div>
+        <div
+          *ngFor="let option of options"
+          class="p-d-flex p-ai-center bt-test-report__header-filter-panel-item"
+        >
+          <div class="p-field-checkbox c-common__checkbox-wrapper">
+            <p-checkbox
+              [(ngModel)]="selected[option.id]"
+              [label]="option.value | translate"
+              binary="true"
+              class="c-common__checkbox small"
+              (onChange)="toggle(option.id)"
+            ></p-checkbox>
+          </div>
+        </div>
+      </ng-template>
+    </p-overlayPanel>
+  </div>
+</div>

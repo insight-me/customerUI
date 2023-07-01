@@ -1,0 +1,13 @@
+@import "../../../../assets/styles/variables.scss";
+
+.c-moodboard {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  transform-origin: 10px 0;
+
+  &__image {
+    position: absolute;
+  }
+}

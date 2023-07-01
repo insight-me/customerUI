@@ -1,0 +1,28 @@
+<div #chartRef
+     [style]="btStyle.content"
+     [ngStyle]="pdfVersion ? {margin: '40px 50px 25px 50px'} : {}">
+  <app-bt-line-chart *ngIf="switcher | async"
+                     [dataSet]="dataSet"
+                     [style]="{flexGrow: 1}"
+                     [pdfVersion]="pdfVersion"
+                     [colorScheme]="{domain: colorScheme}"></app-bt-line-chart>
+</div>
+
+<div [style]="style.footer"
+     [ngStyle]="pdfVersion ? {borderTop: '1px solid #E9E9E9', paddingTop: '20px'} : {}">
+  <span *ngFor="let item of dataSet; index as i"
+        [style]="style.legend">
+    <i [style]="style.icon"
+       [style.background]="item.color ? item.color : getBackground(i)"></i>
+    <div>{{item.name}}</div>
+  </span>
+</div>
+<div class="bt-test-report-zoom"
+     *ngIf="!pdfVersion">
+  <div class="bt-test-report-zoom-button"
+       (click)="toggleZoom(); refreshChart()">
+    <span>{{(isExpanded ? "report.Zoom Out" : "report.Zoom In") | translate}}</span>
+    <app-icon [iconType]="IconsType.Zoom"
+              color="#8E8E93"></app-icon>
+  </div>
+</div>

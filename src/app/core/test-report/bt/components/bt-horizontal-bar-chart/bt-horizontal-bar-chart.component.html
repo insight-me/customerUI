@@ -1,0 +1,68 @@
+<div [style]="{margin: '40px'}">
+
+  <div
+    *ngFor="let group of dataSet; index as groupIndex"
+    [style]="{display: 'flex', 'margin-bottom': '23px'}"
+  >
+    <ng-container *ngIf="group.values.length">
+      <div [style]="{width: '10%', 'font-family': 'GT Walsheim Pro Medium', 'margin-right': '16px', display: 'flex', 'flex-direction': 'column', 'justify-content': 'center', 'align-items': 'stretch', 'text-align': 'right', 'word-break': 'break-word'}">{{group.label}}</div>
+      <div [style]="{width: '90%',display: 'flex', 'flex-direction': 'column', 'align-items': 'stretch', position: 'relative'}">
+
+        <!--Vertical Sub-axis-->
+        <div
+          *ngFor="let item of axis; index as i"
+          [style]="btStyle.verticalSubAxis"
+          [style.left]="(item / scale) + '%'"
+        >
+          <span
+            *ngIf="groupIndex === dataSet.length - 1"
+            [style]="btStyle.verticalSubAxisLabel"
+          >{{item}}%</span>
+        </div>
+
+        <div
+          *ngFor="let bar of group.values; index as i"
+          [style]="barStyle(bar, i)"
+          class="tooltip-container"
+        >
+          <span [style]="{color: '#fff', 'font-family': 'GT Walsheim Pro Regular', 'font-size': '20px', 'letter-spacing': 0, 'margin-right': '10px'}">{{bar.value}}%</span>
+
+          <!--Tooltip-->
+          <div
+            *ngIf="!pdfVersion"
+            class="vertical-bar-chart-tooltip"
+          >
+            <div class="vertical-bar-chart-tooltip-content">
+              <!--Label-->
+              <div class="vertical-bar-chart-tooltip-content-title">{{group.label}}</div>
+              <!--Value-->
+              <div class="vertical-bar-chart-tooltip-content-values">
+                <span>{{bar.label | uppercase}}:</span>
+                <span>{{bar.value}}%</span>
+              </div>
+            </div>
+
+            <div class="vertical-bar-chart-tooltip-arrow"></div>
+          </div>
+
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</div>
+
+<div
+  *ngIf="!pdfVersion"
+  [style]="style.footer"
+>
+  <span
+    *ngFor="let item of dataSet[0].values; index as i"
+    [style]="style.legend"
+  >
+    <i [style]="style.icon" [style.background]="getBackground(i)"></i>
+    <div>{{item.label}}</div>
+  </span>
+</div>
+
+

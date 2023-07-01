@@ -1,0 +1,97 @@
+@import "mixins";
+
+.app-combo-chart {
+  @include flex-column-stretch;
+  overflow-x: auto;
+
+  &__ngx-chart {
+    position: absolute;
+    top: -9px;
+    left: 10px;
+
+    &.area {
+      width: 1000px;
+      height: 270px;
+      z-index: 2;
+    }
+  }
+
+  &__container {
+    position: relative;
+    height: 500px;
+    width: 1000px;
+    margin: 53px 0 70px;
+    border-bottom: 2px solid $chart-axis;
+
+    &-axis {
+      position: absolute;
+      width: 100%;
+      border-bottom: 1px solid $sub-axis;
+
+      &.main {
+        border-bottom: 3px solid $sub-axis;
+      }
+
+      span {
+        position: absolute;
+        bottom: 8px;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 14px;
+        line-height: 12px;
+        color: $lightgray;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    &-content {
+      @include flex-center;
+
+      flex-wrap: nowrap;
+      width: 100%;
+      height: 100%;
+
+      &-dynamic {
+        @include flex-space-between-center;
+
+        align-items: flex-end;
+        width: 100%;
+        height: 100%;
+        margin: 0 44px 0 40px;
+
+        &-group {
+          @include flex-center;
+
+          position: relative;
+          align-items: flex-end;
+          height: 100%;
+
+          &-label {
+            @include regular-12;
+
+            position: absolute;
+            bottom: -31px;
+            left: -50%;
+            width: 150px;
+            transform: translateX(-50%);
+            text-align: center;
+            word-break: normal;
+
+            &.align-right {
+              text-align: right;
+            }
+          }
+
+          .item-chart-bar {
+            position: relative;
+            flex-grow: 1;
+            width: 20px;
+            max-width: 20px;
+            margin: 0 2px;
+            z-index: 3;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
+}

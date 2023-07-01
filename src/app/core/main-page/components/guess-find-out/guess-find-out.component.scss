@@ -1,0 +1,190 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-guess-find-out {
+  @include flex-center;
+
+  padding: 100px 20px;
+  gap: 100px;
+
+  &__scheme {
+    display: grid;
+    grid-gap: 27px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, min-content);
+    min-width: 507px;
+    height: 100%;
+
+    .expand,
+    .grow,
+    .establish {
+      @include flex-center;
+      @include medium-24;
+
+      padding: 0 15px;
+      text-align: center;
+      border-radius: 50%;
+    }
+
+    .arrow {
+      align-self: flex-end;
+      justify-self: end;
+
+      &.top {
+        align-self: flex-start;
+      }
+    }
+
+    .expand {
+      width: 240px;
+      height: 240px;
+      background: $like;
+
+    }
+
+    .grow {
+      width: 194px;
+      height: 194px;
+      background: $pink;
+    }
+
+    .establish {
+      width: 170px;
+      height: 170px;
+      background: $light-blue;
+    }
+  }
+
+  &__text {
+    @include flex-column-stretch;
+
+    max-width: 760px;
+
+    &-title {
+      @include medium(68);
+
+      margin-bottom: 40px;
+      transform: translate(0, 100%);
+      opacity: 0;
+      transition: all 0.4s ease-in-out;
+
+      &.active {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+    }
+
+    &-text {
+      @include light(24);
+
+      transform: translate(0, 100%);
+      opacity: 0;
+      transition: all 0.7s ease-in-out;
+
+      &.active {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1270px) {
+  .c-guess-find-out {
+    gap: 60px;
+
+    &__scheme {
+      min-width: 477px;
+
+      .expand {
+        width: 200px;
+        height: 200px;
+      }
+
+      .grow {
+        width: 154px;
+        height: 154px;
+      }
+
+      .establish {
+        width: 130px;
+        height: 130px;
+      }
+    }
+  }
+}
+
+@media #{$tablet} {
+  .c-guess-find-out {
+    padding: 60px 0;
+    gap: 40px;
+
+    &__scheme {
+      grid-gap: 12px;
+      min-width: 268px;
+
+      .expand,
+      .grow,
+      .establish {
+        @include medium-16;
+
+        padding: 0 5px;
+      }
+
+      .expand {
+        width: 126px;
+        height: 126px;
+      }
+
+      .grow {
+        width: 102px;
+        height: 102px;
+      }
+
+      .establish {
+        width: 89px;
+        height: 89px;
+      }
+
+      .arrow {
+        img {
+          width: 68px;
+        }
+      }
+    }
+
+    &__text {
+      max-width: 600px;
+
+      &-title {
+        @include medium-28;
+
+        margin-bottom: 24px;
+      }
+
+      &-text {
+        @include light(18);
+      }
+    }
+  }
+}
+
+@media #{$mobile-main-page} {
+  .c-guess-find-out {
+    flex-direction: column;
+
+    &__text {
+      text-align: center;
+
+      &-title {
+        @include medium-20;
+
+        margin-bottom: 20px;
+      }
+
+      &-text {
+        @include light(16);
+      }
+    }
+  }
+}

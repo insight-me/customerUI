@@ -1,0 +1,179 @@
+@import 'breakpoint-slicer';
+@import 'mixins';
+@import 'variables';
+
+:host {
+  display: inline-block;
+}
+
+.c-graph-tooltip {
+  @include flex-center;
+
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin-left: 12px;
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  //transition: all 0.3s;
+
+  &:hover {
+    background: #ffeee3;
+    border-radius: 30px;
+    -webkit-transition: all 0.3s;
+    //transition: all 0.3s;
+
+    .tooltip {
+      z-index: 6;
+      visibility: visible;
+      opacity: 1;
+      //transition: 0.5s;
+      -webkit-transition: 0.5s;
+      -webkit-transition-delay: 0.1s;
+      //transition-delay: 0.1s;
+    }
+  }
+
+  .tooltip {
+    position: absolute;
+    top: 50px;
+    bottom: calc(100% + 10px);
+    left: 126%;
+    z-index: 100;
+    width: fit-content;
+    min-width: max-content;
+    max-width: 300px;
+    color: $white;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    //-webkit-filter: drop-shadow(0px 3px 28px rgba(0, 0, 0, 0.26));
+    //filter: drop-shadow(0px 3px 28px rgba(0, 0, 0, 0.26));
+
+    @include to(m) {
+      left: -88px;
+    }
+
+    // @include to(xs) {
+    //   left: 40px;
+    // }
+
+
+    &-arrow {
+      position: absolute;
+      top: -5px;
+      left: 41%;
+      width: 0;
+      height: 0;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid $white;
+      border-left: 10px solid transparent;
+      transform: translate(-50%, -50%);
+    }
+
+    &-content {
+      @include flex-column;
+
+      align-items: center;
+      width: fit-content;
+      max-width: 300px;
+      padding: 12px 20px;
+      background: $white;
+      border-radius: 8px;
+      -webkit-box-shadow: -2px 2px 32px 9px rgb(23 24 24 / 19%);
+
+      &-title {
+        @include regular-16;
+
+        width: 100%;
+        padding: 8px 0;
+
+        &.report:not(:first-of-type) {
+          border-top: 1px solid $border;
+        }
+      }
+
+      &-question {
+        @include medium-18;
+
+        width: 100%;
+        padding: 8px 0;
+        border-top: none;
+
+      }
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-graph-tooltip {
+    .tooltip {
+      &.market {
+        // left: -266%;
+      }
+
+      &.center {
+        left: 42px;
+      }
+
+      &.feedback {
+        left: 53%;
+      }
+
+      &.custom {
+        left: 1%;
+      }
+    }
+  }
+}
+
+@media #{$middle} {
+  .c-graph-tooltip {
+    .tooltip {
+      &.middle {
+        left: -324%;
+      }
+
+
+    }
+  }
+}
+
+// @media #{$mobilemax} {
+//   .c-graph-tooltip {
+//     .tooltip {
+//       &.mobilemax {
+//         left: -87px;
+//       }
+//     }
+//   }
+// }
+
+// @media #{$mobilemin} {
+//   .c-graph-tooltip {
+//     .tooltip {
+//       &.mobileMin {
+//         left: -104px;
+//       }
+
+//       &-content {
+//         position: absolute;
+//         right: -150%;
+//         width: max-content;
+//       }
+
+//       &-arrow {
+//         left: -25px !important;
+//       }
+//     }
+//   }
+// }
+
+@media #{$mobileminimum} {
+  .c-graph-tooltip {
+    .tooltip {
+      &.mobileminimum {
+        // left: -105px;
+      }
+    }
+  }
+}

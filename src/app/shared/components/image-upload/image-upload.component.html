@@ -1,0 +1,20 @@
+<div class="c-image-upload">
+  <div class="c-image-upload__image" appDragDrop [class.disabled]="disabled" (fileDropped)="handleFileInput($event)" (click)="fileUpload.click()">
+    <img *ngIf="!imageFile" src="../../../../assets/images/ic_add-image.svg" class="c-image-upload__image-icon">
+    <img *ngIf="imageFile" [src]="imageFile | safeHtml" class="c-image-upload__image-file">
+    <div *ngIf="imageFile && !disabled" class="c-image-upload__image-edit" [class.active]="showEditBlock" (click)="onEdit($event)">
+      <img *ngIf="!showEditBlock" src="../../../../assets/images/ic_edit-image.svg">
+      <img *ngIf="showEditBlock" src="../../../../assets/images/ic_edit-image-white.svg">
+    </div>
+  </div>
+  <div *ngIf="showEditBlock && !disabled" #editBlock class="c-image-upload__image-edit-block">
+    <div class="c-image-upload__image-edit-block-item" (click)="fileUpload.click()"><img src="../../../../assets/images/ic_cloud-upload.svg" class="c-image-upload__image-edit-block-icon">Upload</div>
+    <div class="c-image-upload__image-edit-block-item" (click)="onDeleteImage()"><img src="../../../../assets/images/ic_trash-white.svg" class="c-image-upload__image-edit-block-icon">Delete</div>
+  </div>
+    <input hidden type="file" #fileUpload [disabled]="disabled" (change)="handleFileInput($event.target.files)" accept="image/jpeg,image/x-png,image/svg+xml">
+  <!-- <div class="c-image-upload__file-input" >
+    <span>Drop files to upload</span>
+
+  </div> -->
+
+</div>

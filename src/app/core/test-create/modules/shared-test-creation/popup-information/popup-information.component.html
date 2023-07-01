@@ -1,0 +1,57 @@
+<div [ngClass]="{'c-payment-success':isPopup, 'page': !isPopup}" *ngIf="isInformation">
+  <div [ngClass]="{'c-payment-success__message':isPopup, 'page__message': !isPopup}">
+    <button *ngIf="isPopup" class="c-payment-success__close c-common__button c-common__button--icon" (click)="close()">
+      <img src="../../../../../../assets/images/svg/ic_close-modal.svg">
+    </button>
+
+    <div class="c-payment-success__message__image">
+      <img class="c-payment-success__message__img"
+           src="../../../../../../assets/images/svg/information-background.svg">
+    </div>
+
+    <div *ngIf="isPopup;else title" class="c-payment-success__message__title">
+      {{'BIC-popup-translations.Hi, we just want to inform you about the following regarding translations:' | translate}}
+    </div>
+    <ng-template #title>
+      <div class="c-payment-success__message__title">
+        {{'BT-intro.What a great decision to start track your brand-building efforts and market dynamics!' | translate}}
+      </div>
+    </ng-template>
+    <div *ngIf="isPopup;else text" class="c-payment-success__message__text">
+      <p>{{'BIC-popup-translations.The pre-defined questions and associations will be automatically' | translate}}</p>
+    </div>
+
+    <ng-template #text>
+      <div class="c-payment-success__message__text">
+        {{'BT-intro.In our tracking solution we collect data on a weekly basis. You can at any point decide to stop your tracker (which we hope you won\'t) with a notice period of three months.' | translate}}
+      </div>
+      <div class="c-payment-success__message__text">
+        {{'BT-intro.You can make adjustments to your brand tracker over time such as updating brands, logos, associations and add additional questions.' | translate}}<br>
+      </div>
+      <div class="c-payment-success__message__text">
+        {{'BT-intro.If you add custom associations and questions you need to translate these yourself. The pre-defined questions and associations will be automatically translated into the language of the selected market for the test.' | translate}}
+      </div>
+      <div *ngIf="test" class="c-common__checkbox-wrapper page__checkbox">
+        <p-checkbox class="c-common__checkbox"
+                    [(ngModel)]="test.isAgreeSign"
+                    (onChange)="getIgotIt($event)"
+                    [binary]="true"></p-checkbox>
+        <label
+          class="c-common__checkbox-label">{{'BT-intro.I got it' | translate}}</label>
+      </div>
+    </ng-template>
+
+    <div *ngIf="isPopup" class="c-payment-success__message__close">
+      <div class="c-payment-success__button">
+        <button class="c-common__button--filled c-common__button"
+                (click)="close()">{{'buttons.ok, I got it!' | translate}}
+        </button>
+      </div>
+    </div>
+    <div *ngIf="!isPopup">
+      <app-next-button [testType]="TestType.BT" [nextSection]="'section-2'"
+                       [styleBlue]="'c-common__button--filled c-common__button page__button'"
+                       [buttonText]="'buttons.get started'"></app-next-button>
+    </div>
+  </div>
+</div>

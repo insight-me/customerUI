@@ -1,0 +1,43 @@
+<div *ngIf="test" class="c-subheader-element">
+  <div
+    class="c-subheader-element__nav-element"
+    (click)="onNavigate(item.link)">
+    <div class="c-subheader-element__nav">
+      <p [class.active]="currentRoute === item.link"
+        class="c-subheader-element__nav-element__text">
+        {{ item.text | translate }}
+      </p>
+      <div
+        *ngIf="getWidthForProgress() === 100 && !isLast"
+        class="c-subheader-element__nav-check">
+        <app-icon [iconType]="IconsType.Success"></app-icon>
+      </div>
+      <i *ngIf="!isLast" class="c-subheader-element__icon"></i>
+    </div>
+  </div>
+  <div
+    *ngIf="currentRoute === item.link"
+    class="c-subheader-element__nav-element__progress">
+    <p [ngStyle]="{ width: getWidthForProgress() + '%' }"
+      class="c-subheader-element__nav-element__progress-done"
+    ></p>
+  </div>
+</div>
+
+<div *ngIf="test" class="c-subheader-element-mobile">
+  <div
+    class="c-subheader-element-mobile__step"
+    [class.active]="currentRoute === item.link"
+    [class.completed]="
+      currentRoute !== item.link && getWidthForProgress() === 100 && !isLast"
+    (click)="onNavigate(item.link)">
+    <span *ngIf="getWidthForProgress() !== 100 || isLast">{{
+      item.link.substr(item.link.length - 1, 1)
+    }}</span>
+    <app-icon
+      *ngIf="getWidthForProgress() === 100 && !isLast"
+      [iconType]="IconsType.Check"
+    ></app-icon>
+  </div>
+  <i *ngIf="!isLast" class="c-subheader-element__icon"></i>
+</div>

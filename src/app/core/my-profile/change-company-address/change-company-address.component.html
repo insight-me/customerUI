@@ -1,0 +1,14 @@
+<div class="c-confirmation-dialog">
+  <div class="c-confirmation-dialog__text">{{"my-profile.Hi!" | translate}}<br>
+    {{"my-profile.We see that you want to make changes to your company information. We are glad that you keep your information up to date." | translate}}
+    <br>
+    {{'my-profile.However it will revoke your invoice payment approval and you will need a new one.' | translate}}<br>
+    {{'my-profile.Would you like to proceed anyway?' | translate}}</div>
+
+  <div class="c-confirmation-dialog__button-wrapper">
+    <button (click)="onClose(false)"
+            class="c-common__button c-common__button--text normal">{{'my-profile.No' | translate}}</button>
+    <button (click)="onClose(true)"
+            class="c-common__button c-common__button--gradient normal">{{'my-profile.Yes' | translate}}</button>
+  </div>
+</div>

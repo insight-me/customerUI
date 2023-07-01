@@ -1,0 +1,27 @@
+@import '../../../../assets/styles/variables.scss';
+
+.c-root {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  min-height: 100%;
+  //min-width: 1440px;
+
+  &__content {
+    background-color: $background;
+
+    &-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      height: auto;
+      min-height: calc(100vh - 105px);
+      background-color: $background;
+    }
+  }
+
+  &__footer-with-background {
+    background: $background;
+  }
+}

@@ -1,0 +1,51 @@
+<div class="c-created-tests">
+  <swiper [config]="config"
+          class="swiper"
+          #swiper>
+    <div *ngFor="let test of tests">
+      <div *ngIf="getCardParams(test.status) as cardParams"
+           class="c-created-tests__test"
+           [style.background]="cardParams.background">
+        <div class="c-created-tests__test-header">
+          <div class="c-created-tests__test-header__name">
+            <p class="c-created-tests__test-header__name-product">
+              {{'invoices.' + TestProductName[test.testType] | translate}}</p>
+            <p class="c-created-tests__test-header__name-test"
+               [pTooltip]="test.testName"
+               tooltipEvent="hover"
+               tooltipPosition="top">{{test.testName}}</p>
+          </div>
+          <div class="c-created-tests__test-header__status">
+            <div class="c-created-tests__test-header__status-icon">
+              <img [src]="'../../../../assets/images/svg/status/' + cardParams.image + '.svg'"
+                   class="c-test-library__table__contents__th__status-image">
+            </div>
+            <span class="c-created-tests__test-header__status-text">{{cardParams.name | translate | uppercase}}</span>
+          </div>
+        </div>
+        <div class="c-created-tests__test-main">
+          <div *ngIf="test.testType === TestType.BIC && (test.status === statusEnum.Ongoing || test.status === statusEnum.Finished)"
+               class="c-created-tests__test-main__ongoing">
+            <div class="c-created-tests__test-main__ongoing-chart">
+              <circle-progress class="c-created-tests__test-main__ongoing-chart__circle"
+                               [percent]="test.passesPercent"></circle-progress>
+              <div class="c-created-tests__test-main__ongoing-chart__middle">
+                {{test.passesPercent + '%'}}
+              </div>
+            </div>
+            <div class="c-created-tests__test-main__ongoing-text">{{getProgressText(test)}}</div>
+          </div>
+
+        </div>
+        <button *ngIf="isShowButton(test)"
+                appDisableSwiper
+                [swiperComponent]="swiper"
+                class="c-common__button c-common__button--regular normal c-created-tests__button-mobile"
+                (click)="goTo(test)">{{cardParams.buttonText | translate}}</button>
+      </div>
+    </div>
+  </swiper>
+  <div slot="container-end"
+       class="swiper-pagination pagination-test"
+       [class.hidden]="isShowPagination()"></div>
+</div>

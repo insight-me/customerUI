@@ -1,0 +1,66 @@
+<div class="app-report-content">
+  <div class="app-report-content__tabs bt">
+    <div class="app-report-content__tabs-navigation">
+      <div
+        class="app-report-content__tabs-navigation-item"
+        [class.active]="tabIndex === BtReportTabType.Dashboard"
+        (click)="tabIndex = BtReportTabType.Dashboard"
+      >{{"report.Brand KPIs overview" | translate}}</div>
+      <div
+        class="app-report-content__tabs-navigation-item"
+        [class.active]="tabIndex === BtReportTabType.BrandFunnel"
+        (click)="tabIndex = BtReportTabType.BrandFunnel"
+      >{{"report.Brand funnel" | translate}}</div>
+      <!--      According to Melina's comment in figma we need to hide this section and maybe later we will need it-->
+      <!--      <div-->
+      <!--        class="app-report-content__tabs-navigation-item"-->
+      <!--        [class.active]="tabIndex === BtReportTabType.BrandHealthBreakdown"-->
+      <!--        (click)="tabIndex = BtReportTabType.BrandHealthBreakdown"-->
+      <!--      >{{"report.Brand KPIs" | translate}}</div>-->
+      <div
+        class="app-report-content__tabs-navigation-item"
+        [class.active]="tabIndex === BtReportTabType.Associations"
+        (click)="tabIndex = BtReportTabType.Associations"
+      >{{"report.Brand perception" | translate}}</div>
+      <div *ngIf="btRSS.test?.isAdvertizing"
+           class="app-report-content__tabs-navigation-item"
+           [class.active]="tabIndex === BtReportTabType.AdAwareness"
+           (click)="tabIndex = BtReportTabType.AdAwareness"
+      >{{"report.Ad awareness" | translate}}</div>
+      <div *ngIf="btRSS.test?.isRecommendation"
+           class="app-report-content__tabs-navigation-item"
+           [class.active]="tabIndex === BtReportTabType.Recommendation"
+           (click)="tabIndex = BtReportTabType.Recommendation"
+      >{{"report.Net promoter score" | translate}}</div>
+      <div *ngIf="btRSS.test?.customQuestions.length"
+           class="app-report-content__tabs-navigation-item"
+           [class.active]="tabIndex === BtReportTabType.Specific"
+           (click)="tabIndex = BtReportTabType.Specific"
+      >{{"report.Specific" | translate}}</div>
+    </div>
+    <!--    <div-->
+    <!--      *ngIf="btRSS.test.status === TestStatus.Finished"-->
+    <!--      class="app-report-content__tabs-export"-->
+    <!--      (click)="export(true)">-->
+    <!--      <span>{{'report.Export' | translate}}</span>-->
+    <!--      <app-expand-button></app-expand-button>-->
+    <!--    </div>-->
+  </div>
+
+  <ng-container [ngSwitch]="tabIndex">
+      <app-bt-dashboard *ngSwitchCase="BtReportTabType.Dashboard"></app-bt-dashboard>
+      <app-bt-brand-funnel *ngSwitchCase="BtReportTabType.BrandFunnel" [dataSet]="btRSS.brandFunnelDataSet$ | async"></app-bt-brand-funnel>
+      <!--      According to Melina's comment in figma we need to hide this section and maybe later we will need it-->
+      <!--    <app-bt-brand-health-breakdown *ngSwitchCase="BtReportTabType.BrandHealthBreakdown"></app-bt-brand-health-breakdown>-->
+      <app-bt-associations *ngSwitchCase="BtReportTabType.Associations"></app-bt-associations>
+      <app-additional-questions *ngSwitchCase="BtReportTabType.Specific"></app-additional-questions>
+      <app-bt-ad-awareness *ngSwitchCase="BtReportTabType.AdAwareness"></app-bt-ad-awareness>
+      <app-bt-net-promoter-score *ngSwitchCase="BtReportTabType.Recommendation"></app-bt-net-promoter-score>
+  </ng-container>
+  <!--  no PDF, will be implemented later-->
+  <!--  <app-export-pdf-->
+  <!--    *ngIf="exportRequest | async"-->
+  <!--    (exportReady)="exportReady($event)"-->
+  <!--  ></app-export-pdf>-->
+
+</div>

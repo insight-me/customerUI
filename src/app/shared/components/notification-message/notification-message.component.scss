@@ -1,0 +1,28 @@
+@import "./src/assets/styles/mixins.scss";
+
+.c-notification-message {
+  @include regular-16;
+
+  display: flex;
+  align-items: center;
+  width: 90vw;
+  max-width: 960px;
+  margin: 20px 31px;
+  padding: 20px;
+  background: $white;
+  border-radius: 8px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  gap: 40px;
+
+  .link-text {
+    color: $blue;
+    cursor: pointer;
+  }
+}
+
+@media #{$mobile} {
+  .c-notification-message {
+    width: 95vw;
+    margin: 20px auto;
+  }
+}

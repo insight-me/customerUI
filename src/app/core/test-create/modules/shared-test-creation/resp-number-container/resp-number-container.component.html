@@ -1,0 +1,51 @@
+<ng-container *ngIf="respondentRequirements">
+  <div class="c-resp-number">
+    <div class="c-resp-number__table">
+      <div class="c-resp-number__field-container">
+        <ng-container *ngIf="respondentRequirements.countries.length">
+          <div class="c-common__field c-resp-number__form-field">
+            <label
+              class="c-common__form-label">{{ 'BIC.Total in '  | translate}} {{respondentRequirements.countries[0].value}}</label>
+            <input
+              type="number"
+              pInputText
+              [formControl]="numberOfRespondentsControl"
+              [placeholder]="'Nr'"
+              (keypress)="numberOnly($event)"
+              (blur)="setZero($event, numberOfRespondentsControl)"
+              class="c-common__input" />
+            <ng-container *ngIf="controlHasError(numberOfRespondentsControl)">
+                <p *ngIf="(minNumberOfRespondents$ | async) < 1500; else equalError"
+                       class="p-error c-common__form-field-error">{{'respondents.error-length' | translate:{
+                  maxNumberOfRespondents: maxNumberOfRespondents,
+                  min: (minNumberOfRespondents$ | async)
+                } }}</p>
+                <ng-template #equalError>
+                  <p
+                    class="p-error c-common__form-field-error">{{'BIC.The number of respondents must be equal 1500' | translate }}</p>
+                </ng-template>
+
+            </ng-container>
+
+          </div>
+          <div
+            *ngIf="!(isAllSegments$ | async) && !noSegments"
+            class="c-common__field c-resp-number__form-field">
+            <label class="c-common__form-label">{{ 'BIC.Population'  | translate}}</label>
+            <input
+              type="number"
+              pInputText
+              readonly
+              [value]="populationCount$ | async"
+              [placeholder]="'Nr'"
+              class="c-common__input" />
+          </div>
+        </ng-container>
+      </div>
+      <div *ngIf="(hasSummError$ | async) && segmentsForm" [style.margin-bottom]="'15px'"><span
+        class="p-error c-common__form-field-error">{{ 'BIC.Please check number of respondents for every segment. Total value for country is less then sum of number of respondents for every segment' | translate }}</span>
+      </div>
+      <app-resp-number-element *ngIf="segmentsForm"></app-resp-number-element>
+    </div>
+  </div>
+</ng-container>

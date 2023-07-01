@@ -1,0 +1,54 @@
+<div class="app-concept-definitions">
+
+  <!--FIRST GRAPH-->
+  <ng-container *ngIf="bicRSS.totalRelevanceDataSet$ | async as dataSet">
+    <div *ngIf="checkRelevanceDataSet(dataSet.length)"
+         class="app-concept-definitions__card">
+      <ng-container *ngIf="bicRSS.totalRelevanceDataSet$ | async as dataSet">
+        <app-total-relevance [tooltipType]="totalRelevanceType" [dataSet]="dataSet"></app-total-relevance>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="bicRSS.consumerInsightRelevanceDataSet$ | async as dataSet">
+    <div *ngIf="checkDataSet(dataSet)"
+         class="app-concept-definitions__card">
+      <app-rtb-local-filters
+        [dataSet]="dataSet"
+        [title]="'report.Consumer insight'"
+        [type]="ConceptReportTableDataType.Relevance"
+        [tooltipTexts]="tooltipTextsConsumerInsight"
+        [tooltipType]="tooltipTypeConsumerInsight"></app-rtb-local-filters>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="bicRSS.benefitsDataSet$ | async as dataSets">
+    <div
+      class="app-concept-definitions__card"
+      *ngIf="checkDataSets(dataSets)">
+      <app-rtb-local-filters
+        [dataSet]="dataSets"
+        [title]="'report.Relevance score (%) of benefit(s) in population'"
+        [type]="ConceptReportTableDataType.Benefits"
+        [tooltipTexts]="tooltipTextsBenefits"
+        [tooltipType]="tooltipTypeBenefits"></app-rtb-local-filters>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="bicRSS.reasonsToBelieveDataSet$ | async as dataSets">
+    <div *ngIf="checkDataSets(dataSets)"
+         class="app-concept-definitions__card">
+      <app-rtb-local-filters
+        [dataSet]="dataSets"
+        [title]="'report.Relevance score (%) of reason(s) to believe in population'"
+        [type]="ConceptReportTableDataType.Reasons"
+        [tooltipTexts]="tooltipTextsReasons"
+        [tooltipType]="tooltipTypeReasons"></app-rtb-local-filters>
+    </div>
+  </ng-container>
+
+  <!--Consumer insights-->
+  <ng-container *ngIf="bicRSS.test?.wordsLikesEnabled">
+    <app-words-likes-dislikes [dataSet]="bicRSS.consumerInsightDataSet$ | async"></app-words-likes-dislikes>
+  </ng-container>
+</div>

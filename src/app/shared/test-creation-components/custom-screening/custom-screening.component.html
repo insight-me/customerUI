@@ -1,0 +1,120 @@
+<div class="c-custom-screening">
+  <p
+    class="c-custom-screening__text">{{'BIC.Please add your screening question. Maximum 3 custom screening questions are allowed. Don’t forget to include ”don’t know” or ”other” as options if applicable' | translate}}</p>
+  <ng-container *ngIf="isCanAddQuestion; else addingQuestionBlock">
+    <button class="c-common__button c-common__button--border"
+            [disabled]="questions.length > 2"
+            (click)="onStartAddingQuestion()">{{ 'BIC.Add question' | translate }}</button>
+  </ng-container>
+</div>
+<!--ADDING QUESTION-->
+<ng-template #addingQuestionBlock>
+  <div class="c-custom-screening__question">
+    <input pInputText class="c-common__input c-custom-screening__input"
+           [placeholder]="'additional.type-additional-questions' | translate"
+           [formControl]="convertToFormControl(optionsForm.controls.value)"
+           (blur)="trimValue(convertToFormControl(optionsForm.controls.value))">
+    <ng-container *ngIf="controlHasError()">
+      <small class="p-error c-common__form-field-error">{{getErrorMessage(controlHasError()) | translate}}</small>
+    </ng-container>
+  </div>
+
+  <div class="c-custom-screening__options">
+    <p
+      class="c-custom-screening__text hint">{{'BIC.Select what type of answer the respondent should use' | translate}}</p>
+    <div *ngFor="let btn of typeList; let i = index">
+      <input class="c-common__radiobutton"
+             type="radio"
+             [formControl]="convertToFormControl(optionsForm.controls.type)"
+             [value]="btn.value"
+             name="custom screening options"
+             (change)="onChangeType()"
+             [id]="btn.name">
+      <label class="c-common__radiobutton-label"
+             [for]="btn.name">{{'BIC.' + btn.name | translate}}
+        <div *ngIf="btn.withHint" class="c-open-questions__hint"
+             [matMenuTriggerFor]="hintContainer"
+             (click)="onOpenHint($event)">
+          <app-icon [iconType]="IconsType.Question"></app-icon>
+          <!--          HINT-->
+          <mat-menu #hintContainer>
+            <div class="c-open-questions__hint-container">
+              {{ btn.hintText | translate }}
+            </div>
+          </mat-menu>
+        </div>
+      </label>
+      <!--      Single and Multi-->
+      <ng-container *ngIf="isShowSingleOrMulti(i)">
+        <app-option-list
+          [min]="2"
+          [max]="5"
+          [selectedItems]="selectedItems"
+          [inputLength]="optionLength"
+          [orderForm]="convertToFormControl(optionsForm.controls.answerOrderType)"
+          [type]="CustomQuestionsType.ScreeningOptions"
+          (updateOptions)="onUpdateOptions($event)"
+          (updateSelectedItems)="onUpdateSelectedItems($event)"></app-option-list>
+      </ng-container>
+      <ng-container *ngIf="isShowGrid(i)">
+        <!--            Grid-->
+        <p
+          class="c-open-questions__grid-text">{{ 'BIC.Please fill in your answer alternatives in the columns' | translate }}</p>
+        <app-option-list
+          [min]="2"
+          [max]="7"
+          [addIncludeDontKnowOption]="true"
+          [type]="CustomQuestionsType.ScreeningOptionsGrid"
+          [orderForm]="convertToFormControl(optionsForm.controls.columnOrderType)"
+          (updateOptions)="onUpdateColumns($event)"
+          (updateDoNotKnowOption)="onUpdateDoNotKnowOption($event)"></app-option-list>
+        <p class="c-open-questions__grid-text">{{ 'BIC.Please fill in your categories in the rows' | translate }}</p>
+        <app-option-list
+          [min]="1"
+          [max]="30"
+          [options]="stringAnswers"
+          [orderForm]="convertToFormControl(optionsForm.controls.answerOrderType)"
+          (updateOptions)="onUpdateOptions($event)"></app-option-list>
+        <div *ngIf="isShowPreview" class="c-custom-screening__preview">
+          <p
+            class="c-custom-screening__text">{{'BIC.Please check which answer alternatives that qualify respondents for the survey' | translate}}</p>
+          <app-grid-table
+            [columnsOrder]="optionsForm.controls.columnOrderType.value"
+            [answersOrder]="optionsForm.controls.answerOrderType.value"
+            [columns]="columns"
+            [type]="optionsForm.controls.type.value"
+            [rows]="answers"
+            [rowsLength]="answers.length"
+            [selectedOptions]="gridSelectedOptions"
+            [includeDoNotKnow]="includeDoNotKnow"
+            (addSelectedAnswers)="onUpdateSelectedGridItems($event)"
+          ></app-grid-table>
+        </div>
+        <div *ngIf="answers.length > 1" class="c-custom-screening__preview">
+          <app-predesign-must-engage
+            [labels]="{ all: 'BIC.rows as per your selected answer alternatives to qualify for the survey', one: 'BIC.of the rows as per your selected answer alternatives to qualify for the survey' }"
+            [categoryScreeningType]="questionCategoryScreeningType"
+            (updateCategoryScreeningType)="onUpdateCategoryScreeningType($event)"></app-predesign-must-engage>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="c-open-questions__close-block">
+    <button
+      class="c-common__button c-common__button--border"
+      [disabled]="isDisabledSaveAnswer"
+      (click)="onSaveQuestion()">{{ 'BIC.save question' | translate }}</button>
+    <button
+      class="c-common__button c-common__button--regular"
+      (click)="onToggleIsShowQuestion()">{{ 'KPI.cancel' | translate }}</button>
+  </div>
+</ng-template>
+<app-added-questions [questions]="questions"
+                     [isScreens]="true"
+                     (deleteCustomQuestion)="onDeleteQuestion($event)"></app-added-questions>
+<div *ngIf="questions.length > 1">
+  <app-predesign-must-engage
+    [labels]="{ all: 'BIC.of the above marked options to qualify for the survey', one: 'BIC.of the above marked options to qualify for the survey' }"
+    [categoryScreeningType]="respRequirements.categoryScreeningType"
+    (updateCategoryScreeningType)="onUpdateCategoryScreeningTypeForQuestions($event)"></app-predesign-must-engage>
+</div>

@@ -1,0 +1,97 @@
+<div *ngIf="brandsForAssociations && test.brands.length && translatedAssociations?.length"
+     class="c-preview__section__header">
+  <div class="c-preview__section__header-text">{{'bt-associations.description-text'| translateCustom}}</div>
+  <div class="c-preview__section__header-text mob">{{'bt-associations.title'| translateCustom}}</div>
+</div>
+<div *ngIf="brandsForAssociations && test.brands.length"
+     class="c-preview__section">
+  <div class="c-preview__section__header-text c-preview-slider__recommendation-title m-bottom-24 desktop">
+    {{'bt-associations.title' | translateCustom}}
+  </div>
+  <!--  DESKTOP -->
+  <div class="c-bt-associations__table">
+    <table class="table">
+      <thead class="table__header"
+             [class.custom-head]="translatedAssociations.length > 8">
+        <tr class="table__header-tr">
+          <td [style.width.px]="getWidthForFirstColumn()">
+            <div class="cell">{{ "associations.associations" | translateCustom }}</div>
+          </td>
+          <td *ngFor="let brand of brandsForAssociations;">
+            <div [pTooltip]="brand.name"
+                 tooltipPosition="top"
+                 class="c-bt-associations__table_col_element no-border cell">
+              <img *ngIf="brand.image; else noImageBrand"
+                   [src]="brand?.image"
+                   [alt]="brand?.name"
+                   class="c-bt-associations__image" />
+              <ng-template #noImageBrand>
+                <div class="c-bt-associations__name">{{ brand.name }}</div>
+              </ng-template>
+            </div>
+          </td>
+          <td>
+            <div class="cell">{{ "spontaneous-awareness.none" | translateCustom }}</div>
+          </td>
+        </tr>
+      </thead>
+      <tbody class="table__body"
+             [class.scroll]="translatedAssociations.length > 8">
+        <tr *ngFor="let association of translatedAssociations; let i = index; let isLast=last"
+            class="table__body-tr">
+          <td [style.width.px]="getWidthForFirstColumn()">
+            <div class="cell">{{ association.text ? association.text : association.value}}</div>
+          </td>
+          <td *ngFor="let brand of brandsForAssociations">
+            <div class="c-bt-associations__th cell">
+              <div class="c-bt-associations__checkbox c-bt-associations__table_col_element no-border c-base__checkbox-wrapper">
+                <app-none-checkbox [width]="true"
+                                   [needLabel]="false"></app-none-checkbox>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="c-bt-associations__checkbox c-bt-associations__table_col_element no-border c-base__checkbox-wrapper cell">
+              <app-none-checkbox [width]="true"
+                                 [needLabel]="false"></app-none-checkbox>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--mob-->
+  <div class="c-preview-slider__card mob"
+       *ngIf="brandsForAssociations?.length">
+    <div class="c-bt-associations__list">
+      {{translatedAssociations[0].text ||translatedAssociations[0].value }}
+    </div>
+    <ul class="c-bt-associations__list">
+      <li class="c-bt-associations__list-items"
+          *ngFor="let row of brandsForAssociations; let isLast = last">
+        <app-none-checkbox [needLabel]="false"></app-none-checkbox>
+        <div *ngIf="row.image || row.imageData; else text"
+             class="c-bt-associations__table_col_element no-border c-bt-associations__block">
+          <div class="c-bt-associations__block-img">
+            <img [src]="row.image? row.image: row.imageData"
+                 [alt]="row.name"
+                 class="c-bt-associations__image">
+          </div>
+          <div class="c-bt-associations__block-text">{{row.name}}</div>
+        </div>
+        <ng-template #text>
+          <div class="c-bt-associations__table_col_element style-text-mob no-border c-bt-associations__block">
+            {{row.name}}
+          </div>
+        </ng-template>
+      </li>
+      <li class="c-bt-associations__list-items">
+        <app-none-checkbox [needLabel]="false"></app-none-checkbox>
+        <div>
+          {{'spontaneous-awareness.none' | translateCustom}}
+        </div>
+      </li>
+    </ul>
+    <div class="c-preview-slider__card-number ng-star-inserted"> 1 / {{translatedAssociations.length}}</div>
+  </div>
+</div>

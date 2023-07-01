@@ -1,0 +1,18 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-no-orders {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+
+  &__text {
+    @include medium-16;
+
+    max-width: 274px;
+    margin: 30px 0;
+    text-align: center;
+  }
+}

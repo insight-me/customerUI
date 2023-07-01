@@ -1,0 +1,35 @@
+<div class="app-consumer-insight">
+
+  <ng-container *ngFor="let consumerInsight of dataSet$ | async">
+    <!--Title-->
+    <div class="app-consumer-insight__title">
+      {{"report.Consumer insights" | translate}} - {{consumerInsight.concept?.conceptName}}
+    </div>
+    <!--Text-->
+    <div class="app-consumer-insight__container">
+      <div
+        class="app-consumer-insight__container-value"
+        #textArea
+        data-attr="{{consumerInsight.concept.id}}"
+        [innerHTML]="sanitizer.bypassSecurityTrustHtml(getHtml(consumerInsight, consumerInsight.concept?.consumerInsight))"
+      ></div>
+
+      <div
+        *ngIf="consumerInsight.concept.benefits.length"
+        class="app-consumer-insight__container-value benefits"
+        #textArea
+        data-attr="{{consumerInsight.concept.id}}"
+        [innerHTML]="sanitizer.bypassSecurityTrustHtml(getHtml(consumerInsight, getBenefits(consumerInsight.concept.benefits)))"
+      ></div>
+
+      <div
+        *ngIf="consumerInsight.concept.reasons.length"
+        class="app-consumer-insight__container-value reasons"
+        #textArea
+        data-attr="{{consumerInsight.concept.id}}"
+        [innerHTML]="sanitizer.bypassSecurityTrustHtml(getHtml(consumerInsight, getReasons(consumerInsight.concept.reasons)))"
+      ></div>
+    </div>
+  </ng-container>
+
+</div>

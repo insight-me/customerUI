@@ -1,0 +1,33 @@
+<div class="c-trusted-by">
+  <div class="c-trusted-by__first-block">
+    <div class="title">{{'landing.InsightMe – the consumer voice in the transformation of the food system' | translate}}
+    </div>
+    <div
+      class="text">{{'landing.A digital research platform delivering rapid and actionable consumer insights for you to achieve brand driven growth and find the next generation of food' | translate}}
+    </div>
+    <div class="buttons">
+      <button class="c-common__button c-common__button--border"
+              (click)="onGetDemo.emit()">{{'landing.Get a demo' | translate}}</button>
+      <!--      <button class="c-common__button c-common__button&#45;&#45;regular normal">{{'landing.How it works' | translate}}</button>-->
+    </div>
+    <div class="trusted">{{'landing.trusted by' | translate | uppercase}}</div>
+    <div class="clients">
+      <div *ngFor="let src of images">
+        <img [src]="src">
+      </div>
+    </div>
+    <swiper [config]="swiperConfig" class="clients-mobile">
+      <div *ngFor="let src of images">
+        <img [src]="src">
+      </div>
+    </swiper>
+  </div>
+  <div class="c-trusted-by__second-block">
+    <div class="frame">
+      <div class="frame-image animated-item"></div>
+    </div>
+  </div>
+</div>
+<div class="c-trusted-by-text animated-item">
+  {{'landing.Facts. Food. Future.' | translate | uppercase}}
+</div>

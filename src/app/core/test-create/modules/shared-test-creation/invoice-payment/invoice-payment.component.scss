@@ -1,0 +1,84 @@
+@import "../../../../../../assets/styles/variables";
+
+.c-invoice-payment {
+  &__table {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+
+  &__error {
+    margin-top: 2px;
+  }
+
+  &__not-edit {
+    grid-auto-rows: auto;
+  }
+
+  &__payment {
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: minmax(274px, 1fr) minmax(361px, 2fr) !important;
+
+    &-summery {
+      display: flex !important;
+      justify-content: flex-end;
+
+      button:last-child {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  &__input {
+    width: 362px;
+    height: 35px;
+    margin-top: -7px;
+  }
+
+  &__button {
+    min-width: 229px;
+  }
+}
+
+.bottom-none {
+  border-bottom: none !important;
+}
+
+@media #{$mobile} {
+  .c-invoice-payment {
+    &__error {
+      margin-top: 5px;
+      margin-bottom: 0;
+    }
+
+    &__not-edit {
+      grid-auto-rows: auto !important;
+    }
+
+    &__payment {
+      grid-auto-rows: auto;
+      grid-template-columns: minmax(274px, 1fr) !important;
+
+      &-summery {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        button:last-child {
+          margin-left: 0;
+        }
+      }
+    }
+
+    &__input {
+      width: 100%;
+      max-width: 375px;
+    }
+  }
+
+  .bottom-none {
+    border-bottom: 1px solid $associations-table !important;
+  }
+}

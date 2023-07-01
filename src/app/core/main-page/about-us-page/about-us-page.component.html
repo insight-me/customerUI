@@ -1,0 +1,62 @@
+<app-section-header [sectionInfo]="sectionInfo"></app-section-header>
+
+<div class="c-about-us-page-text">
+  <div class="c-about-us-page-text-title animated-item">
+    {{ "landing.Our story" | translate }}
+  </div>
+  <div class="c-about-us-page-text-text animated-item">
+    {{ "landing.Our story text first" | translate }}
+  </div>
+  <div class="c-about-us-page-text-text animated-item">
+    {{ "landing.Our story text second" | translate }}
+  </div>
+  <div class="c-about-us-page-text-title animated-item">
+    {{ "landing.We are insightme" | translate }}
+  </div>
+  <div class="c-about-us-page-text-text animated-item">
+    {{ "landing.We are insightme text first" | translate }}
+  </div>
+  <div class="c-about-us-page-text-text animated-item">
+    {{ "landing.We are insightme text second" | translate }}
+  </div>
+</div>
+
+<div class="c-about-us-page-text-select">
+  <div class="app-tenth-card-nav">
+    <div
+      class="app-tenth-card-nav-item"
+      [class.active]="activeTab === 0"
+      (click)="activeTab = 0"
+    >
+      {{ "landing.Team" | translate | uppercase }}
+    </div>
+    <div
+      class="app-tenth-card-nav-item"
+      [class.active]="activeTab === 1"
+      (click)="activeTab = 1"
+    >
+      {{ "landing.Partners" | translate | uppercase }}
+    </div>
+  </div>
+</div>
+
+<!--Persons-->
+<div *ngIf="activeTab === 0" class="c-about-us-page-text__container">
+  <div class="c-about-us-page-text__team">
+    <app-self-card
+      [dataSet]="personsData"
+      [isTeam]="true"
+    ></app-self-card>
+  </div>
+</div>
+
+<!--Companies-->
+<div *ngIf="activeTab === 1" class="c-about-us-page-text__container">
+  <div class="c-about-us-page-text__team">
+    <app-self-card
+      [dataSet]="companiesData"
+      [isTeam]="false"
+    ></app-self-card>
+  </div>
+</div>
+

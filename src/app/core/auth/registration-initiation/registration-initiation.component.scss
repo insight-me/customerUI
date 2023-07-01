@@ -1,0 +1,24 @@
+@import "./src/assets/styles/mixins.scss";
+
+.c-registration-initiation {
+  &__text {
+    @include medium-24;
+
+    margin: 0;
+    text-align: center;
+    color: $darkviolet;
+  }
+
+  &__button {
+    width: 200px;
+    padding-top: 20px;
+  }
+}
+
+@media #{$mobile} {
+  .c-registration-initiation {
+    &__text {
+      @include medium-16;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+<div
+  (wheel)="$event.deltaX && $event.preventDefault(); wheelHandler($event)"
+  (touchstart)="touchStartHandler($event)"
+  (touchend)="touchEndHandler($event)"
+  (mousedown)="mouseDown($event)"
+  (mouseup)="mouseUp($event)"
+>
+  <ng-content></ng-content>
+</div>

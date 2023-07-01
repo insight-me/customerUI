@@ -1,0 +1,8 @@
+@import "variables";
+@import "mixins";
+
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  &.ant-picker-cell-inner {
+    background-color: $orange;
+  }
+}

@@ -1,0 +1,25 @@
+<div *ngIf="imageFormControl" class="c-add-image">
+  <ng-container *ngIf="!image; else imageBlock">
+    <button type="button" class="c-common__button c-common__button--regular c-add-image__add"
+            (click)="fileUploadAdd.click()">
+      <app-icon [iconType]="IconsType.Image"></app-icon>
+      {{ 'BIC.Upload image' | translate }}</button>
+    <input hidden type="file" name="very uniq" #fileUploadAdd (change)="handleFileInput($event.target.files)"
+           accept="image/jpeg,image/x-png,image/svg+xml">
+    <div>
+      <p class="c-add-image__text">{{ 'BIC.Acceptable formats: jpeg, png.'| translate }}</p>
+      <p
+        class="c-add-image__text">{{ 'BIC.Maximum count: 1. Maximum file size allowed for upload: 1.5Mb'| translate }}</p>
+    </div>
+  </ng-container>
+  <ng-template #imageBlock>
+    <div class="c-add-image__block">
+      <div class="c-add-image__container">
+        <img [src]="image"
+             class="c-add-image__container-image">
+        <button type="button" class="c-common__button c-common__button--icon c-add-image__container-delete"
+        (click)="removeImage()"><app-icon [iconType]="IconsType.DeleteGray" [height]="24"></app-icon></button>
+      </div>
+    </div>
+  </ng-template>
+</div>

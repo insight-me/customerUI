@@ -1,0 +1,80 @@
+<div *ngIf="data[0]"
+     class="app-combo-chart"
+     [style.max-width]="maxWidth">
+  <!--Chart-->
+  <div #chartRef
+       class="app-combo-chart__container">
+    <!--Horizontal Sub-axis-->
+    <div *ngFor="let axis of horizontalAxis; let i = index"
+         class="app-combo-chart__container-axis"
+         [class.main]="axis === 0"
+         [style.top]="((axis + 100) / 200) * 100 + '%'">
+      <span *ngIf="i % 2 === 0">{{ -axis }}{{ axis === 0 ? "" : "%" }}</span>
+    </div>
+
+    <!--Chart Bars-->
+    <div class="app-combo-chart__container-content">
+      <!--Dataset bars-->
+      <div #datasetContainerRef
+           class="app-combo-chart__container-content-dynamic"
+           [style.width.px]="chartContainerWidth">
+
+        <!--Other groups-->
+        <div *ngFor="let group of data[0].npsSeries"
+             class="app-combo-chart__container-content-dynamic-group">
+          <div class="item-chart-bar"
+               [style]="groupStyle(group.value)">
+            <div *ngIf="pdfVersion"
+                 class="pdf-value">{{ group.value }}%
+            </div>
+          </div>
+          <div class="app-combo-chart__container-content-dynamic-group-label">
+            {{ group.name }}
+          </div>
+        </div>
+
+        <div class="app-combo-chart__ngx-chart area">
+          <ngx-charts-area-chart-stacked [scheme]="colorScheme"
+                                         [view]="[1000, 270]"
+                                         [results]="data"
+                                         yScaleMin="0"
+                                         [xAxis]="false"
+                                         [yAxis]="false">
+            <ng-template #seriesTooltipTemplate
+                         let-model="model">
+              <ng-container *ngFor="let item of model">
+                <div class="ngx-charts-line-chart-series-tooltip">
+                  <div class="ngx-charts-line-chart-series-tooltip-legend">
+                    <div class="ngx-charts-line-chart-series-tooltip-legend-circle"
+                         [style.background]="item.color"></div>
+                    <div class="ngx-charts-line-chart-series-tooltip-legend-label">{{item.series | translate}}:</div>
+                  </div>
+                  <div class="ngx-charts-line-chart-series-tooltip-value">{{Math.round(item.value)}}%</div>
+                </div>
+              </ng-container>
+              <div class="ngx-charts-line-chart-series-tooltip">
+                <div class="ngx-charts-line-chart-series-tooltip-legend">
+                  <div class="ngx-charts-line-chart-series-tooltip-legend-circle"
+                       [style.background]="'#6395B4'"></div>
+                  <div class="ngx-charts-line-chart-series-tooltip-legend-label">{{'report.NPS score' | translate}}:
+                  </div>
+                </div>
+                <div class="ngx-charts-line-chart-series-tooltip-value">{{Math.round(model[0].nps)}}%</div>
+              </div>
+            </ng-template>
+            <ng-template #tooltipTemplate
+                         let-model="model">
+              <div class="ngx-charts-line-chart-tooltip">
+                <span>{{model.name}}</span>
+              </div>
+              <div class="ngx-charts-line-chart-tooltip">
+                <div>{{model.series | translate}}:</div>
+                <div>{{Math.round(model.value)}}%</div>
+              </div>
+            </ng-template>
+          </ngx-charts-area-chart-stacked>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

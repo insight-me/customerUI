@@ -1,0 +1,114 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.page {
+  padding: 20px;
+
+  &__message {
+    @include flex-center;
+    @include card-shadow;
+
+    flex-direction: column;
+    min-height: 611px;
+    padding: 40px;
+    background-color: $white;
+    border-radius: 8px;
+  }
+
+  &__checkbox {
+    @include medium-16;
+
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  &__label {
+   margin-left: 16px;
+  }
+
+  &__button {
+    margin-bottom: 21px;
+  }
+}
+
+.c-payment-success {
+  @include flex-center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2001;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: rgb(60, 55, 104, 0.4);
+
+  &__message {
+    @include flex-center;
+    @include open-dropdown-shadow;
+
+    position: relative;
+    flex-direction: column;
+    width: 736px;
+    max-width: 90vw;
+    min-height: 611px;
+    padding: 40px;
+    background-color: $white;
+    border-radius: 8px;
+
+    &__title {
+      @include medium-24;
+      @include adaptive-value("margin-bottom", 32, 20);
+      @include adaptive-font(24, 20);
+
+      text-align: center;
+    }
+
+    &__text {
+      @include regular-16;
+      @include adaptive-font(16, 14);
+      @include adaptive-value("margin-bottom", 32, 20);
+
+      max-width: 1037px;
+      text-align: center;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    &__img {
+      max-width: 85vw;
+      margin-bottom: 40px;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+  }
+}
+
+@media #{$mobilemidle} {
+  .page {
+    &__message {
+      padding: 20px;
+    }
+  }
+
+  .c-payment-success {
+    &__message {
+      padding: 20px;
+
+      &__title {
+        text-align: start;
+      }
+
+      &__text {
+        text-align: start;
+      }
+    }
+  }
+}

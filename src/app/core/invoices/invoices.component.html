@@ -1,0 +1,161 @@
+<div class="c-library">
+  <div class="c-library__header">
+    <h2 class="c-library__title">{{'invoices.Order Library' | translate }}</h2>
+    <div [class.invisible]="!invoiceSS.initInvoicesLength" class="c-library__header__search">
+          <span class="p-input-icon-left c-library__header__search">
+            <i class="pi pi-search"></i>
+            <input #invoiceSearchRef
+                   pInputText
+                   type="text"
+                   class="c-common__input c-library__header__search-input"
+                   [placeholder]="'library.search' | translate" />
+          </span>
+    </div>
+  </div>
+  <ng-container *ngIf="invoiceSS.initInvoicesLength else noOrders">
+    <div class="c-library__table invoices">
+      <div *ngFor="let item of tableHeader" class="c-library__table-header">{{item.name | translate }}
+        <div *ngIf="item.sorting" class="c-common__sort"
+             [class.up]="isSortingUp(item.fieldName)"
+             [class.down]="isSortingDown(item.fieldName)"
+             (click)="sort(item.fieldName)">
+        </div>
+        <div *ngIf="item.filtering" class="c-common__filter"
+             #menuOption="matMenuTrigger"
+             [class.fill]="isActiveFilter(item.fieldName) || menuOption.menuOpen"
+             [matMenuTriggerFor]="filterMenu">
+          <div class="c-library__filter">
+            <mat-menu #filterMenu class="filter" (closed)="emitedCloseMenu = !emitedCloseMenu">
+              <app-table-filter [list]="item.filterList" [menuOpen]="emitedCloseMenu"
+                                (filtered)="filter($event, item.fieldName)"></app-table-filter>
+            </mat-menu>
+
+          </div>
+        </div>
+      </div>
+      <ng-container
+        *ngFor="let invoice of (invoiceSS.invoices$ | async) | paginate: invoiceSS.config; let isOdd=odd">
+        <div class="c-library__table-row" [class.background]="isOdd">{{invoice.testName}}</div>
+        <div class="c-library__table-row"
+             [class.background]="isOdd">{{'invoices.' + TestProductName[invoice.testType] | translate}}</div>
+        <div class="c-library__table-row" [class.background]="isOdd">{{invoice.orderDate | date: 'dd.MM.yyyy'}}</div>
+        <div class="c-library__table-row price" [class.background]="isOdd">{{invoice.amount | numberToLocaleString
+          : "ru-RU"
+            : {
+            maximumFractionDigits: 0,
+            minimumFractionDigits: 0
+          }
+          }} {{invoice.currency}}</div>
+        <div class="c-library__table-row" [class.background]="isOdd">
+          <app-library-item-status
+            [statusName]="{status: invoice.paymentStatus, libraryType: LibraryTypes.OrderLibrary}"
+            [isMobile]="false"></app-library-item-status>
+        </div>
+        <div class="c-library__table-row"
+             [class.background]="isOdd">{{'invoices.' + PaymentTypeBE[invoice.paymentType] | translate}}</div>
+        <div class="c-library__table-row" [class.background]="isOdd">
+          <button *ngIf="invoice.azureReceiptUrl && invoice.paymentStatus === PaymentStatus.Success"
+                  class="c-common__button c-common__button--icon"
+                  [pTooltip]="'invoices.Download receipt' | translate"
+                  tooltipPosition="left"
+                  (click)="exportInvoice(invoice)">
+            <img src="../../../assets/images/png/download.png">
+          </button>
+        </div>
+      </ng-container>
+    </div>
+    <div class="c-library__mobile-table">
+      <!--  MOBILE-->
+      <div class="c-library__mobile-table__header">
+        <div class="c-library__mobile-table__header-item">{{tableHeader[testNameIndex].name | translate }}
+          <div class="c-common__sort"
+               [class.up]="isSortingUp(tableHeader[testNameIndex].fieldName)"
+               [class.down]="isSortingDown(tableHeader[testNameIndex].fieldName)"
+               (click)="sort(tableHeader[testNameIndex].fieldName)">
+          </div>
+        </div>
+        <div class="c-library__mobile-table__header-item flex-end">{{tableHeader[paymentStatusIndex].name | translate }}
+          <div class="c-common__sort"
+               [class.up]="isSortingUp(tableHeader[paymentStatusIndex].fieldName)"
+               [class.down]="isSortingDown(tableHeader[paymentStatusIndex].fieldName)"
+               (click)="sort(tableHeader[paymentStatusIndex].fieldName)">
+          </div>
+          <div class="c-common__filter"
+               #menuOption="matMenuTrigger"
+               [class.fill]="isActiveFilter(tableHeader[paymentStatusIndex].fieldName) || menuOption.menuOpen"
+               [matMenuTriggerFor]="filterMenu">
+            <div class="c-library__filter">
+              <mat-menu #filterMenu class="filter">
+                <app-table-filter [list]="tableHeader[paymentStatusIndex].filterList"
+                                  (filtered)="filter($event, tableHeader[paymentStatusIndex].fieldName)"></app-table-filter>
+              </mat-menu>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngFor="let invoice of (invoiceSS.invoices$ | async) | paginate: invoiceSS.config; let isOdd=odd"
+        class="c-library__mobile-table__card">
+        <div class="c-library__mobile-table__card__tr">
+          <div class="c-library__mobile-table__card__tr-item">{{invoice.testName}}</div>
+          <div
+            class="c-library__mobile-table__card__tr-item flex-end">
+            <app-library-item-status
+              [statusName]="{status: invoice.paymentStatus, libraryType: LibraryTypes.OrderLibrary}"
+              [isMobile]="true"></app-library-item-status>
+          </div>
+        </div>
+        <div class="c-library__mobile-table__card__sub-tr">
+          <!--        TEST TYPE-->
+          <div class="c-library__mobile-table__card__sub-tr__contents">
+            <div
+              class="c-library__mobile-table__card__sub-tr__contents__header background">{{tableHeader[1].name | translate }}</div>
+            <div
+              class="c-library__mobile-table__card__tr-item background">{{'invoices.' + TestProductName[invoice.testType] | translate}}</div>
+          </div>
+          <!--        ORDER DATE -->
+          <div class="c-library__mobile-table__card__sub-tr__contents">
+            <div
+              class="c-library__mobile-table__card__sub-tr__contents__header">{{tableHeader[2].name | translate }}</div>
+            <div
+              class="c-library__mobile-table__card__sub-tr__contents__item">{{invoice.orderDate | date: 'dd.MM.yyyy'}}</div>
+          </div>
+          <!--        PAYMENT TYPE -->
+          <div class="c-library__mobile-table__card__sub-tr__contents">
+            <div
+              class="c-library__mobile-table__card__sub-tr__contents__header background">{{tableHeader[5].name | translate }}</div>
+            <div
+              class="c-library__mobile-table__card__sub-tr__contents__item background">{{'invoices.' + PaymentTypeBE[invoice.paymentType] | translate}}</div>
+          </div>
+          <!--        PRICE -->
+          <div class="c-library__mobile-table__card__sub-tr__contents">
+            <div
+              class="c-library__mobile-table__card__sub-tr__contents__header">{{tableHeader[3].name | translate }}</div>
+            <div
+              class="c-library__mobile-table__card__sub-tr__contents__item">{{invoice.amount| numberToLocaleString
+              : "ru-RU"
+                : {
+                maximumFractionDigits: 0,
+                minimumFractionDigits: 0
+              }
+              }} {{invoice.currency}}
+            </div>
+          </div>
+        </div>
+        <!--        Download -->
+        <div class="c-library__mobile-table__card__sub-tr__delete background">
+          <div *ngIf="invoice.azureReceiptUrl && invoice.paymentStatus === PaymentStatus.Success"
+               class="c-library__mobile-table__card__sub-tr__delete-item" (click)="exportInvoice(invoice)">
+            <button class="c-common__button c-common__button--icon"><img
+              src="../../../assets/images/png/download.png">
+            </button>
+            {{'invoices.Download receipt' | translate}}</div>
+        </div>
+      </div>
+    </div>
+    <app-pagination [config]="invoiceSS.config" (changedPages)="changePage($event)"></app-pagination>
+  </ng-container>
+</div>
+<ng-template #noOrders>
+  <app-no-orders></app-no-orders>
+</ng-template>

@@ -1,0 +1,260 @@
+@import "mixins";
+
+.app-concept-definitions {
+  display: grid;
+  grid-row-gap: 40px;
+  grid-template-columns: repeat(1, 1fr);
+  max-width: 98vw;
+  margin: 20px 0;
+  font-family: "GT Walsheim Pro Medium";
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-right: 20px;
+  }
+
+  &__tabs {
+    max-width: 98vw;
+    margin: 0 20px;
+  }
+
+  &__filter {
+    @include medium-14;
+
+    display: flex;
+    padding: 20px;
+
+    &-label {
+      @include regular-14;
+
+      min-width: fit-content;
+      margin-right: 12px;
+      color: $gray;
+    }
+
+    &-expand-button {
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  }
+
+  &__card {
+    @include flex-column-stretch;
+
+    max-width: 98vw;
+    padding: 20px 0;
+    background: $white;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px 0 rgb(0 0 0 / 0.1);
+
+    &-nav {
+      @include flex-center;
+
+      justify-content: center;
+      align-self: center;
+      background-color: $tab-nav;
+      border-radius: 22px;
+      box-shadow: inset 0 1px 5px 0 rgba(0, 0, 0, 0.09);
+      user-select: none;
+
+      &-item {
+        margin: 4px;
+        padding: 12px 33px;
+        font-family: "GT Walsheim Pro Medium";
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: 0.5px;
+        border-radius: 20px;
+        cursor: pointer;
+
+        &.active {
+          background-color: $white;
+          box-shadow: 0 0 4px 0 $associations-table;
+        }
+
+        &:hover {
+          box-shadow: 0 0 4px 0 $associations-table;
+        }
+
+        @media only screen and (max-width: 500px) {
+          padding: 6px 15px;
+        }
+      }
+    }
+
+    &-footer {
+      margin: 20px 20px 0;
+      border-top: 1px solid $divider2;
+
+      &-legend {
+        @include flex-start-center;
+
+        flex-wrap: wrap;
+        padding: 40px 28px 10px;
+
+        span {
+          @include flex-start-nowrap;
+
+          position: relative;
+          margin: 0 30px 10px 0;
+          font-size: 14px;
+          line-height: 18px;
+          letter-spacing: 0;
+          cursor: pointer;
+
+          &:hover .legend-label-tooltip {
+            z-index: 2;
+            visibility: visible;
+            opacity: 1;
+            transition: 0.5s;
+            transition-delay: 0.1s;
+          }
+
+          .legend-label-tooltip {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 200px;
+            visibility: hidden;
+
+            &-arrow {
+              position: absolute;
+              bottom: -8px;
+              left: 30px;
+              width: 0;
+              height: 0;
+              border-right: 10px solid transparent;
+              border-bottom: 10px solid $darkviolet;
+              border-left: 10px solid transparent;
+              transform: rotate(-45deg);
+            }
+
+            &-content {
+              @include flex-column-stretch;
+
+              padding: 9px 14px;
+              background-color: $darkviolet;
+              border-radius: 5px;
+              box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.35);
+
+              &-title {
+                margin-bottom: 5px;
+                font-size: 20px;
+                line-height: 23px;
+                color: $white;
+                letter-spacing: 0;
+              }
+            }
+          }
+
+          i {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 11px;
+            border-radius: 50%;
+
+            &.likes-icon {
+              background: $like-background;
+            }
+
+            &.dislikes-icon {
+              background: $dislike-background;
+            }
+          }
+
+          app-icon {
+            margin-right: 11px;
+            margin-bottom: -5px;
+          }
+
+          .legend-label {
+            width: 200px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      &-info {
+        margin-top: 18px;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 14px;
+        line-height: 18px;
+        color: $lightgray;
+        font-style: oblique;
+        letter-spacing: 0;
+      }
+    }
+
+    &-title {
+      @include medium-20;
+
+      display: flex;
+      align-items: center;
+      margin: 6px 20px 20px;
+
+      &.minimal-margin {
+        margin: 6px 20px 0;
+      }
+    }
+
+    &-sub-title {
+      margin: 0 20px 36px;
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0;
+    }
+
+    &-grid {
+      display: grid;
+      grid-column-gap: 47px;
+      grid-row-gap: 47px;
+      grid-template-columns: repeat(2, 1fr);
+      margin: 0 20px;
+
+      @media #{$desktop} {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    &-grid-2 {
+      display: grid;
+      grid-column-gap: 47px;
+      grid-row-gap: 47px;
+      grid-template-columns: repeat(2, 1fr);
+      margin: 0 40px;
+
+      @media #{$tablet} {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    &-grid-3 {
+      display: grid;
+      grid-row-gap: 60px;
+      grid-template-columns: repeat(1, 1fr);
+      margin: 0 20px;
+    }
+
+    app-bubble-chart,
+    app-grouped-vertical-bar-chart {
+      margin: 0 40px;
+    }
+
+    app-score-per-segment {
+      margin-bottom: 12px;
+    }
+  }
+}
+
+.points {
+  display: block !important;
+}
+
+.padding-side {
+  padding: 20px;
+}

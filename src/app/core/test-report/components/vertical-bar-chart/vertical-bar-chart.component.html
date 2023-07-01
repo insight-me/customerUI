@@ -1,0 +1,238 @@
+<div class="app-vertical-bar-chart">
+  <div *ngIf="type && title"
+       class="app-vertical-bar-chart__title">
+    {{ title }}
+    <app-question-tooltip *ngIf="tooltipTexts.length"
+                          [texts]="tooltipTexts"
+                          [type]="tooltipType"></app-question-tooltip>
+  </div>
+  <!--Chart-->
+  <div #chartRef
+       class="app-vertical-bar-chart__container"
+       [class.single]="type === ChartType.Single || type === ChartType.Grid">
+    <!--Horizontal Sub-axis-->
+    <div *ngFor="let axis of horizontalAxis"
+         class="app-vertical-bar-chart__container-axis"
+         [style.top]="100 - axis * 10 + '%'">
+      <span *ngIf="showSubAxisLabel(axis)">{{ axis * 10 }}%</span>
+    </div>
+
+    <!--Benchmark-->
+    <div *ngIf="benchmark > 0"
+         class="app-vertical-bar-chart__container-benchmark"
+         [style.top]="100 - benchmark + '%'">
+      <span>{{ benchmark }}%</span>
+    </div>
+
+    <!--Chart Bars-->
+    <div class="app-vertical-bar-chart__container-content">
+      <!--Dataset bars-->
+      <div #datasetContainerRef
+           class="app-vertical-bar-chart__container-content-dynamic"
+           [ngStyle]="getChartContainerStyle()"
+           [class.single]="type === ChartType.Grid"
+           [class.grid]="type === ChartType.Grid">
+        <div *ngFor="let chart of paginatedDataSet$ | async; let index = index"
+             class="app-vertical-bar-chart__container-content-dynamic-container"
+             [style.cursor]="type && type !== ChartType.Grid || noData ? 'default' : 'pointer'">
+          <div class="item-chart-bar"
+               [ngStyle]="getChartStyle(chart, index)">
+            <div *ngIf="type === ChartType.Grid && !noData"
+                 class="vertical-bar-chart-tooltip grid-choice">
+              <div class="vertical-bar-chart-tooltip-content">
+                <!--Label-->
+                <div class="vertical-bar-chart-tooltip-content-title">
+                  {{ chart.label }}
+                </div>
+                <div *ngFor="let option of chart.gridData"
+                     class="container">
+                  <div class="vertical-bar-chart-tooltip-content-title block">
+                    <i [style.background]="getBackground(option.index)"
+                       class="icon"></i>{{ option.label }}
+                    <span *ngIf="type === ChartType.Grid"
+                          class="value">{{ Math.round(option.value) }}%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="vertical-bar-chart-tooltip-arrow"></div>
+            </div>
+            <ng-container *ngIf="type === ChartType.Grid">
+              <div *ngIf="!noData"
+                   class="grid">
+                <div class="grid-element"
+                     *ngFor="let option of chart.gridData;"
+                     [style.height]="(option.value || 0) + '%'"
+                     [style.background]="getBackground(option.index)"></div>
+              </div>
+            </ng-container>
+
+            <div class="item-chart-bar-label"
+                 #datasetLabels>
+              <span>{{ chart.label | uppercase }}</span>
+            </div>
+
+            <div *ngIf="type && type !== ChartType.Grid"
+                 class="app-vertical-bar-chart__label">
+              <span>{{ chart.value + "%" }}</span>
+            </div>
+
+            <!--Tooltip-->
+            <div *ngIf="!type"
+                 class="vertical-bar-chart-tooltip">
+              <div class="vertical-bar-chart-tooltip-content">
+                <!--Label-->
+                <div class="vertical-bar-chart-tooltip-content-title">
+                  {{ chart.label }}
+                </div>
+                <!--Value-->
+                <div class="vertical-bar-chart-tooltip-content-values">
+                  <span>{{ title | uppercase }}:</span>
+                  <span>{{ chart.value }}%</span>
+                </div>
+              </div>
+
+              <div class="vertical-bar-chart-tooltip-arrow"></div>
+            </div>
+
+            <!--Bar index-->
+            <div class="item-chart-bar-index"
+                 [class.dont-know]="type === ChartType.Scale && chart.index === 0">
+              {{
+              type === ChartType.Scale && chart.index === 0
+              ? ("report.Don’t know" | translate)
+              : chart.index
+              }}
+            </div>
+            <!--GRID LABELS-->
+            <div *ngIf="type === ChartType.Single || type === ChartType.Grid"
+                 class="app-vertical-bar-chart__single-legend">
+              <div class="legend-element"
+                   [class.tooltip]="type !== ChartType.Grid">
+                <div class="legend-element-item">
+                  <span class="item">{{ chart.label }}</span>
+                </div>
+                <div class="legend-label-tooltip">
+                  <div class="legend-label-tooltip-content">
+                    <div class="legend-label-tooltip-content-title">
+                      {{ chart.label }}
+                    </div>
+                  </div>
+                  <div class="legend-label-tooltip-arrow"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="noData"
+             class="no-data">
+          <app-warning-message *ngIf="showSegments; else noSegmentSelected" [text]="'report.There is no data for selected segment'"
+                               [color]="'#585858'"
+                               [backgroundColor]="'#E3F2FD'"></app-warning-message>
+          <ng-template #noSegmentSelected>
+            <app-warning-message [text]="'report.There is no data for selected concept'"
+                                 [color]="'#585858'"
+                                 [backgroundColor]="'#E3F2FD'"></app-warning-message>
+          </ng-template>
+        </div>
+      </div>
+
+      <!--Benchmark bar-->
+      <div *ngIf="!type"
+           class="app-vertical-bar-chart__container-content-static">
+        <div class="chart-bar"
+             [style.height]="benchmark + '%'">
+          <div class="chart-bar-label"
+               #benchmarkLabel>
+            <span>{{ "report.Benchmark" | translate | uppercase }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  DEFAULT LEGEND-->
+  <ng-container *ngIf="showDefaultLegend">
+    <div class="app-vertical-bar-chart-footer-legend default">
+      <span *ngFor="let item of dataSet; let i = index">
+        <i [style.background]="getBackground(i)"
+           class="likes-icon"></i>
+        <div class="legend-label">
+          {{ item.label }}
+        </div>
+        <div class="legend-label-tooltip">
+          <div class="legend-label-tooltip-content">
+            <div class="legend-label-tooltip-content-title">
+              {{ item.label }}
+            </div>
+          </div>
+          <div class="legend-label-tooltip-arrow"></div>
+        </div>
+      </span>
+    </div>
+  </ng-container>
+
+  <div *ngIf="!type || type === ChartType.Grid"
+       class="app-vertical-bar-chart__zoom">
+    <!--Pagination-->
+    <div *ngIf="totalPages > 1"
+         [class.flex]="type === ChartType.Grid"
+         class="app-vertical-bar-chart__zoom-paging">
+      <app-icon [iconType]="IconsType.SmallBackward"
+                (click)="back()"></app-icon>
+      <app-icon [iconType]="IconsType.SmallForward"
+                (click)="forward()"></app-icon>
+    </div>
+
+    <!--Zoom Chart-->
+    <!--    <div-->
+    <!--      *ngIf="!type || showZoom"-->
+    <!--      class="app-vertical-bar-chart__zoom-button"-->
+    <!--      (click)="toggleZoom(); zoomHandler(); resetLabels()"-->
+    <!--    >-->
+    <!--      <span>{{ "report.Zoom" | translate | uppercase }}</span>-->
+    <!--      <app-icon [iconType]="IconsType.Maximize"></app-icon>-->
+    <!--    </div>-->
+  </div>
+  <!--  SCALE LEGEND-->
+  <div *ngIf="type === ChartType.Scale"
+       class="app-vertical-bar-chart__legend-single">
+    <div class="legend-single-element">
+      <div class="legend-single-element-item">
+        {{ "B3B - " + getB3B() + "%" }}
+      </div>
+      <div>{{ "report.B3B - Bottom three boxes (Scale 1-3)" | translate }}</div>
+    </div>
+    <div class="legend-single-element">
+      <div class="legend-single-element-item">
+        {{ "T3B - " + getT3B() + "%" }}
+      </div>
+      <div>{{ "report.T3B - Top three boxes (Scale 5-7)" | translate }}</div>
+    </div>
+  </div>
+  <!--  SINGL LEGEND-->
+  <ng-container *ngIf="type === ChartType.Single || type === ChartType.Grid">
+    <div class="app-vertical-bar-chart-footer-legend">
+      <span *ngFor="
+          let item of type === ChartType.Grid
+            ? columnsData
+            : (paginatedDataSet$ | async);
+          index as i
+        ">
+        <i [style.background]="getBackground(item.position || i)"
+           class="likes-icon"></i>
+        <div class="legend-label">
+          {{ type === ChartType.Grid ? item.value : item.label }}
+        </div>
+        <div class="legend-label-tooltip">
+          <div class="legend-label-tooltip-content">
+            <div class="legend-label-tooltip-content-title">
+              {{ type === ChartType.Grid ? item.value : item.label }}
+            </div>
+          </div>
+          <div class="legend-label-tooltip-arrow"></div>
+        </div>
+      </span>
+    </div>
+  </ng-container>
+</div>

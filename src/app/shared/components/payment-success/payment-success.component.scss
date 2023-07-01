@@ -1,0 +1,57 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-payment-success {
+  @include flex-center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2001;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  background: rgb(60, 55, 104, 0.4);
+
+  &__message {
+    @include flex-center;
+    @include open-dropdown-shadow;
+
+    position: relative;
+    flex-direction: column;
+    width: 736px;
+    max-width: 90vw;
+    min-height: 611px;
+    padding: 40px;
+    background-color: $white;
+    border-radius: 8px;
+
+    &__title {
+      @include medium-32;
+
+      margin-bottom: 24px;
+    }
+
+    &__text {
+      @include regular-16;
+
+      margin-bottom: 32px;
+      text-align: center;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    &__img {
+      max-width: 85vw;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+  }
+}

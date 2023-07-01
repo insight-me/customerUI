@@ -1,0 +1,33 @@
+<div class="app-concept-definitions">
+
+  <div *ngIf="reportCustomQuestionsService.additionalQuestionsDataSet$ | async as dataSet"
+       class="app-concept-definitions__card">
+    <div *ngIf="reportCustomQuestionsService.isBic" class="app-concept-definitions__container">
+      <div class="app-concept-definitions__card-title">{{"report.Additional questions" | translate}}</div>
+      <app-multi-select-filter *ngIf="isShowConcepts(dataSet) && filterForm"
+                               [filterModel]="filterModel"
+                               [filterForm]="filterForm"
+                               allLabel="report.All concepts"
+                               [needApplyBtn]="false"
+                               (applyFilters)="applyFilters()"></app-multi-select-filter>
+    </div>
+    <!--    QUESTIONS TABS-->
+    <div class="app-report-content app-concept-definitions__tabs"
+         [style.margin-top.px]="reportCustomQuestionsService.isBic ? 0 : 15">
+      <div class="app-report-content__tabs">
+        <div class="app-report-content__tabs-navigation">
+          <div *ngFor="let tab of dataSet[0]?.feedback; let i=index"
+               [class.active]="selectedQuestion === i"
+               (click)="selectedQuestion = i"
+               class="app-report-content__tabs-navigation-item"
+          >{{(tab.tabName ? ('report.' + tab.tabName | translate) : ('report.Question' | translate) + ' ' + (i + 1)) }}</div>
+        </div>
+      </div>
+    </div>
+    <!--    QUESTION BODY-->
+    <app-custom-question-preview
+      [question]="dataSet[selectedConcept]?.feedback[selectedQuestion]"
+      [testType]="dataSet[0].testType"></app-custom-question-preview>
+  </div>
+
+</div>

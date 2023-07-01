@@ -1,0 +1,123 @@
+<app-prompt (onChanged)="onSkipStep()"
+            (onClose)="toggleIsPromptOpen($event)"></app-prompt>
+<div *ngIf="test"
+     class="c-section__wrapper c-section-six">
+  <div class="c-test-create__nav-wrapper">
+    <div class="c-test-create__nav"
+         [ngStyle]="{'margin-top': -scrollY + 'px'}">
+      <a (click)="navigateToSection('#section1')"
+         class="c-section__nav-item"
+         [class.active]="!activeElement ? isScrollOnStep(section1) : activeElement === '#section1'">1. {{'BT-additional.Recommendation' | translate}}</a>
+      <a (click)="navigateToSection('#section2')"
+         class="c-section__nav-item"
+         [class.active]="!activeElement ? isScrollOnStep(section2) : activeElement === '#section2'">2. {{'BT-additional.Commercial recognition' | translate}}</a>
+      <a (click)="navigateToSection('#section3')"
+         class="c-section__nav-item"
+         [class.active]="!activeElement ? isScrollOnStep(section3) : activeElement === '#section3'">3. {{'BIC.Custom questions' | translate}}</a>
+    </div>
+  </div>
+
+  <div class="c-section__content c-section-four__content">
+    <div class="c-section">
+      <div #asection1
+           id="section1"
+           class="c-section__block-wrapper">
+        <div class="c-test__card">
+          <div class="c-section-four__market">
+            <div class="c-test__card__title">
+              <div>
+                <span class="c-test__card__number">1</span>
+                {{'BT-additional.Recommendation (Net Promoter Score)' | translate}}
+              </div>
+              <div>
+                <span class="market-tip"><app-question-tooltip [title]="'BT-additional.Why do this?'"
+                                        [texts]="['BT-additional.To understand the willingness of your customers to recommend your product or service to others. It is used as a proxy for gauging the customer\'s overall satisfaction with a company\'s product or service and the customer\'s loyalty to the brand.', 'BT-additional.By adding this question you will track your NPS and your competitors.']"
+                                        additionalClass="market"
+                                        [arrowShift]="marketArrowShift"></app-question-tooltip></span>
+              </div>
+            </div>
+            <div class="c-test-create__associations">
+              <h3 class="c-test-create__container__block-title">
+                {{'BT-additional.Do you want to measure how likely it is for the respondents to recommend your brand?' | translate}}
+              </h3>
+              <app-radio-block [formControlEl]="recomendationFormControl"
+                               [controlName]="'recommendation'"
+                               (updateRecognition)="updateRecommendation()"></app-radio-block>
+            </div>
+          </div>
+          <div class="c-section-six__tip">
+            <app-why-add [title]="'BT-additional.Why do this?'"
+                         [text]="['BT-additional.To understand the willingness of your customers to recommend your product or service to others. It is used as a proxy for gauging the customer\'s overall satisfaction with a company\'s product or service and the customer\'s loyalty to the brand.', 'BT-additional.By adding this question you will track your NPS and your competitors.']"></app-why-add>
+          </div>
+        </div>
+      </div>
+
+      <div #asection2
+           id="section2"
+           class="c-section__block-wrapper">
+        <div class="c-test__card space-between">
+          <div class="c-section-four__market">
+            <div class="c-test__card__title">
+              <div>
+                <span class="c-test__card__number">2</span>
+                {{'BT-additional.Commercial recognition' | translate}}
+              </div>
+              <div>
+                <span class="market-tip"><app-question-tooltip [title]="'BT-additional.Why do this?'"
+                                        [texts]="['BT-additional.To understand the willingness of your customers to recommend your product or service to others. It is used as a proxy for gauging the customer\'s overall satisfaction with a company\'s product or service and the customer\'s loyalty to the brand.']"
+                                        additionalClass="market"
+                                        [arrowShift]="marketArrowShift"></app-question-tooltip></span>
+              </div>
+            </div>
+            <div class="c-test-create__associations">
+              <h3 class="c-test-create__container__block-title">
+                {{'BT-additional.Do you want to measure commercial recognition?' | translate}}
+              </h3>
+              <app-radio-block [formControlEl]="formControl"
+                               [controlName]="'recognition'"
+                               (updateRecognition)="updateRecognition()"></app-radio-block>
+            </div>
+          </div>
+          <div class="c-section-six__tip">
+            <app-why-add [title]="'BT-additional.Why do this?'"
+                         [text]="['BT-additional.To understand the willingness of your customers to recommend your product or service to others. It is used as a proxy for gauging the customer\'s overall satisfaction with a company\'s product or service and the customer\'s loyalty to the brand.']"></app-why-add>
+          </div>
+        </div>
+      </div>
+
+      <div #asection3
+           id="section3"
+           class="c-section__block-wrapper">
+        <div class="c-test__card space-between-mob">
+          <div class="c-section-six__market">
+            <div class="c-test__card__title space-between-mob">
+              <div>
+                <span class="c-test__card__number">3</span>
+                {{'BIC.Custom questions' | translate}}
+              </div>
+              <div class="c-section-six_tooltip-wrapper">
+                <span class="market-tip"><app-question-tooltip [title]="'BT-additional.Why do this?'"
+                                        [texts]="['BT-additional.Develop your own questions in order to get insights of other thoughts that matters to you.']"
+                                        additionalClass="mobileMin"
+                                        [arrowShift]="marketArrowShiftCustom"></app-question-tooltip></span>
+              </div>
+            </div>
+            <p class="c-test__card__optional">{{'BIC.Optional' | translate}}</p>
+            <p class="c-test__card__optional">{{'BIC.Maximum 5 custom questions are allowed' | translate}}</p>
+            <div class="c-section__field-with-text">
+              <app-open-questions [test]="test"
+                                  (updateCustomQuestions)="updateCustomQuestions($event)"
+                                  (deleteCustomQuestion)="deleteCustomQuestion($event)"></app-open-questions>
+            </div>
+          </div>
+          <div class="c-section-six__tip">
+            <app-why-add [title]="'BT-additional.Why do this?'"
+                         [text]="['BT-additional.Develop your own questions in order to get insights of other thoughts that matters to you.']"></app-why-add>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-next-button [nextSection]="'section-7'"
+                     [testType]="TestType.BT"></app-next-button>
+  </div>
+</div>

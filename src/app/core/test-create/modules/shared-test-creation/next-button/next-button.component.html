@@ -1,0 +1,7 @@
+<div class="c-next-button__footer">
+  <button [ngClass]="!styleBlue ? 'c-common__button c-common__button--gradient' : styleBlue"
+          class="normal"
+          (click)="goTo()">{{buttonText | translate}}
+    <app-icon [iconType]="IconsType.RightArrow" [color]="'#FFFFFF'" class="icon-right"></app-icon>
+  </button>
+</div>

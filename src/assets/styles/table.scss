@@ -1,0 +1,91 @@
+@import "mixins";
+
+.table {
+  @include regular-14;
+
+  width: 100%;
+  border-spacing: 0;
+  table-layout: fixed;
+  border-radius: 8px;
+
+  &__header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: $table-highlight;
+    border-radius: 8px 8px 0 0;
+
+    &-tr {
+      min-height: 60px;
+
+      td {
+        padding: 8px;
+        border-right: 1px solid $associations-table;
+        border-bottom: 1px solid $associations-table;
+
+        .cell {
+          @include flex-center;
+
+          min-width: 60px;
+        }
+
+        &:first-child {
+          width: 300px;
+          border-radius: 8px 0 0;
+        }
+
+        &:last-child {
+          border-right: 0;
+          border-radius: 0 8px 0 0;
+        }
+      }
+    }
+  }
+
+  &__body {
+    &-tr {
+      &:first-child {
+        td {
+          border-top: 0;
+        }
+      }
+
+      &:last-child {
+        td:first-child {
+          border-radius: 0 0 0 8px;
+        }
+      }
+
+      td {
+        padding: 8px;
+        border-top: 1px solid $associations-table;
+        border-right: 1px solid $associations-table;
+
+        .cell {
+          @include flex-center;
+
+          min-width: 60px;
+        }
+
+        &:first-child {
+          width: 300px;
+          background: $table-highlight;
+
+          .cell {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+          }
+        }
+
+        &:last-child {
+          border-right: 0;
+        }
+      }
+    }
+  }
+}
+
+.cell {
+  min-height: 60px;
+}

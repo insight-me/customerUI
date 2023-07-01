@@ -1,0 +1,29 @@
+<div *ngIf="(appSS.user | async)?.firstName as name" class="c-dashboard">
+  <ng-container *ngIf="(tests$ | async) as tests">
+    <div *ngIf="tests.length; else noEarlierProject"
+         class="c-dashboard-cards">
+      <div class="c-dashboard-with-projects__header">
+        <h3 class="c-dashboard-with-projects__header-welcome">{{'dashboard.welcome-back' | translate}} {{name}}!
+        </h3>
+        <p class="c-dashboard-with-projects__header-start-text">{{'dashboard.running-tests' | translate}}:</p>
+      </div>
+      <section class="c-dashboard-with-projects__tests">
+        <app-created-tests
+          [tests]="tests"></app-created-tests>
+      </section>
+    </div>
+    <section class="c-dashboard__create-test">
+      <app-tests-list></app-tests-list>
+    </section>
+
+    <ng-template class="c-dashboard-cards"
+                 #noEarlierProject>
+      <div class="c-dashboard-with-projects">
+        <div class="c-dashboard-with-projects__header no-projects c-dashboard__gradient">
+          <h3 class="c-dashboard-with-projects__header-welcome">{{'dashboard.hello' | translate}} {{name}}!</h3>
+          <p class="c-dashboard-with-projects__header-start-text">{{'dashboard.start-creation' | translate}}</p>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

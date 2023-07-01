@@ -1,0 +1,71 @@
+@import "mixins";
+
+:host ::ng-deep {
+  svg {
+    .gridline-path-vertical {
+      display: block;
+    }
+  }
+}
+
+.bt-net-promoter-score {
+  &__grid-table {
+    display: grid;
+    grid-template-columns: auto 80% 65px;
+    min-width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+
+    &-head {
+      display: contents;
+
+      &-item {
+        @include regular-14;
+
+        padding: 6px 0;
+        overflow: hidden;
+        text-align: right;
+        color: $dark-gray;
+        white-space: nowrap;
+      }
+    }
+
+    &-body {
+      display: contents;
+
+      &-item {
+        position: relative;
+      }
+
+      &-row {
+        display: contents;
+
+        .no-data {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: fit-content;
+          transform: translate(-50%, -50%);
+        }
+
+        .brands {
+          @include medium-16;
+
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-end;
+
+          .brand {
+            padding: 19px 0;
+            text-align: end;
+
+            &:last-of-type {
+              padding-bottom: 40px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

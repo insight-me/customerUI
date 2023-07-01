@@ -1,0 +1,15 @@
+@import "../../../../assets/styles/mixins";
+
+.c-predesigned-must-engage {
+  &__title {
+    @include medium-16;
+
+    margin: 32px 0 0;
+  }
+
+  &__option {
+    &:last-child {
+      margin-bottom: 32px;
+    }
+  }
+}

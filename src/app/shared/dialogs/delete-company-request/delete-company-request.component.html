@@ -1,0 +1,19 @@
+<div class="c-confirmation-dialog с-delete-company-dialog">
+  <div class="c-confirmation-dialog__header">{{'my-profile.delete-company' | translate}}</div>
+  <form [formGroup]="form">
+    <h3 class="c-confirmation-dialog__text">{{'my-profile.send-to-email' | translate}}</h3>
+    <div class="c-common__form-field с-delete-company-dialog__form-field">
+      <label class="с-delete-company-dialog__label">{{'my-profile.code' | translate}}</label>
+      <input type="number" pInputText [placeholder]="'my-profile.code-placeholder' | translate" formControlName="code"
+             class="c-common__input" maxlength="128"/>
+      <small *ngIf="controlHasError('code')"
+             class="p-error c-common__form-field-error">{{'my-profile.code-error' | translate}}</small>
+    </div>
+    <div class="c-confirmation-dialog__button-wrapper">
+      <button type="button" class="c-common__button c-common__button--text normal"
+              (click)="onClose(false)">{{'KPI.cancel' | translate}}</button>
+      <button type="submit" class="c-common__button c-common__button--gradient normal" [disabled]="formIsInvalid"
+              (click)="onSubmit()">{{'test-concept.save' | translate}}</button>
+    </div>
+  </form>
+</div>

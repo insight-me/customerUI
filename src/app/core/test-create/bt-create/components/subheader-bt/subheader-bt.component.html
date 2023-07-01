@@ -1,0 +1,68 @@
+<div *ngIf="test" class="c-subheader-bt">
+  <div class="c-subheader-bt__nav">
+    <swiper [config]="config" class="c-subheader-bt__swiper">
+      <div *ngFor="let item of navItems; let isLast = last; let isFirst = first"
+           [style.padding-right]="isLast ? '15px' : '0'">
+        <div class="c-subheader-element">
+          <div class="c-subheader-element__nav-element"
+               (click)="onNavigate(item.link)">
+            <div class="c-subheader-element__nav">
+              <p [class.active]="currentRoute === item.link"
+                 class="c-subheader-element__nav-element__text">
+                {{ item.text | translate }}
+              </p>
+              <div
+                *ngIf="getWidthForProgress(item.title) === 100 && !isLast"
+                class="c-subheader-element__nav-check">
+                <app-icon [iconType]="IconsType.Success"></app-icon>
+              </div>
+              <i *ngIf="!isLast" class="c-subheader-element__icon"></i>
+            </div>
+          </div>
+          <div
+            *ngIf="currentRoute === item.link"
+            class="c-subheader-element__nav-element__progress">
+            <p [ngStyle]="{ width: getWidthForProgress(item.title) + '%' }"
+               class="c-subheader-element__nav-element__progress-done"
+            ></p>
+          </div>
+        </div>
+
+        <div class="c-subheader-element-mobile"
+             [style.padding-right]="'12px'">
+          <div
+            class="c-subheader-element-mobile__step"
+            [class.active]="currentRoute === item.link"
+            [class.completed]="
+              currentRoute !== item.link &&
+              getWidthForProgress(item.title) === 100 &&
+              !isLast
+            "
+            (click)="onNavigate(item.link)">
+            <span *ngIf="getWidthForProgress(item.title) !== 100 || isLast">{{
+              item.link.substr(item.link.length - 1, 1)
+              }}</span>
+            <app-icon
+              *ngIf="getWidthForProgress(item.title) === 100 && !isLast"
+              [iconType]="IconsType.Check"
+            ></app-icon>
+          </div>
+          <i *ngIf="!isLast" class="c-subheader-element__icon"></i>
+        </div>
+      </div>
+    </swiper>
+  </div>
+  <div class="c-subheader-bt__additional">
+    <div class="c-subheader-bt__additional-time">
+    </div>
+    <div class="c-subheader-bt__additional-preview">
+      <button
+        class="c-common__button c-common__button--gradient small preview"
+        (click)="goToPreview()">
+        {{ "test-steps.preview" | translate }}
+        <img class="c-common__button-icon"
+             src="../../../../../../assets/images/png/button_view.png" />
+      </button>
+    </div>
+  </div>
+</div>

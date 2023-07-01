@@ -1,0 +1,137 @@
+<div *ngIf="exportInvoiceService.exportInvoice" class="container">
+  <div #invoiceRef class="c-export-invoice">
+    <div class="c-export-invoice__header">
+      <app-icon [iconType]="IconsType.Logo"></app-icon>
+    </div>
+    <div class="c-export-invoice__header-name">
+      <div class="name">
+        <app-icon [iconType]="IconsType.Receipt"></app-icon>
+      </div>
+    </div>
+    <div class="c-export-invoice__invoice-data">
+      <div>Order number</div>
+      <div>
+        <b>{{ exportInvoiceService.exportInvoice.transactionNumber }}</b>
+      </div>
+      <div>Purchase date</div>
+      <div>
+        <b>{{
+          exportInvoiceService.exportInvoice.created | date: "dd.MM.yyyy"
+        }}</b>
+      </div>
+      <div>Payment method</div>
+      <div>
+        <b>{{
+          PaymentTypeBE[exportInvoiceService.exportInvoice.paymentType]
+        }}</b>
+      </div>
+    </div>
+    <div class="c-export-invoice__from-to">
+      <div class="card">
+        <div class="title">Bill from</div>
+        <div><b>InsightME AB</b></div>
+        <div>Biblioteksgatan 11, <br />111 46, Stockholm</div>
+        <div>payment@insightme.se</div>
+      </div>
+      <div
+        *ngIf="exportInvoiceService.company$ | async as companyData"
+        class="card"
+      >
+        <div class="title">Bill to</div>
+        <div>
+          <b>{{ exportInvoiceService.payload.companyName }}</b>
+        </div>
+        <div>
+          {{ companyData.street }},<br />
+          {{
+            companyData.postalCode +
+              ", " +
+              companyData.city +
+              ", " +
+              (exportInvoiceService.country$ | async)
+          }}
+        </div>
+        <div>{{ exportInvoiceService.payload.companyContactMail }}</div>
+      </div>
+    </div>
+    <div class="c-export-invoice__date">
+      {{
+        "Paid on" +
+          " " +
+          (exportInvoiceService.exportInvoice.created | localizedDate)
+      }}
+    </div>
+    <div class="c-export-invoice__table">
+      <div *ngFor="let header of tableHeader" class="header">{{ header }}</div>
+      <div class="data">
+        {{ TestProductName[exportInvoiceService.exportInvoice.testType] }}
+      </div>
+      <div class="data">
+        {{ exportInvoiceService.exportInvoice.nameProduct }}
+      </div>
+      <div class="data">
+        {{ exportInvoiceService.exportInvoice.respondentCount || 0 }}
+      </div>
+      <div class="data align">
+        {{
+          exportInvoiceService.exportInvoice.totalAmount
+            | numberToLocaleString
+              : "ru-RU"
+              : {
+                  maximumFractionDigits: 2,
+                  minimumFractionDigits: 2
+                }
+        }}
+        {{ exportInvoiceService.exportInvoice.currency }}
+      </div>
+    </div>
+    <div class="c-export-invoice__summary">
+      <div class="c-export-invoice__summary-table">
+        <div>{{ "invoices.Subtotal excl. tax" | translate }}</div>
+        <div class="align-end">
+          {{
+            exportInvoiceService.exportInvoice.totalAmount -
+              exportInvoiceService.exportInvoice.totalAmount / 4
+              | numberToLocaleString
+                : "ru-RU"
+                : {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2
+                  }
+          }}
+          {{ exportInvoiceService.exportInvoice.currency }}
+        </div>
+        <div>{{ "invoices.Tax (25%)" | translate }}</div>
+        <div class="align-end">
+          {{
+            exportInvoiceService.exportInvoice.totalAmount / 4
+              | numberToLocaleString
+                : "ru-RU"
+                : {
+                    maximumFractionDigits: 2,
+                    minimumFractionDigits: 2
+                  }
+          }}
+          {{ exportInvoiceService.exportInvoice.currency }}
+        </div>
+        <div>
+          <b>{{ "invoices.Total" | translate }}</b>
+        </div>
+        <div class="align-end">
+          <b
+            >{{
+              exportInvoiceService.exportInvoice.totalAmount
+                | numberToLocaleString
+                  : "ru-RU"
+                  : {
+                      maximumFractionDigits: 2,
+                      minimumFractionDigits: 2
+                    }
+            }}
+            {{ exportInvoiceService.exportInvoice.currency }}</b
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

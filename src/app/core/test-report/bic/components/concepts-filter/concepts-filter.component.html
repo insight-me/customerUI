@@ -1,0 +1,24 @@
+<div class="app-concepts-filter">
+  <div class="app-concepts-filter-values">
+    <ng-container *ngFor="let group of bicRSS.concepts.controls">
+      <div class="p-field-checkbox c-common__checkbox-wrapper"
+           [pTooltip]="label(group)"
+           tooltipPosition="top">
+        <p-checkbox
+          [formControl]="isSelectedControl(group)"
+          binary="true"
+          [label]="label(group)"
+          class="c-common__checkbox small"
+          (onChange)="onChange()"
+        ></p-checkbox>
+      </div>
+    </ng-container>
+  </div>
+
+  <small
+    *ngIf="bicRSS.concepts.touched && bicRSS.concepts.invalid"
+    class="p-error c-common__form-field-error additional-padding"
+  >{{ 'report.At least one concept should be selected' | translate}}</small>
+
+</div>
+

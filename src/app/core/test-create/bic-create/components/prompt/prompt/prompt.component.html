@@ -1,0 +1,18 @@
+<div class="c-prompt"
+     #prompt>
+  <div class="c-section__prompt">
+    <div class="c-prompt__image">
+      <img
+           src="./assets/images/svg/ic_hend.svg"
+           alt="hand">
+    </div>
+    <div class="c-section__prompt-message">{{'additional.well-done' | translate }}<br>
+      {{'additional.message-1' | translate }}<br>
+      {{'additional.message-2' | translate }} <span class="c-prompt__skip"
+                                                    (click)="skipTest()">{{'additional.skip-test' | translate }} </span>{{'additional.message-3' | translate }}
+    </div>
+    <button class="c-prompt__close c-common__button c-common__button--icon" (click)="hidePrompt()">
+      <app-icon [iconType]="IconsType.Close" [color]="'#867BDB'"></app-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-register {
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    &-column {
+      width: calc(1 / 2 * 100% - 20px);
+      max-width: 400px;
+    }
+  }
+
+  &__link {
+    @include medium-16;
+
+    margin-left: 5px;
+    color: $orange;
+    cursor: pointer;
+  }
+}
+
+@media #{$tablet} {
+  .c-register {
+    &__form {
+      &-column {
+        max-width: 324px;
+      }
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-register {
+    &__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &-column {
+        width: 100%;
+        min-width: 295px;
+      }
+    }
+  }
+}

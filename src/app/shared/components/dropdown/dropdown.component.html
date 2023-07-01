@@ -1,0 +1,47 @@
+<div class="c-dropdown" *ngIf="getMultiselectTitle() || getTitle()">
+  <button #dropBtn (click)="!isDesibled && toggleDropdown($event)"
+          class="c-dropdown__button"
+          [disabled]="isDesibled || !items?.length"
+          [class.disabled]="isDesibled || !items?.length"
+          [class.error]="isError"
+          (blur)="!withMultiselect && closeDropdown()">
+    <p [ngClass]="{italic :!isChangesStyle && !selectedItem}"
+      class="c-dropdown__button-text">{{withMultiselect ? (getMultiselectTitle() | translate) : (getTitle() | translate)}}</p>
+    <div #dropdownList class="c-dropdown__content" [style.max-height.px]="maxHeight">
+      <div *ngIf="withMultiselect; else withoutMultiselectBlock" [style.overflow-y]="'auto'">
+        <div *ngIf="withSelectAll" class="c-dropdown__content__item"
+             (click)="toggleAll()">
+          <div class="c-dropdown__content__group">
+            <input type="checkbox" class="c-common__multiselect"
+                   [checked]="isCheckedAll()">
+            <label
+              class="c-common__checkbox-label">{{'respondents.select-all' | translate}}</label>
+          </div>
+        </div>
+        <div *ngFor="let item of items" class="c-dropdown__content__item"
+             [class.disabled]="isDisabledItem(item)"
+             (click)="isDisabledItem(item) ? null : selectRegion(item)">
+          <div class="c-dropdown__content__group c-common__checkbox-wrapper base">
+            <input type="checkbox" class="c-common__checkbox base"
+                   [disabled]="isDisabledItem(item)"
+                   [checked]="isChecked(item)"
+                   [value]="item">
+            <label
+              class="c-common__checkbox-label"></label>
+            <p [style.margin]="0">{{(item.name ? item.name : item.value) | translate}}</p>
+          </div>
+          <span class="c-dropdown__content__ir"
+                *ngIf="isSegmentation">{{'(IR:' + item.ir + '%)' }}</span>
+        </div>
+      </div>
+      <ng-template #withoutMultiselectBlock>
+        <div [style.overflow-y]="'auto'">
+          <div *ngFor="let item of items"
+               class="c-dropdown__content__item"
+               [class.selected]="item.name?item.name === selectedItem: item.countryName === selectedItem"
+               (click)="selectItem(item)">{{item.name ? (item.name | translate) : item.countryName}}</div>
+        </div>
+      </ng-template>
+    </div>
+  </button>
+</div>

@@ -1,0 +1,21 @@
+<div class="report-container">
+
+  <div class="report-container__header">
+    <div class="report-container__header-info">
+      <div class="report-container__header-info-logo item"
+           routerLink="/personal-area/dashboard">
+        <app-icon [iconType]="IconsType.Menu"></app-icon>
+      </div>
+      <div class="report-container__header-info-text item">
+        <h2 class="report-container__header-title">{{reportTitle$ | async | translate}}</h2>
+        <h3 class="report-container__header-title sub">{{testDataService.testName$ | async}}</h3>
+      </div>
+    </div>
+    <div class="report-container__header-menu">
+      <app-header-menu theme="white"></app-header-menu>
+    </div>
+  </div>
+  <div class="test-report-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>

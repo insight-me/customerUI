@@ -1,0 +1,42 @@
+<div *ngIf="test && concept">
+  <!--  Likes & dislikes-->
+  <div *ngIf="(test.wordsLikesEnabled &&
+        (concept.consumerInsight ||
+          concept.benefits.length ||
+          concept.reasons.length)) ||
+      (test.imageLikesEnabled && concept.moodboard?.items?.length)">
+    <app-preview-one [concept]="concept"
+                     [test]="test"
+                     [showImages]="test.imageLikesEnabled"
+                     [showText]="test.wordsLikesEnabled"
+                     [isHideHeader]="true"></app-preview-one>
+  </div>
+  <!--feedback-->
+  <div *ngIf="test.feedbackLike || test.feedbackThink">
+    <app-preview-feedback [like]="test.feedbackLike"
+                          [think]="test.feedbackThink"></app-preview-feedback>
+  </div>
+
+  <!--  Relevance-->
+  <div *ngIf="test.testConceptRelevance">
+    <div *ngIf="concept.consumerInsight">
+      <app-preview-relevance [concept]="concept"
+                             [type]="1"></app-preview-relevance>
+    </div>
+    <div *ngIf="concept.benefits.length">
+      <app-preview-relevance [concept]="concept"
+                             [type]="2"></app-preview-relevance>
+    </div>
+    <div *ngIf="concept.reasons.length">
+      <app-preview-relevance [concept]="concept"
+                             [type]="3"></app-preview-relevance>
+    </div>
+  </div>
+
+  <!--custom questions-->
+  <div *ngIf="test.customQuestions.length">
+    <app-preview-feedback [customQuestions]="test.customQuestions"></app-preview-feedback>
+  </div>
+
+
+</div>

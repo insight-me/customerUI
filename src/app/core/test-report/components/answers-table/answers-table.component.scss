@@ -1,0 +1,82 @@
+@import "mixins";
+
+.c-answers-table {
+  @include regular-oblique-16;
+
+  width: 100%;
+  color: $dark-gray;
+
+  &__row {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: minmax(274px, 4fr) minmax(200px, 250px) minmax(120px, 120px) minmax(80px, 63px);
+    padding: 18px;
+
+    &.colored {
+      background-color: $tab-nav;
+    }
+
+    &.header {
+      @include regular-16;
+
+      padding: 8px 18px;
+      color: $dark-gray;
+      border-bottom: 1px solid $lightvioletWhite;
+    }
+  }
+
+  &__item {
+    @include regular-16;
+  }
+}
+
+.c-paginator {
+  width: fit-content;
+  margin: 0 auto;
+
+  &__content {
+    display: grid;
+    align-items: center;
+    grid-gap: 5px;
+    height: 45px;
+    margin-top: 20px;
+    color: $gray;
+    cursor: pointer;
+    justify-items: center;
+  }
+
+  &__item {
+    @include flex-center;
+
+    width: 32px;
+    height: 32px;
+
+    &:not(.disabled):not(.active):hover {
+      background: #FFEEE3;
+      border-radius: 2px;
+    }
+
+    &:not(.disabled):focus {
+      border: 1px solid $orange;
+      border-radius: 2px;
+      box-shadow: 0 0 2px 3px rgba(255, 152, 89, 0.35);
+    }
+
+    &.disabled {
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    &.active {
+      color: $white;
+      background: $orange;
+      border-radius: 2px;
+    }
+  }
+}
+
+.dropdown {
+  max-width: 300px;
+  margin: 20px 0;
+  padding: 0 5px;
+}

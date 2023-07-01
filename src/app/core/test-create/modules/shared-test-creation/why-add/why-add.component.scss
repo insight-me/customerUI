@@ -1,0 +1,45 @@
+@import "../../../../../../assets/styles/variables";
+@import "../../../../../../assets/styles/mixins";
+
+.c-why-add {
+  width: 360px;
+  margin-left: 60px;
+
+  &__title {
+    @include regular-16;
+
+    margin: 0 0 20px;
+  }
+
+  &__text {
+    @include regular-16;
+
+    width: 360px;
+    margin: 0;
+    color: $dark-gray !important;
+
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+  }
+}
+
+.c-why-add-mobile {
+  display: none;
+}
+
+//@media #{$desktop} {
+//  .c-why-add {
+//    padding: 20px 0;
+//  }
+//}
+
+@media (max-width: 1300px) {
+  .c-why-add {
+    display: none;
+  }
+
+  .c-why-add-mobile {
+    display: block;
+  }
+}

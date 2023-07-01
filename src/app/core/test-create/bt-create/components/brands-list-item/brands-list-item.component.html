@@ -1,0 +1,32 @@
+<div *ngIf="brand" class="c-brands-list-item">
+  <div class="c-brands-list-item__image-block">
+    <ng-container *ngIf="brand.image || brand.imageData; else uploadImageBrand">
+      <div class="c-brands-list-item__image" (click)="onDeleteImage()">
+        <img [src]="brand.image? brand.image: brand.imageData" [alt]="brand.name" class="c-brands-list-item__image-image">
+      </div>
+    </ng-container>
+    <ng-template #uploadImageBrand>
+      <app-brand-image-upload
+        [currentBrand]="brand"
+        [brands]="brands"
+        [allBrands]="testBrands.length"
+        [allImages]="allImages"
+        [allImagesHash]="allImagesHash"
+        [type]="type"
+        (updateImage)="updateImage($event)"></app-brand-image-upload>
+    </ng-template>
+  </div>
+  <div class="c-common__form-field c-section__form-field c-brands-list-item__form-field">
+    <app-form-input [placeholder]="('BT-brands.Brand name' | translate)"
+                    [errors]="errors"
+                    maxLength="200"
+                    [control]="brandField"></app-form-input>
+    <div class="delete">
+      <button class="c-common__button c-common__button--icon"
+              (click)="delete()">
+        <app-icon [iconType]="IconsType.DeleteGray" [height]="24"></app-icon>
+      </button>
+    </div>
+  </div>
+
+</div>

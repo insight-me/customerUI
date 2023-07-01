@@ -1,0 +1,42 @@
+@import "variables";
+@import "mixins";
+@import "preview";
+
+.c-bt-preview {
+  &__text {
+    @include medium-16;
+  }
+
+  &__section {
+    &__title {
+      @include medium-20;
+
+      margin: 20px 0 0;
+      word-break: break-word;
+    }
+  }
+
+  &__explanation-text {
+    @include medium-14;
+
+    margin: 20px 0;
+    text-align: left;
+    color: $dark !important;
+  }
+}
+
+@media #{$mobile} {
+  .c-bt-preview {
+    &__section {
+      &__title {
+        @include medium-16;
+
+        margin: 8px 0 0;
+      }
+    }
+
+    &__explanation-text {
+      margin: 8px 0;
+    }
+  }
+}

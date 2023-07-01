@@ -1,0 +1,103 @@
+<div
+  [style]="{margin: 'auto'}"
+  [ngStyle]="pdfVersion ? {} : {'overflow-x': 'auto', maxWidth: '1800px'}">
+  <div [style]="btStyle.chartTitle" [style.text-align]="secondColorSchema ? 'left' : 'center'">{{label | translate}}</div>
+  <div #chartRef
+    [style]="{position: 'relative', margin: '40px 0 90px'}">
+    <!--Horizontal Sub-axis-->
+    <div *ngFor="let axis of horizontalAxis"
+      [style]="btStyle.simpleSubAxis"
+      [style.top]="(100 - axis / scale) + '%'"
+      [style.border-bottom]="axis ? '1px solid #F5F5F5' : '2px solid #D6D6D6'"
+      [style.width]="subAxisWidth | async">
+      <span
+        *ngIf="axis && axis % 2 === 0"
+        [style]="btStyle.subAxisLabel">{{axis}}%</span>
+    </div>
+
+    <!--Benchmark Sub-axis-->
+    <ng-container *ngIf="secondColorSchema">
+      <div
+        *ngFor="let benchmark of benchmarks"
+        [style]="btStyle.simpleSubAxis"
+        [style.top]="(100 - benchmark / scale) + '%'"
+        [style.border-bottom]="'1px dashed #D6D6D6'"></div>
+    </ng-container>
+
+    <!--Chart Bars-->
+    <div
+      [style]="btStyle.simpleChartBars"
+      [style.justify-content]="pdfVersion ? 'space-between' : 'flex-start'">
+      <div
+        *ngFor="let bar of dataSet; index as i"
+        [ngStyle]="btStyle.simpleChartBar"
+        class="item-chart-bar"
+        [style]="barStyle(bar, i)">
+        <!--Tooltip-->
+        <div *ngIf="!pdfVersion"
+          class="vertical-bar-chart-tooltip"
+          [ngClass]="{'right': i < dataSet.length / 2, 'left': i >= dataSet.length / 2}"
+          [style.bottom]="'calc(100% + 10px)'">
+          <div class="vertical-bar-chart-tooltip-content">
+
+            <div class="vertical-bar-chart-tooltip-content-title">{{(secondColorSchema ? label : bar.label) | translate}}</div>
+
+            <div class="vertical-bar-chart-tooltip-content-values">
+              <span>{{(secondColorSchema ? bar.label : label) | translate}}:</span>
+              <span>{{bar.value}}%</span>
+            </div>
+          </div>
+
+          <div class="vertical-bar-chart-tooltip-arrow"></div>
+        </div>
+
+        <div
+          [style]="{position: 'absolute', bottom: 'calc(100% + 5px)', width: '35px', 'text-align':'center', 'font-family': 'GT Walsheim Pro Medium', 'font-size': '14px', 'word-break': 'normal'}"
+        >{{bar.value}}%</div>
+
+        <div
+          [style]="btStyle.verticalBarLabel"
+          [style.color]="bar.isOwn || bar.id === 'total' ? '#000' : '#8E8E93'"
+        >{{bar.label}}</div>
+
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="secondColorSchema && !pdfVersion && !thirdColorSchema"
+    [style]="btStyle.legend"
+    [style.justify-content]="'flex-start'"
+    [style.margin-left]="'0px'">
+    <span [style]="btStyle.legendItem">
+      <i [style]="btStyle.icon" [style.background]="'#BAEEB7'"></i>
+      <span>{{"report.Client brand(s)" | translate}}</span>
+    </span>
+
+    <span
+      *ngIf="competitorsBrands.length"
+      [style]="btStyle.legendItem">
+      <i [style]="btStyle.icon" [style.background]="'#ADD9F4'"></i>
+      <span>{{"report.Other brand(s)" | translate}}</span>
+    </span>
+  </div>
+
+  <div
+    *ngIf="thirdColorSchema && !pdfVersion"
+    [style]="btStyle.legend"
+    [style.justify-content]="'flex-start'"
+    [style.margin-left]="'0px'"
+  >
+    <span [style]="btStyle.legendItem">
+      <i [style]="btStyle.icon" [style.background]="'linear-gradient(180deg, #AFEBAB 0%, #BAEEB7 27.83%, #D8F7D5 100%)'"></i>
+      <span>{{"report.Total" | translate}}</span>
+    </span>
+
+    <span [style]="btStyle.legendItem">
+      <i [style]="btStyle.icon" [style.background]="'linear-gradient(180deg, #ADD9F4 0%, #E3F2FD 100%)'"></i>
+      <span>{{"report.Target group(s)" | translate}}</span>
+    </span>
+  </div>
+
+
+</div>

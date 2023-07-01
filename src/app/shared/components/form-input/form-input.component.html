@@ -1,0 +1,34 @@
+<div *ngIf="control" class="c-common__field">
+  <input *ngIf="!isPhone; else phoneInput"
+         [type]="type"
+         pInputText
+         autocomplete="off"
+         [maxLength]="maxLength"
+         [placeholder]="placeholder"
+         [formControl]="control"
+         class="c-common__input"
+         [class.main-page]="isMainPage"
+         (blur)="trimValue(control.value)"
+  />
+  <ng-template #phoneInput>
+    <input
+      [type]="type"
+      pInputText
+      autocomplete="off"
+      [maxLength]="maxLength"
+      [placeholder]="placeholder"
+      [formControl]="control"
+      class="c-common__input"
+      [class.main-page]="isMainPage"
+      inputmode="numeric"
+    />
+  </ng-template>
+</div>
+<div [style.text-align]="'left'">
+  <small *ngIf="controlHasError() && !errors"
+         class="p-error c-common__form-field-error"
+         [style.color]="errorColor">{{setErrorMessage() | translate}}</small>
+  <small *ngIf="controlHasError() && errors"
+         class="p-error c-common__form-field-error"
+         [style.color]="errorColor">{{getErrorMessage() | translate}}</small>
+</div>

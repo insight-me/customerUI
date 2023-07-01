@@ -1,0 +1,33 @@
+<div class="app-grouped-horizontal-bar-chart">
+  <div
+    *ngFor="let group of dataSet"
+    class="app-grouped-horizontal-bar-chart__group"
+  >
+    <div class="app-grouped-horizontal-bar-chart__group-name">{{group.label}}</div>
+    <div class="app-grouped-horizontal-bar-chart__group-charts">
+      <div
+        *ngFor="let bar of group.values; index as i"
+        class="app-grouped-horizontal-bar-chart__group-charts-bar"
+        [style]="barStyle(bar, i)"
+      >
+        <span class="app-grouped-horizontal-bar-chart__group-charts-bar-value">{{bar.value}}%</span>
+
+        <!--Tooltip-->
+        <div class="vertical-bar-chart-tooltip">
+          <div class="vertical-bar-chart-tooltip-content">
+            <!--Label-->
+            <div class="vertical-bar-chart-tooltip-content-title">{{group.label}}</div>
+            <!--Value-->
+            <div class="vertical-bar-chart-tooltip-content-values">
+              <span>{{bar.label | uppercase}}:</span>
+              <span>{{bar.value}}%</span>
+            </div>
+          </div>
+
+          <div class="vertical-bar-chart-tooltip-arrow"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

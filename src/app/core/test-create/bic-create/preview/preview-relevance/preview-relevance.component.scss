@@ -1,0 +1,43 @@
+@import "variables";
+@import "preview";
+@import "mixins";
+
+.c-preview-relevance {
+  &__title {
+    margin-bottom: 10px;
+  }
+
+  &__subtitle {
+    @include regular-12;
+
+    margin-bottom: 35px;
+    text-align: center;
+    color: $dark-gray;
+  }
+
+  &__text {
+    @include medium-20;
+
+    text-align: center;
+  }
+
+  &__card {
+    margin-bottom: 45px;
+  }
+}
+
+@media #{$mobile} {
+  .c-preview-relevance {
+    &__title {
+      margin-bottom: 20px;
+    }
+
+    &__text {
+      @include medium-16;
+    }
+
+    &__card {
+      margin-bottom: 20px;
+    }
+  }
+}

@@ -1,0 +1,194 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-product-list {
+  &__table {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+
+    .card {
+      display: grid;
+
+      &-number {
+        @include medium-32;
+
+        padding: 12px 0;
+        color: $value-even;
+        border-bottom: 2px solid $border;
+      }
+
+      &-text {
+        padding: 0 20px 0 0;
+      }
+
+      &-divider {
+        @include medium-14;
+
+        padding: 12px 0;
+        color: $lightgray !important;
+        border-bottom: 2px solid $border;
+      }
+
+      &-title {
+        @include medium-18;
+
+        margin: 20px 0 12px;
+      }
+
+      &-description {
+        @include regular-16;
+
+        margin-bottom: 40px;
+      }
+
+      &-product {
+        @include medium-16;
+
+        margin: 20px 20px 0 0;
+        padding: 10px;
+        text-align: center;
+        background: $hover-button-blue;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover {
+          color: $white !important;
+          background: $blue;
+          transition: all 0.5s ease-in-out;
+        }
+
+        &:last-of-type {
+          margin-bottom: 40px;
+        }
+      }
+    }
+  }
+
+  &__list {
+    @include flex-column-stretch;
+
+    &-title {
+      @include medium-28;
+
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
+      text-align: center;
+    }
+
+    &-tests {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 100px;
+      gap: 20px 60px;
+
+      .test {
+        align-self: stretch;
+        justify-self: stretch;
+        width: calc(50% - 30px);
+        padding: 24px;
+        border: 1px solid $benchmark-bg;
+        border-radius: 5px;
+
+        &-title {
+          @include medium-24;
+
+          margin-bottom: 24px;
+        }
+
+        &-description {
+          @include regular-16;
+
+          text-align: justify;
+
+          &.list {
+            margin: 0 0 0 5px;
+            padding: 0 0 0 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media #{$tablet} {
+  .c-product-list {
+    &__list {
+      &-title {
+        @include medium-24;
+      }
+
+      &-tests {
+        gap: 20px;
+
+        .test {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media #{$mobile-main-page} {
+  .c-product-list {
+    &__table {
+      .card {
+        &-text {
+          padding: 0;
+        }
+
+        &-title {
+          @include medium-16;
+
+          margin: 20px 0 12px;
+        }
+
+        &-description {
+          @include regular-14;
+
+          margin-bottom: 30px;
+        }
+
+        &-product {
+          @include regular-16;
+
+          margin: 12px 0 0;
+        }
+
+        &-divider {
+          display: none;
+        }
+      }
+    }
+
+    &__list {
+      &-title {
+        @include medium-20;
+
+        padding: 20px 20px 64px;
+      }
+
+      &-tests {
+        margin-bottom: 64px;
+
+        .test {
+          padding: 12px;
+
+          &-title {
+            @include medium-20;
+
+            margin-bottom: 8px;
+          }
+
+          &-description {
+            @include regular-14;
+          }
+        }
+      }
+    }
+  }
+}

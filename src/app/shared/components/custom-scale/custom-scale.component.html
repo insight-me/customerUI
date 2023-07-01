@@ -1,0 +1,31 @@
+<div class="c-preview-feedback__scale">
+  <input type="range"
+         #scale
+         [min]="1"
+         [max]="7"
+         [step]="1"
+         [readonly]="true"
+         [value]="1"
+         disabled
+         [style.cursor]="'default'"
+         class="c-base__range c-preview-feedback__range">
+  <ul class="c-base__range-legend width-100">
+    <li *ngFor="let item of options"
+        class="c-base__range-legend__element">{{item}}</li>
+  </ul>
+  <ul class="c-base__range-track">
+    <li *ngFor="let i of options;"
+        class="c-base__range-track__element"></li>
+  </ul>
+  <ul class="c-base__range-scale">
+    <ng-container *ngFor="let item of options; let i = index; let isFirst = first">
+      <li class="c-base__range-scale__element"
+          [class.hidden]="isFirst">
+      </li>
+    </ng-container>
+  </ul>
+</div>
+<div class="c-preview-slider__card-slider__legend">
+  <span class="c-preview-slider__card-slider__legend-element">{{ legendText[0] | translateCustom }}</span>
+  <span class="c-preview-slider__card-slider__legend-element right">{{ legendText[1] | translateCustom }}</span>
+</div>

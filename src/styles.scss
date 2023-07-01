@@ -1,0 +1,128 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core;
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$InsightMeClient-primary: mat-palette($mat-indigo);
+$InsightMeClient-accent: mat-palette($mat-pink, a200, a100, a400);
+
+// The warn palette is optional (defaults to red).
+$InsightMeClient-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$InsightMeClient-theme: mat-light-theme((color: (primary: $InsightMeClient-primary,
+        accent: $InsightMeClient-accent,
+        warn: $InsightMeClient-warn,
+      ),
+    ));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($InsightMeClient-theme);
+
+/* You can add global styles to this file, and also import other style files */
+@import "./assets/styles/variables.scss";
+@import "./assets/styles/base.scss";
+@import "./assets/styles/prime.scss";
+@import "./assets/styles/swiper.scss";
+@import "./assets/styles/common.scss";
+@import "./assets/styles/payment.scss";
+@import "./assets/styles/profile.scss";
+@import "./assets/styles/material.scss";
+@import "./assets/styles/material.scss";
+@import "ng-zorro";
+@import "breakpoint-slicer";
+
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  font-family: "HelveticaNeueCyr-Roman";
+  scrollbar-color: #ffcbad #e9ecef;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  font-variant: inherit !important;
+  font-feature-settings: normal !important;
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    /* for vertical scrollbars */
+    height: 4px;
+    border-radius: 8px;
+    /* for horizontal scrollbars */
+
+    // @include to(l) {
+      // display: none;
+      // width: 0;
+   // }
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $border;
+    border-radius: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $light-orange-second;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+div {
+  word-break: break-word;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+input {
+  appearance: none;
+}
+
+::after,
+::before {
+  box-sizing: initial !important;
+}
+
+
+.app-radio-button__item {
+
+  ::after,
+  ::before {
+    box-sizing: initial;
+  }
+}

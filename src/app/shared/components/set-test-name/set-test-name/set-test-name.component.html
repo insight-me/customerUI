@@ -1,0 +1,27 @@
+<div class="c-set-test-name">
+  <h3
+    class="c-set-test-name__label">{{ (isCopy ? ('library.Copy test'| translate) + ' \'' + test.name + '\'' : 'dashboard.create-test') | translate}}</h3>
+  <form>
+    <div class="c-common__form-field c-set-test-name__input"
+         [class.copy]="isCopy">
+      <label *ngIf="isCopy" class="c-set-test-name__input-label">{{ 'library.Enter new test name' | translate }}</label>
+      <input pInputText
+             [placeholder]="'test-concept.type-here' | translate"
+             [formControl]="nameControl"
+             (keypress)="submitNewTest($event)"
+             (blur)="trimValue()"
+             class="c-common__input" />
+      <small *ngIf="controlHasError"
+             class="c-common__form-field-error">{{ getErrorMessage() | translate}}</small>
+    </div>
+    <div class="c-set-test-name__continue">
+      <button
+        class="c-common__button c-common__button--text cancel"
+        (click)="close()">{{ 'KPI.cancel' | translate}}</button>
+      <button
+        [disabled]="nameControl.invalid"
+        class="c-common__button c-common__button--gradient c-set-test-name__continue-button"
+        (click)="submitNewTest()">{{ (isCopy ? 'BIC.create a copy' : 'BIC.Create test') | translate}}</button>
+    </div>
+  </form>
+</div>

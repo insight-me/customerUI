@@ -1,0 +1,35 @@
+<div *ngIf="concept && type"
+     class="c-preview__section">
+  <h2 class="c-preview-relevance__text c-preview-relevance__title">{{getTitle() | translateCustom }}</h2>
+  <p class="c-preview-relevance__subtitle">{{ 'relevance.subtitle' | translateCustom }}</p>
+
+  <div *ngIf="type === 1"
+       class="c-preview-relevance__card">
+    <div class="c-preview-relevance__card">
+      <app-preview-slider [question]="concept.consumerInsight"
+                          [isConsumerInsight]="true"
+                          [type]="'Relevance'"></app-preview-slider>
+    </div>
+  </div>
+  <div *ngIf="type === 2">
+    <div *ngFor="let benefit of concept.benefits">
+      <div class="c-preview-relevance__card">
+        <app-preview-slider [question]="benefit.value"
+                            [type]="'Relevance'"></app-preview-slider>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="type === 3">
+    <div *ngFor="let reason of concept.reasons">
+      <div class="c-preview-relevance__card">
+        <app-preview-slider [question]="reason.value"
+                            [type]="'Relevance'"></app-preview-slider>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

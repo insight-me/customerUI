@@ -1,0 +1,70 @@
+<div
+  [style]="{margin: 'auto'}"
+  [ngStyle]="pdfVersion ? {} : {'overflow-x': 'auto', maxWidth: '1800px'}"
+>
+  <div
+    #chartRef
+    [style]="{position: 'relative', margin: '40px 0 80px'}"
+    [ngStyle]="pdfVersion ? {maxWidth: '1800px', margin: '250px auto'} : {}"
+  >
+    <!--Horizontal Sub-axis-->
+    <div
+      *ngFor="let axis of horizontalAxis"
+      [style]="btStyle.subAxis"
+      [style.top]="(100 - axis / scale) + '%'"
+    >
+      <span [style]="btStyle.subAxisLabel">{{axis}}%</span>
+    </div>
+
+    <!--Chart Bars-->
+    <div [style]="btStyle.chartBars">
+
+      <div
+        *ngFor="let group of dataSet; index as groupIndex"
+        [style]="btStyle.chartBarsDataSetGroup"
+      >
+        <div
+          *ngFor="let kpi of group.values; index as i"
+          [ngStyle]="btStyle.chartBar"
+          class="item-chart-bar"
+          [style]="groupStyle(kpi, i)"
+        >
+          <!--Tooltip-->
+          <div
+            *ngIf="!pdfVersion"
+            class="vertical-bar-chart-tooltip"
+            [ngClass]="{'right': groupIndex < 3, 'left': groupIndex >= 3}"
+            [style.bottom]="kpi.value > (horizontalAxis[horizontalAxis.length - 1] - 10) ? '88%' : 'calc(100% + 10px)'"
+          >
+            <div class="vertical-bar-chart-tooltip-content">
+
+              <div class="vertical-bar-chart-tooltip-content-title">{{kpi.label | translate}}</div>
+
+              <div class="vertical-bar-chart-tooltip-content-values">
+                <span>{{getGroupLabel(group.label) | translate}}:</span>
+                <span>{{kpi.value}}%</span>
+              </div>
+            </div>
+
+            <div class="vertical-bar-chart-tooltip-arrow"></div>
+          </div>
+          <div *ngIf="pdfVersion" [style]="{position: 'absolute', bottom: 'calc(100% + 5px)', 'font-family': 'GT Walsheim Pro Medium', 'font-size': '14px'}">{{kpi.value}}%</div>
+        </div>
+        <div
+          [style]="btStyle.groupLabel"
+          [ngStyle]="pdfVersion ? {left: 0} :{}"
+        >{{getGroupLabel(group.label) | translate}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div [style]="btStyle.legend" [ngStyle]="{margin: 0, justifyContent: 'flex-start'}">
+    <span
+      *ngFor="let item of dataSet[0].values; index as legendIndex"
+      [style]="btStyle.legendItem">
+      <i [style]="btStyle.icon" [style.background]="getColor(legendIndex)"></i>
+      <span>{{item.label}}</span>
+    </span>
+  </div>
+</div>
+

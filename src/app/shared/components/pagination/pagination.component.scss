@@ -1,0 +1,72 @@
+@import "../../../../assets/styles/variables.scss";
+@import "../../../../assets/styles/mixins.scss";
+
+.c-paginator {
+  @include regular-14;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  margin: 0 auto;
+
+  &__content {
+    display: grid;
+    align-items: center;
+    grid-gap: 5px;
+    height: 45px;
+    margin-top: 20px;
+    color: $gray;
+    cursor: pointer;
+    justify-items: center;
+  }
+
+  &__page {
+    @include regular-14;
+
+    margin-bottom: 12px;
+    margin-left: 15px;
+    color: $lightgray;
+  }
+
+  &__item {
+    @include flex-center;
+
+    width: 32px;
+    height: 32px;
+
+    &:not(.disabled):not(.active):hover {
+      background: #ffeee3;
+      border-radius: 2px;
+    }
+
+    &:not(.disabled):focus {
+      border: 1px solid $orange;
+      border-radius: 2px;
+      box-shadow: 0 0 2px 3px rgba(255, 152, 89, 0.35);
+    }
+
+    &.disabled {
+      cursor: default;
+      opacity: 0.6;
+    }
+
+    &.active {
+      color: $white;
+      background: $orange;
+      border-radius: 2px;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-paginator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__page {
+      margin-left: 0;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<div *ngIf="test && translations">
+  <div class="c-preview">
+    <div class="c-preview__header">
+      <h3 class="c-preview__header__title"> {{ "test-steps.preview" | translate }}</h3>
+      <button class="c-confirmation-dialog__button c-common__button c-common__button--icon"
+              (click)="close()">
+        <img src="../../../../../../assets/images/svg/ic_close-modal.svg" />
+      </button>
+    </div>
+    <div #containerBT
+         class="c-preview__container">
+      <div *ngIf="isScreening(translatedRespondentRequirements$ | async)">
+        <app-preview-category-screening [respondentRequirements]="translatedRespondentRequirements$ | async">
+        </app-preview-category-screening>
+      </div>
+      <div #inputBrand>
+        <app-bt-preview-input-brand></app-bt-preview-input-brand>
+      </div>
+      <div #previewBrands>
+        <app-bt-preview-brands [test]="test"></app-bt-preview-brands>
+        <app-bt-one-preview [test]="test"
+                            [category]="category">
+        </app-bt-one-preview>
+      </div>
+      <div #preview2
+           *ngIf="test.customAssociations?.length || test.btTestAssociations?.length">
+        <app-bt-preview-associate [test]="test"></app-bt-preview-associate>
+      </div>
+
+      <div #commercial
+           *ngIf="test?.isAdvertizing">
+        <app-bt-preview-commercial [test]="test"
+                                   [category]="category"></app-bt-preview-commercial>
+      </div>
+
+      <div #recommendation
+           *ngIf="test?.isRecommendation">
+        <app-bt-preview-recommendation [test]="test"
+                                       [category]="category"></app-bt-preview-recommendation>
+      </div>
+      <div #customQuestions
+           *ngIf="test?.customQuestions.length">
+        <app-preview-feedback [customQuestions]="test.customQuestions"></app-preview-feedback>
+      </div>
+    </div>
+  </div>
+</div>

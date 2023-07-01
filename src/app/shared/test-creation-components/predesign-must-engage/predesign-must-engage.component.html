@@ -1,0 +1,24 @@
+<p class="c-predesigned-must-engage__title">{{'BIC.Please choose if respondents must engage with' | translate}}:</p>
+<div class="c-predesigned-must-engage__option">
+  <input class="c-common__radiobutton"
+         type="radio"
+         [formControl]="engageControl"
+         [value]="CategoryScreeningType.All"
+         id="true"
+         (change)="onUpdateEngage()">
+  <label class="c-common__radiobutton-label"
+         for="true"><span><b>{{('BIC.ALL' | translate) + ' '}}</b>
+    {{labels.all | translate }}</span></label>
+</div>
+
+<div class="c-predesigned-must-engage__option">
+  <input class="c-common__radiobutton"
+         type="radio"
+         [formControl]="engageControl"
+         [value]="CategoryScreeningType.One"
+         id="false"
+         (change)="onUpdateEngage()">
+  <label class="c-common__radiobutton-label"
+         for="false"><span><span>{{'BIC.At least' | translate}}</span><strong>{{('BIC.ONE' | translate) + ' '}}</strong>
+    {{labels.one | translate }}</span></label>
+</div>

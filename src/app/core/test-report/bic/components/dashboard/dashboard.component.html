@@ -1,0 +1,45 @@
+<div class="app-dashboard bic">
+  <!--Overall Score 1-->
+  <div class="app-dashboard__card" [ngStyle]="gridStyle(0)">
+    <app-overal-score [tooltipTexts]="tooltipTexts"
+                      [tooltipType]="tooltipType"
+                      [dataSet]="purchaseIntentUniquenessDataSet$ | async"
+    ></app-overal-score>
+  </div>
+
+  <!--Overall Score 2 removed by task 2938 -->
+  <!--  <div class="app-dashboard__element" [ngStyle]="gridStyle(1)">-->
+  <!--    <app-bubble-chart-->
+  <!--      [dataSet]="bicRSS.likeabilityTrustworthinessDataSet$ | async"-->
+  <!--      [xBenchmark]="bicRSS.getBenchmark(KPITitle.Trustworthiness) | async"-->
+  <!--      [yBenchmark]="bicRSS.getBenchmark(KPITitle.Likeability) | async"-->
+  <!--      [xAxesLabel]="'report.Trustworthiness' | translate"-->
+  <!--      [yAxesLabel]="'report.Likeability' | translate"-->
+  <!--      [tooltipTexts]="tooltipTextsSecond"-->
+  <!--      [tooltipType]="tooltipTypeSecond"-->
+  <!--      aspectRatio="0.5"-->
+  <!--      (zoom)="toggleZoom(1)"-->
+  <!--      showDefaultLegend="true"-->
+  <!--    ></app-bubble-chart>-->
+  <!--  </div>-->
+
+  <!--Purchase intent-->
+    <div class="app-dashboard__card" [ngStyle]="gridStyle(0)">
+      <app-dashboard-purchase-intent
+        [title]="'report.Purchase Intent' | translate"
+        [type]="BicDashboardType.PurchaseIntent"
+        [dataSet]="purchaseIntentDataSet$ | async"
+        [tooltipTexts]="tooltipTextsPurchaseIntent"
+        [tooltipType]="tooltipTypePurchaseIntent"></app-dashboard-purchase-intent>
+    </div>
+
+  <!--Uniqueness-->
+  <div class="app-dashboard__card" [ngStyle]="gridStyle(0)">
+    <app-dashboard-purchase-intent
+      [title]="'report.Uniqueness' | translate"
+      [type]="BicDashboardType.Uniqueness"
+      [dataSet]="uniquenessDataSet$ | async"
+      [tooltipTexts]="tooltipTextsUniqueness"
+      [tooltipType]="tooltipTypeUniqueness"></app-dashboard-purchase-intent>
+  </div>
+</div>

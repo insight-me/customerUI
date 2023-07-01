@@ -1,0 +1,16 @@
+<button class="c-tests-list-item__product" (click)="onNewTest()">
+  <div>
+    <h3 class="c-tests-list-item__product-name">
+      {{TestProductName[product.testType]}}
+    </h3>
+    <p class="c-tests-list-item__product-explanation">{{ExplanationProductText[product.testType] | translate}}</p>
+  </div>
+
+  <div class="c-tests-list-item__product-select">
+  </div>
+</button>
+<div *ngIf="isCreateTest" class="c-common__modal">
+  <div class="c-common__modal-window c-tests-list-item__modal">
+    <app-set-test-name [test]="{id: '', type: product.testType, productId: product.id, name: ''}" (onClose)="isCreateTest = $event"></app-set-test-name>
+  </div>
+</div>

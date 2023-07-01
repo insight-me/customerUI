@@ -1,0 +1,64 @@
+@import "mixins";
+@import "breakpoint-slicer";
+
+@include custom-tooltip-position;
+
+
+.start-date {
+  margin: 20px;
+
+  &__title-calendar {
+    @include medium-16-grey;
+
+    margin-bottom: 4px;
+  }
+
+  &__text {
+    margin-bottom: 20px;
+  }
+}
+
+.market-tip {
+  display: none;
+
+  @media (max-width: 1500px) {
+    display: inline;
+  }
+}
+
+.market-tip-medium {
+  display: none;
+
+  @media (max-width: 1000px) {
+    display: inline;
+  }
+}
+
+@media #{$mobile} {
+  .prime {
+    &__calendar {
+      &::after {
+        top: 9px;
+      }
+
+      .p-calendar {
+        width: 100%;
+
+        .p-inputtext {
+          max-width: 300px !important;
+          height: 42px;
+        }
+      }
+    }
+  }
+}
+
+
+.date>.prime__calendar .p-calendar .p-datepicker {
+  font-weight: 600;
+}
+
+.p-disabled,
+.p-component:disabled {
+  font-weight: 400;
+}

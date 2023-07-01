@@ -1,0 +1,15 @@
+<span class="c-overlay-tip__hint"
+      (click)="toggleOverlay()">
+  <app-icon [iconType]="IconsType.Question"></app-icon>
+</span>
+<div *ngIf="isOpen" class="c-common__modal">
+  <div class="c-common__modal-window c-overlay-tip__container">
+    <button
+      class="c-common__modal-window__close c-common__button c-common__button--icon"
+      (click)="close()">
+      <img src="../../../../assets/images/svg/ic_close-modal.svg" />
+    </button>
+    <p class="c-overlay-tip__title">{{ title | translate }}</p>
+    <div class="c-overlay-tip__text" [innerHTML]="content"></div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div *ngIf="currentDataSet$ | async as dataSet"
+     class="bt-test-report">
+
+  <div class="bt-test-report__header"
+       *ngIf="!pdfVersion"
+       [style.margin-bottom.px]="30">
+    <div class="bt-test-report__header-title">{{"report.Brand performance over time" | translate}}</div>
+    <app-multi-select-filter *ngIf="filterForm"
+                             [filterModel]="filterModel"
+                             [filterForm]="filterForm"
+                             allLabel="report.All KPIs"
+                             (applyFilters)="applyFilters()"></app-multi-select-filter>
+  </div>
+
+  <app-warning-message *ngIf="lowNumbers"
+                       [text]="'BT.Warning! Amount of respondents is too low (<60)'"
+                       [isCentered]="true"
+                       [color]="'#585858'"></app-warning-message>
+
+  <ng-container *ngIf="service.switcher$ | async">
+    <div #chartRef
+         appResizeChart
+         [style]="btStyle.content"
+         [ngStyle]="pdfVersion ? {margin: '50px'} : {}">
+      <ng-container *ngIf="dataSet.dataset.length">
+        <app-bt-line-chart *ngIf="switcher | async"
+                           [dataSet]="dataSet.dataset"
+                           [style]="{flexGrow: 1, height: '100%'}"
+                           [pdfVersion]="pdfVersion"></app-bt-line-chart>
+      </ng-container>
+
+    </div>
+  </ng-container>
+
+  <div [style]="style.footer"
+       [ngStyle]="pdfVersion ? {borderTop: '1px solid #E9E9E9', paddingTop: '20px'} : {}">
+    <span *ngFor="let item of dataSet.dataset; index as i"
+          [style]="style.legend">
+      <i [style]="style.icon"
+         [style.background]="getBackground(i)"></i>
+      <div [ngStyle]="item.name === 'report.Penetration' ? {'display': 'flex', 'align-items': 'center'}: {}">{{item.name | translate}}
+        <ng-container *ngIf="item.name === 'report.Penetration'">
+          <app-question-tooltip [style.margin-left]="'10px'"
+                                [texts]="[('penetration.tooltip_text' | translate) + ' ' + penetrationTitle(penetrationInMonthes, ts)]">
+          </app-question-tooltip>
+        </ng-container>
+
+      </div>
+    </span>
+  </div>
+  <div class="bt-test-report-zoom"
+       *ngIf="!pdfVersion">
+    <div class="bt-test-report-zoom-button"
+         (click)="toggleZoom(); refreshChart()">
+      <span>{{(isExpanded ? "report.Zoom Out" : "report.Zoom In") | translate}}</span>
+      <app-icon [iconType]="IconsType.Zoom"
+                color="#8E8E93"></app-icon>
+    </div>
+  </div>
+</div>

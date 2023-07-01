@@ -1,0 +1,38 @@
+<div mwlTextInputHighlightContainer>
+  <div #tagDiv
+       [ngStyle]="{left: target.left + 'px', top: target.top + 'px'}"
+       class="c-association__tag">
+  </div>
+  <p-overlayPanel #op
+                  [appendTo]="tagDiv"
+                  styleClass="c-association__panel">
+    <ng-template pTemplate>
+      <div class="c-association">
+        <p class="c-association__text"> {{'consumer-insight.consumer-insight-text' | translate}} {{tagClicked.data}}</p>
+        <p class="c-association__text">{{'consumer-insight.consumer-insight-instead' | translate}}</p>
+        <div class="c-association__items">
+          <span *ngFor="let improvement of tagClicked.improvements"
+                class="c-association__item"
+                (click)="onSelectAssociation(improvement.text)">{{improvement.text}}</span>
+        </div>
+      </div>
+    </ng-template>
+  </p-overlayPanel>
+  <textarea mwlTextInputElement
+            [placeholder]="'test-concept.type-consumer-insight' | translate"
+            rows="6"
+            [formControl]="control"
+            class="textarea c-common__textarea"
+            (click)="onClickTextarea()"
+            (input)="addTags()"
+            (blur)="trimValue()"
+            #textarea>
+  </textarea>
+  <mwl-text-input-highlight [tags]="tags"
+                            [tagCssClass]="'bg-blue'"
+                            [textInputElement]="textarea"
+                            (tagMouseEnter)="addDarkClass($event.target)"
+                            (tagMouseLeave)="removeDarkClass($event.target)"
+                            (tagClick)="tagClick($event)">
+  </mwl-text-input-highlight>
+</div>

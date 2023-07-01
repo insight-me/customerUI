@@ -1,0 +1,259 @@
+@import "mixins";
+
+@mixin likes-icon {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px;
+  border-radius: 10px;
+}
+
+@mixin tooltip {
+  &:hover .appConsumerInsightTooltip {
+    z-index: 2;
+    opacity: 1;
+    transition: 0.5s;
+    transition-delay: 0.1s;
+  }
+
+  .appConsumerInsightTooltip {
+    position: absolute;
+    bottom: 40px;
+    left: -20px;
+    z-index: -1;
+    opacity: 0;
+
+    .appConsumerInsightTooltipArrow {
+      position: absolute;
+      bottom: -8px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid $darkviolet;
+      border-left: 10px solid transparent;
+      transform: rotate(-45deg);
+    }
+
+    .appConsumerInsightTooltipContent {
+      @include flex-column-stretch;
+
+      padding: 9px 14px;
+      background-color: $darkviolet;
+      border-radius: 5px;
+      box-shadow: 0 7px 12px 0 rgba(0,0,0,0.35);
+
+      .appConsumerInsightTooltipContentValues {
+        @include flex-space-between-center;
+
+        flex-wrap: nowrap;
+        padding: 6px 0;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 12px;
+        line-height: 12px;
+        color: $white;
+        letter-spacing: 0.5px;
+
+        span {
+          white-space: nowrap;
+
+          &:first-child {
+            margin-right: 24px;
+
+            .appConsumerInsightTooltipLikesIcon {
+              @include likes-icon;
+
+              background: $like-background;
+            }
+
+            .appConsumerInsightTooltipDislikesIcon {
+              @include likes-icon;
+
+              background: $dislike-background;
+            }
+          }
+
+          &:last-child {
+            font-size: 14px;
+            line-height: 12px;
+            letter-spacing: 0.58px;
+
+            &.appConsumerInsightTooltipLikesValue {
+              color: $like-background;
+            }
+
+            &.appConsumerInsightTooltipDislikesValue {
+              color: $dislike-background;
+            }
+          }
+        }
+      }
+
+      &-divider {
+        border-bottom: 1px solid $white;
+      }
+    }
+  }
+}
+
+@mixin highlighted-span {
+  @include tooltip;
+
+  position: relative;
+  display: inline-block;
+  height: 24px;
+  margin: 0 2px;
+  padding: 0 3px;
+  font-family: "Source Serif Pro Semibold";
+  border-radius: 5px;
+  cursor: pointer;
+
+}
+
+.app-consumer-insight {
+  @include flex-column-stretch;
+
+  &__title {
+    @include medium-16;
+
+    margin: -14px 20px 40px 20px;
+  }
+
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+
+    &-value {
+      grid-area: 1 / 3 / 2 / 11;
+      font-family: "Source Serif Pro";
+      font-size: 20px;
+      line-height: 26px;
+      letter-spacing: 0;
+
+      &.full-container {
+        grid-area: 1 / 1 / 2 / 13;
+      }
+
+      &.benefits {
+        grid-area: 2 / 3 / 3 / 11;
+        margin-top: 40px;
+        //font-size: 16px;
+      }
+
+      &.reasons {
+        grid-area: 3 / 3 / 4 / 11;
+        //font-size: 16px;
+        margin-top: 40px;
+      }
+
+      .appConsumerInsightContainerValueLike {
+        @include highlighted-span;
+
+        background: $like-background;
+      }
+
+      .appConsumerInsightContainerValueDislike {
+        @include highlighted-span;
+
+        background-color: $dislike-background;
+      }
+
+      angular-tag-cloud {
+        overflow: visible;
+
+        span {
+          cursor: pointer;
+
+          &:hover .app-consumer-insight-tooltip {
+            z-index: 2;
+            visibility: visible;
+            opacity: 1;
+            transition: 0.5s;
+            transition-delay: 0.1s;
+          }
+
+          .app-consumer-insight-tooltip {
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 25%;
+            z-index: -10;
+            visibility: hidden;
+            opacity: 0;
+
+            &-arrow {
+              position: absolute;
+              bottom: -8px;
+              left: 15px;
+              width: 0;
+              height: 0;
+              border-right: 10px solid transparent;
+              border-bottom: 10px solid $darkviolet;
+              border-left: 10px solid transparent;
+              transform: rotate(-45deg);
+            }
+
+            &-content {
+              @include flex-column-stretch;
+
+              padding: 9px 14px;
+              background-color: $darkviolet;
+              border-radius: 5px;
+              box-shadow: 0 7px 12px 0 rgba(0,0,0,0.35);
+
+              &-values {
+                @include flex-space-between-center;
+
+                flex-wrap: nowrap;
+                padding: 6px 0;
+                font-family: "GT Walsheim Pro Regular";
+                font-size: 12px;
+                line-height: 12px;
+                color: $white;
+                letter-spacing: 0.5px;
+
+                span {
+                  white-space: nowrap;
+
+                  &:first-child {
+                    margin-right: 24px;
+
+                    .likes-icon {
+                      @include likes-icon;
+
+                      background-color: $like-background;
+                    }
+
+                    .dislikes-icon {
+                      @include likes-icon;
+
+                      background-color: $dislike-background;
+                    }
+                  }
+
+                  &:last-child {
+                    font-size: 14px;
+                    line-height: 12px;
+                    letter-spacing: 0.58px;
+
+                    &.likes-value {
+                      color: $like-background;
+                    }
+
+                    &.dislikes-value {
+                      color: $dislike-background;
+                    }
+                  }
+                }
+              }
+
+              &-divider {
+                border-bottom: 1px solid $white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+}

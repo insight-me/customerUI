@@ -1,0 +1,300 @@
+@import "./variables.scss";
+
+// fonts
+@mixin medium($sizeValue) {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: ($sizeValue) + px;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-68 {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 68px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-32 {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 32px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-28 {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 28px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-24 {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 24px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-20 {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 20px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin light-20 {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 20px;
+  line-height: 150%;
+  font-weight: 300;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin light($sizeValue) {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: ($sizeValue) + px;
+  font-weight: 300;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-18 {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 18px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin regular-18 {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 18px;
+  line-height: 150%;
+  font-weight: 400;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-16 {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-16-grey {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $dark-gray;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin regular-16 {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 400;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin regular-oblique-16 {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 400;
+  color: $black;
+  font-style: italic;
+  letter-spacing: 0.005em;
+}
+
+@mixin regular-oblique-16-lightgray {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 400;
+  color: $lightgray;
+  font-style: italic;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-14 {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 14px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin regular-14 {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 14px;
+  line-height: 150%;
+  font-weight: 400;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin regular-oblique-14 {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 14px;
+  line-height: 150%;
+  font-weight: 400;
+  color: $black;
+  font-style: italic;
+  letter-spacing: 0.005em;
+}
+
+@mixin regular-oblique-13 {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 12.3px;
+  line-height: 150%;
+  font-weight: 400;
+  color: $black;
+  font-style: italic;
+  letter-spacing: 0.005em;
+}
+
+@mixin medium-12 {
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 12px;
+  line-height: 150%;
+  font-weight: 500;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@mixin regular-12 {
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 12px;
+  line-height: 150%;
+  font-weight: 400;
+  color: $black;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+// shadows
+@mixin buttons-shadow {
+  box-shadow: 0 3px 9px rgba(97, 97, 97, 0.25);
+}
+
+@mixin buttons-shadow-hover {
+  box-shadow: 0 3px 9px rgba(97, 97, 97, 0.32);
+}
+
+@mixin buttons-default {
+  box-shadow: 0 5px 11px rgba(184, 178, 234, 0.16);
+}
+
+@mixin inner-shadow {
+  box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.09);
+}
+
+@mixin orange-shadow {
+  box-shadow: 0 0 4px $orange;
+}
+
+@mixin button-orange-shadow {
+  box-shadow: 0 0 2px 3px rgba(255, 152, 89, 0.35);
+}
+
+@mixin purple-shadow {
+  box-shadow: 0 0 4px $associations-table;
+}
+
+@mixin open-dropdown-shadow {
+  box-shadow: 0 3px 28px rgba(0, 0, 0, 0.26);
+}
+
+@mixin card-shadow {
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+@mixin cut-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+$maxWidth: 1440;
+
+@mixin adaptive-font($pcSize, $mobSize) {
+  $addSize: $pcSize - $mobSize;
+  $maxWidth: $maxWidth - 320;
+
+  font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
+}
+
+$maxWidthWrapper: 1440;
+
+@mixin adaptive-value($property, $startSize, $minSize) {
+  $addSize: $startSize - $minSize;
+
+  #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidthWrapper - 320}));
+}
+
+// flex
+//@mixin flex-center {
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//}
+
+@mixin flex-start-center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+@mixin flex-space-around-center {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@mixin custom-tooltip-position {
+  ::ng-deep .tooltip-custom-position {
+    @include to(l) {
+      .tooltip {
+        /* stylelint-disable-next-line declaration-no-important */
+        left: 126% !important;
+      }
+    }
+  }
+}

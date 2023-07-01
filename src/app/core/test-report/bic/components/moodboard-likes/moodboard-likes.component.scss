@@ -1,0 +1,9 @@
+@import "mixins";
+
+.c-moodboard-like {
+  &__title {
+    @include medium-16;
+
+    margin: -16px 20px 40px;
+  }
+}

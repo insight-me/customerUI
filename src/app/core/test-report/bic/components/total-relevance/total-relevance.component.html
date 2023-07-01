@@ -1,0 +1,87 @@
+<ng-container *ngIf="dataSet$ | async as data">
+  <div class="app-concept-definitions__container">
+    <div class="app-concept-definitions__card-title">
+      {{ 'report.Relevance score (%) of each part of the concept in population' | translate }}
+      <app-question-tooltip
+        [texts]="tooltipTexts"
+        [type]="tooltipType"
+      ></app-question-tooltip>
+    </div>
+    <app-multi-select-filter *ngIf="bicRSS.concepts.length > 1 && filterForm"
+                             [filterModel]="filterModel"
+                             [filterForm]="filterForm"
+                             allLabel="report.All concepts"
+                             [needApplyBtn]="false"
+                             (applyFilters)="applyFilters()"></app-multi-select-filter>
+  </div>
+  <div class="c-multi-grid-chart__title">{{data.concept.conceptName}}</div>
+  <div class="c-total-relevance">
+    <div class="app-vertical-bar-chart">
+      <!--Chart-->
+      <div
+        #chartRef
+        class="app-vertical-bar-chart__container c-multi-grid-chart__container c-total-relevance__container"
+      >
+        <!--Horizontal Sub-axis-->
+        <div
+          *ngFor="let axis of horizontalAxis; let isOdd=odd"
+          class="app-vertical-bar-chart__container-axis"
+          [style.top]="(100 - axis * 10) + '%'"
+        >
+          <span *ngIf="isOdd">{{axis * 10}}%</span>
+        </div>
+        <!--TOTAL LINE-->
+        <div
+          class="app-vertical-bar-chart__container-axis total-axis"
+          [style.top]="(100 - data?.dataSet[0].value) + '%'">
+        </div>
+
+        <!--Chart Bars-->
+        <div class="app-vertical-bar-chart__container-content">
+
+          <!--Dataset bars-->
+          <div
+            #datasetRelevanceContainerRef
+            class="app-vertical-bar-chart__container-content-dynamic c-multi-grid-chart__container-content-dynamic"
+          >
+            <div
+              *ngFor="let chart of data?.dataSet"
+              class="app-vertical-bar-chart__container-content-dynamic-container"
+            >
+              <div
+                class="item-chart-bar"
+                [style.background]="getBackground(chart.type)"
+                [style.height]="(chart.value || 1) + '%'"
+              >
+                <div class="item-chart-bar-label" #datasetLabels>
+                  <span>{{chart.name | translate | uppercase}}</span>
+                </div>
+
+                <div class="app-vertical-bar-chart__label">
+                  <span>{{Math.round(chart.value) + '%'}}</span>
+                </div>
+
+                <!--LABELS-->
+                <div class="app-vertical-bar-chart__single-legend">
+                  <div class="legend-element tooltip">
+                    <div class="legend-element-item">
+                      <span class="item">{{ chart.name | translate }}</span>
+                    </div>
+                    <div class="legend-label-tooltip">
+                      <div class="legend-label-tooltip-content">
+                        <div
+                          class="legend-label-tooltip-content-title">{{chart.name | translate}}</div>
+                      </div>
+                      <div class="legend-label-tooltip-arrow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+

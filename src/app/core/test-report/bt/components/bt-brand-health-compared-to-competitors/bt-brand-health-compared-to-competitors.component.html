@@ -1,0 +1,85 @@
+<div
+  class="app-bt-brand-health-compared-to-competitors"
+  *ngIf="btRSS.itemWidth$ | async as width"
+>
+  <div class="app-bt-brand-health-compared-to-competitors__content">
+<!--    <div-->
+<!--      *ngIf="btRSS.spontaneousAwareness$ | async as spontaneousAwareness"-->
+<!--      [style.width]="width"-->
+<!--    >-->
+<!--      <app-bt-bar-chart-->
+<!--        [dataSet]="spontaneousAwareness"-->
+<!--        [label]="'report.Spontaneous awareness' | translate"-->
+<!--        [aspectRatio]="width === '100%' ? 0.25 : 0.5"-->
+<!--      ></app-bt-bar-chart>-->
+<!--    </div>-->
+<!--    <div-->
+<!--      *ngIf="btRSS.topOfMindSpontaneousAwareness$ | async as topOfMindSpontaneousAwareness"-->
+<!--      [style.width]="width"-->
+<!--    >-->
+<!--      <app-bt-bar-chart-->
+<!--        [dataSet]="topOfMindSpontaneousAwareness"-->
+<!--        [label]="'report.Top of mind spontaneous awareness' | translate"-->
+<!--        [aspectRatio]="width === '100%' ? 0.25 : 0.5"-->
+<!--      ></app-bt-bar-chart>-->
+<!--    </div>-->
+    <div
+      *ngIf="btRSS.aidedAwareness$ | async as aidedAwareness"
+      [style.width]="width"
+    >
+      <app-bt-bar-chart
+        [dataSet]="aidedAwareness"
+        [label]="'report.Aided awareness' | translate"
+        [aspectRatio]="width === '100%' ? 0.25 : 0.5"
+      ></app-bt-bar-chart>
+    </div>
+    <div
+      *ngIf="btRSS.consideration$ | async as consideration"
+      [style.width]="width"
+    >
+      <app-bt-bar-chart
+        [dataSet]="consideration"
+        [label]="'report.Consideration' | translate"
+        [aspectRatio]="width === '100%' ? 0.25 : 0.5"
+      ></app-bt-bar-chart>
+    </div>
+    <div
+      *ngIf="btRSS.preference$ | async as preference"
+      [style.width]="width"
+    >
+      <app-bt-bar-chart
+        [dataSet]="preference"
+        [label]="'report.Preference' | translate"
+        [aspectRatio]="width === '100%' ? 0.25 : 0.5"
+      ></app-bt-bar-chart>
+    </div>
+    <div
+      *ngIf="btRSS.penetration$ | async as penetration"
+      [style.width]="width"
+    >
+      <app-bt-bar-chart
+        [dataSet]="penetration"
+        [label]="'report.Penetration' | translate"
+        [aspectRatio]="width === '100%' ? 0.25 : 0.5"
+      ></app-bt-bar-chart>
+    </div>
+
+  </div>
+
+  <div [style]="btStyle.legend">
+    <span [style]="btStyle.legendItem">
+      <i [style]="btStyle.icon" [style.background]="'linear-gradient(180deg, #FFA56F 0%, #FFEEE3 100%)'"></i>
+      <span>{{"report.Your brand(s)" | translate}}</span>
+    </span>
+
+    <ng-container *ngIf="btRSS.competitorsBrands | async as brands">
+      <span
+        *ngIf="brands.length"
+        [style]="btStyle.legendItem"
+      >
+        <i [style]="btStyle.icon" [style.background]="'linear-gradient(180deg, #B8B2EA 0%, #E6E2F8 100%)'"></i>
+        <span>{{"report.Other brand(s)" | translate}}</span>
+      </span>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+@import "variables";
+
+.app-concept-mood-board {
+  @include flex-wrap;
+
+  max-width: 1000px;
+  margin: 0 40px 40px;
+
+  &__column {
+    flex: 33%;
+    max-width: 33%;
+
+    @media #{$mobile} {
+      flex: 100%;
+      max-width: 100%;
+    }
+
+    &-image {
+      position: relative;
+      margin: 12px 6px;
+      overflow: hidden;
+      border-radius: 5px;
+      max-height: 400px;
+      //border: 1px solid $border;
+
+      img {
+        width: 100%;
+        max-height: 400px;
+        vertical-align: middle;
+        object-fit: contain;
+      }
+
+      &-info {
+        @include flex-space-between-center;
+
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        display: flex;
+        width: max-content;
+        gap: 40px;
+        transform: translate(-50%, 0);
+        padding: 15px 17px;
+        background: $violet-background;
+        border-radius: 5px 5px 0 0;
+
+        .likes-container {
+          display: flex;
+          gap: 20px;
+          align-items: center;
+          width: max-content;
+        }
+
+        span {
+          @include flex-space-between-center;
+
+          font-family: "GT Walsheim Pro Regular";
+          font-size: 28px;
+          line-height: 30px;
+          color: $white;
+          letter-spacing: -0.13px;
+
+          &:first-child {
+            margin-right: 37px;
+          }
+
+          app-icon {
+            margin-right: 11px;
+            margin-bottom: -5px;
+          }
+        }
+      }
+    }
+  }
+
+}

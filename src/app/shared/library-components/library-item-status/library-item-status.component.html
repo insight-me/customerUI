@@ -1,0 +1,6 @@
+<div class="c-library-item-status" [style.color]="status.color"
+     [style.justify-content]="isMobile ? 'end' : 'start'">
+  <img [src]="'../../assets/images/svg/status/' + status.image + '.svg'"
+       class="c-library-item-status-image" />
+  {{ status.name | translate }}
+</div>

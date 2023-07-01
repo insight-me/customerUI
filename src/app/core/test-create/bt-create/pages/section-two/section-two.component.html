@@ -1,0 +1,189 @@
+<div *ngIf="respondentRequirements"
+     class="c-section__wrapper c-section-two">
+  <div class="c-test-create__nav-wrapper">
+    <div class="c-test-create__nav"
+         [ngStyle]="{ 'margin-top': -scrollY + 'px' }">
+      <span class="c-test-create__nav-title">{{"respondents.create-respondent-profile" | translate}}</span>
+      <a (click)="navigateToSection('#section1')"
+         class="c-test-create__nav-item"
+         [class.active]="!activeElement?isScrollOnStep(section1):activeElement === '#section1'">1. {{ "BIC.Select market, age and gender" | translate }}</a>
+      <a (click)="navigateToSection('#section2')"
+         class="c-test-create__nav-item"
+         [class.active]="!activeElement?isScrollOnStep(section2):activeElement === '#section2'">2. {{ "BIC.Select and describe category"| translate }}</a>
+      <a (click)="navigateToSection('#section3')"
+         class="c-test-create__nav-item"
+         [class.active]="!activeElement?isScrollOnStep(section3):activeElement === '#section3'">3. {{ "BIC.Select category screening" | translate }}</a>
+      <a (click)="navigateToSection('#section4')"
+         class="c-test-create__nav-item"
+         [class.disabled]="!respondentRequirements.countries.length"
+         [class.active]="!activeElement?isScrollOnStep(section4):activeElement === '#section4'">4. {{ "BIC.Select consumer segment" | translate }}</a>
+      <a (click)="navigateToSection('#section5')"
+         class="c-test-create__nav-item"
+         [class.disabled]="!respondentRequirements.countries.length"
+         [class.active]="!activeElement?isScrollOnStep(section5):activeElement === '#section5'">5. {{ "BIC.Select number of respondents" | translate }}</a>
+    </div>
+  </div>
+
+  <div *ngIf="respondentRequirements"
+       class="c-section__content">
+    <div class="c-section">
+      <!--      SECTION 1 -->
+      <div #section1
+           id="section1"
+           class="c-section__block-wrapper">
+        <div class="c-test__card">
+          <div class="c-section-two__market">
+            <div class="c-test__card__title">
+              <span class="c-test__card__number">1</span>
+              {{ "BIC.Select market, age and gender" | translate }}
+              <span class="market-tip"><app-question-tooltip
+                [texts]="['BIC.If you want to run this test in another market or category, you can easily copy this test after you have published and paid in your test library.']"
+                [arrowShift]="marketArrowShift"
+                additionalClass="market"></app-question-tooltip></span>
+            </div>
+            <h3 class="c-section-two__label">
+              {{ "BIC.Market" | translate }}
+            </h3>
+            <div class="c-section-two__form-group">
+              <app-market [respondentRequirements]="respondentRequirements"
+                          [typeTest]="TestType.BT"></app-market>
+            </div>
+            <div class="c-test__card c-section-two__age-gender-block">
+              <div class="c-section-two__age-gender-block__content">
+                <h3 class="c-section-two__label">
+                  {{ "BIC.Age" | translate }}
+                </h3>
+                <app-age-form></app-age-form>
+              </div>
+              <div class="c-section-two__gender-block">
+                <h3 class="c-section-two__label">
+                  {{ "BIC.Gender" | translate }}
+                </h3>
+                <app-gender-form [respondentOptions]="respondentOptions"></app-gender-form>
+              </div>
+            </div>
+          </div>
+          <p class="c-section__subtext market">
+            {{"BIC.If you want to run this test in another market or category, you can easily copy this test after you have published and paid in your test library." | translate }}
+          </p>
+        </div>
+      </div>
+
+      <!--      SECTION 2-->
+      <div #section2
+           id="section2"
+           class="c-section__block-wrapper">
+        <div class="c-test__card">
+          <div class="c-section-two__market">
+            <div class="c-test__card__title">
+              <span class="c-test__card__number">2</span>
+              {{ "BIC.Select and describe category" | translate }}
+              <span class="market-tip"><app-question-tooltip [title]="'respondents.why-important'"
+                                                             [texts]="[
+                'respondents.This is to secure that relevant respondents are qualified into the test.',
+                'respondents.Screening will be based on your selected sub-category/sub-categories. This means that only respondents that are involved in your selected sub-category/sub-categories will answer the survey.']"
+                                                             additionalClass="market"
+                                                             [arrowShift]="marketArrowShift"></app-question-tooltip></span>
+            </div>
+            <div class="c-section__field-with-text">
+              <div class="c-common__form-field c-section-two__form-field">
+                <app-involvment-category></app-involvment-category>
+              </div>
+            </div>
+          </div>
+          <div class="c-section__subtext market">
+            <div class="category_title">
+              {{ "respondents.why-important" | translate }}
+            </div>
+            <p class="category_text">
+              {{ "respondents.This is to secure that relevant respondents are qualified into the test." | translate }}
+            </p>
+            <p class="category_text">
+              {{ "respondents.Screening will be based on your selected sub-category/sub-categories. This means that only respondents that are involved in your selected sub-category/sub-categories will answer the survey." | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--      SECTION 3 -->
+      <div #section3
+           id="section3"
+           class="c-section__block-wrapper">
+        <div class="c-test__card column">
+          <div class="space-between">
+            <div class="c-test__card__title">
+              <span class="c-test__card__number">3</span>
+              {{ "BIC.Select category screening" | translate }}
+              <span class="market-tip"><app-question-tooltip [texts]="[
+              'BIC.All respondents in the selected market, region, age, gender (and segment if selected) will qualify for the survey']"
+                                                             additionalClass="market"
+                                                             [arrowShift]="marketArrowShift"></app-question-tooltip></span>
+            </div>
+            <div class="c-section__subtext market">
+              <div class="c-why-add__text">
+                {{ "BIC.All respondents in the selected market, region, age, gender (and segment if selected) will qualify for the survey" | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="c-section__field-with-text">
+            <div class="c-section-two__category-screening">
+              <app-category-screening [respondentRequirements]="respondentRequirements"
+                                      [testType]="TestType.BT"></app-category-screening>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--      SECTION 4 -->
+      <div #section4
+           id="section4"
+           class="c-section__block-wrapper"
+           [class.disabled]="!respondentRequirements.countries.length">
+        <div class="c-test__card column">
+          <h3 class="c-test__card__title">
+            <span class="c-test__card__number">4</span>
+            {{ "BIC.Select consumer segment" | translate }}
+          </h3>
+          <app-segmentation-form *ngIf="respondentRequirements.countries.length"
+                                 [testType]="TestType.BT"
+                                 [respondentOptions]="respondentOptions"
+                                 [respondentRequirements]="respondentRequirements"></app-segmentation-form>
+        </div>
+      </div>
+
+      <!--      SECTION 5 -->
+      <div #section5
+           id="section5"
+           class="c-section__block-wrapper"
+           [class.disabled]="!respondentRequirements.countries.length">
+        <div class="c-test__card space-between">
+          <div class="c-section-four__market">
+            <div class="c-test__card__title c-section-two__title">
+              <div>
+                <span class="c-test__card__number">5</span>
+                {{ "BIC.Select number of respondents" | translate }}
+              </div>
+              <div class="c-section-two__tip-mob">
+                <app-why-add [title]="'BT.Why this section is important?'"
+                             [text]="['BT.How many interviews you should collect on a weekly basis depends on how often you want to analyze the data and on what level. E.g. if you want to analyze a certain demographic profile or segment.',
+                         'BT.Example: If you collect standard 125 interviews per week, you have a base of approx. 540 respondents per month. If your target segment constitutes 10% of the category, approx. 54 respondents per month will represent your target group and 162 per quarter.',
+                         'BT.We recommend at least 100 respondents in each breakdown/cell that you want to analyze.']"></app-why-add>
+              </div>
+            </div>
+            <app-resp-number-container *ngIf="respondentRequirements.countries.length"
+                                       [respondentRequirements]="respondentRequirements"></app-resp-number-container>
+          </div>
+          <div class="c-section-two__tip-desk">
+            <app-why-add [title]="'BT.Why this section is important?'"
+                         [text]="['BT.How many interviews you should collect on a weekly basis depends on how often you want to analyze the data and on what level. E.g. if you want to analyze a certain demographic profile or segment.',
+                         'BT.Example: If you collect standard 125 interviews per week, you have a base of approx. 540 respondents per month. If your target segment constitutes 10% of the category, approx. 54 respondents per month will represent your target group and 162 per quarter.',
+                         'BT.We recommend at least 100 respondents in each breakdown/cell that you want to analyze.']"></app-why-add>
+          </div>
+        </div>
+      </div>
+      <app-next-button [nextSection]="'section-3'"
+                       [testType]="TestType.BT"></app-next-button>
+    </div>
+  </div>
+</div>

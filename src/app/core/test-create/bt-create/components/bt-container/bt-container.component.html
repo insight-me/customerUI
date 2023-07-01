@@ -1,0 +1,7 @@
+<app-header-bt [testName]="(test$ | async)?.testName"></app-header-bt>
+<app-subheader-bt [test]="test$ | async"
+                  [respondentRequirements]="respondentService.respondentRequirements$ | async"
+></app-subheader-bt>
+<div class="c-create-bt">
+  <router-outlet></router-outlet>
+</div>

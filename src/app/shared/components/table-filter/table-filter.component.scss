@@ -1,0 +1,29 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-table-filter {
+  &__list {
+    margin: 0;
+    padding: 0;
+
+    &-item {
+      @include medium-16;
+
+      padding: 11px 22px;
+      list-style: none;
+      border-bottom: 1px solid $border;
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom: 1px solid $lightgray;
+      }
+    }
+  }
+
+  &__buttons {
+    @include flex-end-center;
+
+    gap: 5px;
+    padding: 11px 12px 3px 11px;
+  }
+}

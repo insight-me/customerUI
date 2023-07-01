@@ -1,0 +1,55 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-confirmation-dialog {
+  position: relative;
+  min-width: 360px;
+  margin: 0 10px;
+  padding: 20px;
+  text-align: center;
+  background-color: white;
+  border-radius: 8px;
+
+  &__header {
+    @include medium-18;
+
+    margin-bottom: 12px;
+    text-align: left;
+    text-transform: capitalize;
+  }
+
+  &__button {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+  }
+
+  &__label {
+    @include medium-16;
+
+    margin: 0 0 4px;
+    text-align: left;
+    color: $gray !important;
+  }
+
+  &__text {
+    @include regular-16;
+
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  &__button {
+    &-wrapper {
+      display: grid;
+      grid-column-gap: 10px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-confirmation-dialog {
+    min-width: 360px;
+  }
+}

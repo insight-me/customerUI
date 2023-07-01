@@ -1,0 +1,160 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-research-products {
+  @include flex-center;
+
+  flex-direction: column;
+  padding: 100px 0;
+
+  &__title {
+    @include medium-32;
+
+    margin-bottom: 60px;
+    text-align: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 24px;
+
+    &-card {
+      @include flex-center;
+
+      position: relative;
+      flex-direction: column;
+      width: 220px;
+      height: 220px;
+      padding: 28px;
+      background: $total-odd;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background: $blue;
+        transition: background 0.5s ease-in-out;
+
+        .title {
+          margin-top: 0;
+          color: $white;
+        }
+
+        .btn {
+          width: 112px;
+          height: 34px;
+          margin-top: 20px;
+          visibility: visible;
+          opacity: 1;
+          transition: opacity 0.5s, height 0.01s ease-in-out;
+        }
+
+        .coming-soon {
+          display: none;
+        }
+      }
+
+      .coming-soon {
+        @include regular-12;
+
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 4px 8px;
+        color: $white;
+        background: #7367D6;
+        border-radius: 2px;
+      }
+
+      .title {
+        @include medium-20;
+
+        margin-top: 30px;
+        text-align: center;
+      }
+
+      .btn {
+        width: 112px;
+        height: 0;
+        margin-top: 0;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.1s, height 0.01s ease-in-out;
+      }
+    }
+  }
+
+  &__button {
+    width: 220px;
+    margin: 40px 120px;
+  }
+}
+
+@media #{$tablet} {
+  .c-research-products {
+    padding: 60px 0;
+
+    &__title {
+      @include medium-28;
+
+      margin-bottom: 40px;
+    }
+
+    &__content {
+      gap: 21px;
+
+      &-card {
+        width: 210px;
+        height: 160px;
+        padding: 23px;
+
+        &:hover {
+          background: $total-odd;
+
+          .title {
+            color: $black;
+          }
+        }
+
+        .btn {
+          display: none;
+        }
+
+        .title {
+          @include medium-20;
+
+          margin-top: 0;
+        }
+      }
+    }
+
+    &__button {
+      margin: 40px -2px;
+    }
+  }
+}
+
+@media #{$mobile-main-page} {
+  .c-research-products {
+    padding: 60px 0 20px;
+
+    &__title {
+      @include medium-24;
+    }
+
+    &__content {
+      &-card {
+        width: 157px;
+        height: 160px;
+        padding: 20px;
+
+        .title {
+          @include medium-16;
+        }
+      }
+    }
+  }
+}

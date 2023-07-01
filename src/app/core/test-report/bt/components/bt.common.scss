@@ -1,0 +1,349 @@
+@import "variables";
+@import "mixins";
+@import "breakpoint-slicer";
+
+.bt-test-report {
+  @include flex-column-stretch;
+
+  height: 100%;
+
+  &__message-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .message {
+      width: 383px;
+    }
+  }
+
+  &-circle-value {
+    font-size: 32px;
+
+    @media #{$mobilemin} {
+      font-size: 25px;
+    }
+  }
+
+  &-circle-label {
+    font-size: 14px;
+
+    @media #{$mobilemin} {
+      font-size: 12px;
+    }
+  }
+
+  &.bt-widget-wrapper {
+    margin: 20px 0;
+    padding: 20px;
+    background: $white;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  app-demography-filter {
+    padding: 0 12px;
+    background: $background;
+    border-radius: 8px;
+  }
+
+  app-warning-message {
+    margin: 30px 0;
+  }
+
+  &__grouped-chart {
+    flex-grow: 1;
+    align-self: center;
+    max-width: 1000px;
+  }
+
+  &__aaa {
+    overflow-x: auto;
+  }
+
+  &__bbb {
+    white-space: nowrap;
+  }
+
+  &__header {
+    display: grid;
+    grid-column-gap: 20px;
+    grid-template-columns: 1fr 0.5fr;
+    max-height: 31px;
+    margin-bottom: 20px;
+
+    &-title {
+      display: flex;
+      font-family: "GT Walsheim Pro Medium";
+      font-size: 20px;
+      line-height: 150%;
+
+      &.m-20 {
+        margin-bottom: 20px;
+      }
+
+
+    }
+
+    &-filter {
+      @include flex-end-center;
+
+      position: relative;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 14px;
+      line-height: 150%;
+      color: $lightgray;
+      word-break: normal;
+
+      &-button {
+        @include flex-start-nowrap;
+
+        position: relative;
+        margin-left: 12px;
+        font-family: "GT Walsheim Pro Medium";
+        color: $black;
+        cursor: pointer;
+
+        app-expand-button {
+          margin-left: 8px;
+        }
+      }
+
+      &-panel {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        z-index: 9999;
+
+        @media #{$mobilemin} {
+          .p-overlaypanel {
+            width: 325px !important;
+          }
+        }
+
+        &-actions {
+          @include flex-end-center;
+
+          margin: 16px;
+          padding-top: 16px;
+          border-top: 1px solid $lightgrayWhite;
+
+          &-btn {
+            min-width: unset;
+            height: 34px;
+            padding: 10px 20px;
+            font-family: "GT Walsheim Pro Medium";
+            font-size: 12px;
+            line-height: 14px;
+
+            &:first-child {
+              margin-right: 10px;
+            }
+          }
+        }
+
+        &-double {
+          @include flex-start-nowrap;
+
+          align-items: center;
+          height: 100%;
+          margin: 16px;
+
+          &-element {
+            @include flex-column-stretch;
+
+            width: 100%;
+            height: 100%;
+            min-width: 300px;
+
+            &-title {
+              padding: 0 0 12px;
+              font-family: "GT Walsheim Pro Medium";
+              font-size: 16px;
+              line-height: 150%;
+              color: $black;
+            }
+
+            &-scroll {
+              width: 300px;
+              height: 100%;
+              max-height: 310px;
+              margin-right: 20px;
+              overflow: auto;
+
+              &:first-child {
+                margin-right: 36px;
+              }
+            }
+          }
+        }
+
+        p-overlaypanel {
+          .p-overlaypanel {
+            position: static;
+          }
+        }
+
+        &-item {
+          height: 51px;
+          padding: 11px 5px;
+          color: $black;
+
+          &:not(:last-child) {
+            border-bottom: 1px solid #b8b2ea33;
+          }
+        }
+      }
+    }
+  }
+
+  &-zoom {
+    @include flex-end-center;
+
+    @media only screen and (max-width: 950px) {
+      display: none;
+    }
+
+    &-button {
+      @include flex-center;
+
+      gap: 7px;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 14px;
+      line-height: 150%;
+      color: $lightgray;
+      cursor: pointer;
+    }
+  }
+
+  &__double {
+    display: grid;
+    grid-column-gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+
+
+    @include to(xl) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    &-item {
+      @include flex-column-stretch;
+
+      flex-grow: 1;
+      height: 100%;
+
+      &-header {
+        @include flex-end-center;
+
+        margin-bottom: 10px;
+        padding: 8px;
+        background: $background;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+.item-chart-bar {
+  &:hover .vertical-bar-chart-tooltip {
+    z-index: 2;
+    visibility: visible;
+    opacity: 1;
+    font-family: "GT Walsheim Pro Regular";
+    transition: 0.5s;
+    transition-delay: 0.1s;
+  }
+
+  .vertical-bar-chart-tooltip {
+    position: absolute;
+    width: 200px;
+    visibility: hidden;
+
+    &.right {
+      left: 0;
+
+      .vertical-bar-chart-tooltip-arrow {
+        left: 30px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    &.left {
+      right: 0;
+
+      .vertical-bar-chart-tooltip-arrow {
+        right: 30px;
+        transform: rotate(45deg);
+      }
+    }
+
+    &-arrow {
+      position: absolute;
+      bottom: -8px;
+      width: 0;
+      height: 0;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid $darkviolet;
+      border-left: 10px solid transparent;
+    }
+
+    &-content {
+      @include flex-column-stretch;
+
+      padding: 9px 14px;
+      background-color: $darkviolet;
+      border-radius: 5px;
+      box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.35);
+
+      &-title {
+        margin-bottom: 5px;
+        font-size: 20px;
+        line-height: 23px;
+        color: $white;
+        letter-spacing: 0;
+      }
+
+      &-values {
+        @include flex-space-between-center;
+
+        flex-wrap: nowrap;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 12px;
+        color: $white;
+        letter-spacing: 0.5px;
+
+        span {
+          &:first-child {
+            margin-right: 14px;
+          }
+
+          &:last-child {
+            font-size: 14px;
+            line-height: 12px;
+            color: $darkorange;
+            letter-spacing: 0.58px;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}
+
+.conversion-bagde {
+  @include regular-14;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+  color: $dark-gray
+}
+
+.period {
+  @include regular-14;
+
+  color: $dark-gray;
+}

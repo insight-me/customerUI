@@ -1,0 +1,71 @@
+@import "variables";
+
+.app-radio-button {
+  @include flex-center;
+
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  &__item {
+    padding: 5px 60px 5px 0;
+
+    &.custom-style {
+      width: 100%;
+      padding: 11px 16px;
+      color: $black;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #b8b2ea33;
+      }
+    }
+
+    input,
+    label {
+      margin-top: -17px !important;
+    }
+
+    &-radiobutton {
+      width: 0;
+      height: 0;
+
+      &+label {
+        position: relative;
+        display: block;
+        max-width: 250px;
+        width: fit-content;
+        padding: 0 0 0 40px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-family: "GT Walsheim Pro Medium";
+        font-size: 16px;
+        line-height: 24px;
+        cursor: pointer;
+      }
+
+      &+label::before {
+        content: "";
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        box-sizing: border-box;
+        width: 22px;
+        height: 22px;
+        background-color: $background;
+        border: 1px solid $light-orange-second;
+        border-radius: 50%;
+      }
+
+      &:checked+label::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10px;
+        height: 10px;
+        border: 7px solid $darkorange !important;
+        border-radius: 50%;
+      }
+    }
+  }
+}

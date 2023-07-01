@@ -1,0 +1,93 @@
+@import "../../../../assets/styles/variables.scss";
+@import "../../../../assets/styles/mixins.scss";
+
+:host ::ng-deep {
+  .p-toast {
+    width: 30em;
+
+    &-message-custom {
+      width: 500px;
+      color: $black;
+      background-color: $white;
+      border: solid $white;
+      border-width: 0 0 0 6px;
+
+      & > .p-toast-message-content {
+        align-items: center;
+
+        & > button {
+          display: none;
+        }
+
+        & > div {
+          flex-grow: 1;
+          margin-left: 12px;
+
+          & > div:nth-child(1) {
+            margin-bottom: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            color: $black;
+          }
+
+          & > div:nth-child(2) {
+            font-size: 16px;
+            font-weight: 600;
+            color: $black;
+          }
+        }
+
+        & > a {
+          margin-left: 10px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.toast {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+
+  &-content {
+    margin-left: 20px;
+  }
+
+  &-text {
+    @include regular-16;
+
+    max-height: 300px;
+    margin: 0;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  &-title {
+    @include medium-16;
+
+    margin-bottom: 12px;
+  }
+
+  &-close {
+    position: absolute;
+    top: -15px;
+    right: -16px;
+    cursor: pointer;
+  }
+}
+
+@media #{$mobile} {
+  :host ::ng-deep {
+    .p-toast {
+      width: 90vw;
+
+      &-message-custom {
+        width: 90vw;
+      }
+    }
+  }
+}

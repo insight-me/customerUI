@@ -1,0 +1,15 @@
+<div #moodboardContainerElement *ngIf="moodboard.items.length" class="c-moodboard"
+     [ngStyle]="{'height': getHeight() + 'px',   position: 'relative', 'transform-origin': '10px 0', width: '100%',
+     'border-radius': '8px', overflow: 'hidden'}">
+  <div *ngFor="let image of moodboard?.items; let i=index"
+       class="c-moodboard__image"
+       [ngStyle]="{ position: 'absolute',
+       'transform': 'translate3d(' +image?.itemData?.itemPositionX*scale + 'px, ' + image?.itemData?.itemPositionY*scale  + 'px, 0px)',
+       'width':(image?.itemData?.itemWidth*scale) + 1 + 'px',
+       'height': (image?.itemData?.itemHeight*scale) + 1 + 'px',
+       'box-sizing': 'content-box', 'z-index': image?.position }">
+    <img [src]="image?.path ? image.path : image.imageBase64"
+         [width]="image?.itemData?.itemWidth*scale + 1"
+         [height]="image?.itemData?.itemHeight*scale + 1" alt="image">
+  </div>
+</div>

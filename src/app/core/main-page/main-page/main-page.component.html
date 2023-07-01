@@ -1,0 +1,14 @@
+<link rel="preload" as="image" href="assets/images/png/background_blur_cold.png">
+<link rel="preload" as="image" href="assets/images/png/background_blur_warm.png">
+<h1 [style.height]="0" [style.margin]="0" [style.overflow]="'hidden'">InsightMe</h1>
+<div class="c-main-page">
+  <div class="c-main-page__content">
+    <app-main-page-header></app-main-page-header>
+    <div class="c-main-page__content-main">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <div class="c-main-page__footer">
+    <app-main-page-footer></app-main-page-footer>
+  </div>
+</div>

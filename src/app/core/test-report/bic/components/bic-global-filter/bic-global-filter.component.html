@@ -1,0 +1,106 @@
+<div class="filter-container"
+     [ngClass]="isOpened ? 'opened' : 'hided'">
+  <form [formGroup]="form">
+    <!-- Dropdown template -->
+    <ng-template #dropdown
+                 let-options="options"
+                 let-label="label"
+                 let-controlName="controlName"
+                 let-hasTooltip="hasTooltip"
+                 let-isSingle="isSingle"
+                 let-placeholder="placeholder"
+                 let-optionLabel="optionLabel"
+                 let-disabled="disabled"
+                 let-hasClear="hasClear">
+      <div class="form-item"
+           [class.single-item]="isSingle">
+        <div class="form-item__label"
+             *ngIf="hasTooltip">
+          <h5>{{label}}</h5>
+          <app-question-tooltip></app-question-tooltip>
+        </div>
+        <h5 *ngIf="!hasTooltip">{{label}}</h5>
+        <p-dropdown class="c-common__dropdown-test"
+                    [formControlName]="controlName"
+                    [optionLabel]="optionLabel ? optionLabel : 'name'"
+                    [value]="null"
+                    [disabledControl]="disabled"
+                    [showClear]="hasClear"
+                    [placeholder]="placeholder"
+                    [options]="isArray(options) ? options : (options | async)">
+        </p-dropdown>
+      </div>
+    </ng-template>
+    <ng-template #inputNumber
+                 let-label="label"
+                 let-controlName="controlName">
+      <div class="input-wrapper">
+        <h5>{{label}}</h5>
+
+        <p-inputNumber class="inputnumber"
+                       maxlength=2
+                       [disabledControl]="populationValue !== 'sub-pop'"
+                       [formControlName]="controlName"
+                       [style.width]="'50%'">
+        </p-inputNumber>
+      </div>
+    </ng-template>
+
+    <div class="header"
+         [class.header-hided]="!isOpened">
+      <div class="header-text">
+        <h2 class="title">{{'global_filter.data_options' | translate}}</h2>
+        <p class="description"
+           *ngIf="isOpened">{{'global_filter.select_to_apply' | translate}}</p>
+      </div>
+      <button class="open-close-btn"
+              (click)="open()">
+        <svg-icon [src]="'/assets/images/svg/ic_left-arrow.svg'"
+                  [svgClass]="isOpened ? 'rotate' : 'rotate-back'">
+        </svg-icon>
+      </button>
+    </div>
+    <div class="filters-container"
+         *ngIf="isOpened">
+
+      <div class="form-item single-item">
+        <h5 [style.margin-bottom]="'4px'">{{'global_filter.market' | translate}}</h5>
+        <p-multiSelect [options]="regions"
+                       [placeholder]="'global_filter.market' | translate"
+                       formControlName="regions"
+                       [disabledControl]="!countryValue"
+                       optionLabel="name">
+          <ng-template let-selectedItems="selectedItems"
+                       let-items="items"
+                       pTemplate="selectedItems">
+            <p>{{regionsValue?.length === regions.length ? ('global_filter.all' | translate) : regionsValue?.length ? regionsValue?.length + ' ' + ('global_filter.markets-selected' | translate) : 'global_filter.market' | translate}}</p>
+          </ng-template>
+        </p-multiSelect>
+      </div>
+
+      <div class="dropdown-group">
+        <ng-container *ngTemplateOutlet="dropdown; context: {options: populationOptions, hasTooltip:false, label: 'global_filter.population' | translate, isSingle:false, controlName: 'population',placeholder: 'global_filter.population' | translate, hasClear: false}"></ng-container>
+        <ng-container *ngTemplateOutlet="dropdown; context: {options: gender$, hasTooltip:false, label: 'global_filter.gender' | translate, isSingle:false, optionLabel: 'value', controlName: 'gender', disabled: populationValue !== 'sub-pop',  placeholder: 'global_filter.gender' | translate, hasClear: true}"></ng-container>
+      </div>
+
+      <h5 class="age-title">{{'global_filter.age' | translate}}</h5>
+      <div class="inputs-wrapper"
+           [class.single-item]="!hasSegments">
+        <ng-container *ngTemplateOutlet="inputNumber; context:{label:'global_filter.from' | translate, controlName: 'fromAge'}"></ng-container>
+        <ng-container *ngTemplateOutlet="inputNumber; context:{label:'global_filter.to' | translate, controlName: 'toAge'}"></ng-container>
+      </div>
+
+      <ng-container *ngTemplateOutlet="dropdown; context: {options: segments$, hasTooltip:false, label: 'confirm-test.segments' | translate, isSingle:false, controlName: 'segments', placeholder: 'confirm-test.segments' | translate, optionLabel: 'value', hasClear: true}"></ng-container>
+
+      <ng-container *ngIf="hasSegments">
+        <ng-container *ngTemplateOutlet="dropdown; context: {options: purchaseFrequencies$, hasTooltip:false, label: 'global_filter.purchase_frequency' | translate, isSingle:true, controlName: 'purchase', placeholder: 'global_filter.purchase' | translate, optionLabel: 'value', hasClear: true}"></ng-container>
+      </ng-container>
+
+      <button class="c-common__button c-common__button--regular normal c-created-tests__button-mobile reset-filter"
+              (click)="resetForm()">
+        <svg-icon src="/assets/images/svg/ic_refresh.svg"></svg-icon>
+        <span>{{'global_filter.reset_filters' | translate}}</span>
+      </button>
+    </div>
+  </form>
+</div>

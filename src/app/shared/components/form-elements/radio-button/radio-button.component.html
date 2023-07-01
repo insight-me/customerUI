@@ -1,0 +1,26 @@
+<div
+  class="app-radio-button"
+  [formGroup]="formGroup"
+>
+  <div
+    *ngFor="let option of options; index as i"
+    class="app-radio-button__item"
+    [class.custom-style]="customStyle"
+  >
+    <input
+      class="app-radio-button__item-radiobutton"
+      type="radio"
+      [formControlName]="controlName"
+      [id]="id + i"
+      [value]="option.id"
+    >
+    <label
+      class="app-radio-button__item-label"
+      [for]="id + i"
+      [pTooltip]=" withTooltip ? (option.value | translate) : '' "
+      tooltipEvent="hover"
+      tooltipPosition="top"
+    >{{option.value | translate}}</label>
+  </div>
+
+</div>

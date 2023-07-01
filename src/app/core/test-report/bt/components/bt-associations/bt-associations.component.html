@@ -1,0 +1,28 @@
+<div class="bt-test-report bt-widget-wrapper">
+
+  <div class="bt-test-report__double">
+    <div class="bt-test-report__double-item"
+         [ngStyle]="gridStyle(0)">
+      <app-bt-association-per-brand [dataSet]="btRSS.associationsOverTimeDataSet$ | async"></app-bt-association-per-brand>
+    </div>
+
+    <div class="bt-test-report__double-item"
+         [ngStyle]="gridStyle(1)">
+      <app-bt-association-over-time-competitors [dataSet]="btRSS.brandAndAssociationsOverTimeDataSet$ | async"></app-bt-association-over-time-competitors>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="btRSS.associationsComparedToCompetitorsDataSet$ | async as dataSet"
+     class="bt-test-report bt-widget-wrapper">
+
+  <app-bt-associations-compared-to-competitors [dataSet]="dataSet"></app-bt-associations-compared-to-competitors>
+</div>
+
+
+<div class="bt-test-report bt-widget-wrapper">
+
+  <app-bt-association-in-target-group [dataSet]="btRSS.associationsInTargetGroups$ | async"></app-bt-association-in-target-group>
+
+</div>

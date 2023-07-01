@@ -1,0 +1,40 @@
+<div class="app-concept-respond-table" *ngIf="dataSet.accumulatedData.length"
+     [class.border]="type !== ConceptReportTableDataType.Relevance">
+  <div
+    *ngIf="type !== ConceptReportTableDataType.Relevance"
+    class="app-concept-respond-table__title"
+  >{{dataSet.concept?.conceptName}}</div>
+
+  <div
+    class="app-concept-respond-table__row"
+    [class.relevance]="type === ConceptReportTableDataType.Relevance"
+    [class.reasons]="type === ConceptReportTableDataType.Reasons"
+  >
+    <span class="column-name">{{columnTitle | translate | titlecase}}</span>
+    <span class="column-name">{{"report.relevance" | translate | titlecase}} (5-7)</span>
+  </div>
+
+  <div *ngFor="let item of dataSet.accumulatedData; index as i"
+       class="app-concept-respond-table__row"
+       [class.relevance]="type === ConceptReportTableDataType.Relevance"
+       [class.reasons]="type === ConceptReportTableDataType.Reasons"
+  >
+    <div
+      class="cell-name"
+      [style]="getStyle(item, true)"
+    >{{item.name}}</div>
+    <div
+      class="cell-value"
+      [style]="getStyle(item, false)"
+    >{{item.originalPercent}}%
+    </div>
+    <div
+      *ngIf="type !== ConceptReportTableDataType.Relevance && item.originalPercent >= average && dataSet.accumulatedData[i + 1] && dataSet.accumulatedData[i + 1].originalPercent < average"
+      class="cell-average higher"
+    >{{"report.Higher Than average" | translate | uppercase}}</div>
+    <div
+      *ngIf="type !== ConceptReportTableDataType.Relevance && item.originalPercent < average && dataSet.accumulatedData[i - 1] && dataSet.accumulatedData[i - 1].originalPercent >= average"
+      class="cell-average lower"
+    >{{"report.Lower than average" | translate | uppercase}}</div>
+  </div>
+</div>

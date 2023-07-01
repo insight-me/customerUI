@@ -1,0 +1,443 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.p-dialog {
+  @include flex-center;
+
+  max-height: 100% !important;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  overflow: auto;
+  box-shadow: none !important;
+
+  .p-dialog-content {
+    padding: 0 !important;
+    overflow-y: hidden;
+    background: transparent !important;
+    border-radius: 0 0 6px 6px;
+  }
+}
+
+.prime {
+  &-dialog {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 32px;
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: -5px;
+      margin-bottom: 20px;
+
+      &-title {
+        margin: 0;
+        font-size: 20px;
+        line-height: 32px;
+        font-weight: bold;
+        letter-spacing: 0;
+      }
+
+      &-close {
+        cursor: pointer;
+      }
+    }
+
+    &__content {
+      height: calc(100% - 144px);
+      overflow-x: none;
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: thin;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+        margin-top: 60px;
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        height: 5px;
+        background-color: $light-orange-second;
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-track-piece {
+        background-color: $lightgrayWhite;
+      }
+
+      &::-webkit-scrollbar-track {
+        margin-top: 70px;
+        background-color: $lightgrayWhite;
+        border-radius: 5px;
+      }
+    }
+
+    &__footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 32px -32px -32px;
+      padding: 23px;
+      background-color: #f0eeff;
+    }
+  }
+}
+
+.p-overlaypanel {
+  top: 45px !important;
+  margin-top: 0 !important;
+  border-radius: 7px !important;
+
+  &::before,
+  &::after {
+    display: none !important;
+  }
+
+  &-content {
+    padding: 0 !important;
+    border-radius: 7px !important;
+  }
+}
+
+.p-datatable {
+  .p-datatable-scrollable-header {
+    background-color: $white !important;
+  }
+
+  &-thead {
+    &>tr>th {
+      padding: 1rem 1rem 1rem 0 !important;
+    }
+  }
+
+  &-tbody>tr {
+    border-bottom: 1px solid $lightgrayWhite !important;
+  }
+
+  &-tbody>tr>td {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1rem 1rem 0 !important;
+    color: $black;
+    border: none !important;
+  }
+}
+
+.p-tooltip-text {
+  width: fit-content;
+  overflow: hidden;
+  white-space: pre-wrap;
+}
+
+.p-radiobutton {
+  width: 36px !important;
+  height: 36px !important;
+
+  .p-focus {
+    box-shadow: none !important;
+  }
+
+  &-label {
+    font-family: "GT Walsheim Pro Regular";
+    font-size: 16px;
+    line-height: 32px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .p-radiobutton-box {
+    width: 36px !important;
+    height: 36px !important;
+    background-color: $input-background !important;
+    border: 1px solid $light-orange-second !important;
+    border-radius: 28px !important;
+
+    &.p-highlight {
+      background-color: $darkorange !important;
+      border: 1px solid $darkorange !important;
+    }
+  }
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+  box-shadow: none !important;
+}
+
+.p-dropdown .p-dropdown-panel {
+  border: 1px solid $darkorange;
+  border-radius: 3px;
+}
+
+.p-dropdown-panel {
+  border: 1px solid $darkorange !important;
+  border-radius: 3px;
+}
+
+.pi-search::before {
+  color: $orange;
+}
+
+.panel-container {
+  position: relative;
+
+  p-overlaypanel {
+    .p-overlaypanel {
+      left: 0 !important;
+    }
+  }
+}
+
+.prime {
+  &__calendar {
+    @include regular-16;
+
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 13px;
+      left: 17px;
+      width: 24px;
+      height: 24px;
+      background-image: url(../images/svg/ic_calendar.svg);
+    }
+
+    .p-calendar {
+      .p-inputtext {
+        box-sizing: border-box;
+        //max-width: 350px;
+        width: 400px;
+        height: 52px;
+        padding-left: 50px;
+        background: $light-background;
+        border: 1px solid $light-orange-second;
+        border-radius: 5px;
+
+        &:enabled:focus,
+        &:enabled:hover {
+          border: 1px solid $darkorange;
+        }
+
+        &:enabled:focus {
+          @include button-orange-shadow;
+        }
+
+        &.error {
+          border: 1px solid $errorred;
+        }
+      }
+
+      .p-datepicker {
+        @include regular-16;
+
+        text-align: center;
+      }
+
+      .p-datepicker:not(.p-disabled) {
+        width: 400px;
+        min-height: 354px;
+        padding: 20px;
+        background: $white;
+        border-radius: 8px;
+        box-shadow: 0 3px 28px rgb(0 0 0 / 0.26);
+      }
+
+      .p-datepicker.p-highlight {
+        background: $darkorange;
+        border-radius: 4px;
+      }
+
+      .p-datepicker table td.p-datepicker-today>span {
+        box-sizing: border-box;
+        background: $white;
+        border: 1px solid $orange;
+        border-radius: 4px;
+      }
+
+      .p-datepicker .p-datepicker-header {
+        padding: 0;
+        border: none;
+
+        .pi {
+          font-size: 0.7rem;
+        }
+      }
+
+      // NEXT BUTTON
+      .p-datepicker .p-datepicker-header .p-datepicker-next {
+        order: 3;
+
+        .pi {
+          font-size: 0.7rem;
+        }
+      }
+
+      // PREV BUTTON
+      .p-datepicker .p-datepicker-header .p-datepicker-prev {
+        order: 2;
+      }
+
+      // TITLE
+      .p-datepicker .p-datepicker-header .p-datepicker-title {
+        @include medium-16;
+
+        width: 80%;
+        margin: 0;
+        padding-left: 1rem;
+        text-align: start;
+        color: $black;
+      }
+
+      .p-datepicker table td {
+        padding: 0.3rem;
+      }
+
+      .p-datepicker table th>span {
+        @include medium-14;
+
+        color: $gray !important;
+        text-transform: uppercase;
+      }
+
+      .p-datepicker .p-datepicker-header .p-datepicker-next:enabled:hover,
+      .p-datepicker .p-datepicker-header .p-datepicker-prev:enabled:hover {
+        background: #ffeee3;
+      }
+
+      // HOVER
+      .p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):hover {
+        background: #ffeee3;
+        border-radius: 4px;
+      }
+
+      // SELECTED
+      .p-datepicker table td>span.p-highlight {
+        color: $white;
+        background: $orange;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-next:focus,
+.p-datepicker .p-datepicker-header .p-datepicker-prev:focus,
+.p-datepicker table td>span:focus {
+  box-shadow: 0 0 2px 3px rgb(255 152 89 / 0.35) !important;
+}
+
+.p-tooltip-text {
+  @include regular-12;
+}
+
+// BACKGROUND FOR DIALOG
+.p-dialog {
+  justify-content: flex-start;
+  overflow: hidden !important;
+}
+
+.p-dialog-mask.p-component-overlay {
+  background-color: rgb(60, 55, 104, 0.4) !important;
+}
+
+p-selectbutton.ng-dirty.ng-invalid>.p-selectbutton>.p-button {
+  background-color: $background;
+  border-color: $light-orange-second !important;
+
+  &:hover {
+    border: 1px solid $darkorange;
+  }
+}
+
+p-calendar.ng-dirty.ng-valid.ng-touched>.p-calendar>.p-inputtext {
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 400;
+  color: #000;
+  font-style: normal;
+  background: $white;
+}
+
+.prime__calendar .p-calendar .p-datepicker {
+  font-weight: 600;
+}
+
+.p-disabled,
+.p-component:disabled {
+  font-weight: 400;
+}
+
+//TOAST
+.p-toast {
+  width: 468px !important;
+  margin-right: 20px;
+}
+
+.p-toast .p-toast-message {
+  width: 468px;
+  margin: 0 50px 0 0 !important;
+  padding: 24px 24px 24px 10px;
+  background: $white;
+  border-radius: 8px;
+  box-shadow: 0 3px 28px rgba(0, 0, 0, 0.26);
+}
+
+.p-toast-message-content {
+  padding: 0 !important;
+}
+
+.p-toast-icon-close {
+  display: none !important;
+}
+
+.p-checkbox-label {
+  @include cut-text;
+
+  max-width: 200px;
+  cursor: pointer;
+}
+
+@media #{$mobile} {
+  .prime {
+    &__calendar {
+      &::after {
+        top: 9px;
+      }
+
+      .p-calendar {
+        width: 100%;
+
+        .p-datepicker:not(.p-disabled) {
+          width: 325px;
+          min-height: 300px;
+        }
+
+        .p-datepicker table td {
+          padding: 0;
+        }
+
+        .p-inputtext {
+          max-width: 300px;
+          height: 42px;
+        }
+      }
+    }
+  }
+
+  .p-toast {
+    width: 90vw !important;
+    margin-right: 5px;
+  }
+
+  .p-toast .p-toast-message {
+    width: 90vw;
+  }
+
+  .p-toast-bottom-right {
+    right: 5px !important;
+  }
+}

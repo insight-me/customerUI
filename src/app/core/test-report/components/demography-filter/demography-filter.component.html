@@ -1,0 +1,287 @@
+<!--app-demography-filter is hidden-->
+<div class="app-demography-filter" [formGroup]="form">
+  <div class="app-demography-filter__column">
+
+    <div class="app-demography-filter__column-container">
+      <!--Age-->
+      <div class="app-demography-filter__column-container-item">
+        <span class="app-demography-filter__column-container-item-title">{{'respondents.age' | translate}}</span>
+        <!--        <div class="app-demography-filter__column-container-item-element">-->
+        <!--          <span>{{'respondents.from' | translate}}:</span>-->
+
+        <!--          <div class="app-demography-filter__column-container-item-element-input-container">-->
+        <!--            <p-inputNumber-->
+        <!--              formControlName="minAge"-->
+        <!--              [min]="min"-->
+        <!--              [max]="max"-->
+        <!--              class="c-base__input-small"-->
+        <!--            ></p-inputNumber>-->
+        <!--          </div>-->
+
+        <!--          <span>{{'respondents.to' | translate}}:</span>-->
+        <!--          <div class="app-demography-filter__column-container-item-element-input-container">-->
+        <!--            <p-inputNumber-->
+        <!--              formControlName="maxAge"-->
+        <!--              [min]="min"-->
+        <!--              [max]="max"-->
+        <!--              class="c-base__input-small"-->
+        <!--            ></p-inputNumber>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <app-dropdown [items]="getAgeGroups()"
+                      [withMultiselect]="true"
+                      [dataType]="DropdownDataType.AgeGroup"
+                      [isError]="!age.value"
+                      [selectedItems]="selectedAgeGroups"
+                      (getSelectedItems)="onChangeAgeGroups($event)"></app-dropdown>
+
+        <small
+          *ngIf="age.touched && age.invalid"
+          class="p-error c-common__form-field-error"
+        >{{'report.Invalid group range' | translate}}</small>
+      </div>
+
+      <!--Gender-->
+      <div
+        *ngIf="genderOptions"
+        class="app-demography-filter__column-container-item"
+      >
+        <span class="app-demography-filter__column-container-item-title">{{'respondents.gender' | translate}}</span>
+        <p-selectButton
+          [options]="genderOptions"
+          optionLabel="value"
+          [multiple]="true"
+          formControlName="genders"
+          class="c-base__multiselect-small"
+          (onChange)="filterSource.next()"
+        ></p-selectButton>
+        <small
+          *ngIf="genders.touched && genders.invalid"
+          class="p-error c-common__form-field-error"
+        >{{ 'respondents.error-gender' | translate}}</small>
+      </div>
+
+      <!--Purchase/usage frequency-->
+      <div
+        *ngIf="purchaseFrequenciesOptions"
+        class="app-demography-filter__column-container-item"
+      >
+        <span
+          class="app-demography-filter__column-container-item-title">{{'respondents.purchase-frequancy' | translate}}</span>
+        <p-selectButton
+          [options]="purchaseFrequenciesOptions"
+          optionLabel="value"
+          [multiple]="true"
+          formControlName="purchaseFrequencies"
+          class="c-base__multiselect-small"
+          (onChange)="filterSource.next()"
+        ></p-selectButton>
+        <small
+          *ngIf="purchaseFrequencies.touched && purchaseFrequencies.invalid"
+          class="p-error c-common__form-field-error"
+        >{{'report.At least one purchase/usage frequency option should be selected' | translate}}</small>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="app-demography-filter__column">
+
+    <div class="app-demography-filter__column-container">
+
+      <!--Market-->
+      <div
+        *ngIf="marketOptions"
+        class="app-demography-filter__column-container-item max-width-335"
+      >
+        <span class="app-demography-filter__column-container-item-title">{{'report.Market' | translate}}</span>
+        <app-tree-multiselect
+          *ngIf="markets"
+          [options]="marketOptions"
+          [control]="markets"
+          [defaultLabel]="marketsDefaultLabel$ | async"
+          (onChange)="filterSource.next()"
+        ></app-tree-multiselect>
+        <small
+          *ngIf="markets.touched && markets.invalid"
+          class="p-error c-common__form-field-error"
+        >{{ 'report.At least one market place should be selected' | translate}}</small>
+      </div>
+
+      <!--Segment-->
+      <div
+        *ngIf="segmentOptions"
+        class="app-demography-filter__column-container-item max-width-335"
+      >
+        <span class="app-demography-filter__column-container-item-title">{{'report.Segment' | translate}}</span>
+        <p-multiSelect
+          *ngIf="segments"
+          class="c-base__multiselect-report"
+          [defaultLabel]="segmentsDefaultLabel$ | async"
+          [displaySelectedLabel]="false"
+          [options]="segmentOptions"
+          optionLabel="value"
+          [formControl]="segments"
+          [filter]="false"
+          (onChange)="onSegmentChange()"
+          (onPanelHide)="onPanelHide()"
+        ></p-multiSelect>
+        <small
+          *ngIf="segments.touched && segments.invalid"
+          class="p-error c-common__form-field-error"
+        >{{ 'report.At least one segment should be selected' | translate}}</small>
+      </div>
+
+    </div>
+
+    <div class="app-demography-filter__column-container">
+      <!--Purchase involvement - Household-->
+      <div
+        *ngIf="purchaseInvolvementsOptions"
+        class="app-demography-filter__column-container-item"
+      >
+        <span
+          class="app-demography-filter__column-container-item-title">{{'respondents.purchase-involments' | translate}}</span>
+        <p-selectButton
+          [options]="purchaseInvolvementsOptions"
+          optionLabel="value"
+          [multiple]="true"
+          formControlName="purchaseInvolvements"
+          class="c-base__multiselect-small"
+          (onChange)="filterSource.next()"
+        ></p-selectButton>
+        <small
+          *ngIf="purchaseInvolvements.touched && purchaseInvolvements.invalid"
+          class="p-error c-common__form-field-error"
+        >{{'report.At least one purchase involvement - household option should be selected' | translate}}</small>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="demography-filter" [formGroup]="form">
+
+  <!--Age-->
+  <div class="demography-filter-item age">
+    <span class="demography-filter-item-title">{{'respondents.age' | translate}}</span>
+    <app-dropdown [items]="getAgeGroups()"
+                  [withMultiselect]="true"
+                  [dataType]="DropdownDataType.AgeGroup"
+                  [isError]="!age.value"
+                  [selectedItems]="selectedAgeGroups"
+                  (getSelectedItems)="onChangeAgeGroups($event)"></app-dropdown>
+    <small
+      *ngIf="age.invalid"
+      class="p-error c-base__form-field-error"
+    >{{'report.Invalid group range' | translate}}</small>
+  </div>
+
+  <!--Gender-->
+  <div
+    *ngIf="genderOptions"
+    class="demography-filter-item"
+  >
+    <span class="demography-filter-item-title">{{'respondents.gender' | translate}}</span>
+    <p-selectButton
+      [options]="genderOptions"
+      optionLabel="value"
+      [multiple]="true"
+      formControlName="genders"
+      class="c-base__multiselect-small"
+      (onChange)="filterSource.next()"
+    ></p-selectButton>
+    <small
+      *ngIf="genders.touched && genders.invalid"
+      class="p-error c-base__form-field-error"
+    >{{ 'respondents.error-gender' | translate}}</small>
+  </div>
+
+  <!--Market-->
+  <div
+    *ngIf="marketOptions"
+    class="demography-filter-item max-width-335"
+  >
+    <span class="demography-filter-item-title">{{'report.Market' | translate}}</span>
+    <app-tree-multiselect
+      *ngIf="markets"
+      [options]="marketOptions"
+      [control]="markets"
+      [defaultLabel]="marketsDefaultLabel$ | async"
+      (onChange)="filterSource.next()"
+    ></app-tree-multiselect>
+    <small
+      *ngIf="markets.touched && markets.invalid"
+      class="p-error c-bgendersase__form-field-error"
+    >{{ 'report.At least one market place should be selected' | translate}}</small>
+  </div>
+
+  <!--Segment-->
+  <div
+    *ngIf="segmentOptions"
+    class="demography-filter-item max-width-335"
+  >
+    <span class="demography-filter-item-title">{{'report.Segment' | translate}}</span>
+    <p-multiSelect
+      *ngIf="segments"
+      class="c-base__multiselect-report"
+      [defaultLabel]="segmentsDefaultLabel$ | async"
+      [displaySelectedLabel]="false"
+      [options]="segmentOptions"
+      optionLabel="value"
+      [formControl]="segments"
+      [filter]="false"
+      (onChange)="onSegmentChange()"
+      (onPanelHide)="onPanelHide()"
+    ></p-multiSelect>
+    <small
+      *ngIf="segments.touched && segments.invalid"
+      class="p-error c-bgendersase__form-field-error"
+    >{{ 'report.At least one segment should be selected' | translate}}</small>
+  </div>
+
+  <!--Purchase/usage frequency-->
+  <div
+    *ngIf="purchaseFrequenciesOptions"
+    class="demography-filter-item"
+  >
+    <span class="demography-filter-item-title">{{'respondents.purchase-frequancy' | translate}}</span>
+    <p-selectButton
+      [options]="purchaseFrequenciesOptions"
+      optionLabel="value"
+      [multiple]="true"
+      formControlName="purchaseFrequencies"
+      class="c-base__multiselect-small"
+      (onChange)="filterSource.next()"
+    ></p-selectButton>
+    <small
+      *ngIf="purchaseFrequencies.touched && purchaseFrequencies.invalid"
+      class="p-error c-base__form-field-error"
+    >{{'report.At least one purchase/usage frequency option should be selected' | translate}}</small>
+  </div>
+
+  <!--Purchase involvement - Household-->
+  <div
+    *ngIf="purchaseInvolvementsOptions"
+    class="demography-filter-item"
+  >
+    <span class="demography-filter-item-title">{{'respondents.purchase-involments' | translate}}</span>
+    <p-selectButton
+      [options]="purchaseInvolvementsOptions"
+      optionLabel="value"
+      [multiple]="true"
+      formControlName="purchaseInvolvements"
+      class="c-base__multiselect-small"
+      (onChange)="filterSource.next()"
+    ></p-selectButton>
+    <small
+      *ngIf="purchaseInvolvements.touched && purchaseInvolvements.invalid"
+      class="p-error c-base__form-field-error"
+    >{{'report.At least one purchase involvement - household option should be selected' | translate}}</small>
+  </div>
+
+
+</div>

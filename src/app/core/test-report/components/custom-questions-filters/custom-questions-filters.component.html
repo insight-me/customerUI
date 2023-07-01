@@ -1,0 +1,14 @@
+<div class="app-concept-definitions__filter"
+     [style.justify-content]="'flex-end'">
+  <app-multi-select-filter *ngIf="filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           [allLabel]="'report.All options'"
+                           [needApplyBtn]="filterModel.length > 1"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+<app-warning-message *ngIf="lowNumbers"
+                     [text]="'BT.Warning! Amount of respondents is too low (<60)'"
+                     [isCentered]="true"
+                     [color]="'#585858'"
+                     [margin]="'0 0 10px 0'"></app-warning-message>

@@ -1,0 +1,239 @@
+<!--TH-->
+<div [style]="btStyle.brandFunnelRow"
+     [ngStyle]="pdfVersion ? {height: '105px'} : {}">
+
+  <div [style]="{minWidth: '150px'}"
+       [ngStyle]="btStyle.svgWrapper">
+    <span [style]="{position: 'absolute', padding: '10px'}"
+          [ngStyle]="pdfVersion ? {top: '30%', left: '35%'} : {}">{{"report.Brand" | translate}}</span>
+    <svg viewBox="0 0 232 80"
+         fill="none"
+         xmlns="http://www.w3.org/2000/svg">
+      <rect width="232"
+            height="80"
+            rx="6"
+            fill="#E3F2FD" />
+    </svg>
+
+  </div>
+
+  <!--  <div [style]="{width: '14.3%', minWidth: '150px', marginRight: '12px'}" [ngStyle]="btStyle.svgWrapper">-->
+  <!--    <span-->
+  <!--      [style]="{position: 'absolute', padding: '10px'}"-->
+  <!--      [ngStyle]="pdfVersion ? {top: '15%'} : {}"-->
+  <!--    >{{"report.Top of mind spontaneous awareness" | translate}}</span>-->
+  <!--    <svg viewBox="0 0 190 80" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+  <!--      <rect width="190" height="80" rx="6" fill="#ADD9F4"/>-->
+  <!--    </svg>-->
+  <!--  </div>-->
+
+  <!--  <div [style]="{width: '14.3%', minWidth: '150px', marginRight: '12px'}" [ngStyle]="btStyle.svgWrapper">-->
+  <!--    <span-->
+  <!--      [style]="{position: 'absolute', padding: '10px'}"-->
+  <!--      [ngStyle]="pdfVersion ? {top: '15%'} : {}"-->
+  <!--    >{{"report.Total spontaneous awareness" | translate}}</span>-->
+  <!--    <svg viewBox="0 0 190 80" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+  <!--      <rect width="190" height="80" rx="6" fill="#ADD9F4"/>-->
+  <!--    </svg>-->
+  <!--  </div>-->
+
+  <div [style]="{minWidth: '160px', marginRight: '-17px'}"
+       [ngStyle]="btStyle.svgWrapper">
+    <span [style]="{position: 'absolute', padding: '10px'}"
+          [ngStyle]="pdfVersion ? {top: '30%', left: '20%'} : {}">{{"report.Aided awareness" | translate}}</span>
+    <ng-container *ngTemplateOutlet="singleArrow"></ng-container>
+  </div>
+
+  <div [style]="{minWidth: '160px', marginRight: '-17px'}"
+       [ngStyle]="btStyle.svgWrapper">
+    <span [style]="{position: 'absolute', padding: '10px'}"
+          [ngStyle]="pdfVersion ? {top: '30%', left: '25%'} : {}">{{"report.Consideration" | translate}}</span>
+    <ng-container *ngTemplateOutlet="doubleArrow"></ng-container>
+  </div>
+
+  <div [style]="{minWidth: '160px', marginRight: '-17px'}"
+       [ngStyle]="btStyle.svgWrapper">
+    <span [style]="{position: 'absolute', padding: '10px'}"
+          [ngStyle]="pdfVersion ? {top: '30%', left: '30%'} : {}">{{"report.Preference" | translate}}</span>
+    <ng-container *ngTemplateOutlet="doubleArrow"></ng-container>
+  </div>
+
+  <div [style]="{minWidth: '160px'}"
+       [ngStyle]="btStyle.svgWrapper">
+    <span [style]="{position: 'absolute', padding: '10px', display: 'flex', alignItems: 'center'}"
+          [ngStyle]="pdfVersion ? {top: '30%', left: '25%'} : {}">{{"report.Penetration" | translate}}
+      <app-question-tooltip [style.margin-left]="'10px'"
+                            [arrowShift]="84"
+                            class="brand-funnel-tooltip"
+                            [texts]="[('penetration.tooltip_text' | translate) + ' ' + penetrationTitle(penetrationInMonthes, ts)]">
+      </app-question-tooltip>
+    </span>
+
+
+    <ng-container *ngTemplateOutlet="doubleArrow"></ng-container>
+  </div>
+</div>
+
+
+<table [style]="{width: '100%'}">
+  <tr>
+    <td [style]="{width: '18.3%', minWidth: '0%'}"></td>
+    <td [style]="{width: '8%', minWidth: '0%'}"></td>
+    <td [style]="{width: '8%', minWidth: '0%'}">
+      <p class="conversion-bagde">{{'report.conversion_rate' | translate}}</p>
+    </td>
+    <td [style]="{width: '8%', minWidth: '0%'}"></td>
+    <td [style]="{width: '8%', minWidth: '0%'}">
+      <p class="conversion-bagde">{{'report.conversion_rate' | translate}}</p>
+    </td>
+    <td [style]="{width: '8%', minWidth: '0%'}"></td>
+    <td [style]="{width: '8%', minWidth: '0%'}">
+      <p class="conversion-bagde">{{'report.conversion_rate' | translate}}</p>
+    </td>
+    <td [style]="{width: '8%', minWidth: '0%'}"></td>
+  </tr>
+
+  <tr *ngFor="let element of dataSet; let i = index">
+    <td [style]="{width: '18.3%', minWidth: '0%'}">
+      <!--Image-->
+      <div [style]="btStyle.box"
+           [ngStyle]="innerWidth < 1400 ? {gridTemplateColumns: auto} : {gridTemplateColumns: '100px minmax(10%, 100%)'}"
+           [style.width.%]="84">
+        <img *ngIf="element.brand.image"
+             [src]="element.brand.image"
+             [style]="btStyle.imageStyle"
+             [ngStyle]="pdfVersion ? {width: '60px', height: '60px'} : {}">
+        <div [style]="btStyle.name">{{element.brand.name}}</div>
+      </div>
+    </td>
+
+    <!--    <td [style]="{width: '14.3%', minWidth: '0%'}">-->
+    <!--      &lt;!&ndash;Top of mind spontaneous awareness&ndash;&gt;-->
+    <!--      <span [style]="btStyle.svgContentWrapper">-->
+    <!--        <div [style]="btStyle.svgLabel">{{element.topOfMindSpontaneousAwareness}}%</div>-->
+    <!--        <ng-container *ngTemplateOutlet="circle"></ng-container>-->
+    <!--      </span>-->
+    <!--    </td>-->
+
+    <!--    <td [style]="{width: '14.3%', minWidth: '0%'}">-->
+    <!--      &lt;!&ndash;Total spontaneous awareness&ndash;&gt;-->
+    <!--      <div [style]="btStyle.svgContentWrapper">-->
+    <!--        <span [style]="btStyle.svgLabel">{{element.totalSpontaneousAwareness}}%</span>-->
+    <!--        <ng-container *ngTemplateOutlet="circle"></ng-container>-->
+    <!--      </div>-->
+    <!--    </td>-->
+
+    <td [style]="{width: '8%', minWidth: '0%'}">
+      <!--Aided awareness-->
+      <div [style]="btStyle.svgContentWrapper">
+        <span [style]="btStyle.svgLabel">{{element.aidedAwareness }}%</span>
+        <ng-container *ngTemplateOutlet="circle"></ng-container>
+      </div>
+    </td>
+
+    <td [style]="{width: '8%', minWidth: '0%'}">
+      <!--Aided awareness to consideration-->
+      <div [style]="btStyle.svgContentWrapper">
+        <span [style]="btStyle.svgLabel"
+              [style.font-size.px]="18">{{element.aidedAwarenessToConsideration}}%</span>
+        <svg height="40"
+             viewBox="0 0 88 40"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.41421 3.41421C0.154279 2.15428 1.04662 0 2.82843 0H67.1716C67.702 0 68.2107 0.210714 68.5858 0.585786L86.5858 18.5858C87.3668 19.3668 87.3668 20.6332 86.5858 21.4142L68.5858 39.4142C68.2107 39.7893 67.702 40 67.1716 40H2.82843C1.04662 40 0.154284 37.8457 1.41421 36.5858L16.5858 21.4142C17.3668 20.6332 17.3668 19.3668 16.5858 18.5858L1.41421 3.41421Z"
+                [attr.fill]="getColorByValue(element.aidedAwarenessToConsideration, 'aidedAwarenessToConsideration')" />
+        </svg>
+      </div>
+    </td>
+
+    <td [style]="{width: '8%', minWidth: '0%'}">
+      <!--Consideration-->
+      <div [style]="btStyle.svgContentWrapper">
+        <span [style]="btStyle.svgLabel">{{element.considerations}}%</span>
+        <ng-container *ngTemplateOutlet="circle"></ng-container>
+      </div>
+    </td>
+    <!--Consideration to preference-->
+    <td [style]="{width: '8%', minWidth: '0%'}">
+      <div [style]="btStyle.svgContentWrapper">
+        <span [style]="btStyle.svgLabel"
+              [style.font-size.px]="18">{{element.considerationToPreference}}%</span>
+        <svg width="88"
+             height="40"
+             viewBox="0 0 88 40"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.41421 3.41421C0.154279 2.15428 1.04662 0 2.82843 0H67.1716C67.702 0 68.2107 0.210714 68.5858 0.585786L86.5858 18.5858C87.3668 19.3668 87.3668 20.6332 86.5858 21.4142L68.5858 39.4142C68.2107 39.7893 67.702 40 67.1716 40H2.82843C1.04662 40 0.154284 37.8457 1.41421 36.5858L16.5858 21.4142C17.3668 20.6332 17.3668 19.3668 16.5858 18.5858L1.41421 3.41421Z"
+                [attr.fill]="getColorByValue(element.considerationToPreference, 'considerationToPreference')" />
+        </svg>
+      </div>
+    </td>
+
+    <td [style]="{width: '7%', minWidth: '0%'}">
+      <!--Preference-->
+      <div [style]="btStyle.svgContentWrapper">
+        <span [style]="btStyle.svgLabel">{{element.preferences}}%</span>
+        <ng-container *ngTemplateOutlet="circle"></ng-container>
+      </div>
+    </td>
+
+    <td [style]="{width: '10%', minWidth: '0%'}">
+      <!--Aided awareness to penetration-->
+      <div [style]="btStyle.svgContentWrapper"
+           [style.margin-top.px]="22">
+        <span [style]="btStyle.svgLabel"
+              [style.font-size.px]="18">{{element.aidedAwarenessToPenetration}}%</span>
+
+        <svg width="88"
+             height="40"
+             viewBox="0 0 88 40"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg">
+          <path d="M1.41421 3.41421C0.154279 2.15428 1.04662 0 2.82843 0H67.1716C67.702 0 68.2107 0.210714 68.5858 0.585786L86.5858 18.5858C87.3668 19.3668 87.3668 20.6332 86.5858 21.4142L68.5858 39.4142C68.2107 39.7893 67.702 40 67.1716 40H2.82843C1.04662 40 0.154284 37.8457 1.41421 36.5858L16.5858 21.4142C17.3668 20.6332 17.3668 19.3668 16.5858 18.5858L1.41421 3.41421Z"
+                [attr.fill]="getColorByValue(element.aidedAwarenessToPenetration, 'aidedAwarenessToPenetration')" />
+        </svg>
+      </div>
+      <div [style]="btStyle.subTitle">{{"report.From aided awareness" | translate}}</div>
+    </td>
+
+    <td [style]="{width: '7%', minWidth: '0%'}">
+      <!--Penetration-->
+      <div [style]="btStyle.svgContentWrapper">
+        <span [style]="btStyle.svgLabel">{{element.penetrations}}%</span>
+        <ng-container *ngTemplateOutlet="circle"></ng-container>
+      </div>
+    </td>
+  </tr>
+</table>
+
+
+<ng-template #circle>
+  <svg width="80"
+       height="80"
+       viewBox="0 0 80 80"
+       fill="none"
+       xmlns="http://www.w3.org/2000/svg">
+    <circle cx="40"
+            cy="40"
+            r="40"
+            fill="#E6E2F8" />
+  </svg>
+</ng-template>
+
+<ng-template #singleArrow>
+  <svg viewBox="0 0 293 80"
+       fill="none"
+       xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 6C0 2.68629 2.68629 0 6 0H260.436C262.304 0 264.066 0.870423 265.201 2.35441L291.211 36.3544C292.857 38.5061 292.857 41.4939 291.211 43.6456L265.201 77.6456C264.066 79.1296 262.304 80 260.436 80H6C2.68629 80 0 77.3137 0 74V6Z"
+          fill="#B8B2EA" />
+  </svg>
+</ng-template>
+
+<ng-template #doubleArrow>
+  <svg viewBox="0 0 287 80"
+       fill="none"
+       xmlns="http://www.w3.org/2000/svg">
+    <path d="M1.38253 9.6465C-1.63872 5.69874 1.17611 0 6.14729 0H253.51C255.346 0 257.081 0.84075 258.219 2.28184L285.064 36.2818C286.785 38.4618 286.785 41.5382 285.064 43.7182L258.219 77.7182C257.081 79.1593 255.346 80 253.51 80H6.14729C1.1761 80 -1.63872 74.3013 1.38253 70.3535L21.8216 43.6465C23.4685 41.4945 23.4685 38.5055 21.8216 36.3535L1.38253 9.6465Z"
+          fill="#B8B2EA" />
+  </svg>
+</ng-template>

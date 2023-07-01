@@ -1,0 +1,85 @@
+@import "./src/assets/styles/variables.scss";
+
+.tooltip-container {
+  position: relative;
+  cursor: pointer;
+
+  &:hover .vertical-bar-chart-tooltip {
+    z-index: 2;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+    transition-delay: 0.1s;
+  }
+
+  .vertical-bar-chart-tooltip {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 15px);
+    width: 200px;
+    visibility: hidden;
+
+    @media #{$mobile} {
+      left: 0;
+    }
+
+    &-arrow {
+      position: absolute;
+      right: 30px;
+      bottom: -8px;
+      width: 0;
+      height: 0;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid $darkviolet;
+      border-left: 10px solid transparent;
+      transform: rotate(45deg);
+
+      @media #{$mobile} {
+        left: 30px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    &-content {
+      @include flex-column-stretch;
+
+      padding: 9px 14px;
+      background-color: $darkviolet;
+      border-radius: 5px;
+      box-shadow: 0 7px 12px 0 rgba(0,0,0,0.35);
+
+      &-title {
+        margin-bottom: 5px;
+        font-size: 20px;
+        line-height: 23px;
+        color: $white;
+        letter-spacing: 0;
+      }
+
+      &-values {
+        @include flex-space-between-center;
+
+        flex-wrap: nowrap;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 12px;
+        color: $white;
+        letter-spacing: 0.5px;
+
+        span {
+          &:first-child {
+            margin-right: 14px;
+          }
+
+          &:last-child {
+            font-size: 14px;
+            line-height: 12px;
+            color: $darkorange;
+            letter-spacing: 0.58px;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+}

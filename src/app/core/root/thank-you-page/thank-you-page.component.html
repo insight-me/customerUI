@@ -1,0 +1,27 @@
+<div class="c-thank-you-page">
+  <div class="c-thank-you-page__logo">
+    <app-icon routerLink="/" class="c-thank-you-page__logo-link" [iconType]="IconsType.Logo"></app-icon>
+  </div>
+  <div class="c-thank-you-page__content">
+    <div class="c-thank-you-page__content-image">
+      <img class="img"
+           src="../../../../assets/images/png/thank-you.png">
+    </div>
+
+    <div class="c-payment-success__message__title title">
+      {{'confirm-test.congratulation' | translate}}
+    </div>
+    <div class="c-payment-success__message__text text">
+      <p>{{'payment.Thank you for creating a test!' | translate}}</p>
+      <p>{{'payment.We will launch your test once we will receive the payment, this can take up to several minutes.' | translate}}</p>
+    </div>
+
+    <div class="c-payment-success__message__close">
+      <div class="c-payment-success__button">
+        <button class="c-common__button--filled c-common__button" [routerLink]="['/personal-area/dashboard']">{{'payment.Go to dashboard' | translate}}
+          <app-icon [iconType]="IconsType.RightArrow" [color]="'#FFFFFF'" class="icon-right"></app-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

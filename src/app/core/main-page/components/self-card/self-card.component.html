@@ -1,0 +1,35 @@
+<div
+  *ngIf="displayedDataSet"
+  class="app-self-card"
+  [style.grid-template-columns]="gridTemplateColumns"
+  (wheel)="$event.deltaX && $event.preventDefault(); wheelHandler($event)"
+  (touchstart)="touchStartHandler($event)"
+  (touchend)="touchEndHandler($event)"
+  (mousedown)="mouseDown($event)"
+  (mouseup)="mouseUp($event)"
+>
+  <div *ngFor="let item of displayedDataSet; index as i" class="app-self-card-item">
+    <div
+      class="app-self-card-item-image"
+      [style.background-image]="'url(' + item.image + ')'"
+    ></div>
+    <p class="app-self-card-item-name">
+      {{ "landing." + item.name | translate }}
+    </p>
+    <span class="app-self-card-item-description">{{
+      "landing." + item.description | translate
+      }}</span>
+    <a *ngIf="item.link" [href]="item.link" target="_blank">
+      <app-icon [iconType]="IconsType.Link" color="#231F20"></app-icon>
+      <span>{{ "landing.Website" | translate }}</span>
+    </a>
+  </div>
+</div>
+<div *ngIf="cardPagesArray.length" class="app-self-card-nav">
+  <div
+    *ngFor="let index of cardPagesArray"
+    class="app-self-card-nav-step"
+    [ngClass]="{ active: activePage === index }"
+    (click)="activePage = index"
+  ></div>
+</div>

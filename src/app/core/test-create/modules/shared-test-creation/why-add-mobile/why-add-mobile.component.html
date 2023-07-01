@@ -1,0 +1,23 @@
+<div class="c-mobile-why-add" (click)="toggleShowText()">
+  <app-icon [iconType]="IconsType.Question"></app-icon>
+  <p class="c-mobile-why-add__title">
+    {{ title ? title : ("BIC.Learn more" | translate) }}
+  </p>
+</div>
+<div *ngIf="showText" class="c-common__modal">
+  <div class="c-common__modal-window">
+    <button
+      class="c-common__modal-window__close c-common__button c-common__button--icon"
+      (click)="toggleShowText()"
+    >
+      <img src="../../../../../../assets/images/svg/ic_close-modal.svg" />
+    </button>
+    <p class="c-mobile-why-add__title">{{ title | translate }}</p>
+    <ng-container *ngIf="!isHTML">
+      <div *ngFor="let paragraph of text" class="c-mobile-why-add__text">
+        {{ paragraph | translate }}
+      </div>
+    </ng-container>
+    <div *ngIf="isHTML" class="c-mobile-why-add__text" [innerHTML]="text"></div>
+  </div>
+</div>

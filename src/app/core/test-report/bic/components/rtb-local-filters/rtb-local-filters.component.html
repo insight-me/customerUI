@@ -1,0 +1,42 @@
+<ng-container *ngIf="type && dataSet$ | async as data">
+  <div class="app-concept-definitions__container">
+    <div class="app-concept-definitions__card-title">
+      {{ title | translate }}
+      <app-question-tooltip
+        [texts]="tooltipTexts"
+        [type]="tooltipType"
+      ></app-question-tooltip>
+    </div>
+    <app-multi-select-filter *ngIf="filterModel[0].options.length > 1 && filterForm"
+                             [filterModel]="filterModel"
+                             [filterForm]="filterForm"
+                             allLabel="report.All concepts"
+                             [needApplyBtn]="false"
+                             (applyFilters)="applyFilters()"></app-multi-select-filter>
+  </div>
+  <ng-container *ngIf="type === ConceptReportTableDataType.Relevance; else RTBAndBenefitsRef">
+    <ng-container *ngIf="data.accumulatedData?.length">
+      <app-concept-respond-table
+        [dataSet]="data"
+        [type]="type"
+      ></app-concept-respond-table>
+    </ng-container>
+  </ng-container>
+  <ng-template #RTBAndBenefitsRef>
+          <div class="app-concept-definitions__card-grid">
+            <ng-container *ngFor="let dataSet of data">
+              <ng-container *ngIf="dataSet.accumulatedData.length">
+                <app-concept-respond-table
+                  [dataSet]="dataSet"
+                  [type]="type"
+                ></app-concept-respond-table>
+              </ng-container>
+            </ng-container>
+          </div>
+  </ng-template>
+  <div class="app-concept-definitions__card-footer">
+    <div
+      class="app-concept-definitions__card-footer-info">{{"report.T3B: Share selecting 5-7 on scale 1-7" | translate}}</div>
+  </div>
+</ng-container>
+

@@ -1,0 +1,17 @@
+<div *ngIf="test">
+  <!--Feedback_consideration-->
+  <app-preview-step [brands]="test.brands"
+                    [step]="3"
+                    [category]="category"></app-preview-step>
+  <!--Feedback_preferences-->
+  <app-preview-step *ngIf="test.brands.length > 1"
+                    [brands]="test.brands"
+                    [step]="4"
+                    [category]="category">
+  </app-preview-step>
+  <!--Feedback_penetration-->
+  <app-preview-step [brands]="test.brands"
+                    [step]="5"
+                    [test]="test"
+                    [category]="category"></app-preview-step>
+</div>

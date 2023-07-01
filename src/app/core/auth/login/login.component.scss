@@ -1,0 +1,41 @@
+@import "./src/assets/styles/mixins.scss";
+@import './src/assets/styles/auth.scss';
+
+.c-login {
+  &__content {
+    @include flex-center;
+
+    width: 100%;
+  }
+
+  &__form {
+    width: 400px;
+  }
+
+  &__button {
+    width: 100%;
+  }
+
+  &__forgot-password {
+    @include flex-center;
+    @include regular-14;
+
+    margin-top: 12px;
+
+    &__link {
+      padding-bottom: 0.5px;
+      color: $gray;
+      text-decoration: none;
+      border-bottom: 1px solid $gray;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-login {
+    &__form {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+}

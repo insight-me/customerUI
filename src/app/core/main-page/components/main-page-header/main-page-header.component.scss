@@ -1,0 +1,535 @@
+@import "../../../../../assets/styles/variables";
+@import "../../../../../assets/styles/mixins";
+
+.app-start-page-header {
+  @include flex-space-between-center;
+
+  position: fixed;
+  top: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100px;
+  padding: 36px 100px;
+  background-color: $white;
+  transition: all 750ms ease-in-out;
+  gap: 10px;
+
+  .logo {
+    cursor: pointer;
+  }
+
+  &.visible {
+    top: -100px;
+  }
+
+  &-menu {
+    display: flex;
+    gap: 80px;
+
+    &-item {
+      @include medium-16;
+
+      margin: -38px 0;
+      white-space: nowrap;
+      background: none;
+      border: none;
+      border-bottom: 4px solid transparent;
+      cursor: pointer;
+
+      &.expand {
+        border-bottom: 4px solid black;
+      }
+
+      &.padding-top {
+        padding-top: 4px;
+      }
+
+      &.get-a-demo {
+        margin: 0;
+        border-bottom: none;
+        cursor: pointer;
+      }
+
+      &-arrow-image {
+        margin-left: 15px;
+        transition: all 250ms ease-out;
+
+        &.rotate {
+          transform: rotate(-180deg);
+        }
+      }
+    }
+  }
+
+  &-buttons {
+    @include flex-start-nowrap;
+
+    gap: 60px;
+
+    &-transparent {
+      @include medium-14;
+
+      cursor: pointer;
+
+      &.login {
+        white-space: nowrap;
+      }
+    }
+
+    .get-started {
+      width: 171px;
+      gap: 18px;
+    }
+  }
+}
+
+.tablet-mobile-menu {
+  display: none;
+}
+
+.app-start-page-table-header {
+  position: fixed;
+  top: 100px;
+  z-index: 4;
+  display: none;
+  width: 100%;
+}
+
+.app-start-page-mobile-header {
+  position: fixed;
+  top: 64px;
+  z-index: 4;
+  display: none;
+  width: 100%;
+}
+
+@media #{$desktop} {
+  .app-start-page-header {
+    padding: 0 32px;
+  }
+}
+
+// TABLET MEDIA
+@media #{$tablet} {
+  .app-start-page-header {
+    @include flex-space-between-center;
+
+    padding: 36px 32px;
+    background-color: $white;
+
+    .tablet-mobile-menu {
+      display: block;
+    }
+
+    &-menu {
+      display: flex;
+      gap: 40px;
+
+      &-item {
+        @include medium-16;
+
+        margin: -38px 0;
+        white-space: nowrap;
+        background: none;
+        border: none;
+        border-bottom: 4px solid transparent;
+        cursor: pointer;
+
+        &.expand {
+          border-bottom: 4px solid black;
+        }
+
+        &.get-a-demo {
+          margin: 0;
+          cursor: pointer;
+        }
+
+        &-arrow-image {
+          margin-left: 15px;
+          transition: all 250ms ease-out;
+
+          &.rotate {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+
+    &-buttons {
+      display: none;
+    }
+  }
+
+  .tablet-mobile-menu {
+    display: block;
+    background: $white;
+    transition: height 0.5s ease-in-out;
+
+    &-nav {
+      @include flex-space-between-center;
+
+      &-trigger {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        border: black;
+        cursor: pointer;
+        transition: all 0.5s ease-in-out;
+
+        &-burger {
+          width: 18px;
+          height: 2px;
+          background: black;
+          border-radius: 2px;
+          transition: all 0.5s ease-in-out;
+
+          &::before,
+          &::after {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 2px;
+            background: black;
+            border-radius: 2px;
+            transition: all 0.5s ease-in-out;
+          }
+
+          &::before {
+            transform: translateY(-5px);
+          }
+
+          &::after {
+            transform: translateY(5px);
+          }
+
+          &.expanded {
+            background: transparent;
+
+            &::before {
+              transform: rotate(45deg);
+            }
+
+            &::after {
+              transform: rotate(-45deg);
+            }
+          }
+        }
+      }
+    }
+
+    &-links {
+      @include flex-content-center;
+
+      flex-grow: 1;
+      font-family: "GT Walsheim Pro Medium";
+      font-size: 32px;
+      line-height: 150%;
+      letter-spacing: 0.005em;
+      animation-name: color;
+      animation-duration: 2s;
+
+      p {
+        cursor: pointer;
+      }
+    }
+
+    &-bottom {
+      @include flex-column;
+
+      animation-name: transparency;
+      animation-duration: 2s;
+
+      &-item {
+        @include flex-space-between-center;
+
+        margin-top: 20px;
+      }
+
+      &-element {
+        @include flex-start-nowrap;
+
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 12px;
+        line-height: 120%;
+
+        app-icon {
+          margin-left: 5vw;
+        }
+      }
+    }
+  }
+
+  .app-start-page-table-header {
+    display: block;
+    height: 0;
+    box-shadow: 0 28px 28px rgb(0 0 0 / 0.26);
+    transition: all 0.5s ease-in-out;
+
+    &-second {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 0%;
+      margin: 0 32px;
+      background: $white;
+      opacity: 0;
+      transition: all 0.5s ease-in-out;
+
+      &-buttons {
+        display: flex;
+        gap: 17px;
+
+        .get-started {
+          width: 171px;
+          gap: 18px;
+        }
+      }
+    }
+
+    &.expanded {
+      height: 100px;
+
+      .app-start-page-table-header-second {
+        height: 100%;
+        border-top: 1px solid $border;
+        opacity: 1;
+      }
+    }
+  }
+
+  .app-start-page-mobile-header {
+    display: none;
+  }
+}
+
+// MOBILE MEDIA
+@media #{$mobile-main-page} {
+  .app-start-page-header {
+    @include flex-space-between-center;
+
+    height: 64px;
+    padding: 20px;
+    background-color: $white;
+
+    &-menu {
+      display: none;
+    }
+
+    &-buttons {
+      display: none;
+    }
+  }
+
+  .tablet-mobile-menu {
+    display: block;
+    background: $white;
+    transition: height 0.5s ease-in-out;
+
+    &-nav {
+      @include flex-space-between-center;
+
+      &-trigger {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        border: black;
+        cursor: pointer;
+        transition: all 0.5s ease-in-out;
+
+        &-burger {
+          width: 18px;
+          height: 2px;
+          background: black;
+          border-radius: 2px;
+          transition: all 0.5s ease-in-out;
+
+          &::before,
+          &::after {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 2px;
+            background: black;
+            transition: all 0.5s ease-in-out;
+          }
+
+          &::before {
+            transform: translateY(-5px);
+          }
+
+          &::after {
+            transform: translateY(5px);
+          }
+
+          &.expanded {
+            background: transparent;
+
+            &::before {
+              transform: rotate(45deg);
+            }
+
+            &::after {
+              transform: rotate(-45deg);
+            }
+          }
+        }
+      }
+    }
+
+    &-links {
+      @include flex-content-center;
+
+      flex-grow: 1;
+      font-family: "GT Walsheim Pro Medium";
+      font-size: 32px;
+      line-height: 150%;
+      letter-spacing: 0.005em;
+      animation-name: color;
+      animation-duration: 2s;
+
+      p {
+        cursor: pointer;
+      }
+    }
+
+    &-bottom {
+      @include flex-column;
+
+      animation-name: transparency;
+      animation-duration: 2s;
+
+      &-item {
+        @include flex-space-between-center;
+
+        margin-top: 20px;
+      }
+
+      &-element {
+        @include flex-start-nowrap;
+
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 12px;
+        line-height: 120%;
+
+        app-icon {
+          margin-left: 5vw;
+        }
+      }
+    }
+  }
+
+  .app-start-page-table-header {
+    display: none;
+  }
+
+  .app-start-page-mobile-header {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 0;
+    overflow: hidden;
+    background: $white;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+
+    &.expanded {
+      overflow: hidden;
+      opacity: 1;
+      transition: all 0.5s ease-in-out;
+      touch-action: none;
+      touch-action: none;
+    }
+
+    &-menu {
+      padding: 100px 38px 0;
+
+      &-item {
+        @include medium-24;
+
+        white-space: nowrap;
+
+        &.get-a-demo {
+          height: 76px;
+          padding: 21px 0;
+          text-align: start;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(0, 0, 0, 0.04);
+          }
+        }
+
+        &-container {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        &-sub-item {
+          @include medium-20;
+
+          padding-left: 20px;
+          text-align: start;
+        }
+      }
+
+      .mat-expansion-panel {
+        box-shadow: none;
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 40px;
+      gap: 17px;
+
+      button {
+        width: 200px;
+
+        &.get-started {
+          app-icon {
+            position: relative;
+            right: -25px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes color {
+  from {
+    color: transparent;
+  }
+
+  to {
+    color: $black;
+  }
+
+  25% {
+    color: transparent;
+  }
+}
+
+@keyframes transparency {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 0;
+  }
+}

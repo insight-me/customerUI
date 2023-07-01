@@ -1,0 +1,134 @@
+<div *ngIf="currentQuestion" class="app-questions-feedback-item">
+  <!--  Question preview -->
+  <div class="c-custom-question-preview__info-block" [class.with-image]="currentQuestion.image">
+    <div *ngIf="currentQuestion.image" class="app-questions-feedback-item__image-container">
+      <img [src]="currentQuestion.image" class="app-questions-feedback-item__image-container-image">
+    </div>
+    <div class="c-custom-question-preview__info">
+      <!--  QUESTION-->
+      <div class="app-questions-feedback-item__title">{{"report.Question" | translate}}:</div>
+      <div class="app-questions-feedback-item__label">
+        <span>{{currentQuestion.label | translate}}</span>
+      </div>
+      <!--  AnswerType-->
+      <div *ngIf="isFeedback()" class="app-questions-feedback-item__title">{{"report.Answer type:" | translate}}</div>
+      <div *ngIf="isFeedback()" class="app-questions-feedback-item__label">
+        <span>{{ getAnswerType() | translate}}</span>
+      </div>
+      <div
+        *ngIf="isFeedback() && isSingleAndMulti() && isAnswerTypeDefault()"
+        class="app-questions-feedback-item__label">
+        <div class="app-questions-feedback-item__title">{{ 'report.Options' | translate }}:</div>
+        <div class="tag-container">
+          <div *ngFor="let option of currentQuestion.rows" class="tag">
+            <span>{{ option.value }}</span>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="isFeedback() && isSingleAndMulti() && !isAnswerTypeDefault()"
+        class="app-questions-feedback-item__label">
+        <div class="app-questions-feedback-item__title">{{ 'report.Columns:' | translate }}</div>
+        <div class="tag-container">
+          <div *ngFor="let option of currentQuestion.columns" class="tag">
+            <span>{{ option.value }}</span>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="isFeedback() && isSingleAndMulti() && !isAnswerTypeDefault()"
+        class="app-questions-feedback-item__label">
+        <div class="app-questions-feedback-item__title">{{ 'report.Rows:' | translate }}</div>
+        <div class="tag-container">
+          <div *ngFor="let option of currentQuestion.rows" class="tag">
+            <span>{{ option.value }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-questions-feedback-item__title">{{"report.Total answers:" | translate}}</div>
+      <div class="app-questions-feedback-item__label">
+        <span>{{ currentQuestion.numberOfResp }}</span>
+      </div>
+    </div>
+
+  </div>
+    <!--  Question charts -->
+    <div *ngIf="currentQuestion.type !== CustomQuestionType.Open && isFeedback()"
+         class="c-custom-question-preview__separator"></div>
+    <!--OPEN-->
+    <div *ngIf="(currentQuestion.type === CustomQuestionType.Open || !isFeedback()) && currentQuestion.answers?.length"
+         [style.overflow-x]="'auto'">
+      <app-custom-question-error-message *ngIf="testType === testTypeEnum.BT"></app-custom-question-error-message>
+      <app-answers-table
+        [answers]="currentQuestion.answers"></app-answers-table>
+    </div>
+
+    <!--SCALE-->
+    <div *ngIf="currentQuestion.type === CustomQuestionType.Scale && currentQuestion.numberOfResp">
+      <app-custom-question-error-message *ngIf="testType === testTypeEnum.BT"
+                                         [margin]="'0 0 10px 0'"></app-custom-question-error-message>
+      <div class="c-custom-question-preview__scale">
+        <app-vertical-bar-chart [dataSet]="currentQuestion.dataSet"
+                                [type]="ChartType.Scale"
+                                aspectRatio="0.4"
+        ></app-vertical-bar-chart>
+      </div>
+    </div>
+    <!--  SINGLE-->
+    <div *ngIf="currentQuestion.type === CustomQuestionType.Single
+     && currentQuestion.numberOfResp" class="c-custom-question-preview__single">
+      <ng-container
+        *ngIf="(testType == testTypeEnum.BT && isAnswerTypeDefault() && hasSegmentData) || !isAnswerTypeDefault()">
+        <ng-container *ngTemplateOutlet="BTLocalFilters"></ng-container>
+      </ng-container>
+      <!--DEFAULT -->
+      <div *ngIf="currentQuestion.type === CustomQuestionType.Single">
+        <div class="c-custom-question-preview__scale">
+          <app-vertical-bar-chart
+            [dataSet]="currentQuestion.dataSet"
+            [columnsData]="currentQuestion.columns"
+            [showSegments]="selectSegments"
+            [type]="isAnswerTypeDefault() ? ChartType.Single : ChartType.Grid"
+            aspectRatio="0.4"
+          ></app-vertical-bar-chart>
+        </div>
+      </div>
+    </div>
+
+    <!--  MULTI-->
+    <div *ngIf="currentQuestion.type === CustomQuestionType.Multi
+     && currentQuestion.numberOfResp" class="c-custom-question-preview__single">
+        <ng-container *ngIf="(testType == testTypeEnum.BT && isAnswerTypeDefault() && hasSegmentData) || !isAnswerTypeDefault()">
+          <ng-container *ngTemplateOutlet="BTLocalFilters"></ng-container>
+        </ng-container>
+      <div *ngIf="(currentQuestion.type === CustomQuestionType.Multi && isAnswerTypeDefault()); else multiGrid">
+        <div class="c-custom-question-preview__scale">
+          <app-vertical-bar-chart
+            [dataSet]="currentQuestion.dataSet"
+            [columnsData]="currentQuestion.columns"
+            [type]="isAnswerTypeDefault() ? ChartType.Single : ChartType.Grid"
+            aspectRatio="0.4"
+          ></app-vertical-bar-chart>
+        </div>
+      </div>
+
+    <ng-template #multiGrid>
+      <div *ngIf="customQuestionService.switcher$ | async" class="c-custom-question-preview__multi-container">
+        <app-multi-grid-chart *ngFor="let chart of currentQuestion.dataSet" [title]="chart.label"
+                              [dataSet]="chart.gridData"></app-multi-grid-chart>
+      </div>
+      <app-chart-legend [columnsData]="currentQuestion.columns"></app-chart-legend>
+    </ng-template>
+  </div>
+
+</div>
+
+<ng-template #BTLocalFilters>
+  <app-custom-questions-filters
+    [currentQuestion]="initialQuestion"
+    [testType]="testType"
+    (filterData)="filterData($event)"
+    (selectSegments)="selectSegments = $event"
+  ></app-custom-questions-filters>
+</ng-template>

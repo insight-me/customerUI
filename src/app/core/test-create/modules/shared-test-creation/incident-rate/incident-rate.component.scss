@@ -1,0 +1,36 @@
+@import "../../../../../../assets/styles/mixins";
+
+.c-incident-rate {
+  width: 100%;
+  max-width: 666px;
+  padding-top: 32px;
+  border-top: 1px solid $gray-border;
+
+  &__tip {
+    @include regular-14;
+
+    width: 100%;
+    margin-bottom: 32px;
+    padding: 8px;
+    background: #F6F5FC;
+    border-radius: 5px;
+
+    &-item {
+      margin: 0;
+
+      &.example {
+        @include medium-14;
+      }
+
+      &:not(:last-child) {
+        margin-bottom: 32px;
+      }
+    }
+  }
+
+  &__container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 323px));
+  }
+}

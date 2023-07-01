@@ -1,0 +1,43 @@
+<div class="c-header-menu"
+     (click)="op.toggle($event)" [ngClass]="theme">
+  <div class="c-header-menu__photo">
+    <img src="../../../../assets/images/ic_profile.svg"
+         class="c-header-menu__photo-image">
+  </div>
+  <div class="c-header-menu__arrow">
+    <img *ngIf="theme=== 'white'; else darkChevron" src="../../../../assets/images/svg/ic_white_shevron.svg"
+         class="c-header-menu__arrow-image">
+    <ng-template #darkChevron>
+      <img src="../../../../assets/images/svg/ic_small_chevron.svg"
+           class="c-header-menu__arrow-image">
+    </ng-template>
+  </div>
+</div>
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+    <div *ngIf="user" class="c-header-menu-content">
+      <div *ngFor="let item of group; let i=index; let isLast = last">
+        <div
+             class="c-header-menu-content__item"
+             [class.last]="isLast"
+             (click)="moveTo(item)">
+          <a class="c-header-menu-content__item-link">{{item.label | translate}}</a>
+          <div *ngIf="item.user"
+               class="c-header-menu-content__item__logout">
+          <span class="c-header-menu-content__item__logout__user-name">
+            {{item.user.length > 20 ? (item.user.substr(0, 21) + '...') : item.user}}
+          </span>
+            <img src="../../../../assets/images/svg/ic_logout.svg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-overlayPanel>
+
+
+<!-- <div class="c-header-menu" (click)="menu.toggle($event)">
+  <img src="../../../../assets/images/ic_profile.svg" class="c-header-menu__image">
+  <i class="c-header-menu__icon"></i>
+</div>
+<p-menu #menu [popup]="true" [model]="group"></p-menu> -->

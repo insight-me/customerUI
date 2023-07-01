@@ -1,0 +1,140 @@
+@import "./src/assets/styles/variables.scss";
+
+.app-questions-feedback-item {
+  @include flex-column-stretch;
+
+  padding: 20px;
+
+  &__image-container {
+    width: 100%;
+    min-width: 275px;
+    max-width: 275px;
+    height: 100%;
+    max-height: 275px;
+    overflow: hidden;
+
+    &-image {
+      max-width: 275px;
+      max-height: 275px;
+      object-fit: contain;
+    }
+  }
+
+  &__title {
+    font-size: 14px;
+    line-height: 22px;
+    color: $lightgray;
+    letter-spacing: 0.5px;
+
+    &.separator {
+      border-bottom: 1px solid $lightgrayWhite;
+    }
+  }
+
+  &__label {
+    display: grid;
+    grid-column-gap: 32px;
+    grid-row-gap: 8px;
+    //grid-template-columns: 7fr 3fr;
+    margin: 8px 0 20px;
+    font-size: 16px;
+    line-height: 20px;
+    color: $black;
+    letter-spacing: 0;
+
+    .tag {
+      width: fit-content;
+      margin: 0 4px 4px 0;
+      padding: 4px 8px;
+      background: #E3F2FD;
+      border-radius: 4px;
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__answers {
+    @include flex-column-stretch;
+
+    &-item {
+      display: grid;
+      grid-column-gap: 32px;
+      grid-template-columns: 7fr 3fr;
+      margin: 10px 0 34px;
+
+      @media #{$mobile} {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      &-info {
+        @include flex-end-center;
+
+        flex-wrap: wrap;
+        font-size: 14px;
+        line-height: 20px;
+        color: $lightgray;
+        font-style: oblique;
+        letter-spacing: 0;
+
+        @media #{$mobile} {
+          justify-content: flex-start;
+
+          span {
+            margin-right: 20px;
+          }
+        }
+
+        span {
+          margin-left: 20px;
+
+          @media #{$mobile} {
+            margin-left: 0;
+          }
+        }
+      }
+
+      &-expand-list {
+        @include flex-content-center;
+
+        position: relative;
+
+        .expand-list-gradient {
+          position: absolute;
+          bottom: 35px;
+          width: 100%;
+          height: 170px;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFF 100%);
+          border-bottom: 1px solid $divider2;
+        }
+
+        .expand-icon {
+          @include flex-content-center;
+
+          z-index: 1;
+          width: 36px;
+          height: 36px;
+          background-color: $white;
+          border-radius: 50%;
+          box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.16);
+          cursor: pointer;
+
+          app-icon {
+            margin-top: 2px;
+          }
+        }
+
+        span {
+          margin-top: 3px;
+          font-family: "GT Walsheim Pro Medium";
+          font-size: 12px;
+          line-height: 12px;
+          color: $lightgray;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+  }
+}

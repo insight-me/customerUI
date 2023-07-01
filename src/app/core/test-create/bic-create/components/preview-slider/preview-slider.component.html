@@ -1,0 +1,35 @@
+<div *ngIf="question && type !=='Relevance'"
+     class="c-preview-slider__card">
+  <div class="c-preview-slider__card-title">{{question.question}}</div>
+  <div *ngIf="question.title !== 'Purchase frequency'; else purchaseFrequenciesSlide"
+       class="c-preview-slider__card-slider">
+    <app-custom-scale [legendText]="[getMinLabel(), getMaxLabel()]"></app-custom-scale>
+  </div>
+  <ng-template #purchaseFrequenciesSlide>
+    <div class="c-preview-slider__frequency">
+      <div *ngFor="let value of purchaseFrequencies">
+        <div class="c-preview-slider__frequency-item">{{ value.value}}</div>
+      </div>
+    </div>
+    <div class="c-preview-slider__card-number">{{ questionNum + 1}}
+      / {{ questionNumMax }}</div>
+
+  </ng-template>
+</div>
+
+<div *ngIf="question && type ==='Relevance'">
+  <div *ngIf="!isConsumerInsight; else consumerInsightRelevance"
+       class="c-preview-slider__relevance-title">{{question}}</div>
+  <ng-template #consumerInsightRelevance>
+    <div class="c-preview-slider__relevance-title">
+      <div *ngFor="let insight of getConsumerInsight(question)">
+        <br *ngIf="!insight.length">
+        <p class="c-preview__section__text-item__text"
+           [style.margin-bottom]="'35px'">{{insight}}</p>
+      </div>
+    </div>
+  </ng-template>
+  <div class="c-preview-slider__card-slider">
+    <app-custom-scale [legendText]="['relevance.first-legend', 'relevance.last-legend']"></app-custom-scale>
+  </div>
+</div>

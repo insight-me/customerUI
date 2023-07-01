@@ -1,0 +1,85 @@
+@import "variables";
+@import "mixins";
+
+.app-eighth-card {
+  @include flex-content-center;
+
+  align-items: stretch;
+  margin: 0 -100px;
+  padding: 100px 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &__title {
+    @include medium-32;
+
+    text-align: center;
+  }
+
+  form {
+    @include flex-content-center;
+
+    margin: 40px 0 0;
+  }
+
+  .c-common__form-field {
+    position: relative;
+  }
+
+  &__form {
+    @include flex-column;
+
+    position: relative;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 400px;
+
+    &-label {
+      position: absolute;
+      top: 14px;
+      left: 12px;
+      z-index: 1;
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  &__button {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+  }
+}
+
+@media #{$desktop} {
+  .app-eighth-card {
+    margin: 0 -32px;
+  }
+}
+
+@media #{$tablet} {
+  .app-eighth-card {
+    &__title {
+      @include medium-28;
+    }
+  }
+}
+
+@media #{$mobile-main-page} {
+  .app-eighth-card {
+    margin: 0 -20px;
+    padding: 64px 0;
+
+    &__form {
+      max-width: 335px;
+    }
+
+    &__title {
+      @include medium-24;
+    }
+
+    &__button {
+      max-width: 335px;
+    }
+  }
+}

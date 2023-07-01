@@ -1,0 +1,58 @@
+<div class="c-auth__main">
+  <div class="c-auth__content__header">
+    <h2 class="c-auth__content__header-text">{{ 't-auth.Login' | translate}}</h2>
+  </div>
+
+
+  <div class="c-login__content">
+    <form [formGroup]="form"
+          class="c-login__form">
+      <label
+        class="c-auth__label">{{ 't-auth.E-mail' | translate}}</label>
+      <div class="c-common__form-field">
+        <app-form-input [type]="'email'"
+                        [maxLength]="320"
+                        [control]="convertToFormControl(form.controls.mail)"
+                        controlName="mail"></app-form-input>
+      </div>
+      <label for="password"
+             class="c-auth__label">{{ 't-auth.Password' | translate}}</label>
+      <div class="c-common__form-field">
+        <input [type]="passwordType"
+               pInputText
+               formControlName="password"
+               id="password"
+               class="c-common__input password"
+               maxlength="128" />
+        <img class="c-common__form-field--password-icon"
+             [src]="isTextTypePassword ? '../../../../assets/images/ic_hide-password.svg' : '../../../../assets/images/ic_show-password.svg'"
+             (click)="onShowPassword()" />
+        <small *ngIf="controlHasError('password')"
+               class="p-error c-common__form-field-error">{{getErrorMessage('password') | translate}}</small>
+      </div>
+      <button class="c-common__button c-common__button--gradient normal stretch"
+              [disabled]="isFormInvalid"
+              (click)="onSubmit()">{{'t-auth.Sign in' | translate}}
+        <app-icon [iconType]="IconsType.RightArrow" [color]="'#FFFFFF'" class="icon-right"></app-icon>
+      </button>
+      <div class="c-login__forgot-password">
+        <a routerLink="/auth/forgot-password"
+           class="c-login__forgot-password__link">{{'t-auth.Forgot your password?' | translate}}</a>
+      </div>
+    </form>
+  </div>
+  <div class="c-auth__footer">
+    <!--    Registration enabled-->
+    <!--    <div>-->
+    <!--      <span>{{'t-auth.Do not have an account yet?' | translate}} </span>-->
+    <!--      <a routerLink="/auth/register"-->
+    <!--         class="c-auth__link">{{'t-auth.Register' | translate}}</a>-->
+    <!--    </div>-->
+    <div>
+      <span>{{'t-auth.Didn’t receive confirmation e-mail?' | translate}} </span>
+      <a
+        routerLink="/auth/resend-email"
+        class="c-auth__link">{{'t-auth.Resend' | translate}}</a>
+    </div>
+  </div>
+</div>

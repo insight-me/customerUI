@@ -1,0 +1,26 @@
+@import "../../../../../../assets/styles/variables";
+
+.border {
+  width: fit-content;
+  padding-top: 20px;
+  border-top: 1px solid $border;
+}
+
+.c-resp-number {
+  @include flex-column;
+
+  &__form-field {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  &__field-container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(0, 400px));
+    width: fit-content;
+    max-width: 820px;
+    padding-bottom: 20px;
+  }
+}
+

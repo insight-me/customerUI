@@ -1,0 +1,8 @@
+<div class="c-tests-list">
+  <p class="c-tests-list__text">{{'dashboard.create-test' | translate}}:</p>
+  <div class="c-tests-list__container">
+    <div *ngFor="let product of appSS.products$ | async">
+      <app-tests-list-item [product]="product"></app-tests-list-item>
+    </div>
+  </div>
+</div>

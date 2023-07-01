@@ -1,0 +1,31 @@
+/* stylelint-disable declaration-no-important */
+@import "variables";
+
+
+.c-prompt-one {
+  height: 152px;
+  padding: 22px 20px 20px 17px;
+
+  &__prompt {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    height: 145px !important;
+
+    &::before {
+      top: 143.2px !important;
+    }
+
+    &::after {
+      top: 143.5px !important;
+    }
+
+    &-buttons {
+      display: flex;
+
+      &__btn:first-child {
+        margin-right: 50px;
+      }
+    }
+  }
+}

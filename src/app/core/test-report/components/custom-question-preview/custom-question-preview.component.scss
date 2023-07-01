@@ -1,0 +1,66 @@
+@import "variables";
+
+.c-custom-question-preview {
+  &__info-block {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: minmax(0, auto) 1fr;
+    // grid-template-columns: repeat(auto-fill, 275px);
+    margin: 24px 0;
+  }
+
+  &__info-block.with-image {
+    grid-template-columns: 275px minmax(275px, auto);
+  }
+
+  &__info {
+    min-width: 275px;
+  }
+
+  &__scale {
+    max-width: 998px;
+    height: 100%;
+    margin: 0 auto;
+    // overflow-x: auto;
+  }
+
+  &__single {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  &__separator {
+    padding-bottom: 20px;
+    border-top: 1px solid $lightgrayWhite;
+  }
+
+  &__popup-item {
+    display: flex;
+    cursor: default;
+
+    &.margin {
+      margin-left: 50px;
+    }
+  }
+
+  &__checkbox {
+    margin-bottom: 0;
+
+    &__label {
+      max-width: 248px;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__multi-container {
+    display: grid;
+    justify-content: center;
+    grid-auto-rows: 640px;
+    grid-column-gap: 30px;
+    grid-row-gap: 110px;
+    grid-template-columns: repeat(auto-fill, 550px);
+    width: 100%;
+    padding: 0 30px;
+  }
+}

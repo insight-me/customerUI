@@ -1,0 +1,13 @@
+<div class="c-list-items">
+  <div class="c-list-items__control-wrapper">
+    <div class="c-common__form-field c-section__form-field c-list-items__control">
+      <input type="text"
+             pInputText
+             [formControl]="nameControl"
+             [placeholder]="'spontaneous-awareness.placeholder'  | translateCustom "
+             class="c-common__input" />
+    </div>
+    <button [disabled]="true"
+            class="c-common__button c-common__button--border c-list-items__control-button">{{'spontaneous-awareness.add' | translateCustom }}</button>
+  </div>
+</div>

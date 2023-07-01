@@ -1,0 +1,77 @@
+@import "../../../../../../assets/styles/variables";
+@import "../../../../../../assets/styles/mixins";
+
+.c-segmentation-form {
+  &__error-segmentation {
+    font-family: "GT Walsheim Pro Regular";
+    color: $errorred !important;
+  }
+
+  &__explanation-text {
+    @include regular-14;
+
+    max-width: 395px;
+    margin: 5px 0 0;
+    text-align: justify;
+    color: $dark-gray !important;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    //display: flex;
+    //flex-direction: row;
+    //justify-content: space-between;
+    width: 100%;
+
+    &-element {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      max-width: 880px;
+    }
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+
+    &-element {
+      min-width: 399px;
+      padding-top: 9px;
+      padding-bottom: 14px;
+    }
+  }
+
+  &__padding {
+    padding-bottom: 20px;
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+
+  .c-base__radiobutton + label {
+    cursor: not-allowed;
+  }
+}
+
+@media #{$mobile} {
+  .c-segmentation-form {
+    &__row {
+      &-element {
+        flex-direction: column;
+      }
+    }
+
+    &__column {
+      &-element {
+        min-width: 289px;
+        height: 100%;
+        min-height: 84px;
+      }
+    }
+  }
+}

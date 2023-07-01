@@ -1,0 +1,238 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-create-matrix {
+  &__container {
+    flex-direction: column;
+  }
+
+  &__segments {
+    display: grid;
+
+
+  }
+
+  &__matrix {
+    width: 100%;
+    height: 100%;
+    margin-top: 26px;
+    overflow: hidden;
+    border: 1px solid $associations-table;
+    border-radius: 8px;
+
+    &__table {
+      display: grid;
+
+      &__header {
+        position: absolute;
+        top: -29px;
+        left: 0;
+        font-family: 'GT Walsheim Pro Regular';
+        font-size: 14px;
+        line-height: 150%;
+        font-weight: 400;
+        color: $dark;
+        font-style: italic;
+      }
+
+      &__error-container {
+        position: relative;
+
+        &__error {
+          position: absolute;
+          top: 0;
+          right: 0;
+          border: 10px solid transparent;
+          border-top: 10px solid $errorred;
+          border-right: 10px solid $errorred;
+        }
+      }
+
+      &__row {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+        border-right: 1px solid $associations-table;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+
+      &__statement {
+        justify-content: flex-start;
+      }
+
+      &__constant {
+        padding: 8px;
+        font-weight: 500;
+      }
+
+      &__input {
+        width: 100%;
+        height: 100%;
+        font-family: GT Walsheim Pro Regular;
+        font-size: 14px;
+        line-height: 150%;
+        font-weight: normal;
+        text-align: center;
+        font-style: normal;
+        border: none;
+        border-radius: 0;
+        outline: none;
+
+        &:focus {
+          background-color: $light-background;
+          border: 2px solid $orange;
+          box-shadow: none;
+        }
+      }
+
+      &__input-container {
+        padding: 0;
+        border-right: 1px solid $associations-table;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+
+  }
+}
+
+.rotate {
+  max-height: 450px;
+  padding: 18px 0;
+  overflow: hidden;
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: normal;
+  letter-spacing: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  transform: rotate(-180deg); //Chrome, Safari
+  transform: rotate(-180deg); //Firefox
+  transform: rotate(-180deg); //Opera
+  transform: rotate(-180deg); //IE
+  transform: rotate(-180deg); //браузеры без префексов
+  writing-mode: vertical-rl;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+td {
+  border-color: $associations-table;
+}
+
+.no-bottom-border {
+  border-bottom: none !important;
+}
+
+.template-1 {
+  grid-template-columns: minmax(360px, 2.8fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr);
+}
+
+.template-2 {
+  grid-template-columns: minmax(360px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr);
+}
+
+.template-3 {
+  grid-template-columns: minmax(360px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr);
+}
+
+.template-4 {
+  grid-template-columns: minmax(360px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(0, 0.7fr);
+}
+
+.template-5 {
+  grid-template-columns: minmax(360px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr);
+}
+
+.template-6 {
+  grid-template-columns: minmax(360px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr);
+}
+
+.template-7 {
+  grid-template-columns: minmax(360px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr);
+}
+
+.template-8 {
+  grid-template-columns: minmax(360px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr);
+}
+
+.template-9 {
+  grid-template-columns: minmax(143px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr);
+}
+
+.template-10 {
+  grid-template-columns: minmax(143px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr);
+}
+
+.background {
+  background-color: $table-highlight;
+}
+
+@media #{$tablet} {
+  .c-create-matrix {
+    &__matrix {
+      width: 90vw;
+      overflow-x: scroll;
+
+      &__table {
+        width: 970px;
+
+        &__header {
+          font-size: 12px;
+        }
+
+        &__constant {
+          @include medium-12;
+        }
+
+        &__row {
+          @include regular-12;
+        }
+
+        &__input {
+          font-size: 12px;
+        }
+      }
+
+    }
+  }
+
+  .rotate {
+    @include regular-12;
+  }
+
+  .template-1 {
+    grid-template-columns: minmax(20vw, 2.7fr) minmax(2vw, 0.3fr) minmax(2vw, 0.3fr) minmax(3vw, 0.7fr);
+  }
+
+  .template-2 {
+    grid-template-columns: minmax(20vw, 2.7fr) minmax(2vw, 0.3fr) minmax(2vw, 0.3fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr);
+  }
+
+  .template-9 {
+    grid-template-columns: minmax(143px, 2.7fr) minmax(42px, 0.3fr) minmax(42px, 0.3fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(67px, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr) minmax(0, 0.7fr);
+  }
+
+  .template-10 {
+    grid-template-columns: minmax(20vw, 2.7fr) minmax(2vw, 0.3fr) minmax(2vw, 0.3fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr) minmax(3vw, 0.7fr);
+  }
+}
+
+@media #{$mobile} {
+  .c-create-matrix {
+    &__matrix {
+      width: 80vw;
+    }
+  }
+}
+

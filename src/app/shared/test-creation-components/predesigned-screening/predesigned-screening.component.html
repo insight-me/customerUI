@@ -1,0 +1,33 @@
+<!-- CATEGORY BLOCK -->
+<ng-container *ngIf="getAllSubcategories(categoryService.subcategories$ | async).length; else noSubcategoriesErrorMessage">
+  <p class="c-predesigned-screening__title">
+    {{ "BIC.Please choose how often the respondents should engage with your sub-category to qualify for the survey"
+      | translate }}
+  </p>
+  <div *ngFor="let category of getAllSubcategories(categoryService.subcategories$ | async)"
+    class="c-predesigned-screening__category">
+    <p class="c-predesigned-screening__category-name">
+      {{ category.value }}:
+    </p>
+    <div class="c-predesigned-screening__category-range">
+      <app-range-input
+        [items]="(appStateService.respondentOptions$ | async).purchaseFrequencies"
+        [purchaseFrequancies]="category.purchaseFrequenciesIds"
+        (updatePurchaseFrequancies)="onUpdatePurchaseFrequancies(category, $event)"
+      ></app-range-input>
+    </div>
+  </div>
+</ng-container>
+<!-- MUST ENGAGE BLOCK -->
+<div *ngIf="getAllSubcategories(categoryService.subcategories$ | async).length > 1" class="c-predesigned-screening__engage">
+  <app-predesign-must-engage
+    [categoryScreeningType]="respRequirements.categoryScreeningType"
+    (updateCategoryScreeningType)="onUpdateCategoryScreeningType($event)"
+  ></app-predesign-must-engage>
+</div>
+<ng-template #noSubcategoriesErrorMessage>
+  <div class="c-predesigned-screening__warning">
+    <app-warning-message
+      [text]="'BIC.Please choose at least 1 sub-category or switch to another category screening'"></app-warning-message>
+  </div>
+</ng-template>

@@ -1,0 +1,112 @@
+@import "mixins";
+
+.c-subheader-element {
+  position: relative;
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    height: 14px;
+
+    &-check {
+      margin-left: 5px;
+    }
+
+    &-element {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 46px;
+      padding: 17px 4px 13px 18px;
+      cursor: pointer;
+
+      &__text {
+        margin: 0;
+        font-family: GT Walsheim Pro Medium;
+        font-size: 14px;
+        line-height: 100%;
+        font-weight: 500;
+        color: $lightgray;
+        font-style: normal;
+
+        &.active {
+          color: $black;
+        }
+      }
+
+      &__progress {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 4px;
+        background: #eaeaea;
+
+        &-done {
+          height: 4px;
+          margin: 0;
+          background-color: $orange;
+        }
+      }
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    width: 3.38px;
+    height: 7.7px;
+    margin-bottom: -1px;
+    margin-left: 13px;
+    padding: 3px;
+    border: solid #bbb;
+    border-width: 0 2px 2px 0;
+    transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+}
+
+.c-subheader-element-mobile {
+  display: none;
+}
+
+@media #{$tablet} {
+  .c-subheader-element {
+    &__nav {
+      &-element {
+        &__text {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-subheader-element {
+    display: none;
+  }
+
+  .c-subheader-element-mobile {
+    @include flex-space-between-center;
+
+    padding-right: 1px;
+
+    &__step {
+      @include flex-center;
+      @include regular-14;
+
+      width: 24px;
+      height: 24px;
+      background: #d6d6d6;
+      border-radius: 50%;
+
+      &.active {
+        color: $white;
+        background: $orange;
+      }
+
+      &.completed {
+        background-color: $green;
+      }
+    }
+  }
+}

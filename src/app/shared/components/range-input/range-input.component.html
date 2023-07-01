@@ -1,0 +1,21 @@
+<div *ngIf="items.length" class="c-range-input">
+  <input type="range" [min]="1" [max]="items.length"
+         [step]="1"
+         [(ngModel)]="purchaseFrequanciesValue"
+         class="c-common__range">
+  <ul class="c-common__range-legend">
+    <li *ngFor="let item of items;let i = index;"
+        class="c-common__range-legend__element long"
+        [class.active]="i === purchaseFrequanciesValue - 1">{{item.value}}</li>
+  </ul>
+  <ul class="c-common__range-track">
+    <li *ngFor="let i of getTrackRange(items.length);"
+        class="c-common__range-track__element"
+        [class.active]="i < purchaseFrequanciesValue - 1"></li>
+  </ul>
+  <ul class="c-common__range-scale">
+    <li *ngFor="let item of items; let i = index; let isFirst = first;"
+        class="c-common__range-scale__element"
+        [class.active]="i < purchaseFrequanciesValue"></li>
+  </ul>
+</div>

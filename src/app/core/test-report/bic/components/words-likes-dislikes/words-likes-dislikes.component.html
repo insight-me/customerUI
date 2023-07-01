@@ -1,0 +1,59 @@
+<div class="app-concept-definitions__card">
+  <!--Consumer insights tabs-->
+  <div class="app-concept-definitions__card-nav">
+    <div
+      class="app-concept-definitions__card-nav-item"
+      [class.active]="bicRSS.consumerInsightTabIndex === ConsumerInsightsTapType.WordCloud"
+      (click)="bicRSS.consumerInsightTabIndex = ConsumerInsightsTapType.WordCloud"
+    >{{"report.wordcloud" | translate | uppercase}}</div>
+    <div
+      class="app-concept-definitions__card-nav-item"
+      [class.active]="bicRSS.consumerInsightTabIndex === ConsumerInsightsTapType.Textarea"
+      (click)="bicRSS.consumerInsightTabIndex = ConsumerInsightsTapType.Textarea"
+    >{{"report.text area" | translate | uppercase}}</div>
+    <div
+      class="app-concept-definitions__card-nav-item"
+      [class.active]="bicRSS.consumerInsightTabIndex === ConsumerInsightsTapType.Summary"
+      (click)="bicRSS.consumerInsightTabIndex = ConsumerInsightsTapType.Summary"
+    >{{"report.summary" | translate | uppercase}}</div>
+  </div>
+
+  <div class="app-concept-definitions__container"
+       [style.marginTop.px]="40">
+    <div
+      class="app-concept-definitions__card-title">{{ 'report.Likes and dislikes of concept words in population' | translate }}</div>
+    <app-multi-select-filter *ngIf="filterForm"
+                             [filterModel]="filterModel"
+                             [filterForm]="filterForm"
+                             allLabel="report.Likes&Dislikes"
+                             [needApplyBtn]="false"
+                             (applyFilters)="applyFilters()"></app-multi-select-filter>
+  </div>
+  <!--Consumer insights content-->
+  <ng-container *ngIf="dataSet$ | async as data">
+    <ng-container [ngSwitch]="bicRSS.consumerInsightTabIndex">
+      <app-consumer-insight-wordcloud *ngSwitchCase="ConsumerInsightsTapType.WordCloud"
+                                      [dataSet$]="dataSet$"
+                                      [likeConfig]="likesConfig"
+      ></app-consumer-insight-wordcloud>
+      <app-consumer-insight-textarea *ngSwitchCase="ConsumerInsightsTapType.Textarea"
+                                     [dataSet$]="dataSet$"
+                                     [likeConfig]="likesConfig"></app-consumer-insight-textarea>
+      <app-consumer-insight-summary *ngSwitchCase="ConsumerInsightsTapType.Summary"
+                                    [dataSet$]="dataSet$"
+                                    [likeConfig]="likesConfig"></app-consumer-insight-summary>
+    </ng-container>
+  </ng-container>
+  <div class="app-concept-definitions__card-footer">
+    <div class="app-concept-definitions__card-footer-legend">
+        <span *ngIf="likesConfig.like">
+          <i class="likes-icon"></i>
+          {{"report.likes" | translate | titlecase}}
+        </span>
+      <span *ngIf="likesConfig.dislike">
+          <i class="dislikes-icon"></i>
+        {{"report.dislikes" | translate | titlecase}}
+        </span>
+    </div>
+  </div>
+</div>

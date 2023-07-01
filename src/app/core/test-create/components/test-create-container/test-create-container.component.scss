@@ -1,0 +1,546 @@
+@import "../../../../../assets/styles/variables";
+@import "../../../../../assets/styles/mixins";
+@import "./src/assets/styles/test.scss";
+
+.c-test-create {
+  min-height: calc(100vh - 60px);
+
+  &__nav-wrapper {
+    width: 250px;
+  }
+
+  &__footer-wrapper {
+    padding: 0 20px 20px;
+  }
+
+  &__nav {
+    position: sticky;
+    top: 85px;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    min-width: 250px;
+    padding: 0 20px 0 0;
+
+    &-title {
+      @include regular-oblique-14;
+
+      margin-bottom: 12px;
+      color: $dark-gray !important;
+    }
+
+    &-item {
+      margin-bottom: 4px;
+      font-family: "GT Walsheim Pro Medium";
+      font-size: 14px;
+      line-height: 150%;
+      font-weight: 500;
+      color: $dark-gray;
+      text-decoration: none;
+      font-style: normal;
+      cursor: pointer;
+
+      &.active {
+        color: $black;
+      }
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 32px;
+    background-color: $white;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1);
+
+    &__number {
+      margin-right: 15px;
+      font-size: 24px;
+      color: $orange;
+    }
+
+    &__title {
+      @include medium-20;
+
+      margin: 0 0 32px;
+    }
+
+    &__subtitle {
+      @include regular-oblique-14;
+
+      color: $gray !important;
+    }
+
+    &__block-title {
+      @include medium-18;
+
+      margin: 0 0 10px;
+    }
+
+    &__description {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      max-width: 35vw;
+      margin-left: 40px;
+
+      &-text {
+        @include regular-oblique-14;
+
+        margin: 0;
+        color: $lightgray !important;
+      }
+    }
+  }
+
+  &__associations {
+    width: 100%;
+
+    &__add {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+
+      &-block {
+        display: flex;
+        align-items: center;
+        width: 130px;
+        height: 40px;
+        cursor: pointer;
+      }
+
+      &-custom {
+        width: 600px;
+      }
+
+      &-footer {
+        display: flex;
+        align-items: center;
+        width: fit-content;
+        margin-top: 32px;
+        cursor: pointer;
+      }
+
+      &__button {
+        @include flex-center;
+
+        width: 32px;
+        height: 32px;
+      }
+
+      &__text {
+        @include medium-14;
+
+        margin-left: 9px;
+        text-align: end;
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+
+    &-button {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 15px;
+        right: 13px;
+        width: 20px;
+        height: 10px;
+        background-image: url(../../../../../assets/images/png/arrow_right.png);
+        background-size: cover;
+      }
+    }
+  }
+}
+
+.c-section {
+  display: flex;
+  flex-direction: column;
+
+  &__field {
+    width: 100%;
+
+    &-with-text {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  &__subtext {
+    @include regular-16;
+
+    margin: 0;
+  }
+
+  &__nav-wrapper {
+    width: 270px;
+  }
+
+  &__optional-field {
+    margin: -20px 0 25px 25px !important;
+  }
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__content {
+    width: 100%;
+    max-width: calc(100% - 270px);
+  }
+
+  &__nav {
+    position: sticky;
+    top: 85px;
+    display: flex;
+    flex-direction: column;
+    width: 270px;
+    min-width: 270px;
+    padding: 0 20px;
+
+    &-title {
+      @include regular-oblique-14;
+
+      margin-bottom: 12px;
+      color: $dark-gray !important;
+    }
+
+    &-item {
+      margin-bottom: 4px;
+      font-family: "GT Walsheim Pro Medium";
+      font-size: 14px;
+      line-height: 150%;
+      font-weight: 500;
+      color: $dark-gray;
+      text-decoration: none;
+      font-style: normal;
+      cursor: pointer;
+
+      &.active {
+        color: $black;
+      }
+    }
+
+    &-button {
+      margin-top: 20px;
+
+      &.mobile {
+        display: none;
+      }
+    }
+  }
+
+  &__header {
+    &-title {
+      margin: 0;
+      font-size: 28px;
+      color: #231f20;
+      letter-spacing: 0.0012em;
+    }
+  }
+
+  &__column {
+    width: 50%;
+
+    &:first-child {
+      margin-right: 40px;
+    }
+  }
+
+  &__block {
+    // c-test-create__container
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    background-color: $white;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1);
+
+    &.hide {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    &-wrapper {
+      position: relative;
+
+      &:first-child {
+        margin-top: 0;
+        padding-top: 0;
+      }
+    }
+
+    &-header {
+      position: absolute;
+      top: 25px;
+      left: 50%;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 52px;
+      height: 52px;
+      background-color: $white;
+      border-radius: 50%;
+      box-shadow: 0 3px 11px 0 rgba(0, 0, 0, 0.16);
+      transform: translate(-50%);
+      cursor: pointer;
+    }
+
+    &-title {
+      @include medium-20;
+      // c-test-create__container__title
+      display: flex;
+      align-items: center;
+      margin: 0 0 32px;
+
+      &.mobile {
+        display: none;
+      }
+
+      &-sub {
+        font-size: 14px;
+        font-weight: normal;
+        color: $lightgray;
+        font-style: oblique;
+      }
+
+      &-icon {
+        margin-left: 8px;
+      }
+
+      &--number {
+        margin-right: 15px;
+        font-size: 24px;
+        color: $orange;
+      }
+    }
+  }
+
+  &__form {
+    &-field {
+      max-width: initial;
+      margin-bottom: 0;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+    margin-bottom: 25px;
+
+    &.one-button {
+      justify-content: flex-end;
+    }
+
+    &-button {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 15px;
+        right: 13px;
+        width: 20px;
+        height: 10px;
+        background-image: url(../../../../../assets/images/png/arrow_right.png);
+        background-size: cover;
+      }
+    }
+  }
+
+  &__time {
+    margin-top: 60px;
+
+    &-text {
+      font-size: 24px;
+      font-weight: 500;
+      color: #696969;
+      letter-spacing: 0.0012em;
+
+      &.value {
+        margin-left: 20px;
+        color: #231f20;
+      }
+    }
+  }
+
+  &__change {
+    margin-top: 32px;
+
+    &-text {
+      font-size: 16px;
+      color: #696969;
+      letter-spacing: 0.0012em;
+    }
+  }
+
+  &__prompt {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    min-height: 119px;
+    padding: 10px 20px;
+    background-color: $lightvioletWhite;
+    border: 2px solid $associations-table;
+    border-radius: 8px;
+    box-shadow: 0 2px 13px 0 rgba(99, 93, 150, 0.15);
+
+    &::before {
+      content: "";
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-top: 18px solid $associations-table;
+      border-right: 27px solid transparent;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -16px;
+      left: 50.2%;
+      width: 0;
+      height: 0;
+      border-top: 21px solid #f4f3fe;
+      border-right: 30px solid transparent;
+    }
+
+    &-message {
+      align-self: center;
+      max-width: 70vw;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 16px;
+      line-height: 23px;
+      color: $black;
+      letter-spacing: 0;
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  .c-section {
+    &__field {
+      width: 100%;
+
+      &-with-text {
+        flex-direction: column-reverse;
+      }
+    }
+  }
+}
+
+@media #{$tablet} {
+  .c-test-create {
+    &__container__description {
+      max-width: 100%;
+      margin-left: 0;
+    }
+
+    &__nav {
+      position: relative;
+      top: 0;
+    }
+
+    &__nav-wrapper {
+      display: none;
+    }
+
+    &__associations {
+      //max-width: 650px;
+      &__add {
+        &-custom {
+          width: 500px;
+        }
+      }
+    }
+  }
+
+  .c-section {
+    &__content {
+      max-width: 100%;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-test-create {
+    &__container {
+      padding: 20px;
+
+      &__title {
+        max-width: 100%;
+        margin-bottom: 8px;
+        font-size: 18px;
+      }
+
+      &__description {
+        &-text {
+          text-align: left;
+        }
+      }
+    }
+
+    &__associations {
+      width: 100%;
+
+      &__add {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+
+        &-custom {
+          display: flex;
+          justify-content: flex-start;
+          width: 100%;
+        }
+      }
+    }
+
+    &__block-title {
+      @include medium-16;
+    }
+  }
+
+  .c-section {
+    &__nav {
+      &-button {
+        display: none;
+
+        &.mobile {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    }
+
+    &__prompt {
+      padding: 10px;
+
+      &::after {
+        left: 50.4%;
+      }
+
+      &-message {
+        @include regular-14;
+
+        max-width: 70vw;
+      }
+    }
+  }
+}

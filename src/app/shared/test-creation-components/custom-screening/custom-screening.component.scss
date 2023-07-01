@@ -1,0 +1,47 @@
+@import "../../../../assets/styles/mixins";
+
+.c-custom-screening {
+  margin-bottom: 32px;
+
+  &__text {
+    @include medium-16;
+
+    max-width: 666px;
+    margin: 20px 0;
+    color: $dark-gray;
+
+    &.hint {
+      margin-bottom: 2px;
+    }
+  }
+
+  &__input {
+    max-width: 666px;
+  }
+
+  &__question {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__options {
+    margin: 32px 0 0 52px;
+  }
+
+  &__preview {
+    margin-left: 52px;
+  }
+}
+
+@media #{$mobile} {
+  .c-custom-screening {
+    &__options {
+      margin: 32px 0 0;
+    }
+
+    &__preview {
+      margin-left: 0;
+    }
+  }
+
+}

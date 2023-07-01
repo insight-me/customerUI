@@ -1,0 +1,29 @@
+<div class="bt-test-report__header">
+  <div class="bt-test-report__header-title">{{"report.Associations compared to competitors" | translate}}</div>
+  <app-multi-select-filter *ngIf="filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           allLabel="report.All brands"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+<app-warning-message *ngIf="lowNumbers"
+                     [text]="'BT.Warning! Amount of respondents is too low (<60)'"
+                     [isCentered]="true"
+                     [color]="'#585858'"></app-warning-message>
+
+<ng-container *ngIf="service.switcher$ | async">
+<div *ngIf="dataSet$ | async as dataset"
+     [style]="btStyle.content">
+  <div [style]="{display: 'flex', flexWrap: 'wrap', justifyContent: 'center'}">
+    <div class="association-element"
+         [style.width]="pdfVersion ? '45%' : ''">
+      <app-bt-bar-chart [dataSet]="dataset.dataset"
+                        [label]="dataset.association.value"
+                        secondColorSchema="true"
+                        aspectRatio="0.4"
+                        [pdfVersion]="pdfVersion"
+                        [competitorsBrands]="service.competitorsBrands | async"></app-bt-bar-chart>
+    </div>
+  </div>
+</div>
+</ng-container>

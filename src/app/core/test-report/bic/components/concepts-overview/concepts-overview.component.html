@@ -1,0 +1,5 @@
+<div class="c-concepts-overview">
+<ng-container *ngFor="let concept of bicRSS.consumerInsightDataSet$ | async">
+    <app-concept-overview [concept]="concept"></app-concept-overview>
+</ng-container>
+</div>

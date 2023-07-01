@@ -1,0 +1,66 @@
+<div class="app-report-content">
+  <div class="app-report-content__tabs">
+    <swiper
+      [config]="swiperConfig"
+      class="app-report-content__swiper app-report-content__tabs-navigation"
+    >
+      <div
+        class="app-report-content__tabs-navigation-item"
+        [class.active]="tabIndex === BicReportTabType.OverallScore"
+        (click)="tabIndex = BicReportTabType.OverallScore"
+      >{{"report.Overall score" | translate}}</div>
+      <div
+        class="app-report-content__tabs-navigation-item"
+        [class.active]="tabIndex === BicReportTabType.BrandBusinessKPIs"
+        (click)="tabIndex = BicReportTabType.BrandBusinessKPIs"
+      >{{"report.Brand & Business KPIs" | translate}}</div>
+      <div
+        class="app-report-content__tabs-navigation-item"
+        [class.active]="tabIndex === BicReportTabType.Associations"
+        (click)="tabIndex = BicReportTabType.Associations"
+      >{{"report.Associations" | translate}}</div>
+      <div *ngIf="showConceptDefinitions"
+           class="app-report-content__tabs-navigation-item"
+           [class.active]="tabIndex === BicReportTabType.ConsumerInsightBenefitsRTB"
+           (click)="tabIndex = BicReportTabType.ConsumerInsightBenefitsRTB"
+      >{{"report.Consumer insight, benefits, RTB" | translate}}</div>
+      <div *ngIf="showMoodboard"
+           class="app-report-content__tabs-navigation-item"
+           [class.active]="tabIndex === BicReportTabType.Moodboard"
+           (click)="tabIndex = BicReportTabType.Moodboard"
+      >{{"report.Moodboard" | translate}}</div>
+      <div
+        *ngIf="showAdditionalQuestions"
+        class="app-report-content__tabs-navigation-item"
+        [class.active]="tabIndex === BicReportTabType.AdditionalQuestions"
+        (click)="tabIndex = BicReportTabType.AdditionalQuestions"
+      >{{"report.Additional questions" | translate}}</div>
+      <div class="app-report-content__tabs-navigation-item"
+           [class.active]="tabIndex === BicReportTabType.ConceptOverview"
+           (click)="tabIndex = BicReportTabType.ConceptOverview"
+      >{{"report.Concept overview" | translate}}</div>
+      <div
+        class="app-report-content__tabs-navigation-item"
+        [class.active]="tabIndex === BicReportTabType.RespondentOverview"
+        (click)="tabIndex = BicReportTabType.RespondentOverview"
+      >{{"report.Respondent overview" | translate}}</div>
+    </swiper>
+  </div>
+
+
+  <ng-container [ngSwitch]="tabIndex">
+    <app-dashboard *ngSwitchCase="BicReportTabType.OverallScore"></app-dashboard>
+    <app-brand-and-business-kpis *ngSwitchCase="BicReportTabType.BrandBusinessKPIs"></app-brand-and-business-kpis>
+    <app-associations *ngSwitchCase="BicReportTabType.Associations"></app-associations>
+    <app-additional-questions *ngSwitchCase="BicReportTabType.AdditionalQuestions"></app-additional-questions>
+    <app-concept-definitions *ngSwitchCase="BicReportTabType.ConsumerInsightBenefitsRTB"></app-concept-definitions>
+    <app-concepts-overview *ngSwitchCase="BicReportTabType.ConceptOverview"></app-concepts-overview>
+    <app-moodboard-likes *ngSwitchCase="BicReportTabType.Moodboard" [dataSet]="bicRSS.consumerInsightDataSet$ | async"></app-moodboard-likes>
+    <app-respondent-overview *ngSwitchCase="BicReportTabType.RespondentOverview"></app-respondent-overview>
+  </ng-container>
+
+</div>
+<!--  REMOVE comment to see pdf -->
+<!--<app-export-container-->
+<!--  (exportReady)="exportReady($event)"-->
+<!--&gt;</app-export-container>-->

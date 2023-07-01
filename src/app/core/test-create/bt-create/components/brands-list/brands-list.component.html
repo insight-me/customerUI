@@ -1,0 +1,15 @@
+<div class="c-brands-list">
+  <app-brands-list-item
+    *ngFor="let brand of brands; let i=index"
+    [brand]="brand"
+    [index]="i"
+    [brands]="brands"
+    [allBrands]="allBrands"
+    [allImages]="allImages"
+    [allImagesHash]="allImagesHash"
+    [type]="type"
+    (deleteBrand)="deleteBrand.emit($event)"
+    (updateBrandName)="updateBrandName.emit($event)"
+    (updateBrandImage)="updateBrandImage.emit($event)"
+  ></app-brands-list-item>
+</div>

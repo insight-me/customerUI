@@ -1,0 +1,42 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-involvement-category {
+  max-width: 666px;
+
+  &__title {
+    @include medium-16;
+
+    margin: 0 0 4px;
+    color: $dark-gray;
+  }
+
+  &__explanation {
+    @include regular-oblique-14;
+
+    margin-top: 8px;
+    color: $dark-gray;
+  }
+
+  &__form-field {
+    &.margin {
+      margin-top: 30px;
+    }
+  }
+
+  &__textarea {
+    width: 100%;
+    max-width: 666px;
+    height: 105px;
+    resize: none;
+  }
+}
+
+@media #{$mobile} {
+  .c-involvement-category {
+    &__form-field {
+      width: 100%;
+      min-width: 276px;
+    }
+  }
+}

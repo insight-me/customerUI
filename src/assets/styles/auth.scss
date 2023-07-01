@@ -1,0 +1,97 @@
+@import "variables";
+@import "mixins";
+
+.c-auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 47px;
+
+    &__link {
+      cursor: pointer;
+    }
+  }
+
+  &__content-wrapper {
+    max-width: 1000px;
+    margin-bottom: 20px;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__content {
+    @include card-shadow;
+
+    width: 90vw;
+    max-width: 980px;
+    padding: 60px;
+    overflow: hidden;
+    background: $white;
+    border-radius: 8px;
+
+    &__header {
+      padding-bottom: 40px;
+
+      &-text {
+        @include medium-32;
+
+        margin: 0;
+      }
+    }
+  }
+
+  &__label {
+    @include medium-16;
+
+    margin-bottom: 5px;
+    color: $dark-gray;
+  }
+
+  &__footer {
+    @include flex-center;
+    @include regular-14;
+
+    flex-direction: column;
+    margin-top: 40px;
+    color: $gray;
+  }
+
+  &__link {
+    padding-bottom: 0.5px;
+    color: $black;
+    text-decoration: none;
+    border-bottom: 1px solid $black;
+  }
+}
+
+
+@media #{$mobile} {
+  .c-auth {
+    &__content {
+      width: 90vw;
+      padding: 20px;
+
+      &__header {
+        &-text {
+          @include medium-24;
+
+          text-align: center;
+        }
+      }
+    }
+  }
+}

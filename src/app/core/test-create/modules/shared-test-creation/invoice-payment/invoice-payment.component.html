@@ -1,0 +1,130 @@
+<div class="c-invoice-payment">
+  <div class="c-payment__payment c-invoice-payment__table">
+
+    <table *ngIf="company && test"
+           [class.c-invoice-payment__not-edit]="!isEditMode"
+           class="c-invoice-payment__payment">
+
+      <tbody class="c-base__grid-table-body c-payment__payment-table"
+             [formGroup]="form">
+        <!-- totalCost -->
+        <tr class="c-payment__payment__line"
+            *ngIf="test.type === testType.BIC">
+          <td class="c-payment__payment__line-title">{{'confirm-test.total-cost' | translate}}:</td>
+          <td class="c-payment__payment__line-text">{{testCost}}
+            <span *ngIf="test?.testCurrency !== 'SEK'"
+                  class="right-margin">({{testCostInCurrency}})</span>
+          </td>
+        </tr>
+        <!-- companyName -->
+        <tr class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title"
+              [class.bottom-none]="hasErrors('companyName')">{{'confirm-test.company-name' | translate}}:
+          </td>
+          <td *ngIf="!isEditMode; else companyNameInput"
+              class="c-payment__payment__line-text">{{company.companyName}}
+          </td>
+          <ng-template #companyNameInput>
+            <td class="c-payment__payment__line-text"
+                [class.bottom-none]="hasErrors('companyName')">
+              <input class="c-common__input c-invoice-payment__input"
+                     pInputText
+                     formControlName="companyName">
+              <p class="p-error c-common__form-field-error c-invoice-payment__error">{{setErrorMessage('companyName')}}</p>
+            </td>
+          </ng-template>
+        </tr>
+        <!-- org num -->
+        <tr class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title">{{'confirm-test.org-num' | translate}}:</td>
+          <td class="c-payment__payment__line-text">{{company.orgNumber}} </td>
+        </tr>
+        <!-- adress -->
+        <tr class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title"> {{'confirm-test.address' | translate}}:
+          </td>
+          <td class="c-payment__payment__line-text">{{company.street}}, {{company.city}}, {{company.postalCode}},
+            {{currentCountry}}
+          </td>
+        </tr>
+        <!-- company person name -->
+        <tr class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title"
+              [class.bottom-none]="hasErrors('companyContactName')">
+            {{(isEditMode ? 'confirm-test.company-person-name-first' : 'confirm-test.company-person-name') | translate}}:
+          </td>
+          <td *ngIf="!isEditMode; else companyPersonNameInput"
+              class="c-payment__payment__line-text">{{company.contactName}} {{company.contactSurname}}</td>
+          <ng-template #companyPersonNameInput>
+            <td class="c-payment__payment__line-text"
+                [class.bottom-none]="hasErrors('companyContactName')">
+              <input class="c-common__input c-invoice-payment__input"
+                     pInputText
+                     formControlName="companyContactName">
+              <p class="p-error c-common__form-field-error c-invoice-payment__error">{{setErrorMessage('companyContactName')}}</p>
+            </td>
+          </ng-template>
+        </tr>
+
+        <tr *ngIf="isEditMode"
+            class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title"
+              [class.bottom-none]="hasErrors('companyContactSurname')"> {{'confirm-test.company-person-last-name' |
+            translate}}:
+          </td>
+          <td class="c-payment__payment__line-text"
+              [class.bottom-none]="hasErrors('companyContactSurname')">
+            <input class="c-common__input c-invoice-payment__input"
+                   pInputText
+                   formControlName="companyContactSurname">
+            <p class="p-error c-common__form-field-error c-invoice-payment__error">{{setErrorMessage('companyContactSurname')}}</p>
+          </td>
+        </tr>
+        <!-- company person email -->
+        <tr class="c-payment__payment__line">
+          <td class="c-payment__payment__line-title"
+              [class.bottom-none]="hasErrors('companyContactMail')"> {{'confirm-test.company-person-mail' | translate}}:
+          </td>
+          <td *ngIf="!isEditMode; else companyPersonEmailInput"
+              class="c-payment__payment__line-text">{{company.contactMail}}</td>
+          <ng-template #companyPersonEmailInput>
+            <td class="c-payment__payment__line-text"
+                [class.bottom-none]="hasErrors('companyContactMail')">
+              <input class="c-common__input c-invoice-payment__input"
+                     pInputText
+                     formControlName="companyContactMail">
+              <p class="p-error c-common__form-field-error c-invoice-payment__error">{{setErrorMessage('companyContactMail')}}</p>
+            </td>
+          </ng-template>
+        </tr>
+        <!-- VAT number -->
+        <tr class="c-payment__payment__line"
+            *ngIf="test.type === testType.BIC">
+          <td class="c-payment__payment__line-title"
+              [class.bottom-none]="hasErrors('vatNumber')"> {{'payment.VAT number' | translate}}:
+          </td>
+          <td class="c-payment__payment__line-text">{{company.vatNumber ? company.vatNumber : '-'}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+  <div class="c-payment__payment-summery c-invoice-payment__payment-summery">
+    <ng-container *ngIf="isNotManager && this.company.vatNumber">
+      <div *ngIf="!isEditMode; else cancelButton"
+           (click)="setEditMode()">
+        <button class="c-common__button c-common__button--regular normal">{{'confirm-test.edit' | translate}}</button>
+      </div>
+      <ng-template #cancelButton>
+        <div (click)="setEditMode()">
+          <button class="c-common__button--regular c-common__button normal">{{'KPI.cancel' |
+            translate}}</button>
+        </div>
+      </ng-template>
+    </ng-container>
+    <div>
+      <button class="c-common__button c-common__button--filled normal"
+              (click)="checkForm()">{{'confirm-test.confirm' | translate}}</button>
+    </div>
+  </div>
+</div>

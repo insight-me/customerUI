@@ -1,0 +1,38 @@
+@import "mixins";
+
+.c-overlay-tip {
+  &__hint {
+    @include flex-center;
+
+    position: relative;
+    width: 32px;
+    height: 32px;
+    margin-left: 12px;
+    cursor: pointer;
+
+    &:hover {
+      background: #ffeee3;
+      border-radius: 30px;
+    }
+  }
+
+  &__container {
+    padding: 40px;
+  }
+
+  &__title {
+    @include medium-18;
+  }
+
+  &__text {
+    @include regular-14;
+  }
+}
+
+@media #{$tablet} {
+  .c-overlay-tip {
+    &__container {
+      padding: 20px;
+    }
+  }
+}

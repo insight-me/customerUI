@@ -1,0 +1,44 @@
+<div class="app-score-per-segment"
+     [class.pdf]="pdfVersion">
+  <div *ngIf="!pdfVersion"
+       class="app-score-per-segment__title">{{dataSet.label}}</div>
+  <div class="app-score-per-segment__content"
+       #contentRef>
+    <div class="app-score-per-segment__content-wrapper"
+         *ngFor="let table of data">
+      <div class="app-score-per-segment__content-table"
+           [style]="tableStyle(table.length)">
+        <!--TH-->
+        <div class="app-score-per-segment__content-table-th"><span>{{"report.KPI (T3B)" | translate}}</span></div>
+        <div class="app-score-per-segment__content-table-th"><span>{{"report.Population" | translate}}</span></div>
+        <ng-container *ngFor="let segment of table">
+          <div *ngIf="selectedSegments.includes(segment.label)"
+               class="app-score-per-segment__content-table-th"><span>{{segment.label}}</span></div>
+        </ng-container>
+        <div class="app-score-per-segment__content-table-th"><span>{{"report.Benchmark" | translate }}</span></div>
+        <!--TD-->
+        <ng-container *ngFor="let row of tableRows; index as i; let isLast = last; let isFirst = first">
+          <div class="app-score-per-segment__content-table-td kpi"
+               [class.last]="isLast"
+               [class.no-padding]="isOpened && isSmallDesktop">{{"report." + row | translate}}</div>
+          <div class="app-score-per-segment__content-table-td total"
+               [class.last]="isLast"
+               [class.first]="isFirst"
+               [class.no-padding]="isOpened && isSmallDesktop">{{dataSet.benchmarks[row].total}}%
+          </div>
+          <ng-container *ngFor="let segment of table">
+            <div *ngIf="selectedSegments.includes(segment.label)"
+                 class="app-score-per-segment__content-table-td value"
+                 [class.last]="isLast"
+                 [class.first]="isFirst"
+                 [class.no-padding]="isOpened && isSmallDesktop">{{segment.kpis[row]}}%
+            </div>
+          </ng-container>
+          <div class="app-score-per-segment__content-table-td total benchmark"
+               [class.last]="isLast"
+               [class.no-padding]="isOpened && isSmallDesktop">{{dataSet.benchmarks[row].benchmark > 0 ? dataSet.benchmarks[row].benchmark + '%' : '-'}}</div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

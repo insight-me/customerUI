@@ -1,0 +1,168 @@
+@import "variables";
+@import "mixins";
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 5rem;
+}
+
+.c-add-statement-dialog {
+  width: 90vw;
+  max-width: 927px;
+  height: 100%;
+  max-height: 56vh;
+  overflow-y: auto;
+  background-color: $white;
+  border-radius: 10px;
+  -ms-overflow-style: none;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    margin-top: 60px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    height: 5px;
+    background-color: $light-orange-second;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    background-color: $lightgrayWhite;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin-top: 70px;
+    background-color: $lightgrayWhite;
+    border-radius: 5px;
+  }
+
+  &__table-search {
+    width: 300px;
+    height: 50px;
+    padding: 5px 0;
+  }
+
+  &__header {
+    @include regular-16;
+
+    display: flex;
+    padding-top: 5px;
+    background-color: $white;
+    border-bottom: 1px solid $lightgrayWhite;
+  }
+
+  &__caption {
+    display: flex;
+    padding-left: 3px;
+    background-color: $white;
+  }
+
+  &__button {
+    width: auto;
+    font-weight: bold;
+    color: $black;
+  }
+
+  &__select-button {
+    @include regular-16;
+
+    padding: 14px 20px;
+    text-align: start;
+    border-bottom: 1px solid $lightgrayWhite;
+    cursor: pointer;
+  }
+
+  &__actions {
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__statements-template {
+    grid-template-columns:
+    minmax(74px, 0.61fr) minmax(150px, 2.1fr) minmax(150px, 6.1fr) minmax(150px, 1.2fr);
+  }
+
+  &__associations-template {
+    grid-template-columns: minmax(100px, 0.61fr) minmax(150px, 6.1fr) minmax(150px, 1.2fr);
+  }
+
+  &__margin {
+    margin-left: 5px;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 20px;
+
+    button:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  &__checkbox {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 0 !important;
+    padding-left: 16px !important;
+  }
+}
+
+@media #{$mobile} {
+  .c-add-statement-dialog {
+    width: 85vw;
+
+    &__header {
+      @include regular-14;
+    }
+
+    &__table-search {
+      width: 98%;
+    }
+
+    &__actions {
+      display: none;
+    }
+
+    &__caption {
+      width: 98%
+    }
+
+    &__select-button {
+      @include regular-14;
+    }
+
+    &__statements-template {
+      grid-template-columns: minmax(66px, 0.61fr) minmax(98px, 2.1fr) minmax(149px, 6.1fr);
+    }
+
+    &__associations-template {
+      grid-template-columns: minmax(100px, 0.61fr) minmax(150px, 6.1fr);
+    }
+
+    &__margin {
+      margin-left: 5px;
+    }
+
+    &__button {
+      max-width: 290px;
+    }
+
+    &__footer {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+
+      button:first-child {
+        margin-right: 0;
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

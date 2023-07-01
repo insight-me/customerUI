@@ -1,0 +1,11 @@
+<div class="c-confirmation-dialog">
+  <div *ngIf="config.data.header" class="c-confirmation-dialog__header">{{config.data.header | translate}}</div>
+  <div class="c-confirmation-dialog__text">{{config.data.text | translate}}</div>
+
+  <div class="c-confirmation-dialog__button-wrapper">
+    <button (click)="onClose(false)"
+            class="c-common__button c-common__button--text normal">{{config.data.btnNo ? (config.data.btnNo | translate) : ('my-profile.cancel' | translate)}}</button>
+    <button (click)="onClose(true)"
+            class="c-common__button c-common__button--gradient normal">{{config.data.btn ? (config.data.btn | translate) : ('my-profile.delete-btn' | translate)}}</button>
+  </div>
+</div>

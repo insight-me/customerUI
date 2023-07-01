@@ -1,0 +1,111 @@
+<div class="c-confirmation-dialog">
+  <h2 class="c-confirmation-dialog__header">{{dialogConfig.title | translate}}</h2>
+  <button class="c-confirmation-dialog__button c-common__button c-common__button--icon" (click)="onClose(false)">
+    <img src="../../../../../assets/images/svg/ic_close-modal.svg">
+  </button>
+  <div class="c-add-statement-dialog">
+    <p-table #dt
+             [value]="allItems"
+             [(selection)]="selectedItems"
+             [globalFilterFields]="['title', 'text', 'question']"
+             [scrollable]="true"
+             scrollHeight="400px"
+             class="c-common__table">
+
+      <ng-template pTemplate="header">
+        <div class="c-add-statement-dialog__caption">
+          <span class="p-input-icon-left c-add-statement-dialog__table-search">
+            <i class="pi pi-search"></i>
+            <input pInputText
+                   type="text"
+                   [(ngModel)]="searchText"
+                   (input)="dt.filterGlobal($event.target.value, 'contains')"
+                   class="c-common__input tiny"
+                   [placeholder]="'test-concept.type-to-find' | translate"/>
+          </span>
+        </div>
+        <div class="c-add-statement-dialog__header"><span>{{dialogConfig.header | translate}}</span></div>
+      </ng-template>
+
+      <ng-template pTemplate="body"
+                   let-statement
+                   let-rowIndex="rowIndex">
+
+        <tr *ngIf="rowIndex === 0
+        && !config.data?.isBT
+        && getAssociationsByType(2).length
+        && !searchText
+        && dialogConfig.name !== 'KPIs'"
+            class="c-common__grid-table c-add-statement-dialog__select-button"
+            (click)="checkIsSelectedAllByType(2)? removeAllByType(2): addItemsByType(2)">
+          <input type="checkbox" class="c-common__multiselect big" [checked]="checkIsSelectedAllByType(2)">
+          <label
+            class="c-common__checkbox-label">{{'associations.select-all-recommended' | translate}}</label>
+        </tr>
+
+
+        <tr *ngIf="config.data?.isBT
+        && rowIndex === 0
+        && !searchText"
+            class="c-common__grid-table c-add-statement-dialog__select-button"
+            (click)="selectedItems.length === allItems.length? removeAllData() : addAllData()">
+          <input type="checkbox" class="c-common__multiselect big" [checked]="selectedItems.length === allItems.length">
+          <label
+            class="c-common__checkbox-label">{{'associations.select-all' | translate}}</label>
+        </tr>
+
+<!--        <tr *ngIf="config.data?.isBT-->
+<!--        && rowIndex === 0-->
+<!--        && !searchText-->
+<!--        && selectedItems.length === allItems.length"-->
+<!--            class="c-common__grid-table c-add-statement-dialog__select-button"-->
+<!--            (click)="removeAllData()">-->
+<!--          {{'associations.deselect-all' | translate}}-->
+<!--        </tr>-->
+
+        <tr *ngIf="dialogConfig.name !== 'KPIs'
+        && rowIndex === index
+        && !searchText
+        && !config.data?.isBT"
+            class="c-common__grid-table c-add-statement-dialog__select-button"
+            (click)="checkIsSelectedAllByType(1)? removeAllByType(1): addItemsByType(1)">
+          <input type="checkbox" class="c-common__multiselect big" [checked]="checkIsSelectedAllByType(1)">
+          <label
+            class="c-common__checkbox-label">{{'associations.select-all-additional' | translate}}</label>
+        </tr>
+
+        <tr class="c-common__grid-table"
+            [ngClass]="dialogConfig.class">
+          <td class="c-common__grid-table-body-item c-common__checkbox-wrapper c-add-statement-dialog__checkbox">
+            <p-tableCheckbox [value]="statement"
+                             class="c-common__checkbox"></p-tableCheckbox>
+          </td>
+          <td *ngIf="statement.title; else associationField"
+              class="c-common__grid-table-body-item">{{statement.title}}</td>
+
+          <ng-template #associationField>
+            <td
+              class="c-common__grid-table-body-item">{{statement.text}}</td>
+          </ng-template>
+
+          <td *ngIf="dialogConfig.name === 'KPIs'"
+              class="c-common__grid-table-body-item">{{statement.question}}</td>
+          <td *ngIf="!isBT" class="c-common__grid-table-body-item actions c-add-statement-dialog__actions"
+              [ngClass]="statementEnum[statement.type].toLowerCase()">{{statementEnum[statement.type] | translate}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="c-add-statement-dialog__footer">
+    <button [disabled]="!selectedItems.length"
+            class="c-common__button c-common__button--border c-add-statement-dialog__button"
+            (click)="onClose(selectedItems)">{{dialogConfig.addbutton | translate}}
+      <span *ngIf="selectedItems.length"
+            class="c-add-statement-dialog__margin">
+        ({{selectedItems.length}})
+      </span></button>
+
+    <button (click)="onClose(false)"
+            class="c-common__button c-common__button--text normal">{{'KPI.cancel' | translate}}</button>
+  </div>
+</div>

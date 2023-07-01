@@ -1,0 +1,48 @@
+<div class="app-questions-feedback-item">
+  <div class="app-questions-feedback-item__title">{{"report.Question" | translate | uppercase}}</div>
+
+  <div class="app-questions-feedback-item__label">
+    <span>{{question.label | translate}}</span>
+    <span>{{question.answers.length}} {{"report.answer(s)" | translate}}</span>
+  </div>
+
+  <div *ngIf="answers.length" class="app-questions-feedback-item__title">{{"report.Answers" | translate | uppercase}}</div>
+
+  <div
+    *ngIf="answers.length"
+    class="app-questions-feedback-item__answers"
+  >
+    <div
+      *ngFor="let answer of answers"
+      class="app-questions-feedback-item__answers-item"
+    >
+      <div [innerHTML]="sanitizer.bypassSecurityTrustHtml(getHtml(answer.text))"></div>
+      <div class="app-questions-feedback-item__answers-item-info">
+        <span>{{"report.Respondent" | translate}}: {{answer.segment || "Other"}}</span>
+        <span>{{"report.Age" | translate}}: {{answer.age || "-"}}</span>
+        <span>{{"report.Gender" | translate}}: {{answer.gender || "-"}}</span>
+      </div>
+    </div>
+
+    <div
+      *ngIf="question.answers.length > 3"
+      class="app-questions-feedback-item__answers-item"
+    >
+      <div class="app-questions-feedback-item__answers-item-expand-list">
+        <div class="expand-list-gradient"></div>
+        <div
+          class="expand-icon"
+          (click)="toggleList()"
+        >
+          <app-icon
+            [iconType]="isExpanded ? IconsType.Minus : IconsType.Plus"
+            color="#2E2C2C"
+            width="20"
+            height="20"
+          ></app-icon>
+        </div>
+        <span>{{(isExpanded ? "report.Hide all answers" : "report.Show all answers") | translate | uppercase}}</span>
+      </div>
+    </div>
+  </div>
+</div>

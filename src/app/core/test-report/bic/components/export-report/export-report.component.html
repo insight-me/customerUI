@@ -1,0 +1,51 @@
+<!--*ngIf="bicRSS.test.status === TestStatus.Finished"-->
+<div *ngIf="bicRSS.test.status === TestStatus.Finished"
+     class="app-report-content__tabs-export app-concept-definitions__filter">
+  <span>{{'report.Export' | translate}}</span>
+  <app-expand-button
+    class="app-concept-definitions__filter-expand-button"
+    [matMenuTriggerFor]="exportMenu"
+    (menuClosed)="showConcepts()"
+    (menuOpened)="showConcepts()"
+    [active]="isChooseConceptActive"></app-expand-button>
+  <mat-menu #exportMenu>
+    <li *ngIf="{canExport: bicRSS.canExportPDF$ | async} as pdf"
+        [disabled]="!pdf.canExport"
+        [pTooltip]="pdf.canExport ? null : ('report.PDF is disabled, there is no data to show' | translate)"
+        tooltipPosition="top"
+        mat-menu-item
+        (click)="export(pdf.canExport)">
+      <img src="../../../../../../assets/images/svg/pdf.svg">
+      {{'report.Export as .pdf' | translate }}
+    </li>
+    <li mat-menu-item (click)="exportAsExcel()">
+      <img src="../../../../../../assets/images/svg/xlsx.svg">
+      {{'report.Raw data' | translate }}
+    </li>
+        <li mat-menu-item (click)="exportCalcData()">
+          <img src="../../../../../../assets/images/svg/ic_calculated-data.svg">
+          {{'report.Calculated data' | translate }}
+        </li>
+  </mat-menu>
+</div>
+<div class="export-pdf">
+  <app-export-container
+    *ngIf="exportRequest | async"
+    (exportReady)="exportReady($event)"
+  ></app-export-container>
+</div>
+
+<!--<div *ngIf="isShowConcepts(dataSet)" class="app-concept-definitions__filter">-->
+<!--  <app-expand-button class="app-concept-definitions__filter-expand-button"-->
+<!--                     [matMenuTriggerFor]="choseConceptMenu"-->
+<!--                     (menuClosed)="showConcepts()"-->
+<!--                     (menuOpened)="showConcepts()"-->
+<!--                     [active]="isChooseConceptActive"></app-expand-button>-->
+<!--</div>-->
+<!--<mat-menu #choseConceptMenu>-->
+<!--  <li *ngFor="let concept of dataSet; let i=index" mat-menu-item-->
+<!--      [pTooltip]="concept.label"-->
+<!--      tooltipPosition="top"-->
+<!--      (click)="selectedConcept = i">{{concept.label }}</li>-->
+<!--</mat-menu>-->
+<!--</div>-->

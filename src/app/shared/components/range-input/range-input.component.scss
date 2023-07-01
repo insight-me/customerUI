@@ -1,0 +1,16 @@
+@import "./src/assets/styles/mixins.scss";
+
+.c-range-input {
+  position: relative;
+  display: flex;
+  width: 666px;
+  min-height: 60px;
+  margin: 10px 0;
+}
+
+
+@media #{$mobile} {
+  .c-range-input {
+    width: 100%;
+  }
+}

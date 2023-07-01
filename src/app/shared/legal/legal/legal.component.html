@@ -1,0 +1,10 @@
+<div>
+  <div class="c-legal-container">
+    <app-header (closeWindow)="close()"></app-header>
+    <div class="c-legal-container-scroll">
+      <app-privacy *ngIf="isPrivacy"></app-privacy>
+      <app-terms *ngIf="isTerms"></app-terms>
+    </div>
+  </div>
+</div>
+

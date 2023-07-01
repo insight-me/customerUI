@@ -1,0 +1,94 @@
+@import "./src/assets/styles/variables.scss";
+@import './src/assets/styles/mixins.scss';
+
+:host {
+  width: 100%;
+}
+
+.ask-buttons {
+  display: flex;
+  align-items: center;
+  margin: 38px 0;
+
+  .c-common__radiobutton-label {
+    &:first-of-type {
+      margin-right: 60px;
+    }
+  }
+}
+
+.c-open-questions {
+  display: flex;
+  flex-direction: column;
+  max-width: 665px;
+
+  &__text {
+    @include medium-16;
+
+    color: $dark-gray;
+  }
+
+  &__hint {
+    @include flex-center;
+
+    position: relative;
+    width: 32px;
+    height: 32px;
+    margin-left: 12px;
+
+    &:hover {
+      background: #FFEEE3;
+      border-radius: 30px;
+    }
+  }
+
+  &__grid-text {
+    @include medium-16;
+
+    margin-left: 55px;
+  }
+
+  &__hint-container {
+    @include regular-16;
+
+    padding: 20px;
+    background: $white;
+  }
+
+  &__close-block {
+    display: flex;
+    margin: 32px 0;
+
+    &>.c-common__button:first-of-type {
+      margin-right: 20px;
+    }
+  }
+
+  &__explanation-text {
+    @include regular-oblique-14;
+
+    margin-top: 5px;
+    color: $dark-gray !important;
+  }
+}
+
+@media #{$mobile} {
+  .c-open-questions {
+    &__hint-container {
+      width: 212px;
+    }
+
+    &__close-block {
+      flex-direction: column;
+
+      &>.c-common__button:first-of-type {
+        margin-right: 0;
+        margin-bottom: 12px;
+      }
+
+      &>.c-common__button {
+        width: 100%;
+      }
+    }
+  }
+}

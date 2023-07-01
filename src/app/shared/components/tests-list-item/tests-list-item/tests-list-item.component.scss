@@ -1,0 +1,74 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-tests-list-item {
+  &__product {
+    @include flex-column;
+
+    justify-content: space-between;
+    width: 335px;
+    height: 170px;
+    margin-bottom: 8px;
+    padding: 20px;
+    background-color: $darkviolet;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1);
+    transition: all 500ms ease;
+
+    &:hover,
+    &:focus {
+      background-color: $associations-table;
+      cursor: pointer;
+      transition: all 500ms ease;
+
+      & .c-tests-list-item__product-select,
+      & .c-tests-list-item__product-create-select {
+        background-image: url(../../../../../assets/images/svg/ic_arrow-right-hover.svg);
+      }
+
+      & .c-tests-list-item__product-name {
+        color: $black;
+      }
+
+      & .c-tests-list-item__product-explanation {
+        color: rgba(0, 0, 0, 0.7) !important;
+      }
+    }
+
+    &:focus {
+      @include button-orange-shadow;
+    }
+
+    &-name {
+      margin: 0;
+      font-family: 'GT Walsheim Pro Medium';
+      font-size: 24px;
+      line-height: 150%;
+      font-weight: 500;
+      text-align: left;
+      color: $white;
+      font-style: normal;
+      letter-spacing: 0.005em;
+    }
+
+    &-explanation {
+      @include regular-16;
+
+      margin: 0;
+      text-align: left;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    &-select {
+      width: 20px;
+      height: 20px;
+      background-image: url(../../../../../assets/images/svg/ic_arrow_right.svg);
+    }
+  }
+
+  &__modal {
+    max-width: 367px;
+  }
+}

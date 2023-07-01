@@ -1,0 +1,25 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-start-page {
+  &__taste {
+    width: 100%;
+    height: calc(100vh - 100px);
+  }
+}
+
+@media #{$tablet} {
+  .c-start-page {
+    &__taste {
+    }
+  }
+}
+
+@media #{$mobile-main-page} {
+  .c-start-page {
+    &__taste {
+      height: calc(100vh - 64px);
+    }
+  }
+}
+

@@ -1,0 +1,13 @@
+<div class="c-preview__section__header">
+  <p class="c-preview__section__header-text">{{'preview.header-two' | translateCustom }}</p>
+</div>
+<div *ngIf="test"
+     class="c-preview__section">
+  <div *ngFor="let kpi of test.testKPIs; let i=index">
+    <app-preview-slider [question]="kpi"
+                        [questionNum]="i"
+                        [questionNumMax]="test.testKPIs.length"
+                        [type]="'KPI'">
+    </app-preview-slider>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<ng-template #customContent>
+<div [innerHTML]="customText" class="tooltip-content-title"></div>
+</ng-template>
+
+<div class="c-graph-tooltip">
+  <app-icon [iconType]="IconsType.Question"></app-icon>
+  <div class="tooltip" [ngClass]="additionalClass ? additionalClass : null">
+    <div class="tooltip-content">
+      <ng-container  *ngIf="!isCustomContent; else customContent">
+        <div *ngIf="title"
+             class="tooltip-content-question">{{title | translate}}</div>
+        <div *ngFor="let text of texts" [class.report]="type"
+             class="tooltip-content-title">{{text | translate}}</div>
+        <div *ngIf="type"
+             class="tooltip-content-title report">{{'report.Type of question' | translate}}: {{type | translate}}</div>
+      </ng-container>
+    </div>
+    <div class="tooltip-arrow center" [style.left]="arrowShift + '%'"></div>
+  </div>
+</div>

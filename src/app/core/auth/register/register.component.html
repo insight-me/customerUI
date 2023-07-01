@@ -1,0 +1,200 @@
+<div class="c-register"
+     *ngIf="!formProcessed;else formProcessedBlock">
+  <div class="c-auth__content__header">
+    <h2 class="c-auth__content__header-text">{{ 't-auth.Sign up' | translate}}</h2>
+  </div>
+
+  <div class="c-login__content">
+    <form *ngIf="form"
+          [formGroup]="form"
+          class="c-register__form">
+
+      <div class="c-register__form-column">
+        <!-- firstName -->
+        <label class="c-auth__label">{{ 't-auth.First name' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="150"
+                          [control]="convertToFormControl(form.controls.firstName)"
+                          controlName="firstName"></app-form-input>
+        </div>
+        <!-- lastName -->
+        <label class="c-auth__label">{{ 't-auth.Last name' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="150"
+                          [control]="convertToFormControl(form.controls.lastName)"
+                          controlName="lastName"></app-form-input>
+        </div>
+        <!-- email -->
+        <label class="c-auth__label">{{ 't-auth.E-mail' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [type]="'email'"
+                          [maxLength]="320"
+                          [control]="convertToFormControl(form.controls.mail)"
+                          controlName="mail"></app-form-input>
+        </div>
+        <!-- preferredLanguage -->
+        <label class="c-auth__label">{{ 't-auth.Preferred language' | translate}}</label>
+        <div class="c-common__form-field">
+          <p-dropdown class="c-common__dropdown-test"
+                      [options]="['EN','SE']"
+                      [placeholder]="'t-auth.Preferred language' | translate"
+                      formControlName="preferredLanguage"></p-dropdown>
+          <small *ngIf="controlHasError('preferredLanguage')"
+                 class="p-error c-common__form-field-error">{{'t-auth.Preferred language is required.' | translate}}</small>
+        </div>
+        <!-- password -->
+        <label class="c-auth__label">{{ 't-auth.Password' | translate}}</label>
+        <div class="c-common__form-field">
+          <input [type]="passwordTypeFirst"
+                 pInputText
+                 formControlName="password"
+                 class="c-common__input password"
+                 maxlength="128"/>
+          <img class="c-common__form-field--password-icon"
+               [src]="isTextTypePassword ? '../../../../assets/images/ic_hide-password.svg' : '../../../../assets/images/ic_show-password.svg'"
+               (click)="onShowPassword()"/>
+          <small *ngIf="controlHasError('password')"
+                 class="p-error c-common__form-field-error">{{setErrorMessage('password')}}</small>
+        </div>
+        <!-- confirm password -->
+        <label class="c-auth__label">{{ 't-auth.Confirm password' | translate}}</label>
+        <div class="c-common__form-field">
+          <input [type]="passwordTypeSecond"
+                 pInputText
+                 formControlName="confirmPassword"
+                 class="c-common__input password"
+                 maxlength="128"/>
+          <img class="c-common__form-field--password-icon"
+               [src]="isTextTypeConfirmPassword ? '../../../../assets/images/ic_hide-password.svg' : '../../../../assets/images/ic_show-password.svg'"
+               (click)="onShowConfirmPassword()"/>
+          <small *ngIf="controlHasError('confirmPassword')"
+                 class="p-error c-common__form-field-error">{{setErrorMessage('confirmPassword')}}</small>
+        </div>
+        <!-- company Name -->
+        <label class="c-auth__label">{{ 't-auth.Company name' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="150"
+                          [control]="convertToFormControl(form.controls.companyName)"
+                          controlName="companyName"></app-form-input>
+        </div>
+        <!-- organization number -->
+        <label class="c-auth__label">{{ 't-auth.Organization number' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="20"
+                          [control]="convertToFormControl(form.controls.companyOrgNumber)"
+                          controlName="companyOrgNumber"></app-form-input>
+        </div>
+        <!-- VAT -->
+        <label class="c-auth__label">{{ 'payment.VAT number' | translate}}<span [style.font-style]="'oblique'"> ({{'BIC.Optional' | translate | lowercase}})</span></label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="20"
+                          [control]="convertToFormControl(form.controls.vatNumber)"
+                          controlName="companyOrgNumber"></app-form-input>
+        </div>
+      </div>
+      <div class="c-register__form-column">
+        <!-- contact first name -->
+        <label class="c-auth__label">{{ 't-auth.Company contact persons first name' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="150"
+                          [control]="convertToFormControl(form.controls.contactName)"
+                          controlName="contactName"></app-form-input>
+        </div>
+        <!-- contact last name -->
+        <label class="c-auth__label">{{ 't-auth.Company contact persons last name' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="150"
+                          [control]="convertToFormControl(form.controls.contactSurname)"
+                          controlName="contactSurname"></app-form-input>
+        </div>
+        <!-- email-->
+        <label class="c-auth__label">{{ 't-auth.Company contact persons e-mail' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [type]="'email'"
+                          [maxLength]="320"
+                          [control]="convertToFormControl(form.controls.contactMail)"
+                          controlName="contactMail"></app-form-input>
+        </div>
+        <!-- street -->
+        <label class="c-auth__label">{{ 't-auth.Address' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="150"
+                          [control]="convertToFormControl(form.controls.companyStreet)"
+                          controlName="companyStreet"></app-form-input>
+        </div>
+        <!-- city -->
+        <label class="c-auth__label">{{ 't-auth.City' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="150"
+                          [control]="convertToFormControl(form.controls.companyCity)"
+                          controlName="companyCity"></app-form-input>
+        </div>
+        <!-- postal code -->
+        <label class="c-auth__label">{{ 't-auth.Postal code' | translate}}</label>
+        <div class="c-common__form-field">
+          <app-form-input [maxLength]="150"
+                          [control]="convertToFormControl(form.controls.companyPostalCode)"
+                          controlName="companyPostalCode"></app-form-input>
+        </div>
+        <!-- country -->
+        <label class="c-auth__label">{{ 't-auth.Country' | translate}}</label>
+        <div class="c-common__form-field">
+          <p-dropdown class="c-common__dropdown-test"
+                      [options]="appStateService.countries | async"
+                      [placeholder]="('t-auth.Choose country' | translate) + '...'"
+                      [virtualScroll]="true"
+                      scrollHeight="266px"
+                      formControlName="companyCountry"
+                      optionLabel="countryName"></p-dropdown>
+          <small *ngIf="controlHasError('companyCountry')"
+                 class="p-error c-common__form-field-error">{{'t-auth.Company country is required.' | translate}}</small>
+        </div>
+        <div>
+          <div class="c-common__checkbox-wrapper margin">
+            <p-checkbox
+              class="c-common__checkbox"
+              formControlName="acceptPP"
+              [binary]="true"></p-checkbox>
+            <label class="c-common__checkbox-label">{{'t-auth.I accept' | translate}}<a
+              class="c-register__link" (click)="openPP(true, false)">{{'t-footer.Privacy Policy' |translate}}</a></label>
+          </div>
+          <div class="c-common__checkbox-wrapper margin">
+            <p-checkbox
+              class="c-common__checkbox"
+              formControlName="acceptTC"
+              [binary]="true"></p-checkbox>
+            <label class="c-common__checkbox-label">{{'t-auth.I accept' | translate}}<a
+              (click)="openPP(false, true)"
+              class="c-register__link">{{'t-footer.Terms of Service' |translate}}</a></label>
+          </div>
+          <div class="c-common__checkbox-wrapper margin">
+            <p-checkbox class="c-common__checkbox"
+                        formControlName="acceptAge"
+                        [binary]="true"></p-checkbox>
+            <label class="c-common__checkbox-label">{{'t-auth.Im older than 13 years' | translate}}</label>
+          </div>
+        </div>
+        <button class="c-common__button c-common__button--gradient normal stretch"
+                [disabled]="isFormInvalid"
+                (click)="onSubmit()">{{'t-auth.Register' | translate}}
+          <app-icon [iconType]="IconsType.RightArrow" [color]="'#FFFFFF'" class="icon-right"></app-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="c-auth__footer">
+    <div class="c-auth__footer-block">
+      <span class="c-auth__text">{{'t-auth.Do you already have an account?' | translate}} </span><a
+      routerLink="/auth/login"
+      class="c-auth__link">{{'t-auth.Login' | translate}}</a>
+    </div>
+  </div>
+
+</div>
+
+
+<ng-template #formProcessedBlock>
+  <app-registration-initiation infoTextFirst='t-auth.Thank you for registering the account.'
+                               infoTextSecond='t-auth.We will contact you, once your account is activated.'></app-registration-initiation>
+</ng-template>

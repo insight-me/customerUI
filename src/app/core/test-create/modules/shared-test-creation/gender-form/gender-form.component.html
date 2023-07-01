@@ -1,0 +1,10 @@
+<div *ngIf="genders" class="c-gender-form__gender-block">
+  <p-selectButton [options]="genders"
+                  optionLabel="value"
+                  [multiple]="true"
+                  [formControl]="genderControl"
+                  (onChange)="onChangeGenders()"
+                  class="c-common__multiselect-btn"></p-selectButton>
+</div>
+<small *ngIf="genderControl.invalid && genderControl.touched"
+       class="p-error c-common__form-field-error">{{ 'respondents.error-gender' | translate}}</small>

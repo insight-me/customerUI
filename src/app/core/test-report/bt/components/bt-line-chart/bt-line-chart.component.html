@@ -1,0 +1,41 @@
+<ngx-charts-line-chart appRerenderChart
+                       *ngIf="!isOpening"
+                       [results]="dataSet"
+                       [scheme]="colorScheme"
+                       [xAxis]="true"
+                       [yAxis]="true"
+                       [timeline]="false"
+                       [showGridLines]="true"
+                       [yAxisTicks]="yAxisTicks"
+                       [yAxisTickFormatting]="yAxisTickFormatting"
+                       [curve]="curve"
+                       yScaleMin="-5"
+                       yScaleMax="110"
+                       [tooltipDisabled]="pdfVersion"
+                       [animations]="!pdfVersion">
+  <ng-template #seriesTooltipTemplate
+               let-model="model">
+    <ng-container *ngFor="let item of model">
+      <div class="ngx-charts-line-chart-series-tooltip">
+        <div class="ngx-charts-line-chart-series-tooltip-legend">
+          <div class="ngx-charts-line-chart-series-tooltip-legend-circle"
+               [style.background]="item.color"></div>
+          <div class="ngx-charts-line-chart-series-tooltip-legend-label">{{item.series | translate}}:</div>
+        </div>
+        <div class="ngx-charts-line-chart-series-tooltip-value">{{item.value}}%</div>
+      </div>
+    </ng-container>
+  </ng-template>
+
+  <ng-template #tooltipTemplate
+               let-model="model">
+    <div class="ngx-charts-line-chart-tooltip">
+      <span>{{model.name}}</span>
+    </div>
+    <div class="ngx-charts-line-chart-tooltip">
+      <div>{{model.series | translate}}:</div>
+      <div>{{model.value}}%</div>
+    </div>
+  </ng-template>
+
+</ngx-charts-line-chart>

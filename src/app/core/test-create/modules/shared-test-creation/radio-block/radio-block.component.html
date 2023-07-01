@@ -1,0 +1,24 @@
+<div *ngIf="formControlEl">
+  <div>
+    <input class="c-common__radiobutton"
+           type="radio"
+           [name]="controlName"
+           [formControl]="formControlEl"
+           [value]="true"
+           (change)="updateRecognition.emit()"
+           [id]="controlName + 'yes'">
+    <label class="c-common__radiobutton-label"
+           [for]="controlName + 'yes'">{{'additional.yes' | translate}}</label>
+  </div>
+  <div>
+    <input class="c-common__radiobutton"
+           type="radio"
+           [name]="controlName"
+           [formControl]="formControlEl"
+           [value]="false"
+           (change)="updateRecognition.emit()"
+           [id]="controlName + 'no'">
+    <label class="c-common__radiobutton-label"
+           [for]="controlName + 'no'">{{'additional.no' | translate}}</label>
+  </div>
+</div>

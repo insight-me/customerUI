@@ -1,0 +1,58 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-set-test-name {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 326px;
+  min-height: 145px;
+  background-color: $white;
+  border-radius: 8px;
+  transition: 0.5s;
+
+  &__button {
+    align-self: flex-end;
+  }
+
+  &__input-label {
+    @include medium-16;
+
+    margin-bottom: 5px;
+    color: $dark-gray !important;
+  }
+
+  &__label {
+    @include medium-18;
+
+    width: fit-content;
+    margin: 0 0 20px;
+  }
+
+  &__input {
+    height: 70px;
+    margin-bottom: 5px;
+
+    &.copy {
+      height: 100px !important;
+    }
+  }
+
+  &__continue {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+
+    .c-common__button:first-of-type {
+      margin-right: 10px;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-set-test-name {
+    width: 100%;
+  }
+}

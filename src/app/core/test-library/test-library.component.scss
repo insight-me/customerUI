@@ -1,0 +1,404 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-test-library {
+  padding: 20px;
+  background: $background;
+
+  &__modal {
+    max-width: 360px;
+  }
+
+  &__error-message {
+    display: none;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+
+    &__search {
+      width: 300px;
+      height: 40px;
+
+      &.invisible {
+        visibility: hidden;
+      }
+
+      &-input {
+        height: 40px;
+      }
+    }
+  }
+
+  &__title {
+    @include medium-32;
+
+    margin: 0;
+  }
+
+  &__table {
+    display: grid;
+    grid-template-columns:
+      minmax(127px, 1.3fr) minmax(117px, 0.85fr) minmax(100px, 0.7fr)
+      minmax(100px, 0.7fr) minmax(100px, 0.7fr) minmax(100px, 0.51fr) minmax(
+        90px,
+          0.3fr
+      )
+      minmax(87px, 0.65fr) minmax(57px, 0.33fr) minmax(34px, 0.18fr);
+    width: 100%;
+    margin-top: 40px;
+    background: $white;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+
+    &__contents {
+      display: contents;
+
+      &__header {
+        @include regular-14;
+
+        display: flex;
+        align-items: center;
+        padding: 14px 0;
+        text-align: left;
+        color: $lightgray !important;
+        border-bottom: 1px solid #d6d6d6;
+
+        &:first-child {
+          padding-left: 20px;
+        }
+      }
+
+      &__th {
+        @include regular-14;
+
+        display: flex;
+        align-items: center;
+        padding: 20px 10px 20px 0;
+
+        &.background {
+          background: $table-highlight;
+        }
+
+        &.tablet {
+          display: none;
+        }
+
+        &.pointer {
+          cursor: pointer;
+        }
+
+        &.attention {
+          position: relative;
+          padding-left: 44px !important;
+          cursor: pointer;
+
+          &::after {
+            content: " ";
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            width: 20px;
+            height: 20px;
+            background: url(../../../assets/images/svg/status/failed-start.svg);
+          }
+
+          &:hover {
+            .c-test-library__error-message {
+              position: absolute;
+              top: 50px;
+              left: 0;
+              z-index: 1;
+              display: block;
+            }
+          }
+        }
+
+        &:first-child {
+          padding-left: 20px;
+        }
+
+        &__report {
+          @include flex-space-between-center;
+
+          position: relative;
+          width: 70px;
+
+          &-window {
+            top: 50px;
+            right: 0;
+          }
+
+          &-item {
+            @include flex-center;
+
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+
+            &:hover {
+              background: $hover-button;
+              border-radius: 30px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__mobile {
+    &__header,
+    &__card {
+      display: none;
+    }
+  }
+}
+
+@media #{$tablet} {
+  .c-test-library {
+    &__table {
+      &.tablet {
+        grid-template-columns:
+          minmax(130px, 1.3fr) minmax(128px, 0.7fr) minmax(106px, 0.7fr)
+          minmax(113px, 0.7fr) minmax(108px, 0.7fr) minmax(106px, 0.7fr) minmax(
+            74px,
+              0.5fr
+          )
+          minmax(105px, 0.41fr) minmax(40px, 0.23fr);
+        max-width: 1028px;
+        overflow-x: auto;
+      }
+
+      &__contents {
+        display: contents;
+
+        &__header {
+          padding: 14px 19px 14px 0;
+
+          &.desktop {
+            display: none;
+          }
+
+          &__date {
+            width: 47px;
+          }
+        }
+
+        &__th {
+          &.desktop {
+            display: none;
+          }
+
+          &__more {
+            @include flex-center;
+
+            position: relative;
+            width: 20px;
+            height: 20px;
+
+            &:hover {
+              background: $hover-button;
+              border-radius: 30px;
+            }
+          }
+
+          &.tablet {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+
+  .tablet-sticky {
+    position: sticky;
+    right: 0;
+    z-index: 1;
+    background-color: $white;
+
+    &.first-column {
+      right: 32px;
+      padding-top: 26px;
+      padding-left: 11px;
+      box-shadow: 0 3px 12px rgb(0 0 0 / 0.1);
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-test-library {
+    &__header {
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+
+      &__search {
+        width: 335px;
+      }
+    }
+
+    &__title {
+      margin-bottom: 20px;
+    }
+
+    &__table {
+      &__contents {
+        &__th {
+          &__status {
+            &.flex-end {
+              justify-content: flex-end;
+            }
+          }
+        }
+      }
+
+      &.tablet {
+        display: none;
+      }
+    }
+
+    &__mobile {
+      &__header {
+        display: grid;
+        grid-template-columns: minmax(130px, 2fr) minmax(130px, 1fr);
+        width: 100%;
+        margin-top: 19px;
+
+        &-item {
+          @include regular-14;
+
+          display: flex;
+          align-items: center;
+          padding: 20px 14px;
+          color: $gray !important;
+
+          &.flex-end {
+            justify-content: flex-end;
+          }
+        }
+      }
+
+      &__card {
+        display: block;
+        margin-bottom: 20px;
+        overflow: hidden;
+        background: $white;
+        border-radius: 8px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+
+        &__tr {
+          display: grid;
+          grid-template-columns: minmax(118px, 2fr) minmax(128px, 1fr);
+          padding: 6px 10px;
+
+          &-item {
+            @include regular-14;
+
+            padding: 14px 22px 14px 0;
+
+            &.status {
+              padding-right: 2px;
+            }
+
+            &.background {
+              background: $table-highlight;
+            }
+
+            &.attention {
+              position: relative;
+              margin-left: 20px;
+              cursor: pointer;
+
+              &::after {
+                content: " ";
+                position: absolute;
+                top: 14px;
+                left: -22px;
+                width: 20px;
+                height: 20px;
+                background: url(../../../assets/images/svg/status/failed-start.svg);
+              }
+
+              &:hover {
+                .c-test-library__error-message {
+                  position: absolute;
+                  top: 50px;
+                  left: -30px;
+                  display: block;
+                }
+              }
+            }
+          }
+        }
+
+        &__sub-tr {
+          display: grid;
+          grid-template-columns: minmax(140px, 1fr) minmax(130px, 2fr);
+          padding: 0;
+
+          &__contents {
+            display: contents;
+
+            &__header {
+              @include regular-14;
+
+              padding: 13px 10px;
+              color: $gray !important;
+
+              &.background {
+                background: $table-highlight;
+              }
+            }
+
+            &__item {
+              @include regular-14;
+
+              padding: 13px 0;
+
+              &.background {
+                background: $table-highlight;
+              }
+
+              &.report {
+                @include flex-space-between-center;
+
+                position: relative;
+                //padding: 14px 40% 14px 0;
+                height: 50px;
+                padding: 14px 60% 14px 0;
+              }
+            }
+          }
+
+          &__delete {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            &.background {
+              background: $table-highlight;
+            }
+
+            &-item {
+              @include flex-space-between-center;
+              @include regular-14;
+
+              width: 110px;
+              padding: 13px 0;
+              color: $gray !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.export-pdf {
+  height: 0;
+  overflow: hidden;
+}

@@ -1,0 +1,16 @@
+<img [src]="imgPreloadUrl"
+     (load)="imgUrl = imgPreloadUrl"
+     hidden>
+<div *ngIf="imgUrl"
+     class="c-auth">
+  <div class="c-auth__header">
+    <app-icon routerLink="/"
+              class="c-auth__header__link"
+              [iconType]="IconsType.Logo"></app-icon>
+  </div>
+  <div class="c-auth__content-wrapper">
+    <div class="c-auth__content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

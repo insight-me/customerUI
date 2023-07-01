@@ -1,0 +1,107 @@
+<div class="c-option-list">
+  <p class="c-common__help-text">{{ ('BIC.At least' | translate) + min + ('BIC.and maximum'| translate) + max + ('BIC.options' | translate) }}</p>
+  <div *ngIf="optionFormControl"
+       class="c-option-list__input">
+    <div class="c-common__form-field">
+      <input type="text"
+             pInputText
+             name="option field"
+             [formControl]="optionFormControl"
+             [placeholder]="'BIC.Please write option' | translate"
+             class="c-common__input"
+             (blur)="trimValue()"
+             (keypress)="handleKeyPress($event)" />
+      <small *ngIf="optionFormControl.touched && optionFormControl.invalid">
+        <small class="p-error c-common__form-field-error">{{ getErrorMessage() | translate }}</small>
+      </small>
+    </div>
+    <button class="c-common__button c-common__button--border c-option-list__add-btn"
+            [disabled]="!optionFormControl.value || options.length > max- 1 || optionFormControl.invalid"
+            (click)="addOption()">{{'test-concept.add' | translate}}</button>
+  </div>
+  <ng-container *ngIf="options.length">
+    <app-dropdown [items]="optionsOrder"
+                  [selectedItem]="order.name"
+                  [withMultiselect]="false"
+                  (getSelectedItem)="changeOrder($event)"></app-dropdown>
+    <p *ngIf="type === CustomQuestionsType.ScreeningOptions"
+       class="c-common__help-text">{{'BIC.Please check which answers to allow for the screening' | translate}}</p>
+    <table class="c-common__table c-option-list__table">
+      <ng-container *ngIf="order.value !== OpenQuestionOptionsOrder.Order; else orderTable">
+        <tbody class="c-common__table-body">
+          <tr *ngFor="let option of options; let i = index; let isLast = last"
+              class="c-common__table-body-row tr">
+            <td class="c-common__table-body-item td"
+                [class.bottom-border]="isLast">
+              <div *ngIf="type === CustomQuestionsType.ScreeningOptions; else noCheckboxItems"
+                   class="c-common__checkbox-wrapper">
+                <p-checkbox [value]="option"
+                            [(ngModel)]="selectedItems"
+                            [label]="option"
+                            (onChange)="saveSelectedItems()"
+                            class="c-common__checkbox small"></p-checkbox>
+              </div>
+              <ng-template #noCheckboxItems>
+                <div>{{option}}</div>
+              </ng-template>
+            </td>
+            <td class="c-common__table-body-item td delete"
+                [class.bottom-border]="isLast">
+              <button class="c-common__button c-common__button--icon"
+                      (click)="onRemoveOption(i)">
+                <app-icon [iconType]="IconsType.DeleteGray"
+                          [height]="24"></app-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </ng-container>
+      <!--    ORDER-->
+      <ng-template #orderTable>
+        <tbody class="c-common__table-body c-option-list__move-element"
+               cdkDropList
+               (cdkDropListDropped)="drop($event)">
+          <tr *ngFor="let option of options; let i = index; let isLast = last"
+              cdkDrag
+              class="c-common__table-body-row tr">
+            <td class="c-common__table-body-item c-option-list__move">
+              <app-icon [iconType]="IconsType.Move"
+                        [height]="24"></app-icon>
+            </td>
+            <td class="c-common__table-body-item td"
+                [class.bottom-border]="isLast">
+              <div *ngIf="type === CustomQuestionsType.ScreeningOptions; else noCheckboxItems2"
+                   class="c-common__checkbox-wrapper">
+                <p-checkbox [value]="option"
+                            [label]="option"
+                            [(ngModel)]="selectedItems"
+                            (onChange)="saveSelectedItems()"
+                            class="c-common__checkbox small"></p-checkbox>
+              </div>
+              <ng-template #noCheckboxItems2>
+                <div>{{option}}</div>
+              </ng-template>
+            </td>
+            <td class="c-common__table-body-item td delete"
+                [class.bottom-border]="isLast">
+              <button class="c-common__button c-common__button--icon"
+                      (click)="onRemoveOption(i)">
+                <app-icon [iconType]="IconsType.DeleteGray"
+                          [height]="24"></app-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </ng-template>
+    </table>
+    <div *ngIf="addIncludeDontKnowOption"
+         class="c-option-list__not-know">
+      <div class="c-common__checkbox-wrapper custom-paddings">
+        <p-checkbox [value]="true"
+                    [label]="'BIC.Include don\'t  know answer' | translate"
+                    (onChange)="saveDontKnowOption($event)"
+                    class="c-common__checkbox"></p-checkbox>
+      </div>
+    </div>
+  </ng-container>
+</div>

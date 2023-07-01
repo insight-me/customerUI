@@ -1,0 +1,10 @@
+<div *ngIf="userName" class="c-common__card c-desktop-alert">
+  <div class="c-desktop-alert__image">
+    <img src="../../../../../assets/images/svg/desktop-alert.svg">
+  </div>
+  <p class="c-desktop-alert__title">{{'alert.dear' | translate}} {{userName}},</p>
+  <p class="c-desktop-alert__text">{{'alert.text' | translate}}</p>
+  <button
+    class="c-common__button c-common__button--filled" (click)="openPage()">{{'alert.open' | translate}}</button>
+</div>
+

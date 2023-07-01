@@ -1,0 +1,17 @@
+@import "./src/assets/styles/variables.scss";
+
+.app-concepts-filter {
+  @include flex-column-stretch;
+
+  &-values {
+    @include flex-wrap;
+
+    .p-field-checkbox {
+      margin: 20px 30px 20px 0;
+    }
+  }
+
+  .additional-padding {
+    margin-bottom: 20px;
+  }
+}

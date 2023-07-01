@@ -1,0 +1,34 @@
+<div class="c-age-form">
+  <div>
+    <p class="c-test__label">{{ 'respondents.from' | translate}}</p>
+    <fieldset class="c-common__fieldset c-age-form__input">
+      <p-inputNumber
+        [formControl]="minAge"
+        class="c-common__input"
+        locale="ru-RU"
+        maxlength=2
+        (onBlur)="onChangeMinAge()"
+      ></p-inputNumber>
+    </fieldset>
+    <small *ngIf="minAge.invalid && minAge.touched"
+           class="p-error c-common__form-field-error">{{'respondents.error-min-age' |
+      translate}}</small>
+  </div>
+  <div>
+    <p class="c-test__label">{{ 'respondents.to' | translate}}</p>
+    <fieldset class="c-common__fieldset c-age-form__input">
+      <p-inputNumber
+        class="c-common__input"
+        [formControl]="maxAge"
+        locale="ru-RU"
+        maxlength=2
+        (onBlur)="onChangeMaxAge()"
+      ></p-inputNumber>
+    </fieldset>
+    <small *ngIf="maxAge.invalid && maxAge.touched"
+           class="p-error c-common__form-field-error">
+      {{  isMaxAgeMax ? ('respondents.Max age is 75' | translate) : 'respondents.error-max-age' |
+      translate:{min: minAge.value && minAge.valid ? minAge.value + 29 : '47'} }}</small>
+  </div>
+</div>
+

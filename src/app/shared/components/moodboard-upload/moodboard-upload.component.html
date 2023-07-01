@@ -1,0 +1,54 @@
+<div class="c-moodboard-upload">
+  <div class="c-moodboard-upload__header">
+    <div class="c-moodboard-upload__header-text-wrapper">
+      <p class="c-moodboard-upload__header-text half">{{'BIC.Upload either single images or a complete moodboard. If you upload single images, you will get feedback on each image. If you upload a complete moodboard, you will only get feedback on the total moodboard.' | translate}}</p>
+    </div>
+    <div class="c-moodboard-upload__header-text-wrapper">
+      <span class="c-moodboard-upload__header-text">{{'moodboard.formats' | translate}}</span>
+      <span class="c-moodboard-upload__header-text"> {{'moodboard.max' | translate}}</span>
+      <span class="c-moodboard-upload__header-text"> {{'moodboard.max-size' | translate}}</span>
+    </div>
+  </div>
+  <div *ngIf="!images.length" class="c-moodboard-upload__template-cards" appDragDrop
+       (fileDropped)="handleFileInput($event)">
+    <div class="c-moodboard-upload__template-card-wrapper full">
+      <div class="c-moodboard-upload__template-card">
+        <div class="preview-upload-card">
+          <img src="../../../../assets/images/svg/ic_drag.svg" class="preview-upload-card__image">
+          <span class="preview-upload-card__text">{{'moodboard.drag-drop' | translate}}</span>
+          <button class="c-common__button c-common__button--border small"
+                  (click)="fileUpload.click()">{{'moodboard.select-files' | translate}}</button>
+        </div>
+        <div class="c-moodboard-upload__template-card-images-wrapper c-moodboard-upload__template">
+          <div class="c-moodboard-upload__template-card-image-wrapper c-moodboard-upload__template-item template-1">
+<!--            <img src="../../../../assets/images/svg/ic_image-icon.svg" class="c-moodboard-upload__template-card-image">-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="images.length" class="c-moodboard-upload__view">
+    <div class="c-moodboard-upload__list-wrapper">
+      <div class="c-moodboard-upload__list">
+        <div *ngFor="let image of images; let i = index;" class="c-moodboard-upload__list-item">
+          <img [src]="getImageUrl(image) | safeHtml" class="c-moodboard-upload__list-item-image">
+          <img src="../../../../assets/images/png/delete.png" class="c-moodboard-upload__list-item-icon"
+               (click)="onDeleteImage(i)">
+        </div>
+        <div *ngIf="images.length < maxLength" appDragDrop (fileDropped)="handleFileInput($event)"
+             (click)="fileUpload.click()" class="c-moodboard-upload__list-item upload">
+          <img src="../../../../assets/images/svg/ic_plus-moodboard.svg" class="c-moodboard-upload__list-item-icon plus">
+        </div>
+      </div>
+    </div>
+    <div class="c-moodboard-upload__view-block" #wrapper appDragDrop (fileDropped)="handleFileInput($event)">
+      <app-moodboard-item *ngFor="let image of images; let i = index;" [image]="getImageUrl(image) | safeHtml"
+                          [position]="image.position"
+                          [itemData]="image.itemData" [container]="wrapper" (changeImage)="onChangeImage($event, image)"
+                          (selectImage)="onSelectImage(image, i)" (saveImage)="saveImages()"></app-moodboard-item>
+    </div>
+  </div>
+  <input hidden type="file" #fileUpload (change)="handleFileInput($event.target.files)"
+         accept="image/jpeg,image/x-png,image/svg+xml" multiple>
+
+</div>

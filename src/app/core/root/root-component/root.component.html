@@ -1,0 +1,11 @@
+<div class="c-root">
+  <app-header *ngIf="isShowHeader()" [isDashboardMode]="getIsDashboardMode()"></app-header>
+  <section class="c-root__content-wrapper">
+    <main class="c-root__content">
+      <router-outlet></router-outlet>
+    </main>
+  </section>
+  <div class="c-root__footer-with-background">
+    <app-footer></app-footer>
+  </div>
+</div>

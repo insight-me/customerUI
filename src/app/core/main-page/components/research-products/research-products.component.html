@@ -1,0 +1,15 @@
+<div class="c-research-products">
+  <div class="c-research-products__title">{{'landing.InsightMe contains all key research tests you need to build and track your brand, create and validate innovations and drive your business' | translate}}
+  </div>
+  <div class="c-research-products__content">
+    <div *ngFor="let item of list" class="c-research-products__content-card" routerLink="/products" [queryParams]="{ test: item.link}">
+      <div *ngIf="item.comingSoon" class="coming-soon">{{'landing.Coming soon' | translate}}</div>
+      <div class="title">{{('landing.' + item.title) | translate}}</div>
+      <button class="c-common__button c-common__button--regular btn" routerLink="/products" [queryParams]="{ test: item.link}">{{'landing.learn more' | translate}}
+      </button>
+    </div>
+    <button class="c-common__button c-common__button--filled c-research-products__button" routerLink="/products">{{'landing.learn more' | translate}}
+      <app-icon [iconType]="IconsType.RightArrow" [color]="'#FFFFFF'" class="icon-right"></app-icon>
+    </button>
+  </div>
+</div>

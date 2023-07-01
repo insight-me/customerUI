@@ -1,0 +1,42 @@
+<div class="c-create-test"
+     *ngIf="currentTest">
+  <app-bic-header *ngIf="currentTest"
+                  [test]="currentTest"
+                  [concept]="currentConcept"
+                  (changedCurrentConcept)="onChangeCurrentConcept($event)"
+                  (deletedConcept)="onDeleteConcept($event)"></app-bic-header>
+
+  <app-popup-information></app-popup-information>
+  <div class="c-create-test__subheader">
+    <div class="c-create-test__subheader__nav">
+      <app-subheader-element *ngFor="let item of navItems; let isLast = last; let isFirst = first"
+                             [isFirst]="isFirst"
+                             [isLast]="isLast"
+                             [item]="item"
+                             [test]="currentTest"
+                             [respondentRequirements]="respondentRequirements$ | async"
+                             [currentConcept]="currentConcept"
+                             (changeRoute)="onChangeRoute($event)"></app-subheader-element>
+    </div>
+    <div class="c-create-test__subheader__additional">
+      <div class="c-create-test__subheader__additional-time">
+        <span class="text"
+              [class.error]="isExceedTimeLimit(calcTimeService.timeBIC | async)">{{ "test-steps.time" | translate }}
+          {{ calcTimeService.timeBIC | async }}
+          {{ "test-steps.min" | translate }}</span>
+        <app-question-tooltip [texts]="['BIC.Max 25 min per test']"
+                              [arrowShift]="37"></app-question-tooltip>
+      </div>
+      <div class="c-create-test__subheader__additional-preview"
+           [ngStyle]="{display:'flex', marginLeft: 'auto'}">
+        <button class="c-common__button c-common__button--gradient small preview"
+                (click)="goToPreview()">
+          {{ "test-steps.preview" | translate }}
+          <img class="c-common__button-icon"
+               src="../../../../../../assets/images/png/button_view.png" />
+        </button>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

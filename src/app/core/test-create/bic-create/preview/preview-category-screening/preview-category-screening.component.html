@@ -1,0 +1,94 @@
+<div class="c-preview__section__header">
+  <p class="c-preview__section__header-text">
+    {{ "preview.Before we start, we would like to ask you a couple of questions" | translateCustom }}
+  </p>
+</div>
+<div *ngIf="respondentRequirements"
+     class="c-preview__section">
+
+  <ng-container *ngIf="respondentRequirements.categoryScreening ===
+        CategoryScreening.Predesigned;else customCategoryScreening">
+    <h2 class="c-preview__section__header-text c-preview-feedback__title">
+      {{
+      "preview.How often do you buy the following products/services?"
+      | translateCustom
+      }}
+    </h2>
+    <p class="c-preview-category-screening__subtitle desktop">
+      {{ subtitle | translateCustom }}
+    </p>
+    <p class="c-preview-category-screening__subtitle mobile"
+       [style.color]="'#2e2c2c'">
+      {{ mobileSubtitle | translateCustom }}
+    </p>
+
+    <p class="c-preview-feedback__subtitle mobile">
+      {{ 'BIC.Swipe to complete all options'| translateCustom}}
+    </p>
+    <app-open-questions-preview [columns]="columns$ | async"
+                                [rows]="getAnswers(subcategories$ | async)"
+                                [type]="type"
+                                [columnsOrder]="order"
+                                [answersOrder]="order"
+                                [isOpenedPreview]="true"
+                                [includeDoNotKnow]="false"></app-open-questions-preview>
+  </ng-container>
+</div>
+<ng-template #customCategoryScreening>
+  <div *ngFor="let question of respondentRequirements.customCategoryScreens"
+       class="c-preview-feedback__custom-question">
+    <h3 class="c-preview__section__header-text c-preview-feedback__title">
+      {{ question.value }}
+    </h3>
+
+    <p class="c-preview-category-screening__subtitle desktop">
+      {{ getExplanationText(question.type, question.answerType) | translateCustom }}
+    </p>
+
+    <p class="c-preview-category-screening__subtitle mobile">
+      {{ getMobileExplanationText(question.type, question.answerType) | translateCustom }}
+    </p>
+
+    <!--    CATEGORY DESCRIPTION -->
+    <div *ngIf="respondentRequirements?.categoryDescription"
+         class="c-preview-category-screening__description">
+      <div *ngFor="let text of getText(respondentRequirements?.categoryDescription)">
+        <br *ngIf="!text.length">
+        <p class="c-preview-category-screening__description-text">{{text}}</p>
+      </div>
+    </div>
+
+    <!--      Single Choice-->
+    <ng-container *ngIf="question.type === CustomQuestionType.Single
+      && question.answerType === AnswerCustomQuestionType.Default">
+      <div *ngFor="let answer of question.answers">
+        <div class="c-preview-feedback__radio">
+          <div class="c-preview-feedback__radio-label">{{answer.value}}</div>
+        </div>
+      </div>
+    </ng-container>
+    <!--      Multi Choice-->
+    <ng-container *ngIf="question.type === CustomQuestionType.Multi
+      && question.answerType === AnswerCustomQuestionType.Default">
+      <div *ngFor="let answer of question.answers">
+        <div class="c-preview-feedback__checkbox">
+          <div class="c-preview-feedback__checkbox-label">{{answer.value}}</div>
+        </div>
+      </div>
+    </ng-container>
+    <p class="c-preview-feedback__subtitle mobile">
+      {{ 'BIC.Swipe to complete all options'| translateCustom}}
+    </p>
+    <!--      Multi Grid Choice-->
+    <ng-container *ngIf="(question.type === CustomQuestionType.Multi || question.type === CustomQuestionType.Single)
+      && question.answerType === AnswerCustomQuestionType.Grid">
+      <app-open-questions-preview [columns]="question.columns"
+                                  [rows]="question.answers"
+                                  [type]="getQuestionType(question.type, question.answerType)"
+                                  [columnsOrder]="question.columnOrderType"
+                                  [answersOrder]="question.answerOrderType"
+                                  [includeDoNotKnow]="question.isDontKnowOption"
+                                  [isOpenedPreview]="true"></app-open-questions-preview>
+    </ng-container>
+  </div>
+</ng-template>

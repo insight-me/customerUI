@@ -1,0 +1,207 @@
+@import "../../../../../../assets/styles/variables";
+@import "../../../../../../assets/styles/mixins";
+
+.c-payment-selection {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 100vh;
+  background: $background-gradient;
+
+  &__card {
+    @include card-shadow;
+
+    width: 100%;
+    max-width: 980px;
+    min-height: 522px;
+    margin: 9vh auto;
+    padding: 40px;
+    background: $white;
+    border-radius: 8px;
+
+    .back {
+      @include regular-14;
+
+      margin-bottom: 20px;
+      color: $blue !important;
+
+      .link {
+        color: $blue;
+        cursor: pointer;
+
+        &-text {
+          position: relative;
+          margin-left: 14px;
+
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: inline;
+            width: 100%;
+            height: 1px;
+            background-color: $blue;
+            transition: width 0.3s ease-out;
+          }
+        }
+
+        &:hover {
+          .link-text::after {
+            width: 0;
+          }
+        }
+
+        &:focus-visible {
+          outline: 1px solid $orange;
+        }
+      }
+    }
+
+    &-content {
+      @include flex-center;
+
+      flex-direction: column;
+      text-align: center;
+
+      .title {
+        @include medium-32;
+
+        margin: 0 0 20px;
+      }
+
+      .cost {
+        @include medium-20;
+
+        margin: 0 0 32px;
+        color: $dark-gray;
+
+        .currency {
+          white-space: nowrap;
+        }
+      }
+
+      .input {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+        min-height: 76px;
+        margin-top: 12px;
+        padding: 0 20px;
+        border: 1px solid $lightgrayWhite;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &.disabled {
+          cursor: default;
+        }
+
+        &.active {
+          background: $light-background;
+          border: 1px solid $orange;
+          border-radius: 5px;
+        }
+
+        &-select {
+          margin-right: 8px;
+        }
+
+        &-info {
+          display: flex;
+          align-items: center;
+          width: max-content;
+          margin: 0 0 -6px;
+
+          .text {
+            @include regular-oblique-14;
+
+            text-align: initial;
+            color: $gray !important;
+          }
+
+          .contact {
+            margin-bottom: 11px;
+          }
+
+          .link-text {
+            position: relative;
+            margin-left: 8px;
+            color: $black;
+            text-decoration: none;
+
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              display: inline;
+              width: 100%;
+              height: 1px;
+              background-color: $blue;
+              transition: width 0.3s ease-out;
+            }
+          }
+
+          .image {
+            margin: 14px 4px 23px;
+          }
+        }
+      }
+    }
+
+    &-button {
+      @include flex-end-center;
+
+      margin: 20px 0 40px;
+
+      .button {
+        width: 300px;
+      }
+    }
+  }
+
+  &__show-card {
+    @include medium-20;
+
+    margin: 50px;
+    text-align: center;
+  }
+}
+
+@media #{$tablet} {
+  .c-payment-selection {
+    &__card {
+      max-width: 90vw;
+      padding: 20px;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-payment-selection {
+    &__card {
+      margin: 12vh auto;
+
+      &-content {
+        .title {
+          @include medium-24;
+        }
+
+        .cost {
+          @include medium-16;
+
+          color: $dark-gray;
+        }
+      }
+
+      &-button {
+        @include flex-end-center;
+
+        margin: 20px 0;
+      }
+    }
+  }
+}

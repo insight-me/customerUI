@@ -1,0 +1,153 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+@mixin table-value {
+  font-size: 20px;
+  line-height: 22px;
+  letter-spacing: 0;
+}
+
+.app-score-per-segment {
+  @include flex-column-stretch;
+
+  margin: 0 20px;
+  font-family: "GT Walsheim Pro Medium";
+  border-top: 1px solid $lightgrayWhite;
+
+  &.pdf {
+    border-top: none;
+  }
+
+  &__title {
+    @include medium-16;
+
+    margin-top: 7px;
+  }
+
+  &__content {
+    @include flex-column-stretch;
+
+    &-wrapper {
+      // width: calc(100vw - 100px);
+      overflow: auto;
+    }
+
+    &-table {
+      display: grid;
+      // min-width: 1270px;
+      margin: 24px 0 8px;
+
+      .kpi:first-child {
+        border-top: 1px solid $associations-table;
+      }
+
+      &-th {
+        @include regular-oblique-14;
+
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-bottom: 8px;
+        text-align: center;
+        color: $dark-gray !important;
+
+        &:first-child {
+          justify-content: flex-start;
+          text-align: left;
+        }
+      }
+
+      &-td {
+        @include flex-content-center;
+
+        min-height: 59px;
+        padding: 0 16px;
+        white-space: nowrap;
+
+        &.kpi {
+          align-items: flex-start;
+          font-size: 16px;
+          line-height: 20px;
+          color: $black;
+          letter-spacing: 0;
+          background-color: $tab-nav;
+          border: 1px solid $associations-table;
+          border-radius: 8px 0 0;
+
+          &~.kpi {
+            border-top: none;
+            border-radius: 0;
+          }
+
+          &.last {
+            border-radius: 0 0 0 8px !important;
+          }
+        }
+
+        &.total {
+          @include table-value;
+
+          color: $black;
+          background: $total-odd;
+          border-bottom: 1px solid $white;
+
+          &.first {
+            border-top: 1px solid $associations-table;
+          }
+
+          &.last {
+            border-bottom: 1px solid $associations-table;
+          }
+        }
+
+        &.even {
+          background: $total-even;
+        }
+
+        &.value {
+          @include table-value;
+
+          color: $black;
+          background: $value-even;
+          border-right: 1px solid white;
+          border-bottom: 1px solid $white;
+
+          &.first {
+            border-top: 1px solid $associations-table;
+          }
+
+          &.last {
+            border-bottom: 1px solid $associations-table;
+          }
+        }
+
+        &.odd {
+          background: $associations-table;
+        }
+
+        &.benchmark {
+          background-color: $benchmark-bg;
+          border-top: 1px solid $associations-table;
+          border-right: 1px solid $associations-table;
+          border-bottom: 1px solid $white;
+          border-radius: 0 8px 0 0;
+
+          &~.benchmark {
+            border-top: none;
+            border-radius: 0;
+          }
+
+          &.last {
+            border-right: 1px solid $associations-table;
+            border-bottom: 1px solid $associations-table;
+            border-radius: 0 0 8px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.no-padding {
+  padding: 0 !important;
+}

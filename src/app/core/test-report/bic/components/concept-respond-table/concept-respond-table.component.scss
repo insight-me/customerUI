@@ -1,0 +1,171 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.app-concept-respond-table {
+  font-family: "GT Walsheim Pro Medium";
+
+  &.border {
+    border-top: 1px solid $lightgrayWhite;
+  }
+
+  &__title {
+    margin: 8px 0 37px;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0;
+  }
+
+  &__row {
+    display: grid;
+    grid-row-gap: 2px;
+    grid-template-columns: 5fr 2fr 1fr;
+
+    &:not(:first-of-type):not(.relevance) {
+      .cell-name {
+        border: 1px solid $associations-table;
+        border-bottom: none;
+      }
+
+      .cell-value {
+        border-top: 1px solid $white;
+        border-right: 1px solid $associations-table;
+      }
+    }
+
+    &:not(.relevance):nth-of-type(3) {
+      .cell-name {
+        border-top-left-radius: 8px;
+      }
+
+      .cell-value {
+        border-top: 1px solid $associations-table;
+        border-top-right-radius: 8px;
+      }
+    }
+
+    &:last-of-type:not(.relevance) {
+      .cell-name {
+        border-bottom: 1px solid $associations-table;
+        border-bottom-left-radius: 8px;
+      }
+
+      .cell-value {
+        border-bottom: 1px solid $associations-table;
+        border-bottom-right-radius: 8px;
+      }
+    }
+
+    &.reasons:not(:first-of-type):not(.relevance) {
+      .cell-name {
+        border: 1px solid $orange;
+        border-bottom: none;
+      }
+
+      .cell-value {
+        border-top: 1px solid $white;
+        border-right: 1px solid $orange;
+      }
+    }
+
+    &.reasons:not(.relevance):nth-of-type(3) {
+      .cell-name {
+        border-top-left-radius: 8px;
+      }
+
+      .cell-value {
+        border-top: 1px solid $orange;
+        border-top-right-radius: 8px;
+      }
+    }
+
+    &.reasons:last-of-type:not(.relevance) {
+      .cell-name {
+        border-bottom: 1px solid $orange;
+        border-bottom-left-radius: 8px;
+      }
+
+      .cell-value {
+        border-bottom: 1px solid $orange;
+        border-bottom-right-radius: 8px;
+      }
+    }
+
+
+    &.relevance {
+      grid-template-columns: 5fr 2fr;
+      width: 650px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    &.relevance:not(:first-of-type) {
+      border: 1px solid $associations-table;
+      border-bottom: none;
+      border-radius: 0;
+
+      &:nth-of-type(2) {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+      }
+
+      &:last-of-type {
+        border-bottom: 1px solid $associations-table;
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+    }
+
+    &.relevance {
+      grid-template-columns: 5fr 2fr;
+      width: 100%;
+      max-width: 690px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .column-name {
+      @include regular-oblique-14;
+
+      margin-bottom: 8px;
+      color: $gray !important;
+
+      &:last-child {
+        text-align: center;
+      }
+    }
+
+    .cell-name {
+      padding: 20px 15px;
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: 0;
+      border-right: 1px solid $associations-table;
+    }
+
+    .cell-value {
+      @include medium-20;
+      @include flex-content-center;
+    }
+
+    .cell-average {
+      @include flex-content-center;
+
+      font-size: 12px;
+      line-height: 12px;
+      color: $lightgray;
+      letter-spacing: 0.5px;
+
+      &.higher {
+        justify-content: flex-end;
+        margin-bottom: -1px;
+        padding: 0 0 12px 12px;
+        border-bottom: 1px dashed $chart-benchmark;
+      }
+
+      &.lower {
+        justify-content: flex-start;
+        padding: 12px 0 0 12px;
+      }
+    }
+  }
+}

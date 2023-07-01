@@ -1,0 +1,174 @@
+@import "./src/assets/styles/mixins.scss";
+
+.c-bic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  padding: 10px 12px;
+  background-color: #3c3768;
+
+  .desktop {
+    display: block;
+  }
+
+  &__concept {
+    display: none;
+  }
+
+  &__panel {
+    display: flex;
+
+    &-logo {
+      padding-right: 12px;
+      border-right: 1px solid $light-border;
+      cursor: pointer;
+    }
+
+    &-names {
+      display: flex;
+      gap: 12px;
+      padding: 0 12px;
+      border-right: 1px solid $light-border;
+
+      .type {
+        @include regular-14;
+
+        color: $associations-table;
+      }
+
+      .test-name {
+        @include medium-14;
+
+        margin: 0;
+        color: $white;
+      }
+    }
+
+    &-concept {
+      position: relative;
+      width: 200px;
+      padding: 0 12px 0 18px;
+      border-right: 1px solid $light-border;
+      cursor: pointer;
+
+      @media #{$desktop} {
+        width: 203px;
+      }
+
+      &-panel {
+        @include flex-space-between-center;
+
+        width: 100%;
+
+        .name {
+          @include medium-14;
+
+          width: 120px;
+          margin: 0;
+          overflow: hidden;
+          color: $white;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .panel {
+        position: absolute;
+        top: -33px;
+        left: -20px;
+        width: 200px;
+        max-height: 250px;
+        overflow-y: auto;
+        //padding: 14px;
+        background-color: $white;
+        border-radius: 8px;
+        box-shadow: 0 7px 30px 0 rgba(0, 0, 0, 0.5);
+
+        &-element {
+          @include flex-space-between-center;
+
+          padding: 14px;
+          border-bottom: 1px solid $border;
+          cursor: pointer;
+
+          &:last-of-type {
+            border-bottom: none;
+          }
+
+          &:hover {
+            background-color: $benchmark-bg;
+          }
+
+          &.active {
+            background-color: $tab-nav;
+          }
+
+          .text {
+            @include regular-14;
+
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+
+  &__menu {
+    padding: 0 6px 0 20px;
+    border-left: 1px solid $light-border;
+  }
+}
+
+@media #{$tablet} {
+}
+
+@media #{$mobile} {
+  .c-bic-header {
+    .desktop {
+      display: none;
+    }
+
+    &__panel {
+      &-concept {
+        &-panel {
+          .name {
+            color: $black;
+          }
+        }
+      }
+    }
+
+    &__concept {
+      display: flex;
+      width: 100%;
+      height: 40px;
+      padding: 10px 12px;
+      background: $white;
+    }
+
+    &__panel {
+      &-names {
+        border-right: none;
+
+        .type {
+          max-width: 105px;
+        }
+
+        .test-name {
+          max-width: 110px;
+        }
+
+        .type,
+        .test-name {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}

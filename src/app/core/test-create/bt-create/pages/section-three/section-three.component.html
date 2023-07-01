@@ -1,0 +1,60 @@
+<div *ngIf="test" class="c-test-create__container">
+  <h3 class="c-test-create__container__title">{{'BT-create.Add brands you want to track over time' | translate}}</h3>
+  <div class="c-section-one-bt__container">
+    <div>
+      <div class="c-section-one-bt__container__switcher">
+        <div class="c-section-one-bt__container__switcher-text left" [class.active]="mode===modeEnum.OWN"
+             (click)="mode=modeEnum.OWN">{{'BT-brands.Add own brands' | translate}}</div>
+        <div class="c-section-one-bt__container__switcher-text right" [class.active]="mode===modeEnum.OTHER"
+             (click)="mode=modeEnum.OTHER">{{'BT-brands.Add other brands' | translate}}</div>
+      </div>
+      <p
+        class="c-test-create__container__description-text">{{'BT-brands.Recommended but optional to add logo. If adding logo for one brand then it is mandatory for all other brands.' | translate}}</p>
+    </div>
+    <div class="c-test-create__container__description">
+      <p class="c-test-create__container__description-text">{{'BT-brands.Minimum 1 own brand and 1 other brand. Maximum total count: 20 brands' | translate}}</p>
+      <p class="c-test-create__container__description-text">{{'BT-brands.Logo formats: jpeg, png.\nThe optimal aspect ratio for uploaded images is 1:1 that is a square. In this case, the display of logos for the respondent will be optimal' | translate}}</p>
+      <p class="c-test-create__container__description-text">{{'BT-brands.Maximum logo size: allowed for upload: 2Mb' | translate}}</p>
+    </div>
+  </div>
+  <div *ngIf="mode === modeEnum.OWN">
+    <button type="button" class="c-common__button--border normal c-common__button mobile-stretch"
+            [disabled]="isDisabledAddBrandButton"
+            (click)="onAddBrand(modeEnum.OWN)">
+      <img src="../../../../../../assets/images/svg/ic_plus_mini.svg"
+           class="icon">{{'BT-brands.Add brand' | translate}}
+    </button>
+    <app-brands-list *ngIf="ownBrands.length"
+                     [brands]="ownBrands"
+                     [id]="test.id"
+                     [allBrands]="test.brands"
+                     [allImages]="allImages"
+                     [allImagesHash]="allImagesHash"
+                     [type]="modeEnum.OWN"
+                     (deleteBrand)="deleteOwnBrand($event)"
+                     (updateBrandName)="updateOwnBrandName($event)"
+                     (updateBrandImage)="updateOwnBrandImage($event)"></app-brands-list>
+  </div>
+  <div *ngIf="mode===modeEnum.OTHER">
+    <button type="button" class="c-common__button--border normal c-common__button mobile-stretch"
+            [disabled]="isDisabledOtherAddBrandButton"
+            (click)="onAddBrand(modeEnum.OTHER)">
+      <img src="../../../../../../assets/images/svg/ic_plus_mini.svg"
+           class="icon">{{'BT-brands.Add brand' | translate}}
+    </button>
+    <app-brands-list *ngIf="otherBrands.length"
+                     [brands]="otherBrands"
+                     [id]="test.id"
+                     [allBrands]="test.brands"
+                     [allImages]="allImages"
+                     [allImagesHash]="allImagesHash"
+                     [type]="modeEnum.OTHER"
+                     (deleteBrand)="deleteOtherBrand($event)"
+                     (updateBrandName)="updateOtherBrandName($event)"
+                     (updateBrandImage)="updateOtherBrandImage($event)"></app-brands-list>
+  </div>
+</div>
+<div class="c-test-create__footer-wrapper">
+  <app-next-button [nextSection]="'section-4'"
+                   [testType]="TestType.BT"></app-next-button>
+</div>

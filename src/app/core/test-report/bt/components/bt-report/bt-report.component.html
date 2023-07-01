@@ -1,0 +1,24 @@
+<div *ngIf="test$ | async as test"
+     class="app-base-report"
+     [style.flex-direction]="'row'">
+  <div class="app-base-report__filters">
+    <!--Filters-->
+    <app-bt-global-filter></app-bt-global-filter>
+  </div>
+
+  <div *ngIf="(activeFilter | async) !== ActiveFilterType.None"
+       class="app-base-report__filter-body">
+    <!--Brands Filter-->
+    <ng-container *ngIf="(activeFilter | async) === ActiveFilterType.Brands">
+      <div class="app-base-report__filter-body-container">
+        <app-radio-button [formGroup]="btRSS.form"
+                          controlName="brand"
+                          [options]="btRSS.ownBrands | async">
+        </app-radio-button>
+      </div>
+    </ng-container>
+  </div>
+
+  <app-bt-content></app-bt-content>
+
+</div>

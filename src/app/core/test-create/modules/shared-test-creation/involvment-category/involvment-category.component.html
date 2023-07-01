@@ -1,0 +1,91 @@
+<div class="c-involvement-category"
+     *ngIf="categoryService.categoryForm">
+  <p class="c-involvement-category__title">{{'BIC.Select main category' | translate}}</p>
+
+  <!-- CATEGORY -->
+  <div class="c-common__form-field--with-icon c-involvement-category__form-field">
+    <app-dropdown [items]="categoryService.categories$ | async"
+                  [defaultLabel]="'BT-respondents.Select a category'"
+                  [isError]="categoryService.categoryControl.touched &&
+                   (categoryService.categoryControl.errors?.required ||
+                    !categoryService.categoryControl.value?.id)"
+                  [withMultiselect]="false"
+                  [dataType]="DropdownDataType.InvolvmentCategory"
+                  [selectedItem]="categoryService.categoryControl.value ? categoryService.categoryControl.value.name: ''"
+                  (getSelectedItem)="selectCategory($event)"
+                  (onOpen)="markAsTouchedForm('category')"></app-dropdown>
+  </div>
+
+  <small *ngIf="showCategoryDropdownError"
+         class="p-error c-common__form-field-error">{{'BT-respondents.Category is required.' | translate}}</small>
+
+  <!--  OTHER CATEGORY INPUT -->
+  <div *ngIf="categoryService.isOtherCategory$ | async"
+       class="c-common__form-field c-involvement-category__form-field margin">
+    <p class="c-involvement-category__title">{{'BIC.Name category' | translate}}</p>
+    <input pInputText
+           autocomplete="off"
+           [placeholder]="'BIC.Name category...' | translate"
+           [formControl]="categoryService.customCategoryControl"
+           (blur)="updateCustomCategory()"
+           class="c-common__input" />
+    <span *ngIf="showCustomCategoryInputError"
+          class="p-error c-common__form-field-error">{{'BIC.Product category is required and must be between 2 and 30 symbols long' | translate}}</span>
+    <small *ngIf="isExistCategoryName(categoryService.categories$ | async)"
+           class="c-involvement-category__explanation">
+      {{('BIC.The category' | translate) + ' \'' + categoryService.customCategoryControl.value + '\' ' + ('BIC.already exists in our list, maybe you want to select it instead?' | translate)}}
+    </small>
+  </div>
+
+  <!--  SUBCATEGORY -->
+  <div class="c-common__form-field--with-icon c-involvement-category__form-field margin">
+    <p class="c-involvement-category__title"
+       [style.opacity]="(categoryService.subcategories$ | async).length ? 1 : 0.5">{{'BIC.Select sub-category (min - 1; max - 4)' | translate}}</p>
+    <div>
+      <app-dropdown [items]="categoryService.subcategories$ | async"
+                    [defaultLabel]="'BT-respondents.Select a category'"
+                    [isError]="categoryService.subcategoriesControl.touched && !categoryService.subcategoriesControl?.value?.length"
+                    [withMultiselect]="true"
+                    [dataType]="DropdownDataType.InvolvmentSubcategory"
+                    [selectedItems]="categoryService.subcategoriesControl.value"
+                    (getSelectedItems)="selectSubCategory($event)"
+                    (onOpen)="markAsTouchedForm('subcategory')"></app-dropdown>
+    </div>
+  </div>
+  <small *ngIf="categoryService.subcategoriesControl.touched && !categoryService.subcategoriesControl?.value?.length"
+         class="p-error c-common__form-field-error">{{'BT-respondents.Sub-category is required.' | translate}}</small>
+
+  <!--  OTHER SUBCATEGORY INPUT -->
+  <ng-container *ngIf="categoryService.customSubcategoriesControl.controls.length">
+    <div *ngFor="let control of categoryService.customSubcategoriesControl.controls; let i=index"
+         class="c-common__form-field c-involvement-category__form-field margin">
+      <p class="c-involvement-category__title">{{'BIC.Name sub-category' | translate}}</p>
+      <input pInputText
+             autocomplete="off"
+             [placeholder]="'BIC.Name sub-category...' | translate"
+             [formControl]="convertToFormControl(control.controls.subcategory)"
+             (blur)="onSaveCustomSubcategory(convertToFormControl(control.controls.subcategory))"
+             class="c-common__input" />
+      <ng-container *ngIf="control.controls.subcategory.touched && control.controls.subcategory.invalid">
+        <p class="c-common__form-field-error">{{getErrorMessage(convertToFormControl(control.controls.subcategory)) | translate}}</p>
+      </ng-container>
+      <span *ngIf="isExistSubCategoryName(convertToFormControl(control.controls.subcategory), categoryService.subcategories$ | async) && control.controls.subcategory.valid"
+            class="c-involvement-category__explanation">
+        {{('BIC.The sub-category' | translate) + ' \'' + control.controls.subcategory.value + '\' ' + ('BIC.already exists in our list, maybe you want to select it instead?' | translate)}}
+      </span>
+    </div>
+  </ng-container>
+
+  <!--  DESCRIPTION INPUT -->
+  <div class="c-common__form-field c-involvement-category__form-field margin">
+    <p class="c-involvement-category__title">{{getDescriptionLabel(categoryService.selectedSubcategoriesNames$ | async) | translate}}
+      ({{'BIC.max - 200' | translate}})</p>
+    <textarea [placeholder]="'BIC.Fill in description...' | translate"
+              class="c-common__textarea c-involvement-category__textarea"
+              maxLength="200"
+              (blur)="updateDescription()"
+              [formControl]="categoryService.categoryDescriptionControl"></textarea>
+    <small *ngIf="categoryService.categoryDescriptionControl.touched && categoryService.categoryDescriptionControl.invalid"
+           class="p-error c-common__form-field-error">{{'BIC.Category description must be maximum 200 symbols' | translate}}</small>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+@import "preview";
+@import "mixins";
+@import "variables";
+
+
+.c-preview {
+  &__block {
+    @include flex-start-center;
+
+    width: 100%;
+    max-width: 400px;
+    height: 52px;
+    margin: 20px 0;
+    padding-left: 16px;
+    background: $white;
+    border: 1px solid $light-orange-second;
+    border-radius: 5px;
+
+    &__inner {
+      @include regular-oblique-16;
+
+      color: #8E8E93;
+    }
+
+    &__flex {
+      @include flex-start-center;
+      // margin: 40px 0;
+      // @include adaptive-value("margin-bottom", 40, 0);
+    }
+
+    &__square {
+      width: 36px;
+      height: 36px;
+      margin-right: 16px;
+      background: $light-background;
+      border: 1px solid $light-orange-second;
+      border-radius: 5px;
+
+      &.width-min {
+        width: 24px;
+        height: 24px;
+        margin-right: 0;
+      }
+    }
+
+    &__subtext {
+      @include medium-16;
+    }
+  }
+
+  &__img-container {
+    width: 140px;
+    height: 140px;
+  }
+
+  &__text {
+    @include medium-16;
+
+    margin: -16px 0 -12px;
+  }
+
+  &__section {
+    &__content {
+      // padding: 40px 40px 20px 40px;
+    }
+
+    &__header-text {
+      margin-bottom: 8px;
+    }
+
+    &__header-selected {
+      padding: 40px 40px 20px;
+    }
+
+    &__image-container {
+      @include flex-start-center;
+      @include medium-16;
+
+      flex-wrap: wrap;
+      text-align: center;
+
+      &-block {
+        @include flex-center;
+        @include adaptive-value("margin-right", 25, 20);
+        @include adaptive-value("margin-top", 20, 10);
+
+        width: 148px;
+        height: 148px;
+        border: 1px solid #E9ECEF;
+        border-radius: 5px;
+      }
+
+      &-image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  &__description {
+    @include regular-14;
+
+    margin: 8px 0;
+  }
+}
+
+.margin-bottom {
+  margin-bottom: 40px;
+}
+
+.margin-top {
+  margin-top: 24px;
+}
+
+@media #{$mobile} {
+  .c-preview {
+    &__section {
+      &__content {
+        padding: 15px;
+      }
+    }
+  }
+}

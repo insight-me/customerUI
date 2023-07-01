@@ -1,0 +1,175 @@
+<div class="app-bubble-chart">
+  <!--Chart-->
+  <div #chartRef class="app-bubble-chart__container" [class.pdf]="pdfVersion">
+    <!--Y-axis arrow-->
+    <i class="app-bubble-chart__container-arrow y-arrow"></i>
+    <!--X-axis arrow-->
+    <i class="app-bubble-chart__container-arrow x-arrow"></i>
+
+    <!--Y-axis label-->
+    <div class="app-bubble-chart__container-label y-label">
+      {{ yAxesLabel | uppercase }}
+    </div>
+    <!--X-axis label-->
+    <div class="app-bubble-chart__container-label x-label">
+      {{ xAxesLabel | uppercase }}
+    </div>
+
+    <!--X-axis Benchmark-->
+    <div
+      *ngIf="xBenchmark > 0"
+      class="app-bubble-chart__container-benchmark x-axis"
+      [style.left]="xBenchmark + '%'"
+    >
+      <div class="x-benchmark-label">
+        {{ "report.Benchmark" | translate | uppercase }}
+      </div>
+      <div class="x-benchmark-label">{{ xBenchmark + "%" }}</div>
+    </div>
+
+    <!--Y-axis Benchmark-->
+    <div
+      *ngIf="yBenchmark > 0"
+      class="app-bubble-chart__container-benchmark y-axis"
+      [style.top]="100 - yBenchmark + '%'"
+    >
+      <div class="y-benchmark-label">
+        {{ "report.Benchmark" | translate | uppercase }}
+      </div>
+      <div class="y-benchmark-label">{{ yBenchmark + "%" }}</div>
+    </div>
+
+    <ng-container *ngIf="pdfVersion">
+      <div
+        *ngFor="let item of dataSet; index as i"
+        class="app-bubble-chart__container-pdf-axis"
+        [style]="getPdfAxisStyle(item, i)"
+      >
+        <span class="pdf-y-value">{{ item.y }}%</span>
+        <span class="pdf-x-value">{{ item.x }}%</span>
+      </div>
+    </ng-container>
+
+    <!--Bubbles-->
+    <div
+      *ngFor="let item of uniqDataSet"
+      class="app-bubble-chart__container-item"
+      [class.cluster]="item.isCluster"
+      [style]="getItemStyle(item)"
+    >
+      <ng-container *ngIf="item.isCluster">
+        <div
+          *ngFor="let indx of item.clusterIndxs; let index = index"
+          class="app-bubble-chart__container-item__separator"
+          [style]="getSeparatorStyle(item, index)"
+        ></div>
+        <div class="app-bubble-chart__container-item__cluster-title">
+          <div>
+            {{ item.clusterIndxs.length }}
+          </div>
+        </div>
+      </ng-container>
+
+      <!--Tooltip-->
+      <div
+        class="bubble-chart-tooltip-arrow"
+        [ngClass]="getTooltipPosition(item)"
+      ></div>
+      <ng-container *ngIf="!pdfVersion">
+        <div
+          *ngIf="item.isCluster"
+          class="bubble-chart-tooltip"
+          [ngClass]="getTooltipPosition(item)"
+        >
+          <div class="bubble-chart-tooltip-content">
+            <div
+              class="bubble-chart-tooltip-content-container"
+              [ngStyle]="getTooltipSyles(item)"
+            >
+              <ng-container
+                *ngFor="let clusterLabel of item.clusterLabels; let i = index"
+              >
+                <div
+                  class="bubble-chart-tooltip-content-container-item"
+                  [class.top-row]="isTopRow(item, i)"
+                >
+                  <!--Label-->
+                  <div class="bubble-chart-tooltip-content-title">
+                    {{ clusterLabel }}
+                  </div>
+
+                  <div class="bubble-chart-tooltip-content-container-item-segments">
+                    <!--Y-axis value-->
+                    <div class="bubble-chart-tooltip-content-values">
+                      <span>{{ yAxesLabel | uppercase }}:</span>
+                      <span>{{ item.y }}%</span>
+                    </div>
+
+                    <!--X-axis value-->
+                    <div class="bubble-chart-tooltip-content-values">
+                      <span>{{ xAxesLabel | uppercase }}:</span>
+                      <span>{{ item.x }}%</span>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div
+          *ngIf="!item.isCluster"
+          class="bubble-chart-tooltip"
+          [ngClass]="getTooltipPosition(item)"
+        >
+          <div class="bubble-chart-tooltip-content">
+            <div class="bubble-chart-tooltip-content-container">
+              <div class="bubble-chart-tooltip-content-container-item top-row">
+                <!--Label-->
+                <div class="bubble-chart-tooltip-content-title">
+                  {{ item.label }}
+                </div>
+                <!--Y-axis value-->
+                <div class="bubble-chart-tooltip-content-values">
+                  <span>{{ yAxesLabel | uppercase }}:</span>
+                  <span>{{ item.y }}%</span>
+                </div>
+
+                <!--X-axis value-->
+                <div class="bubble-chart-tooltip-content-values">
+                  <span>{{ xAxesLabel | uppercase }}:</span>
+                  <span>{{ item.x }}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <!--  DEFAULT LEGEND-->
+  <ng-container *ngIf="showDefaultLegend">
+    <div class="app-bubble-chart__footer-legend default">
+      <span *ngFor="let item of dataSet; let i = index">
+        <i [style.background]="getBackground(i)" class="likes-icon"></i>
+        <div class="legend-label">
+          {{ item.label }}
+        </div>
+        <div class="legend-label-tooltip">
+          <div class="legend-label-tooltip-content">
+            <div class="legend-label-tooltip-content-title">
+              {{ item.label }}
+            </div>
+          </div>
+          <div class="legend-label-tooltip-arrow"></div>
+        </div>
+      </span>
+    </div>
+  </ng-container>
+
+  <!--Zoom Chart-->
+  <div *ngIf="showZoom" class="app-bubble-chart__zoom" (click)="toggleZoom()">
+    <span>{{ "report.Zoom" | translate | uppercase }}</span>
+    <app-icon [iconType]="IconsType.Maximize"></app-icon>
+  </div>
+</div>

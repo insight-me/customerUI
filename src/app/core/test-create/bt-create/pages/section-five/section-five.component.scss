@@ -1,0 +1,104 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/test.scss";
+@import "../../../modules/shared-test-creation/why-add/why-add.component";
+@import "breakpoint-slicer";
+
+
+::ng-deep .c-section-five-bt {
+  @media screen and (max-width: 840px) {
+    .tooltip {
+      left: -88px !important;
+    }
+  }
+}
+
+.c-section-two-bt {
+  padding: 20px;
+
+  &__title {
+    width: 590px;
+    margin-top: -20px;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__added {
+    margin: 20px 0 0 !important;
+    font-style: normal !important;
+  }
+
+  &__line {
+    border: 1px solid $lightgrayWhite;
+  }
+}
+
+.space-between {
+  display: flex;
+  align-items: flex-start;
+}
+
+.section-three-info {
+  display: none;
+}
+
+.market-tip {
+  display: none;
+
+  @media (max-width: 1300px) {
+    display: inline;
+  }
+}
+
+.section {
+  &__subtext {
+    @include regular-16;
+
+    margin-bottom: 25px;
+    padding-left: 60px;
+    color: $dark-gray;
+
+    @media (max-width: 1300px) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1280px) {
+  .c-section-two-bt {
+    &__container {
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-section-two-bt {
+    &__table {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  .section-three {
+    display: none;
+  }
+
+  .section-three-info {
+    display: block;
+  }
+}
+
+@media #{$mobilemax} {
+  .section-one-wrapper {
+    display: block !important;
+  }
+
+  .space-between {
+    display: flex;
+    justify-content: space-between;
+  }
+}

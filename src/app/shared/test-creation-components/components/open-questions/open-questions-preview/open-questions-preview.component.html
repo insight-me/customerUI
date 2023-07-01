@@ -1,0 +1,137 @@
+<ng-container *ngIf="isOpenedPreview; else notOpenedPreview">
+  <ng-container *ngTemplateOutlet="gridTable"></ng-container>
+</ng-container>
+<ng-template #notOpenedPreview>
+  <div *ngIf="columnsData.length && rows.length"
+       class="c-open-questions-preview"
+       (click)="onOpenPreview()">
+    <app-icon [iconType]="IconsType.Preview"></app-icon>
+    <p class="c-open-questions-preview__text">
+      {{ "BIC.Preview grid" | translateCustom }}
+    </p>
+  </div>
+  <div *ngIf="isShowPreview"
+       class="c-common__modal">
+    <div class="c-common__modal-window c-open-questions-preview__modal">
+      <div class="c-open-questions-preview__close">
+        <button class="c-common__button c-common__button--icon"
+                (click)="onOpenPreview()">
+          <img src="../../../../../../assets/images/svg/ic_close-modal.svg" />
+        </button>
+      </div>
+
+      <div class="c-open-questions-preview__container">
+        <p class="c-open-questions-preview__container-title">
+          {{
+          type === CustomQuestionType.MultiGrid || type === CustomQuestionType.Multi
+          ? ("BIC.Preview multi choice grid" | translateCustom)
+          : ("BIC.Preview single choice grid" | translateCustom)
+          }}
+        </p>
+        <ng-container *ngTemplateOutlet="gridTable"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #gridTable>
+  <div class="c-open-questions-preview__table-container">
+    <table class="c-open-questions-preview__table desktop">
+      <tr #tableHeader
+          class="c-open-questions-preview__table-row header"
+          [style.grid-template-columns]="'minmax(240px, 2fr) repeat(' + (includeDoNotKnow ? columnsData.length + 1 : columnsData.length) + ', 1fr)'">
+        <th class="c-open-questions-preview__table-header"></th>
+        <th *ngFor="let column of columnsData"
+            class="c-open-questions-preview__table-header">
+          {{ column.value }}
+        </th>
+        <th *ngIf="includeDoNotKnow"
+            class="c-open-questions-preview__table-header">{{ 'open-question.Don\'t know' | translateCustom }}</th>
+      </tr>
+      <tbody #tableBody
+             class="c-open-questions-preview__table-body">
+        <tr *ngFor="let row of rows; let isLast = last"
+            class="c-open-questions-preview__table-row"
+            [style.grid-template-columns]="'minmax(240px, 2fr) repeat(' + (includeDoNotKnow ? columnsData.length + 1 : columnsData.length) + ', 1fr)'">
+          <td [style.justify-content]="'flex-start'"
+              [class.last]="isLast"
+              class="c-open-questions-preview__table-row-cell">
+            {{ row.value }}
+          </td>
+          <td *ngFor="let column of columnsData"
+              [class.last]="!includeDoNotKnow && isLast"
+              class="c-open-questions-preview__table-row-cell checkbox">
+            <div *ngIf="type === CustomQuestionType.SingleGrid || type === CustomQuestionType.Single; else multiGrid"
+                 class="c-open-questions-preview__single"></div>
+            <ng-template #multiGrid>
+              <div class="c-open-questions-preview__single multi"></div>
+            </ng-template>
+          </td>
+          <td *ngIf="includeDoNotKnow"
+              class="c-open-questions-preview__table-row-cell checkbox last">
+            <div *ngIf="type === CustomQuestionType.SingleGrid || type === CustomQuestionType.Single; else multiGrid"
+                 class="c-open-questions-preview__single"></div>
+            <ng-template #multiGrid>
+              <div class="c-open-questions-preview__single multi"></div>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mobile-table-container">
+      <!--      mobile-->
+      <table class="c-open-questions-preview__table mob">
+        <tr #tableHeaderMobile
+            class="c-open-questions-preview__table-row header"
+            [style.grid-template-columns]="'minmax(160px, 1.5fr) repeat(1, 1fr)'">
+          <th class="c-open-questions-preview__table-header">
+            {{ "1/" + rows.length }}
+          </th>
+          <th *ngFor="let column of rows | slice: 0:1"
+              class="c-open-questions-preview__table-header">
+            {{ column.value }}
+          </th>
+        </tr>
+
+        <tbody #tableBodyMobile
+               class="c-open-questions-preview__table-body">
+          <tr *ngFor="let row of columnsData; let isLast = last"
+              class="c-open-questions-preview__table-row"
+              [style.grid-template-columns]="'minmax(160px, 1.5fr) repeat(1, 1fr)'">
+            <td class="c-open-questions-preview__table-row-cell"
+                [style.justify-content]="'flex-start'"
+                [class.last]="isLast && !includeDoNotKnow">
+              {{ row.value }}
+            </td>
+            <td *ngFor="let column of rows | slice: 0:1"
+                class="c-open-questions-preview__table-row-cell checkbox"
+                [class.last]="isLast">
+              <div *ngIf="type === CustomQuestionType.SingleGrid || type === CustomQuestionType.Single; else multiGrid"
+                   class="c-open-questions-preview__single"></div>
+              <ng-template #multiGrid>
+                <div class="c-open-questions-preview__single multi"></div>
+              </ng-template>
+            </td>
+          </tr>
+          <tr *ngIf="includeDoNotKnow"
+              class="c-open-questions-preview__table-row"
+              [style.grid-template-columns]="'minmax(160px, 1.5fr) repeat(1, 1fr)'">
+            <td class="c-open-questions-preview__table-row-cell last"
+                [style.justify-content]="'flex-start'">
+              {{ 'open-question.Don\'t know' | translateCustom}}
+            </td>
+            <td *ngFor="let column of rows | slice: 0:1"
+                class="c-open-questions-preview__table-row-cell checkbox last">
+              <div *ngIf="type === CustomQuestionType.SingleGrid || type === CustomQuestionType.Single; else multiGrid"
+                   class="c-open-questions-preview__single"></div>
+              <ng-template #multiGrid>
+                <div class="c-open-questions-preview__single multi"></div>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,22 @@
+<div class="app-concept-definitions__container">
+  <div class="app-concept-definitions__card-title">
+    {{ title | translate }}
+    <app-question-tooltip
+      [texts]="tooltipTexts"
+      [type]="tooltipType"
+    ></app-question-tooltip>
+  </div>
+  <app-multi-select-filter *ngIf="bicRSS.concepts.length > 1 && filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           allLabel="report.All concepts"
+                           [needApplyBtn]="false"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+<app-vertical-bar-chart *ngIf="type"
+                        [dataSet]="dataSet$ | async"
+                        [benchmark]="bicRSS.getBenchmark(type === BicDashboardType.PurchaseIntent ? KPITitle.PurchaseIntent : KPITitle.Uniqueness) | async"
+                        [title]="title"
+                        aspectRatio="0.3"
+                        showDefaultLegend="true"></app-vertical-bar-chart>
+

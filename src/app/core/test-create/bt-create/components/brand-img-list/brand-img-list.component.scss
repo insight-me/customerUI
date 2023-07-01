@@ -1,0 +1,50 @@
+@import "variables";
+
+.c-images-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin: 24px -10px;
+
+  &.center {
+    justify-content: center;
+    margin: 0;
+  }
+
+  &__element {
+    box-sizing: border-box;
+    width: 165px;
+    height: 140px;
+    margin: 10px;
+    border: 1px solid $border;
+    border-radius: 5px;
+
+    &.m-0 {
+      margin: 0;
+    }
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__container {
+    width: 140px;
+    height: 140px;
+  }
+}
+
+@media #{$mobile} {
+  .c-images-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 40px -10px;
+
+    &__element {
+      margin: 5px;
+    }
+  }
+}

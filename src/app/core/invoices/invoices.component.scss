@@ -1,0 +1,17 @@
+@import "./src/assets/styles/library.scss";
+
+.invoices {
+  grid-template-columns: minmax(127px, 1.4fr) minmax(117px, 1.4fr) minmax(150px, max-content) max-content minmax(142px, 0.6fr) minmax(140px, 0.6fr) 71px;
+}
+
+@media #{$tablet} {
+  .invoices {
+    grid-template-columns: minmax(100px, 0.7fr) minmax(117px, 0.7fr) minmax(100px, 0.5fr) minmax(100px, 0.5fr) minmax(135px, 0.8fr) minmax(100px, 0.7fr) 71px;
+  }
+}
+
+@media #{$mobile} {
+  .invoices {
+    display: none;
+  }
+}

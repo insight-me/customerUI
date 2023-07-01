@@ -1,0 +1,19 @@
+<div class="app-concept-definitions__container">
+  <div class="app-concept-definitions__card-title">
+    {{ 'report.Association score (%) and importance to drive relevance (y)' | translate }}
+    <app-question-tooltip
+      [texts]="tooltipTexts"
+      [type]="tooltipType"
+    ></app-question-tooltip>
+  </div>
+
+  <app-multi-select-filter *ngIf="bicRSS.concepts.length > 1 && filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+<app-associations-score
+  [data]="dataSet$ | async"
+  [isPrecent]="true"
+  [title]="'associations.population-score-precent'"
+></app-associations-score>

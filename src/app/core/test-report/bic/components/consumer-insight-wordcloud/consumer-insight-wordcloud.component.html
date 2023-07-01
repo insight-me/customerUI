@@ -1,0 +1,17 @@
+<div class="app-consumer-insight">
+
+  <ng-container *ngFor="let consumerInsight of dataSet$ | async">
+    <ng-container *ngIf="getData(consumerInsight.accumulatedLikes) as dataSet">
+      <ng-container *ngIf="dataSet.length">
+        <!--Title-->
+        <div class="app-consumer-insight__title">{{consumerInsight.concept?.conceptName}}</div>
+        <!--Word cloud-->
+        <div class="app-consumer-insight__container">
+          <div class="app-consumer-insight__container-value full-container" #cloudContainerRef data-attr="{{consumerInsight.concept?.id}}">
+            <angular-tag-cloud [config]="options" [data]="dataSet"></angular-tag-cloud>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>

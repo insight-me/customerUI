@@ -1,0 +1,32 @@
+<div class="c-segmentation-section__block">
+  <div class="c-segmentation-section__block__section">
+    <div class="c-segmentation-section__block__section__title">
+      <span class="c-segmentation-section__block__section__title-num">3</span>{{'segmentation.section-3' | translate}}
+    </div>
+    <p class="c-segmentation-section__block__section__subtitle">{{'segmentation.max-30' | translate}}</p>
+    <div class="c-segmentation-section__block__info tablet">{{'segmentation.section-3-info' | translate}}</div>
+    <app-segmentation-list [items]="questions.questions"
+                           [inputMinLength]="2"
+                           [inputMaxLength]="500"
+                           [limitNumber]="29"
+                           [minValue]="minValue"
+                           [maxValue]="maxValue"
+                           dataType="Statement"
+                           (updateItems)="updateQuestions($event)">
+    </app-segmentation-list>
+  </div>
+  <div class="c-segmentation-section__block__info desktop">{{'segmentation.section-2-info' | translate}}</div>
+</div>
+<div class="c-segmentation-section__footer"
+     [class.space]="isEditMode">
+  <button *ngIf="isEditMode;"
+          class="c-common__button c-common__button--border tiny"
+          (click)="cancelChanges.emit()">{{'segmentation.cancel-changes' | translate}}</button>
+  <div [pTooltip]="getDisabledStatus()?(getTooltip() | translate): null"
+       tooltipPosition="top"
+       tooltipEvent="hover">
+    <button class="c-segmentation-section__footer__btn c-common__button c-common__button--gradient tiny"
+            [disabled]="getDisabledStatus()"
+            (click)="goToNextStep()">{{'buttons.save' | translate}}</button>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+@import "./src/assets/styles/variables.scss";
+
+.c-brands-list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 570px;
+  height: 102px;
+  padding: 16px 0;
+
+  &__image-block {
+    margin-right: 24px;
+  }
+
+  &__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border: 1px solid $border;
+    border-radius: 7px;
+    cursor: pointer;
+
+    &-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: calc(50% - 9px);
+        left: calc(50% - 9px);
+        width: 18px;
+        height: 18px;
+        background-image: url(../../../../../../assets/images/svg/ic_delete-white.svg);
+        background-size: cover;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 70px;
+        height: 70px;
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+
+  &__form-field {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 72px 0 0;
+
+    .delete {
+      position: absolute;
+      top: 10px;
+      right: -45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+  }
+
+}
+
+@media #{$mobile} {
+  .c-brands-list-item {
+    width: 100%;
+    height: 72px;
+    padding-bottom: 10px;
+
+    &__image {
+      width: 40px;
+      height: 40px;
+    }
+
+    &__form-field {
+      width: 215px;
+      margin-top: 0;
+
+      .delete {
+        top: 4px;
+      }
+    }
+  }
+}

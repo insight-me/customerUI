@@ -1,0 +1,102 @@
+<div *ngIf="currentUser" class="c-personal-information">
+  <div class="c-common__profile__header">
+    <div class="c-common__profile__header-title">{{'my-profile.personal-info' | translate}}</div>
+    <div class="desktop">
+      <button type="button" class="c-common__button--text c-common__button" (click)="onDeleteAccount()">
+        <img src="../../../../assets/images/svg/ic_delete.svg" class="icon">{{'my-profile.delete' | translate}}</button>
+    </div>
+  </div>
+
+  <div class="c-common__profile__main">
+    <div class="c-common__profile__main-title">{{'my-profile.personal-information' | translate}}</div>
+    <form [formGroup]="form">
+      <div class="c-personal-information__user-table">
+        <!--            firstName -->
+        <div class="c-personal-information__user-table__column first">
+          <div class="c-common__profile__info-block">
+            <p class="c-common__profile__info-block__label">{{'my-profile.first-name' | translate}}</p>
+            <p *ngIf="!isEditMode; else nameField"
+               class="c-common__profile__info-block__item">{{currentUser.firstName}}</p>
+            <ng-template #nameField>
+              <app-form-input [placeholder]="currentUser.firstName"
+                              [control]="convertToFormControl(form.controls.firstName)"
+                              controlName="firstName"></app-form-input>
+            </ng-template>
+          </div>
+        </div>
+        <!--            email -->
+        <div class="c-personal-information__user-table__column third">
+          <div class="c-common__profile__info-block">
+            <p class="c-common__profile__info-block__label">{{'my-profile.e-mail' | translate}}</p>
+            <p [class.not-redact]="isEditMode"
+               class="c-common__profile__info-block__item">{{currentUser.email}}</p>
+          </div>
+        </div>
+        <!--            lastName -->
+        <div class="c-personal-information__user-table__column last-name second">
+          <div class="c-common__profile__info-block">
+            <p class="c-common__profile__info-block__label">{{'my-profile.last-name' | translate}}</p>
+            <p *ngIf="!isEditMode; else lastNameField"
+               class="c-common__profile__info-block__item">{{currentUser.lastName}}</p>
+            <ng-template #lastNameField>
+              <app-form-input [placeholder]="currentUser.lastName"
+                              [control]="convertToFormControl(form.controls.lastName)"
+                              controlName="lastName"></app-form-input>
+            </ng-template>
+          </div>
+        </div>
+        <!--            language -->
+        <div class="c-personal-information__user-table__column fourth">
+          <div class="c-common__profile__info-block">
+            <p class="c-common__profile__info-block__label">{{'my-profile.language' | translate}}</p>
+            <!--            Disable language changes by task 2755-->
+            <!--           *ngIf="!isEditMode; else languageField"-->
+            <p [class.not-redact]="isEditMode"
+               class="c-common__profile__info-block__item">{{languageEnum[currentUser.preferredLanguage]}}</p>
+            <!--            <ng-template #languageField>-->
+            <!--              <div class="c-common__field c-common__form-field">-->
+            <!--                <p-dropdown class="c-common__dropdown-test"-->
+            <!--                            [options]="['EN','SE']"-->
+            <!--                            [placeholder]="'t-auth.Preferred language' | translate"-->
+            <!--                            formControlName="preferredLanguage"></p-dropdown>-->
+            <!--              </div>-->
+            <!--            </ng-template>-->
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!isEditMode; else editButtonsBlock" class="c-personal-information__edit">
+        <button type="button" class="c-common__button c-common__button--border tiny c-common__profile__button"
+                (click)="toggleEditMode()"><img src="../../../../assets/images/svg/edit.svg"
+                                                class="icon">{{'my-profile.edit' | translate}}</button>
+      </div>
+      <ng-template #editButtonsBlock>
+        <div class="c-common__profile__buttons margin">
+          <button type="submit"
+                  class="c-common__button c-common__button--gradient tiny c-common__profile__button"
+                  [disabled]="form.invalid"
+                  (click)="onSubmit()">{{'my-profile.save' | translate}}</button>
+          <button type="button"
+                  class="c-common__button c-common__button--text tiny c-common__profile__button"
+                  (click)="toggleEditMode()">{{'my-profile.cancel' | translate}}</button>
+        </div>
+      </ng-template>
+    </form>
+    <div class="c-common__profile__main-title">{{'my-profile.safety' | translate}}</div>
+    <!--    Password-->
+    <div *ngIf="!isEditPasswordMode; else setNewPasswordTemplate" class="c-personal-information__password-block">
+      <div class="c-personal-information__password-block__change">
+        <button type="button"
+                class="c-common__button c-common__button--border tiny c-common__profile__button"
+                (click)="onChangePassword()"><img src="../../../../assets/images/svg/ic_safe.svg"
+                                                  class="icon">{{'my-profile.change-password' | translate}}</button>
+      </div>
+    </div>
+    <ng-template #setNewPasswordTemplate>
+      <app-change-password (closeChanges)="closePasswordChanges()"></app-change-password>
+    </ng-template>
+  </div>
+  <div class="mobile">
+    <button type="button" class="c-common__button--text c-common__button" (click)="onDeleteAccount()">
+      <img src="../../../../assets/images/svg/ic_delete.svg" class="icon">{{'my-profile.delete' | translate}}</button>
+  </div>
+</div>

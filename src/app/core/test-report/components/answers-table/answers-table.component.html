@@ -1,0 +1,82 @@
+<div class="dropdown">
+  <app-dropdown [items]="pagesDropdownItems"
+                [selectedItem]="selectedDropdownItem.name"
+                (getSelectedItem)="onChangeNumberOfPages($event)"></app-dropdown>
+</div>
+<table class="c-answers-table">
+  <tr class="c-answers-table__row header">
+    <td>{{ "report.Answers:" | translate }}</td>
+    <td>{{"report.Respondent" | translate}}</td>
+    <td>{{"report.Age" | translate}}</td>
+    <td>{{"report.Gender" | translate}}</td>
+  </tr>
+  <tr *ngFor="let answer of answers | paginate: config; let isOdd=odd" class="c-answers-table__row"
+      [class.colored]="isOdd">
+    <td class="c-answers-table__item"><div [innerHTML]="sanitizer.bypassSecurityTrustHtml(getHtml(answer.text))"></div></td>
+    <td>{{answer.segment || ("report.Population" | translate)}}</td>
+    <td>{{answer.age || "-"}}</td>
+    <td>{{answer.gender || "-"}}</td>
+  </tr>
+</table>
+
+<pagination-template #p="paginationApi"
+                     [id]="config.id"
+                     (pageChange)="config.currentPage = $event">
+  <div class="c-paginator">
+    <div class="c-paginator__content" [style.grid-template-columns]="'repeat(' + (4 + p.pages.length) + ', 32px'">
+      <div class="c-paginator__item" tabindex="0" [class.disabled]="p.isFirstPage()" (click)="p.setCurrent(0)">
+        <ng-container *ngTemplateOutlet="leftDouble"></ng-container>
+      </div>
+      <div class="c-paginator__item" tabindex="0" [class.disabled]="p.isFirstPage()"
+           (click)="!p.isFirstPage() && p.previous()">
+        <ng-container *ngTemplateOutlet="left"></ng-container>
+      </div>
+      <ng-container *ngFor="let page of p.pages; let i = index">
+        <div class="c-paginator__item" tabindex="0" [class.active]="p.getCurrent() === page.value"
+             (click)="p.setCurrent(page.value)">{{ page.label }}</div>
+      </ng-container>
+      <div class="c-paginator__item" tabindex="0" [class.disabled]="p.isLastPage()"
+           (click)="!p.isLastPage() && p.next()">
+        <ng-container *ngTemplateOutlet="right"></ng-container>
+      </div>
+      <div class="c-paginator__item"
+           tabindex="0"
+           [class.disabled]="p.isLastPage()"
+           (click)="p.setCurrent(p.getLastPage())">
+        <ng-container *ngTemplateOutlet="rightDouble"></ng-container>
+      </div>
+    </div>
+  </div>
+</pagination-template>
+
+<ng-template #leftDouble>
+  <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M5.07154 9.50388C4.74006 9.83536 4.18742 9.83536 3.85593 9.50388L0.25809 5.90552C0.0858674 5.74577 0 5.52462 0 5.29148C0 5.05835 0.0983424 4.83719 0.25809 4.67745L3.84394 1.09159C4.01568 0.919366 4.23683 0.833496 4.45798 0.833496C4.67913 0.833496 4.90029 0.919855 5.07202 1.09159C5.4035 1.42307 5.4035 1.9757 5.07202 2.30719L2.94732 4.43188L2.06465 5.29148L2.94732 6.15119L5.07154 8.28828C5.40302 8.61976 5.40302 9.1724 5.07154 9.50388ZM10.0756 9.50388C9.74413 9.83536 9.19149 9.83536 8.86 9.50388L5.26216 5.90552C5.08994 5.74577 5.00407 5.52462 5.00407 5.29148C5.00407 5.05835 5.10241 4.83719 5.26216 4.67745L8.84801 1.09159C9.01975 0.919366 9.2409 0.833496 9.46205 0.833496C9.6832 0.833496 9.90436 0.919855 10.0761 1.09159C10.4076 1.42307 10.4076 1.9757 10.0761 2.30719L7.95139 4.43188L7.06872 5.29148L7.95139 6.15119L10.0756 8.28828C10.4071 8.61976 10.4071 9.1724 10.0756 9.50388Z"
+          fill="#8E8E93"/>
+  </svg>
+</ng-template>
+
+<ng-template #left>
+  <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M4.5187 9.50383C4.85018 9.83531 5.40282 9.83531 5.7343 9.50383C6.06579 9.17235 6.06579 8.61971 5.7343 8.28823L3.61009 6.15114L2.72742 5.29143L3.61009 4.43183L5.73479 2.30714C6.06627 1.97565 6.06627 1.42302 5.73479 1.09154C5.56305 0.919805 5.3419 0.833446 5.12075 0.833446C4.8996 0.833446 4.67844 0.919315 4.50671 1.09154L0.920855 4.6774C0.761107 4.83714 0.662765 5.0583 0.662765 5.29143C0.662765 5.52457 0.748632 5.74572 0.920855 5.90547L4.5187 9.50383Z"
+          fill="#8E8E93"/>
+  </svg>
+</ng-template>
+
+<ng-template #right>
+  <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M1.9647 1.08211C1.63322 0.750626 1.08058 0.750626 0.749094 1.08211C0.417612 1.41359 0.417612 1.96622 0.749094 2.29771L2.87331 4.4348L3.75598 5.2945L2.87331 6.15411L0.748611 8.2788C0.41713 8.61028 0.41713 9.16292 0.748611 9.4944C0.920345 9.66613 1.1415 9.75249 1.36265 9.75249C1.5838 9.75249 1.80496 9.66662 1.97669 9.4944L5.56254 5.90854C5.72229 5.74879 5.82063 5.52764 5.82063 5.2945C5.82063 5.06137 5.73477 4.84021 5.56254 4.68047L1.9647 1.08211Z"
+          fill="#8E8E93"/>
+  </svg>
+</ng-template>
+
+<ng-template #rightDouble>
+  <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M5.25317 9.50388C5.58465 9.83536 6.13729 9.83536 6.46877 9.50388L10.0666 5.90552C10.2388 5.74577 10.3247 5.52462 10.3247 5.29148C10.3247 5.05835 10.2264 4.83719 10.0666 4.67745L6.48076 1.09159C6.30903 0.919366 6.08788 0.833496 5.86673 0.833496C5.64557 0.833496 5.42442 0.919855 5.25269 1.09159C4.92121 1.42307 4.92121 1.9757 5.25269 2.30719L7.37738 4.43188L8.26005 5.29148L7.37738 6.15119L5.25317 8.28828C4.92169 8.61976 4.92169 9.1724 5.25317 9.50388ZM0.2491 9.50388C0.580582 9.83536 1.13322 9.83536 1.4647 9.50388L5.06255 5.90552C5.23477 5.74577 5.32064 5.52462 5.32064 5.29148C5.32064 5.05835 5.2223 4.83719 5.06255 4.67745L1.4767 1.09159C1.30496 0.919366 1.08381 0.833496 0.862657 0.833496C0.641504 0.833496 0.420352 0.919855 0.248618 1.09159C-0.0828638 1.42307 -0.0828638 1.9757 0.248617 2.30719L2.37331 4.43188L3.25598 5.29148L2.37331 6.15119L0.249101 8.28828C-0.0823822 8.61976 -0.0823822 9.1724 0.2491 9.50388Z"
+          fill="#8E8E93"/>
+  </svg>
+</ng-template>

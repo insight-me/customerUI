@@ -1,0 +1,17 @@
+<ng-container *ngIf="tabGroup.length">
+  <button [matMenuTriggerFor]="draftMenu" class="c-common__button c-common__button--icon">
+    <img *ngIf="showDots; else reportImage"
+         src="../../../../../assets/images/svg/more_dots.svg">
+    <ng-template #reportImage>
+      <img src="../../../../../assets/images/png/download.png">
+    </ng-template>
+  </button>
+  <mat-menu #draftMenu>
+    <li *ngFor="let action of tabGroup" mat-menu-item
+        (click)="onAction(action.name)">
+      <div class="menu-element">
+        <img [src]="action.icon" class="image">{{'library.' + action.label | translate}}
+      </div>
+    </li>
+  </mat-menu>
+</ng-container>

@@ -1,0 +1,31 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-section-three-info {
+  width: 360px;
+  padding-left: 60px;
+
+  &__title {
+    @include regular-16;
+
+    margin: 0 0 20px;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    @include regular-16;
+
+    color: $dark !important;
+  }
+}
+
+@media (max-width: 1300px) {
+  .c-section-three-info {
+    width: 100%;
+    padding-left: 0;
+
+    &__title {
+      margin: 0;
+    }
+  }
+}

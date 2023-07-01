@@ -1,0 +1,139 @@
+/* stylelint-disable declaration-no-important */
+@import 'variables';
+@import 'mixins';
+
+// ng-zorro-picker
+
+::ng-deep .ant-picker {
+  height: 38px;
+  border: 1px solid $light-orange-second !important;
+  border-radius: 5px;
+  font-variant: inherit !important;
+  font-feature-settings: normal !important;
+
+  &:hover {
+    border-color: $darkorange !important;
+  }
+}
+
+
+::ng-deep .ant-picker-suffix {
+  cursor: pointer;
+}
+
+::ng-deep .ant-picker-input>input {
+  @include regular-16;
+}
+
+::ng-deep .ant-picker-input>input:focus {
+  border-color: transparent;
+}
+
+::ng-deep .ant-picker-active-bar {
+  background: transparent !important;
+}
+
+::ng-deep .ant-picker-focused {
+  background: $hover-button;
+  border: 1px solid $darkorange;
+  box-shadow: 0 0 2px 3px #ff985959 !important;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-hover-start:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end)::after {
+  border-top: 1px dashed $orange;
+  border-bottom: 1px dashed $orange;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single).ant-picker-cell-range-hover-start::before {
+  background: $hover-button
+}
+
+::ng-deep .ant-picker-panel>:not(.ant-picker-date-panel) .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-start::before {
+  background: $hover-button;
+}
+
+::ng-deep .ant-picker-month-panel .ant-picker-cell-range-hover-start::after {
+  border-left: 1px dashed $orange;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border: 1px solid $orange;
+  border-radius: 4px;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover::before {
+  background: $hover-button;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-in-range::before {
+  background: $hover-button;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  background: $darkorange;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-start.ant-picker-cell-range-hover::before {
+  background: $hover-button;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single).ant-picker-cell-range-hover-end::before {
+  background: $hover-button;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-start:not(.ant-picker-cell-range-start-single)::before {
+  background: $hover-button;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-end:not(.ant-picker-cell-range-end-single)::before {
+  background: $hover-button;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner::before {
+  background: $darkorange;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-hover-edge-start:not(.ant-picker-cell-range-hover-edge-start-near-range)::after,
+.ant-picker-cell-in-view.ant-picker-cell-range-hover-start::after {
+  border: 1px dashed $darkorange;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-hover:not(.ant-picker-cell-in-range)::after {
+  border: 1px dashed $darkorange;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-start::before {
+  background: $darkorange;
+}
+
+::ng-deep tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:last-child::after {
+  border: 1px dashed $darkorange;
+}
+
+::ng-deep tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover:first-child::after {
+  border: 1px dashed $darkorange;
+}
+
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-hover:last-child::after {
+  border: 1px dashed $darkorange;
+}
+
+::ng-deep .ant-picker-cell-in-view.ant-picker-cell-range-hover-end:not(.ant-picker-cell-in-range):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end)::after {
+  border: 1px dashed $darkorange;
+}
+
+::ng-deep .ant-picker-week-panel-row-selected .ant-picker-cell-disabled::before {
+  background: $darkorange !important;
+}
+
+::ng-deep .ant-picker-week-panel-row-selected td {
+  background: $darkorange !important;
+
+  &:hover {
+    background: $darkorange !important;
+  }
+}

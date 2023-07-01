@@ -1,0 +1,71 @@
+<div class="c-section-two">
+  <div class="c-test__card column">
+    <h3 class="c-test__card__title">
+      {{'KPI.intro' | translate}}<br> {{'KPI.intro-2' | translate}}
+    </h3>
+    <div class="c-section-two__card">
+      <!--    DESKTOP -->
+      <table class="c-common__grid-table c-common-grid-table-template-kpi">
+        <thead class="c-common__grid-table-head">
+        <th class="c-common__grid-table-head-item"></th>
+        <th class="c-common__grid-table-head-item">KPI</th>
+        <th class="c-common__grid-table-head-item">{{'KPI.question' | translate}}</th>
+        <th class="c-common__grid-table-head-item" [style.padding-left]="'45px'">{{'KPI.type' | translate}}</th>
+        </thead>
+        <tbody class="c-common__grid-table-body">
+        <tr *ngFor="let statement of allStatements" class="c-base__grid-table-body-row">
+          <td class="c-common__grid-table-body-item">
+            <div *ngIf="!statement.isRequired" class="c-common__checkbox-wrapper c-custom-question-preview__checkbox">
+              <p-checkbox
+                [name]="statement.id"
+                [(ngModel)]="selectedKpi[statement.id]"
+                binary="true"
+                class="c-common__checkbox"
+                (onChange)="updateKPI()"
+              ></p-checkbox>
+            </div>
+          </td>
+          <td class="c-common__grid-table-body-item c-common__bold">{{statement.title}}</td>
+          <td class="c-common__grid-table-body-item">{{statement.question}}</td>
+          <td class="c-common__grid-table-body-item"
+              [ngClass]="statementEnum[statement.type].toLowerCase()">{{statementNameType[statementEnum[statement.type]] | translate}}</td>
+        </tr>
+        </tbody>
+      </table>
+      <!--    MOBILE -->
+      <div class="c-test__table-mobile">
+        <div *ngFor="let statement of allStatements" class="c-test__table-mobile__card">
+          <div class="c-test__table-mobile__card-tr">
+            <div class="c-test__table-mobile__card-tr__name"><span>KPI</span></div>
+            <div class="c-test__table-mobile__card-tr__text">
+              <div *ngIf="!statement.isRequired" class="c-common__checkbox-wrapper c-custom-question-preview__checkbox checkbox">
+                <p-checkbox
+                  [name]="statement.id"
+                  [(ngModel)]="selectedKpi[statement.id]"
+                  binary="true"
+                  class="c-common__checkbox small"
+                  (onChange)="updateKPI()"
+                ></p-checkbox>
+              </div>
+              <span>{{statement.title}}</span></div>
+          </div>
+
+          <div class="c-test__table-mobile__card-tr colored">
+            <div class="c-test__table-mobile__card-tr__name"><span>{{'KPI.question' | translate}}</span></div>
+            <div class="c-test__table-mobile__card-tr__text"><span>{{statement.question}}</span></div>
+          </div>
+
+          <div class="c-test__table-mobile__card-tr">
+            <div class="c-test__table-mobile__card-tr__name"><span>{{'KPI.type' | translate}}</span></div>
+            <div class="c-test__table-mobile__card-tr__text" [ngClass]="statementEnum[statement.type].toLowerCase()">
+              <span>{{statementNameType[statementEnum[statement.type]] | translate}}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-next-button [nextSection]="'section-3'"
+                   [testType]="TestType.BIC"></app-next-button>
+</div>
+

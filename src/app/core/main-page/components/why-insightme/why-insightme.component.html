@@ -1,0 +1,13 @@
+<div class="c-why-insightme">
+  <div class="c-why-insightme__title">{{'landing.Why InsightMe?' | translate}}</div>
+  <div class="c-why-insightme__content">
+    <div *ngFor="let item of list" class="item">
+      <div class="item-image"><img [src]="'../../../../assets/images/svg/main-page/' + item.image + '.svg'"></div>
+      <div class="item-text">
+        <h3 class="title">{{item.title | translate}}</h3>
+        <p class="text">{{item.text1 | translate}}</p>
+        <p *ngIf="item.text2" class="text">{{item.text2 | translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>

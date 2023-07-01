@@ -1,0 +1,34 @@
+<p-toast #toast key="custom-toast" position="bottom-right">
+  <ng-template let-message pTemplate="message">
+    <div class="toast">
+      <img
+        *ngIf="message.data === toastType.Success"
+        src="../../../../assets/images/svg/toast/success.svg"
+      />
+      <img
+        *ngIf="message.data === toastType.Warning"
+        src="../../../../assets/images/svg/toast/warning.svg"
+      />
+      <img
+        *ngIf="message.data === toastType.Error"
+        src="../../../../assets/images/svg/toast/error.svg"
+      />
+      <img
+        *ngIf="message.data === toastType.Info"
+        src="../../../../assets/images/svg/toast/info.svg"
+      />
+      <div class="toast-content">
+        <div class="toast-title">{{ message.summary | translate }}</div>
+        <div *ngIf="message.detail">
+          <pre class="toast-text">{{ message.detail | translate }}</pre>
+        </div>
+      </div>
+      <button
+        (click)="onClose()"
+        class="toast-close c-common__button c-common__button--icon"
+      >
+        <img src="../../../../assets/images/svg/ic_close-modal.svg" />
+      </button>
+    </div>
+  </ng-template>
+</p-toast>

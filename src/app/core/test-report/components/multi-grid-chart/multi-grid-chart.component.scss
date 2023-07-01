@@ -1,0 +1,22 @@
+@import "mixins";
+
+.c-multi-grid-chart {
+  &__container {
+    height: 405px;
+    margin: 28px 20px 20px !important;
+
+    &-content-dynamic {
+      justify-content: space-around;
+    }
+  }
+
+  &__title {
+    @include medium-18;
+
+    display: flex;
+    justify-content: center;
+    min-height: 65px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}

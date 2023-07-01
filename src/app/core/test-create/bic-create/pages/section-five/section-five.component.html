@@ -1,0 +1,194 @@
+<div *ngIf="respondentRequirements" class="c-section__wrapper c-section-five">
+  <div class="c-test-create__nav-wrapper">
+    <div class="c-test-create__nav"
+         [ngStyle]="{ 'margin-top': -scrollY + 'px' }">
+      <span class="c-test-create__nav-title">{{"respondents.create-respondent-profile" | translate}}</span>
+      <a (click)="navigateToSection('#section1')"
+         class="c-test-create__nav-item"
+         [class.active]="isScrollOnStep(section1)">1. {{ "BIC.Select geographical market" | translate }}</a>
+      <a (click)="navigateToSection('#section2')"
+         class="c-test-create__nav-item"
+         [class.active]="isScrollOnStep(section2)">2. {{ "BIC.Select age and gender" | translate }}</a>
+      <a (click)="navigateToSection('#section3')"
+         class="c-test-create__nav-item"
+         [class.disabled]="!respondentRequirements.countries.length"
+         [class.active]="isScrollOnStep(section3)">3. {{ "BIC.Select consumer segment" | translate }}</a>
+      <a (click)="navigateToSection('#section4')"
+         class="c-test-create__nav-item"
+         [class.disabled]="!respondentRequirements.countries.length"
+         [class.active]="isScrollOnStep(section4)">4. {{ "BIC.Select number of respondents" | translate }}</a>
+      <a (click)="navigateToSection('#section5')"
+         class="c-test-create__nav-item"
+         [class.disabled]="!respondentRequirements.countries.length"
+         [class.active]="isScrollOnStep(section5)">5. {{ "BIC.Select and describe category" | translate }}</a>
+      <a (click)="navigateToSection('#section6')"
+         class="c-test-create__nav-item"
+         [class.disabled]="!respondentRequirements.countries.length"
+         [class.active]="isScrollOnStep(section6)">6. {{ "BIC.Select category screening" | translate }}</a>
+    </div>
+  </div>
+
+  <div *ngIf="respondentRequirements" class="c-section__content">
+    <div class="c-section">
+      <!--      SECTION 1 -->
+      <div #section1 id="section1" class="c-section__block-wrapper">
+        <div class="c-test__card">
+          <div class="c-section-five__market">
+            <div class="c-test__card__title">
+              <span class="c-test__card__number">1</span>
+              {{ "BIC.Select geographical market" | translate }}
+              <span class="market-tip"><app-question-tooltip
+                [texts]="['BIC.If you want to run this test in another market or category, you can easily copy this test after you have published and paid in your test library.']"
+                [arrowShift]="marketArrowShift"
+                additionalClass="market"
+              ></app-question-tooltip></span>
+            </div>
+            <div class="c-section-five__form-group">
+              <app-market
+                [respondentRequirements]="respondentRequirements"
+                [typeTest]="TestType.BIC"
+              ></app-market>
+            </div>
+          </div>
+          <p class="c-section__subtext market">
+            {{"BIC.If you want to run this test in another market or category, you can easily copy this test after you have published and paid in your test library." | translate }}
+          </p>
+        </div>
+      </div>
+
+      <!--      SECTION 2 -->
+      <div #section2 id="section2" class="c-section__block-wrapper">
+        <div class="c-test__card c-section-five__age-gender-block">
+          <div class="c-section-five__age-gender-block__content">
+            <h3 class="c-test__card__title">
+              <span class="c-test__card__number">2</span>
+              {{ "BIC.Select age" | translate }}
+            </h3>
+            <app-age-form></app-age-form>
+          </div>
+          <div class="c-section-five__gender-block">
+            <h3 class="c-test__card__title">
+              {{ "BIC.Select gender" | translate }}
+            </h3>
+            <app-gender-form
+              [respondentOptions]="respondentOptions"></app-gender-form>
+          </div>
+        </div>
+      </div>
+
+      <!--      SECTION 3 -->
+      <div #section3 id="section3"
+           [class.disabled]="!respondentRequirements.countries.length"
+           class="c-section__block-wrapper">
+        <div class="c-test__card column">
+          <h3 class="c-test__card__title">
+            <span class="c-test__card__number">3</span>
+            {{ "BIC.Select consumer segment" | translate }}
+          </h3>
+          <app-segmentation-form
+            *ngIf="respondentRequirements.countries.length"
+            [testType]="TestType.BIC"
+            [respondentOptions]="respondentOptions"
+            [respondentRequirements]="respondentRequirements"></app-segmentation-form>
+        </div>
+      </div>
+
+      <!--      SECTION 4 -->
+      <div #section4
+           id="section4"
+           class="c-section__block-wrapper"
+           [class.disabled]="!respondentRequirements.countries.length">
+        <div class="c-test__card column">
+          <h3 class="c-test__card__title">
+            <span class="c-test__card__number">4</span>
+            {{ "BIC.Select number of respondents" | translate }}
+          </h3>
+          <p *ngIf="respondentRequirements.allSegments" class="c-test__card__optional">
+            {{"BIC.We can see that you selected all segments, then we recommend to collect at least 1200 respondents if you want a stable base in each segment." | translate}}
+          </p>
+          <div>
+            <app-resp-number-container *ngIf="respondentRequirements.countries.length"
+                                       [respondentRequirements]="respondentRequirements"></app-resp-number-container>
+          </div>
+        </div>
+      </div>
+
+      <!--      SECTION 5 -->
+      <div #section5 id="section5" class="c-section__block-wrapper">
+        <div class="c-test__card" [class.disabled]="!respondentRequirements.countries.length">
+          <div class="c-section-five__market">
+            <div class="c-test__card__title">
+              <span class="c-test__card__number">5</span>
+              {{ "BIC.Select and describe category" | translate }}
+              <span class="market-tip" *ngIf="respondentRequirements.countries.length"><app-question-tooltip
+                [title]="'respondents.why-important'"
+                [texts]="[
+                'respondents.This is to secure that relevant respondents are qualified into the test.',
+                'respondents.Screening will be based on your selected sub-category/sub-categories. This means that only respondents that are involved in your selected sub-category/sub-categories will answer the survey.']"
+                additionalClass="market"
+                [arrowShift]="marketArrowShift"
+              ></app-question-tooltip></span>
+            </div>
+            <div class="c-section__field-with-text" *ngIf="respondentRequirements.countries.length">
+              <div class="c-common__form-field c-section-five__form-field">
+                <app-involvment-category></app-involvment-category>
+              </div>
+            </div>
+          </div>
+          <div class="c-section__subtext market" *ngIf="respondentRequirements.countries.length">
+            <div class="category_title">
+              {{ "respondents.why-important" | translate }}
+            </div>
+            <p class="category_text">
+              {{ "respondents.This is to secure that relevant respondents are qualified into the test." | translate }}
+            </p>
+            <p class="category_text">
+              {{ "respondents.Screening will be based on your selected sub-category/sub-categories. This means that only respondents that are involved in your selected sub-category/sub-categories will answer the survey." | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--      SECTION 6-->
+      <div #section6 id="section6" class="c-section__block-wrapper">
+        <div class="c-test__card column" [class.disabled]="!respondentRequirements.countries.length">
+          <div class="space-between">
+            <div class="c-test__card__title">
+              <span class="c-test__card__number">6</span>
+              {{ "BIC.Select category screening" | translate }}
+              <span class="market-tip" *ngIf="respondentRequirements.countries.length"><app-question-tooltip
+                [texts]="[
+              'BIC.All respondents in the selected market, region, age, gender (and segment if selected) will qualify for the survey']"
+                additionalClass="market"
+                [arrowShift]="marketArrowShift"
+              ></app-question-tooltip></span>
+            </div>
+            <div class="c-section__subtext market" *ngIf="respondentRequirements.countries.length">
+              <div class="c-why-add__text">
+                {{ "BIC.All respondents in the selected market, region, age, gender (and segment if selected) will qualify for the survey" | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="c-section__field-with-text" *ngIf="respondentRequirements.countries.length">
+            <div class="c-section-five__category-screening">
+              <app-category-screening [respondentRequirements]="respondentRequirements"
+                                      [testType]="TestType.BIC"></app-category-screening>
+              <app-incident-rate *ngIf="respondentRequirements.countries.length"></app-incident-rate>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-section__footer one-button">
+        <button class="c-common__button c-common__button--gradient normal"
+                (click)="goTo('section-6')">
+          {{ "buttons.next" | translate }}
+          <app-icon
+            [iconType]="IconsType.RightArrow"
+            [color]="'#FFFFFF'"
+            class="icon-right"></app-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

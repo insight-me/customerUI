@@ -1,0 +1,57 @@
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/mixins';
+
+.c-footer {
+  @include flex-center;
+
+  height: 60px;
+  background: $background;
+
+  &__container {
+    @include flex-space-between-center;
+
+    width: 100%;
+    margin: 0 20px;
+    padding: 8px 0;
+    border-top: 1px solid #DCDCDC;
+  }
+
+  &__text {
+    @include medium-14;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+
+    .c-footer__text {
+      cursor: pointer;
+    }
+
+    & > * {
+      margin-left: 60px;
+      text-decoration: none;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-footer {
+    height: 68px;
+
+    &__container {
+      flex-direction: column-reverse;
+      justify-content: space-between;
+      height: 68px;
+    }
+
+    &__nav {
+      justify-content: space-between;
+      width: 300px;
+
+      & > * {
+        margin-left: 0;
+      }
+    }
+  }
+}

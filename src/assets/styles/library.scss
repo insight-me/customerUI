@@ -1,0 +1,222 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-library {
+  padding: 20px;
+  background: $background;
+
+  &__filter {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+
+    &.active {
+      height: 100%;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+
+    &__search {
+      width: 300px;
+      height: 40px;
+
+      &.invisible {
+        display: none;
+      }
+
+      &-input {
+        height: 40px;
+      }
+    }
+  }
+
+  &__title {
+    @include medium-32;
+
+    margin: 0;
+  }
+
+  &__mobile-table {
+    display: none;
+  }
+
+  &__table {
+    display: grid;
+    width: 100%;
+    margin-top: 40px;
+    background: $white;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+
+    &-header {
+      @include regular-14;
+
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      text-align: left;
+      color: $lightgray !important;
+      border-bottom: 1px solid #D6D6D6;
+    }
+
+    &-row {
+      @include flex-start-center;
+      @include regular-14;
+
+      padding: 14px 0 14px 20px;
+      text-align: left;
+
+      &.price {
+        justify-content: flex-end;
+        padding-right: 20px;
+      }
+
+      &.background {
+        background: $table-highlight;
+      }
+    }
+  }
+}
+
+@media #{$tablet} {
+  .c-library {
+    &__table {
+      &.tablet {
+        grid-template-columns: minmax(130px, 1.3fr) minmax(128px, 0.7fr) minmax(106px, 0.7fr) minmax(113px, 0.7fr) minmax(108px, 0.7fr) minmax(106px, 0.7fr) minmax(74px, 0.5fr) minmax(105px, 0.41fr) minmax(40px, 0.23fr);
+        max-width: 1028px;
+        overflow-x: auto;
+      }
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-library {
+    &__header {
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+
+      &__search {
+        width: 335px;
+      }
+    }
+
+    &__title {
+      margin-bottom: 20px;
+    }
+
+    &__table {
+      display: none;
+    }
+
+    &__mobile-table {
+      display: flex;
+      flex-direction: column;
+
+      &__header {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        margin-top: 19px;
+
+        &-item {
+          @include regular-14;
+
+          display: flex;
+          align-items: center;
+          padding: 20px 14px;
+          color: $gray !important;
+
+          &.flex-end {
+            justify-content: flex-end;
+          }
+        }
+      }
+
+      &__card {
+        display: block;
+        margin-bottom: 20px;
+        overflow: hidden;
+        background: $white;
+        border-radius: 8px;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+
+        &__tr {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          padding: 6px 10px;
+
+          &-item {
+            @include regular-14;
+
+            padding: 14px 22px 14px 0;
+
+            &.flex-end {
+              text-align: right;
+            }
+
+            &.background {
+              background: $table-highlight;
+            }
+          }
+        }
+
+        &__sub-tr {
+          display: grid;
+          grid-template-columns: minmax(140px, 1fr) minmax(130px, 2fr);
+          padding: 0;
+
+          &__contents {
+            display: contents;
+
+            &__header {
+              @include regular-14;
+
+              padding: 13px 10px;
+              color: $gray !important;
+
+              &.background {
+                background: $table-highlight;
+              }
+            }
+
+            &__item {
+              @include regular-14;
+
+              padding: 13px 0;
+
+              &.background {
+                background: $table-highlight;
+              }
+            }
+          }
+
+          &__delete {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            &.background {
+              background: $table-highlight;
+            }
+
+            &-item {
+              @include flex-space-between-center;
+              @include regular-14;
+
+              padding: 13px 0;
+              color: $gray !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

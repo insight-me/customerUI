@@ -1,0 +1,65 @@
+@import "variables";
+
+.app-associations-score {
+  @include flex-column-stretch;
+
+  margin: 0 20px;
+  font-family: "GT Walsheim Pro Medium";
+
+  &__content {
+    display: grid;
+
+    &-row {
+      display: grid;
+
+      &-th {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-bottom: 8px;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 14px;
+        line-height: 150%;
+        font-weight: 400;
+        text-align: center;
+        color: $dark-gray;
+        font-style: italic;
+        letter-spacing: 0.005em;
+
+        &.padding {
+          justify-content: start;
+          padding-left: 12px;
+          text-align: start;
+        }
+      }
+
+      &-td {
+        min-height: 59px;
+        padding: 20px 15px;
+        text-align: left;
+        background: #f6f5fc;
+        border: 1px solid #b8b2ea;
+
+        &.firstrow:first-child {
+          border-top-left-radius: 8px;
+        }
+
+        &.firstrow:last-child {
+          border-top-right-radius: 8px;
+        }
+
+        &.lastrow:first-child {
+          border-bottom-left-radius: 8px;
+        }
+
+        &.lastrow:last-child {
+          border-bottom-right-radius: 8px;
+        }
+
+        &.gamma {
+          text-align: end;
+        }
+      }
+    }
+  }
+}

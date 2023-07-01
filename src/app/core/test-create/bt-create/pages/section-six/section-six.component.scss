@@ -1,0 +1,49 @@
+@import "variables";
+@import "mixins";
+@import "breakpoint-slicer";
+
+
+
+::ng-deep .c-section-six_tooltip-wrapper {
+  .tooltip {
+    left: 126% !important;
+  }
+
+  @include to(xs) {
+    .tooltip {
+      left: -104px !important;
+    }
+  }
+}
+
+.c-section-six {
+  margin-top: 20px;
+  padding: 0 20px 20px;
+
+  &__market {
+    width: 100%;
+  }
+}
+
+.market-tip {
+  display: none;
+
+  @media (max-width: 1500px) {
+    display: inline;
+  }
+}
+
+@media (max-width: 1500px) {
+  .c-section-six {
+    &__tip {
+      display: none;
+    }
+  }
+}
+
+@media #{$mobilemin} {
+  .space-between-mob {
+    display: flex;
+    justify-content: space-between;
+  }
+}

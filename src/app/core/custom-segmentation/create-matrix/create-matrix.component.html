@@ -1,0 +1,98 @@
+<div class="c-segmentation-section__block c-create-matrix__container">
+  <div *ngIf="!viewOnly"
+       class="c-segmentation-section__block__section">
+    <div class="c-segmentation-section__block__section__title">
+      <span class="c-segmentation-section__block__section__title-num">4</span>{{'segmentation.section-4' | translate}}
+    </div>
+    <p class="c-segmentation-section__block__section__subtitle">{{'segmentation.matrix-subtitle' | translate}}</p>
+  </div>
+  <div #matrix
+       class="c-create-matrix__matrix">
+    <table *ngIf="segmentation && form"
+           [ngClass]="getTemplateClass(segmentation.segments.length)"
+           class="c-create-matrix__matrix__table">
+      <tbody class="c-base__grid-table-body">
+        <tr *ngFor="let question of segmentation.questions; let i=index"
+            class="c-base__grid-table-body-row c-segmentation-list__table__contents background">
+          <td class="c-base__grid-table-body-item c-create-matrix__matrix__table__row c-create-matrix__matrix__table__statement background">{{question.displayText}}
+            <span *ngIf="viewOnly && i === 0"
+                  class="c-create-matrix__matrix__table__header">{{'segmentation.statement' | translate}}</span>
+          </td>
+          <td class="c-base__grid-table-body-item c-create-matrix__matrix__table__row background">{{question.minValue}}
+            <span *ngIf="viewOnly && i === 0"
+                  class="c-create-matrix__matrix__table__header">{{'segmentation.min' | translate}}</span>
+          </td>
+          <td class="c-base__grid-table-body-item c-create-matrix__matrix__table__row background">{{question.maxValue}}
+            <span *ngIf="viewOnly && i === 0"
+                  class="c-create-matrix__matrix__table__header">{{'segmentation.max' | translate}}</span>
+          </td>
+          <td *ngFor="let segment of segmentation.segments; let i=index; let isLast = last"
+              class="c-base__grid-table-body-item c-create-matrix__matrix__table__error-container"
+              [class.last]="isLast"
+              [class.c-create-matrix__matrix__table__input-container]="!viewOnly"
+              [class.background]="viewOnly"
+              [class.c-create-matrix__matrix__table__row]="viewOnly">
+            <div *ngIf="viewOnly; else inputElement">{{getIndex(question?.id, segment?.id)}}</div>
+            <div *ngIf="getControl(question.id, segment.id).invalid && getControl(question.id, segment.id).dirty"
+                 class="c-create-matrix__matrix__table__error-container__error"
+                 [pTooltip]="'segmentation.matrix-subtitle' | translate"
+                 tooltipPosition="top"
+                 tooltipEvent="hover"></div>
+            <ng-template #inputElement>
+              <input *ngIf="getControl(question?.id, segment?.id)"
+                     pInputText
+                     class="c-create-matrix__matrix__table__input"
+                     pattern="(-?)[0-9]+([.,][0-9]{1,3})?$"
+                     (input)="saveIndex(question.id, segment.id)"
+                     [formControl]="getControl(question.id, segment.id)">
+            </ng-template>
+          </td>
+        </tr>
+        <tr class="c-base__grid-table-body-row c-segmentation-list__table__contents">
+          <td class="c-base__grid-table-body-item c-create-matrix__matrix__table__constant bold background">{{'segmentation.constant' | translate}}</td>
+          <td class="c-base__grid-table-body-item background"></td>
+          <td class="c-base__grid-table-body-item c-create-matrix__matrix__table__row background"></td>
+          <td *ngFor="let segment of segmentation.segments"
+              class="c-base__grid-table-body-item c-create-matrix__matrix__table__row background">
+            <div *ngIf="segment"
+                 class="bold">{{segment.constant || segment.constant === 0 ? segment.constant : null}}</div>
+          </td>
+        </tr>
+        <!--      IR-->
+        <tr class="c-base__grid-table-body-row c-segmentation-list__table__contents">
+          <td class="c-base__grid-table-body-item c-create-matrix__matrix__table__constant bold background">{{'segmentation.IR' | translate}}</td>
+          <td class="c-base__grid-table-body-item background"></td>
+          <td class="c-base__grid-table-body-item c-create-matrix__matrix__table__row background"></td>
+          <td *ngFor="let segment of segmentation.segments"
+              class="c-base__grid-table-body-item c-create-matrix__matrix__table__row background">
+            <div *ngIf="segment"
+                 class="bold">{{segment.ir || segment.ir === 0 ? segment.ir : null}}</div>
+          </td>
+        </tr>
+        <tr class="c-base__grid-table-body-row c-segmentation-list__table__contents no-bottom-border">
+          <td class="c-base__grid-table-body-item no-bottom-border background"></td>
+          <td class="c-base__grid-table-body-item no-bottom-border background"></td>
+          <td class="c-base__grid-table-body-item c-create-matrix__matrix__table__row no-bottom-border background"></td>
+          <td *ngFor="let segment of segmentation.segments"
+              class="c-create-matrix__matrix__table__row no-bottom-border background">
+            <div class="rotate">{{segment.displayText ? segment.displayText : null}}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="!viewOnly"
+     class="c-segmentation-section__footer"
+     [class.space]="isEditMode">
+  <button *ngIf="isEditMode;"
+          class="c-common__button c-common__button--border tiny"
+          (click)="cancelChanges.emit()">{{'segmentation.cancel-changes' | translate}}</button>
+  <div [pTooltip]="getDisabledStatus()?('segmentation.add-all-indexes-error' | translate): null"
+       tooltipPosition="top"
+       tooltipEvent="hover">
+    <button class="c-segmentation-section__footer__btn c-common__button c-common__button--gradient tiny"
+            [disabled]="getDisabledStatus()"
+            (click)="saveSegmentation()">{{'segmentation.save-segmentation' | translate}}</button>
+  </div>
+</div>

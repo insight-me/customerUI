@@ -1,0 +1,31 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-concept-overview {
+  max-width: 1000px;
+
+  &__name {
+    @include flex-center;
+    @include medium-24;
+
+    margin: 20px 0;
+  }
+
+  &__moodboard {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__description {
+    margin-top: 20px;
+
+    &-text {
+      @include regular-16;
+
+      margin: 0;
+      text-align: justify;
+      color: $dark-gray;
+      word-break: break-word;
+    }
+  }
+}

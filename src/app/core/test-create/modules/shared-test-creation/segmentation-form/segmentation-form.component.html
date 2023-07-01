@@ -1,0 +1,64 @@
+<div *ngIf="segmentTypes.length && respondentRequirements">
+  <div class="c-segmentation-form__row">
+    <div *ngFor="let segmentType of segmentTypes; let i=index" class="c-segmentation-form__row-element">
+      <div class="c-segmentation-form__padding">
+        <fieldset class="c-common__fieldset"
+                  [class.disabled]="i === 0 && !(appStateService.customSegments$ | async).length"
+                  [disabled]="i === 0 && !(appStateService.customSegments$ | async).length">
+          <input *ngIf="i !== 0; else firstType" class="c-common__radiobutton"
+                 type="radio"
+                 name="segmentType"
+                 [formControl]="segmentTypeControl"
+                 [value]="segmentTypes[i]"
+                 [id]="segmentType"
+                 (change)="onChangeSegmentType()">
+          <ng-template #firstType>
+            <input class="c-common__radiobutton"
+                   type="radio"
+                   name="segmentType"
+                   [formControl]="segmentTypeControl"
+                   [value]="segmentTypes[i]"
+                   [id]="segmentType"
+                   (change)="onChangeSegmentType()">
+          </ng-template>
+          <label class="c-common__radiobutton-label"
+                 [for]="segmentType">{{segmentType | translate}}</label>
+        </fieldset>
+      </div>
+      <ng-container *ngIf="isBicTest">
+        <div *ngIf="i === 0" class="c-segmentation-form__column-element">
+          <fieldset class="c-common__fieldset">
+            <app-dropdown [items]="appStateService.customSegments$ | async"
+                          [withMultiselect]="true"
+                          [dataType]="DropdownDataType.CustomSegmentation"
+                          [isDesibled]="!respondentRequirements.isCustomSegmentation"
+                          [isError]="respondentRequirements.isCustomSegmentation && !customSegmentControl.value.length"
+                          [selectedItems]="customSegmentControl.value"
+                          (getSelectedItems)="onSelectCustomSegments($event)"></app-dropdown>
+          </fieldset>
+          <small *ngIf="respondentRequirements.isCustomSegmentation && !customSegmentControl.value.length"
+                 class="p-error c-common__form-field-error">{{isBicTest ?
+            ('BIC.Please select at least on consumer segment or switch to another option' | translate) : ('respondents.error-segments' | translate)}}</small>
+        </div>
+
+        <div *ngIf="i === 1" class="c-segmentation-form__column-element">
+          <fieldset class="c-common__fieldset">
+            <app-dropdown [items]="segmentsForDropdown"
+                          [withMultiselect]="true"
+                          [isDesibled]="!respondentRequirements.isSegmentation"
+                          [isError]="respondentRequirements.isSegmentation && segmentControl.value.length < 2"
+                          [selectedItems]="segmentControl.value"
+                          [dataType]="DropdownDataType.Segmentation"
+                          (getSelectedItems)="onSelectSegments($event)"></app-dropdown>
+          </fieldset>
+          <p class="c-segmentation-form__explanation-text"
+             *ngIf="isBicTest">{{'BIC.We recommend to select all. If you want to secure 100 respondents in a specific segment please choose which one to boost.' | translate}}</p>
+          <small *ngIf="respondentRequirements.isSegmentation && segmentControl.value.length < 2"
+                 class="p-error c-common__form-field-error">{{isBicTest ?
+            ('BIC.Please select at least on consumer segment or switch to another option' | translate) : ('respondents.error-segments' | translate)}}</small>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+

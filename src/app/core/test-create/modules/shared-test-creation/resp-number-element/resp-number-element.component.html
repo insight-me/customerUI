@@ -1,0 +1,40 @@
+<div class="c-resp-number-element">
+  <ng-container>
+    <div *ngFor="let control of segmentForm.controls; let i = index"
+         class="c-common__field c-resp-number__form-field">
+      <label
+        class="c-common__form-label">{{convertToFormGroup(control).controls.name.value}}</label>
+      <fieldset class="c-common__fieldset">
+              <input
+                type="number"
+                pInputText
+                [formControl]="convertToFormControl(convertToFormGroup(control).controls.respondentCount)"
+                (blur)="updateValue($event, convertToFormControl(convertToFormGroup(control).controls.respondentCount))"
+                (keypress)="numberOnly($event)"
+                step="1"
+                min="0"
+                [placeholder]="'Nr'"
+                class="c-common__input" />
+<!--        <p-inputNumber-->
+<!--          [formControl]="convertToFormControl(convertToFormGroup(control).controls.respondentCount)"-->
+<!--          class="c-common__input"-->
+<!--          min="0"-->
+<!--          (onBlur)="updateValue(convertToFormControl(convertToFormGroup(control).controls.respondentCount))"-->
+<!--        ></p-inputNumber>-->
+      </fieldset>
+      <ng-container *ngIf="controlHasError(convertToFormGroup(control).controls.respondentCount)">
+        <small
+          *ngIf="convertToFormGroup(control).controls.respondentCount.errors.checkNotMoreThenAllrespondents; else otherValidity"
+          class="p-error c-common__form-field-error">
+          {{ 'BIC.Number of respondents can not be more then total in country.' | translate}}
+        </small>
+        <ng-template #otherValidity>
+          <small
+            class="p-error c-common__form-field-error">{{'respondents.error-length-segments' | translate:{
+            min: 100
+          } }}</small>
+        </ng-template>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

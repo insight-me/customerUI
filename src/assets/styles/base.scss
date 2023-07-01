@@ -1,0 +1,1660 @@
+@import "variables";
+@import "mixins";
+
+.c-base {
+  &__button {
+    @include flex-center;
+
+    min-width: 220.58px;
+    height: 49px;
+    padding: 16px 32px;
+    font-family: "GT Walsheim Pro Regular";
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    border: 0;
+    border-radius: 30px;
+    transition: 0.3s ease-out;
+
+    &-icon {
+      width: 16px;
+      height: 10px;
+      margin-left: 10px;
+
+      &.plus {
+        width: 10px;
+        min-height: 2px;
+      }
+
+      &--left {
+        margin-right: 10px;
+        margin-left: 0;
+      }
+    }
+
+    &.small {
+      width: 106px;
+      min-width: 106px;
+      height: 30px;
+      font-size: 12px;
+    }
+
+    &.normal {
+      min-width: 141px;
+      height: 34px;
+    }
+
+    &:not(:disabled) {
+      cursor: pointer;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &--regular {
+      color: $black;
+      background: linear-gradient(180deg, $white 0%, $white 100%);
+      border: 2px solid $white;
+      border-radius: 24.5px;
+      box-shadow: 0 3px 9px 0 rgba(97, 97, 97, 0.25);
+
+      &:not(:disabled):hover {
+        background: $white;
+        border: 2px solid $associations-table;
+        box-shadow: 0 3px 9px 0 rgba(97, 97, 97, 0.32);
+      }
+    }
+
+    &--border {
+      background: linear-gradient(180deg, $white 0%, $white 100%);
+      border: 2px solid $orange;
+      box-shadow: 0 3px 9px 0 rgba(97, 97, 97, 0.25);
+
+      &:not(:disabled):hover {
+        background: #ffeee3;
+        border: 2px solid $darkorange;
+        box-shadow: 0 3px 9px 0 rgba(97, 97, 97, 0.32);
+      }
+    }
+
+    &--gradient {
+      position: relative;
+      z-index: 100;
+      color: $white;
+      background-image: linear-gradient(#ff9e64, #fdca9c);
+      background-size: 100%;
+      border: 1px solid $white;
+      box-shadow: 0 5px 11px 0 rgba(184, 178, 234, 0.16);
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -100;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(#a19ae1, #b5afe8);
+        border-radius: inherit;
+        opacity: 0;
+        transition: opacity 1s;
+      }
+
+      &:not(:disabled):hover {
+        border: 1px solid $white;
+        box-shadow: 0 5px 11px 0 rgba(184, 178, 234, 0.25);
+
+        &::before {
+          opacity: 1;
+        }
+      }
+    }
+
+    &--text {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: auto;
+      min-width: auto;
+      height: 20px;
+      padding: 0;
+      padding-bottom: 2px;
+      font-size: 12px;
+      font-weight: 500;
+      color: $lightgray;
+      text-decoration: none;
+      background: none;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+
+      &.cancel {
+        border-bottom: 1px solid $associations-table;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.3;
+      }
+
+      .icon {  // delete
+        margin-left: 6px;
+
+        &-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 24px;
+          height: 24px;
+          margin-right: 10px;
+          background-color: $white;
+          border: 1px solid $lightornge;
+          border-radius: 20px;
+          box-shadow: 0 0 4px 0 rgba(114, 109, 157, 0.17);
+        }
+
+        &--plus {
+          width: 9px;
+        }
+      }
+    }
+  } // delete
+
+  &__input {
+    width: 100%;
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button, // delete
+    &::-webkit-inner-spin-button {
+      appearance: none;
+    }
+
+    .p-inputnumber { // deleet
+      width: 100%;
+    }
+
+    &.p-inputtext {
+      height: 56px;
+      padding: 10px 41px 10px 10px;
+      font-family: "GT Walsheim Pro Regular";
+      color: $black;
+      background-color: $light-background;
+      border: 1px solid $light-orange-second;
+      border-radius: 5px;
+      box-shadow: none !important;
+
+      &.ng-touched.ng-invalid.ng-dirty,
+      &.ng-dirty.ng-invalid {
+        position: relative;
+        background-color: $errorbackground;
+        border: 1px solid $errorred;
+      }
+
+      &:hover {
+        border-color: $darkorange !important;
+      }
+
+      &.active {
+        border-color: $darkorange !important;
+      }
+
+      &::placeholder { //delete
+        font-size: 17px;
+        color: black;
+        font-style: oblique;
+      }
+    }
+  } // delete
+
+  &__input-small {
+    width: 100%;
+
+    .p-inputnumber-input {
+      width: 52px;
+      height: 52px;
+      padding: 10px 15px;
+      font-family: "GT Walsheim Pro Regular";
+      color: $black;
+      background-color: $light-background;
+      border: 1px solid $light-orange-second;
+      border-radius: 5px;
+      box-shadow: none !important;
+
+      &.ng-touched.ng-invalid,
+      &.ng-dirty.ng-invalid {
+        position: relative;
+        background-color: $errorbackground;
+        border: 1px solid $errorred;
+      }
+
+      &:hover {
+        border-color: $darkorange !important;
+      }
+
+      &.active {
+        border-color: $darkorange !important;
+      }
+
+      &::placeholder {
+        font-size: 17px;
+        color: black;
+        font-style: oblique;
+      }
+    }
+  } //delete
+
+  &__grid-table {
+    display: grid;
+    min-width: 100%;
+    border-collapse: collapse;
+
+    &-head {
+      display: contents;
+
+      &-item {
+        padding: 6px 0;
+        overflow: hidden;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 500;
+        text-align: left;
+        color: $lightgray;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+        border-bottom: 1px solid $lightgrayWhite;
+      }
+    }
+
+    &-body {
+      display: contents;
+
+      &-row {
+        display: contents;
+      }
+
+      &-item {
+        display: flex;
+        align-items: center;
+        //max-width: 470px;
+        min-height: 67px;
+        padding: 14px 5px 9px 0;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: normal;
+        text-align: left;
+        letter-spacing: 0;
+        //overflow: hidden;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        border-bottom: 1px solid $lightgrayWhite;
+
+        &--value {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 75px;
+          height: 46px;
+          padding: 7px 25px;
+          font-size: 18px;
+          color: $black;
+          font-style: oblique;
+          white-space: nowrap;
+          background-color: $light-background;
+          border: 1px solid $orange;
+          border-radius: 7px;
+        }
+
+        &.actions {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        &.pending,
+        &.standard,
+        &.active,
+        &.recommended {
+          font-family: "GT Walsheim Pro Regular";
+          font-size: 12px;
+          line-height: 14px;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
+        &.pending,
+        &.standard {
+          color: $associations-table;
+        }
+
+        &.active,
+        &.recommended {
+          color: #8ed08a;
+        }
+
+        &.blocked {
+          color: #ff2e00;
+        }
+
+        &-icon {
+          margin-right: 8px;
+          margin-bottom: -6px;
+        }
+      }
+    }
+  }
+
+  &__dropdown-test {
+    width: 100%;
+
+    .p-focus {
+      box-shadow: none !important;
+    }
+
+    .p-dropdown {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: auto;
+      background-color: $white;
+      border: 1px solid $light-orange-second !important;
+      border-radius: 5px;
+
+      .p-dropdown-label {
+        padding: 1rem;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: 500;
+        text-align: left;
+        color: $black !important;
+        letter-spacing: 0.5px;
+      }
+
+      .p-dropdown-trigger {
+        width: 3.357rem;
+
+        .pi-chevron-down::before {
+          font-size: 21px;
+        }
+      }
+
+      .p-dropdown-panel {
+        top: 52px !important;
+        width: 100%;
+        height: auto;
+        background-color: $white;
+        //border: 1px solid $darkorange;
+        border-radius: 8px;
+        box-shadow: 0 3px 28px 0 rgba(0, 0, 0, 0.26);
+
+        .p-dropdown-header {
+          border-radius: 8px;
+        }
+
+        .p-dropdown-items {
+          &-wrapper {
+            height: auto !important;
+            overflow-x: none;
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: thin;
+
+            &::-webkit-scrollbar {
+              width: 5px;
+              background-color: #f9f9fd;
+            }
+
+            &::-webkit-scrollbar-thumb {
+              height: 20px;
+              background-color: $light-orange-second;
+              border-radius: 5px;
+            }
+
+            &::-webkit-scrollbar-track {
+              background-color: #f9f9fd;
+              border-radius: 5px;
+            }
+          }
+
+          .p-dropdown-item {
+            height: auto;
+            padding: 10px 22px;
+            text-align: left;
+            white-space: pre-line;
+            word-wrap: break-word;
+            border-bottom: 1px solid $lightgrayWhite;
+          }
+        }
+      }
+    }
+
+    .p-dropdown-open {
+      background-color: #fff7f2;
+
+      .p-dropdown-trigger {
+        .pi-chevron-down::before {
+          content: url(../images/svg/ic_dropdown-open.svg);
+          position: absolute;
+          top: 9px;
+          right: 15px;
+        }
+      }
+    }
+  }
+
+  // dropdown for language on register
+  &__dropdown-language {
+    .p-dropdown {
+      .p-dropdown-panel {
+        height: auto;
+        min-height: 59px;
+
+        .p-dropdown-items {
+          &-wrapper {
+            height: auto !important;
+            min-height: 59px;
+          }
+        }
+      }
+    }
+  }
+
+  &__multiselect-test {
+    width: 100%;
+
+    .p-focus {
+      background: none;
+      box-shadow: none !important;
+    }
+
+    .p-multiselect {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 52px;
+      background-color: $white;
+      border: 1px solid $light-orange-second !important;
+      border-radius: 5px;
+
+      .p-multiselect-label {
+        padding: 1rem;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: 500;
+        color: $black !important;
+        letter-spacing: 0.5px;
+      }
+
+      .p-multiselect-trigger {
+        width: 3.357rem;
+
+        .pi-chevron-down::before {
+          font-size: 21px;
+        }
+      }
+
+      .p-multiselect-panel {
+        top: 52px !important;
+        width: 399px;
+        height: 336px;
+        background-color: $white;
+        border: 1px solid $darkorange;
+        border-radius: 8px;
+        box-shadow: 0 3px 28px 0 rgba(0, 0, 0, 0.26);
+
+        .p-multiselect-header {
+          height: 46px;
+          padding: 10px 22px;
+          border-bottom: 1px solid $lightgrayWhite;
+          border-radius: 8px;
+
+          .p-checkbox {
+            width: 24px;
+            height: 24px;
+
+            &::after {
+              content: "Select All";
+              position: absolute;
+              top: 10px;
+              left: 60px;
+            }
+
+            .p-focus {
+              box-shadow: none !important;
+            }
+
+            &-label {
+              margin-left: 14px !important;
+              font-family: "GT Walsheim Pro Regular";
+              font-size: 16px;
+              line-height: 32px;
+              font-weight: 500;
+              letter-spacing: 0;
+            }
+
+            .p-checkbox-box {
+              width: 24px;
+              height: 24px;
+              background-color: $light-background;
+              border: 1px solid $light-orange-second;
+              border-radius: 3px !important;
+
+              &:hover {
+                border-color: $darkorange !important;
+              }
+
+              &.p-highlight {
+                background-color: $darkorange;
+                border: 1px solid $darkorange;
+
+                &:hover {
+                  background-color: $darkorange !important;
+                }
+              }
+
+              .p-checkbox-icon {
+                font-size: 12px;
+              }
+            }
+          }
+
+          .p-multiselect-filter {
+            width: 71%;
+            margin-left: 85px;
+          }
+        }
+
+        .p-multiselect-items-wrapper {
+          min-height: 277px !important;
+          overflow-x: none;
+          overflow-y: auto;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+
+          &::-webkit-scrollbar {
+            width: 5px;
+            background-color: #f9f9fd;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            height: 5px;
+            background-color: $light-orange-second;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background-color: #f9f9fd;
+            border-radius: 5px;
+          }
+
+          .p-multiselect-items {
+            .p-multiselect-item-group {
+              display: none;
+            }
+
+            .p-multiselect-item {
+              height: 100%;
+              min-height: 46px;
+              padding: 10px 22px;
+              white-space: pre-line;
+              word-wrap: break-word;
+              border-bottom: 1px solid $lightgrayWhite;
+
+              &.p-highlight {
+                background: none;
+              }
+
+              &:focus {
+                box-shadow: none;
+              }
+
+              .p-checkbox {
+                width: 24px;
+                height: 24px;
+
+                .p-focus {
+                  box-shadow: none !important;
+                }
+
+                &-label {
+                  margin-left: 14px !important;
+                  font-family: "GT Walsheim Pro Regular";
+                  font-size: 16px;
+                  line-height: 32px;
+                  font-weight: 500;
+                  letter-spacing: 0;
+                }
+
+                .p-checkbox-box {
+                  width: 24px;
+                  height: 24px;
+                  background-color: $light-background;
+                  border: 1px solid $light-orange-second;
+                  border-radius: 3px !important;
+
+                  &:hover {
+                    border-color: $darkorange !important;
+                  }
+
+                  &.p-highlight {
+                    background-color: $darkorange;
+                    border: 1px solid $darkorange;
+
+                    &:hover {
+                      background-color: $darkorange !important;
+                    }
+                  }
+
+                  .p-checkbox-icon {
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .p-multiselect-open {
+      background-color: #fff7f2;
+
+      .p-multiselect-trigger {
+        .pi-chevron-down::before {
+          content: url(../images/svg/ic_dropdown-open.svg);
+          position: absolute;
+          top: 9px;
+          right: 15px;
+        }
+      }
+    }
+  }
+
+  &__multiselect-report {
+    width: 100%;
+
+    .p-focus {
+      background: none;
+      box-shadow: 0 0 2px 3px rgba(255, 152, 89, 0.35) !important;
+    }
+
+    .p-multiselect {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 52px;
+      border: 1px solid $light-orange-second !important;
+      border-radius: 5px;
+      //background: $input-background;
+
+      .p-multiselect-label {
+        padding: 1rem;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: 500;
+        color: $black !important;
+        letter-spacing: 0.5px;
+      }
+
+      .p-multiselect-trigger {
+        width: 3.357rem;
+
+        .pi-chevron-down::before {
+          font-size: 21px;
+        }
+      }
+
+      .p-multiselect-panel {
+        top: 52px !important;
+        height: 330px;
+        overflow: hidden;
+        background-color: $white;
+        border: 1px solid $darkorange;
+        border-radius: 8px;
+        box-shadow: 0 3px 28px 0 rgba(0, 0, 0, 0.26);
+
+        .p-multiselect-header {
+          height: 46px;
+          padding: 10px 16px;
+          background: $white;
+          border-bottom: 1px solid $lightgrayWhite;
+
+          .p-checkbox {
+            width: 24px;
+            height: 24px;
+
+            &::after {
+              content: "All Segments";
+              position: absolute;
+              top: 0;
+              left: 50px;
+              font-family: "GT Walsheim Pro Regular";
+              font-size: 16px;
+              line-height: 46px;
+              font-weight: bold;
+              letter-spacing: 0;
+            }
+
+            .p-focus {
+              box-shadow: none !important;
+            }
+
+            &-label {
+              margin-left: 14px !important;
+              font-family: "GT Walsheim Pro Regular";
+              font-size: 16px;
+              line-height: 32px;
+              font-weight: bold;
+              letter-spacing: 0;
+            }
+
+            .p-checkbox-box {
+              width: 24px;
+              height: 24px;
+              background-color: $light-background;
+              border: 1px solid $light-orange-second;
+              border-radius: 3px !important;
+
+              &:hover {
+                border-color: $darkorange !important;
+              }
+
+              &.p-highlight {
+                overflow: hidden;
+                background: url(../images/svg/miltichecked.svg);
+                background-size: cover;
+                border: 1px solid $darkorange;
+
+                //&:hover {
+                //  background-color: $darkorange !important;
+                //}
+              }
+
+              .p-checkbox-icon {
+                display: none;
+              }
+            }
+          }
+        }
+
+        .p-multiselect-items-wrapper {
+          min-height: 277px !important;
+          overflow-x: none;
+          overflow-y: auto;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+
+          &::-webkit-scrollbar {
+            width: 5px;
+            background-color: #f9f9fd;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            height: 5px;
+            background-color: $light-orange-second;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background-color: #f9f9fd;
+            border-radius: 5px;
+          }
+
+          .p-multiselect-items {
+            opacity: 0.75;
+
+            .p-multiselect-item-group {
+              display: none;
+            }
+
+            .p-multiselect-item {
+              height: 46px;
+              padding: 10px 16px;
+              font-family: "GT Walsheim Pro Regular";
+              font-size: 16px;
+              line-height: 32px;
+              font-weight: bold;
+              letter-spacing: 0;
+
+              &.p-highlight {
+                background: none;
+              }
+
+              &:focus {
+                box-shadow: none;
+              }
+
+              .p-checkbox {
+                width: 24px;
+                height: 24px;
+
+                .p-focus {
+                  box-shadow: none !important;
+                }
+
+                &-label {
+                  margin-left: 14px !important;
+                }
+
+                .p-checkbox-box {
+                  width: 24px;
+                  height: 24px;
+                  background-color: $light-background;
+                  border: 1px solid $light-orange-second;
+                  border-radius: 3px !important;
+
+                  &:hover {
+                    border-color: $darkorange !important;
+                  }
+
+                  &.p-highlight {
+                    background-color: $darkorange;
+                    border: 1px solid $darkorange;
+
+                    &:hover {
+                      background-color: $darkorange !important;
+                    }
+                  }
+
+                  .p-checkbox-icon {
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .p-multiselect-open {
+      background-color: #fff7f2;
+
+      .p-multiselect-trigger {
+        .pi-chevron-down::before {
+          content: url(../images/svg/ic_dropdown-open.svg);
+          position: absolute;
+          top: 9px;
+          right: 15px;
+        }
+      }
+    }
+  }
+
+  &__p-multiselect-small {
+    width: 100%;
+
+    .p-focus {
+      background: none;
+      box-shadow: 0 0 2px 3px rgba(255, 152, 89, 0.35) !important;
+    }
+
+    .p-multiselect {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 52px;
+      border: 1px solid $light-orange-second !important;
+      border-radius: 5px;
+      //background: $input-background;
+
+      .p-multiselect-label {
+        padding: 1rem;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: 500;
+        color: $black !important;
+        letter-spacing: 0.5px;
+      }
+
+      .p-multiselect-trigger {
+        width: 3.357rem;
+
+        .pi-chevron-down::before {
+          font-size: 21px;
+        }
+      }
+
+      .p-multiselect-panel {
+        top: 52px !important;
+        height: 330px;
+        background-color: $white;
+        border: 1px solid $darkorange;
+        border-radius: 8px;
+        box-shadow: 0 3px 28px 0 rgba(0, 0, 0, 0.26);
+
+        .p-multiselect-items:not(.p-multiselect-virtualscroll) {
+          padding: 0 0 0.5rem;
+        }
+
+        .p-multiselect-header {
+          height: 46px;
+          padding: 10px 16px;
+          background: $white;
+          border-radius: 8px;
+
+          .p-checkbox {
+            width: 24px;
+            height: 24px;
+
+            &::after {
+              content: "All defined markets";
+              position: absolute;
+              top: 0;
+              left: 50px;
+              font-family: "GT Walsheim Pro Regular";
+              font-size: 16px;
+              line-height: 46px;
+              font-weight: bold;
+              letter-spacing: 0;
+            }
+
+            .p-focus {
+              box-shadow: none !important;
+            }
+
+            &-label {
+              margin-left: 14px !important;
+              font-family: "GT Walsheim Pro Regular";
+              font-size: 16px;
+              line-height: 32px;
+              font-weight: bold;
+              letter-spacing: 0;
+            }
+
+            .p-checkbox-box {
+              width: 24px;
+              height: 24px;
+              background-color: $light-background;
+              border: 1px solid $light-orange-second;
+              border-radius: 3px !important;
+
+              &:hover {
+                border-color: $darkorange !important;
+              }
+
+              &.p-highlight {
+                overflow: hidden;
+                background: url(../images/svg/miltichecked.svg);
+                background-size: cover;
+                border: 1px solid $darkorange;
+
+                //&:hover {
+                //  background-color: $darkorange !important;
+                //}
+              }
+
+              .p-checkbox-icon {
+                display: none;
+              }
+            }
+          }
+        }
+
+        .p-multiselect-items-wrapper {
+          min-height: 277px !important;
+          overflow-y: auto;
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+
+          &::-webkit-scrollbar {
+            width: 5px;
+            background-color: #f9f9fd;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            height: 5px;
+            background-color: $light-orange-second;
+            border-radius: 5px;
+          }
+
+          &::-webkit-scrollbar-track {
+            background-color: #f9f9fd;
+            border-radius: 5px;
+          }
+
+          .p-multiselect-items {
+            opacity: 0.75;
+
+            .p-multiselect-item-group {
+              border-top: 1px solid $lightgrayWhite;
+            }
+
+            .p-multiselect-item {
+              height: 46px;
+              padding: 10px 22px 10px 50px;
+              font-family: "GT Walsheim Pro Regular";
+              font-size: 16px;
+              line-height: 32px;
+              font-weight: bold;
+              letter-spacing: 0;
+
+              &.p-highlight {
+                background: none;
+              }
+
+              &:focus {
+                box-shadow: none;
+              }
+
+              .p-checkbox {
+                width: 24px;
+                height: 24px;
+
+                .p-focus {
+                  box-shadow: none !important;
+                }
+
+                &-label {
+                  margin-left: 14px !important;
+                }
+
+                .p-checkbox-box {
+                  width: 24px;
+                  height: 24px;
+                  background-color: $light-background;
+                  border: 1px solid $light-orange-second;
+                  border-radius: 3px !important;
+
+                  &:hover {
+                    border-color: $darkorange !important;
+                  }
+
+                  &.p-highlight {
+                    background-color: $darkorange;
+                    border: 1px solid $darkorange;
+
+                    &:hover {
+                      background-color: $darkorange !important;
+                    }
+                  }
+
+                  .p-checkbox-icon {
+                    font-size: 12px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .p-multiselect-open {
+      background-color: #fff7f2;
+
+      .p-multiselect-trigger {
+        .pi-chevron-down::before {
+          content: url(../images/svg/ic_dropdown-open.svg);
+          position: absolute;
+          top: 9px;
+          right: 15px;
+        }
+      }
+    }
+  }
+
+  &__multiselect {
+    &.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
+      border-color: $light-orange-second !important;
+    }
+
+    .p-selectbutton {
+      .p-button {
+        min-width: 132px;
+        height: 56px;
+        margin-bottom: 18px;
+        margin-left: 21px;
+        background-color: $background;
+        border: 1px solid $light-orange-second;
+
+        .p-button-label {
+          width: 100%;
+          transition: 1s;
+        }
+
+        &:focus {
+          background: none;
+          box-shadow: none !important;
+        }
+
+        &:not(.p-disabled):not(.p-highlight):hover {
+          background-color: $background;
+          border: 1px solid $light-orange-second;
+          transition: 1s;
+        }
+
+        &:first-of-type,
+        &:last-of-type {
+          border: 1px solid $light-orange-second;
+          border-radius: 28px;
+        }
+
+        &:first-of-type,
+        &:nth-child(4) {
+          margin-left: 0;
+        }
+
+        &.p-highlight {
+          position: relative;
+          background-color: $darkorange;
+          border-color: $darkorange;
+          transition: 1s;
+
+          & > .p-button-label {
+            margin: 0 22px;
+            transition: 1s;
+          }
+
+          &:hover {
+            background-color: $darkorange;
+            border-color: $darkorange;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 23px;
+            left: 18px;
+            width: 14px;
+            height: 9px;
+            background-image: url(../../assets/images/svg/ic_done.png);
+            background-size: cover;
+            transition: 1s;
+          }
+        }
+      }
+    }
+  }
+
+  &__multiselect-small {
+    &.ng-dirty.ng-invalid > .p-selectbutton > .p-button {
+      border-color: #f44336 !important;
+    }
+
+    .p-selectbutton {
+      .p-button {
+        min-width: 110px;
+        height: 30px;
+        margin-right: 9px;
+        margin-bottom: 18px;
+        background-color: $input-background;
+        border: 1px solid $light-orange-second;
+
+        .p-button-label {
+          width: 100%;
+          margin: 0 20px;
+          padding-bottom: 1px;
+          font-family: "GT Walsheim Pro Regular";
+          font-size: 14px;
+          line-height: 150%;
+          font-weight: 500;
+          transition: 1s;
+        }
+
+        &:focus {
+          background: none;
+          box-shadow: none !important;
+        }
+
+        &:not(.p-disabled):not(.p-highlight):hover {
+          background-color: $input-background;
+          border: 1px solid $light-orange-second;
+        }
+
+        &:first-of-type,
+        &:last-of-type,
+        &:not(:first-of-type):not(:last-of-type) {
+          border: 1px solid $light-orange-second;
+          border-radius: 15px;
+        }
+
+        &:first-of-type {
+          margin-left: 0;
+        }
+
+        &.p-highlight {
+          position: relative;
+          background-color: $darkorange;
+          border-color: $darkorange;
+          transition: 1s;
+
+          &:hover {
+            background-color: $darkorange;
+            border-color: $darkorange;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            top: 9px;
+            left: 14px;
+            width: 14px;
+            height: 9px;
+            background-image: url(../../assets/images/svg/ic_done.png);
+            background-size: cover;
+            transition: 1s;
+          }
+        }
+      }
+    }
+  }
+
+  &__dropdown-transparent {
+    margin-left: 8px;
+
+    .p-dropdown {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+    }
+  }
+
+  &__dropdown-invisible {
+    margin-right: 36px;
+
+    .p-inputwrapper-focus {
+      .p-dropdown:not(.p-disabled):focus {
+        box-shadow: none !important;
+      }
+    }
+
+    .p-dropdown,
+    .p-focus {
+      background: $background;
+      border: none;
+      box-shadow: none;
+    }
+
+    .p-dropdown {
+      width: 55px;
+    }
+
+    .p-dropdown .p-dropdown-trigger {
+      width: 1.357rem;
+      color: $black;
+    }
+
+    .p-inputtext {
+      padding: 0.5rem 0;
+    }
+
+    .p-dropdown-label {
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 14px;
+      line-height: 16px;
+      font-weight: 500;
+      text-align: end;
+      text-align: left;
+      color: $black;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  &__dropdown-dark {
+    .p-dropdown {
+      background-color: $blue
+    }
+
+    .p-dropdown-label {
+      text-align: left;
+      color: $white;
+
+    }
+
+    .p-dropdown-trigger {
+      .pi-chevron-down::before {
+        color: $white !important;
+      }
+    }
+  }
+
+  &__disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+  }
+
+  &__checkbox-like-radio {
+    width: 0;
+    height: 0;
+
+    & + label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 40px;
+      padding: 0 0 0 54px;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 16px;
+      line-height: 32px;
+      font-weight: 500;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+
+    & + label::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 36px;
+      height: 36px;
+      background-color: $input-background;
+      border: 1px solid $light-orange-second;
+      border-radius: 28px;
+    }
+
+    &:checked + label::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 10px;
+      height: 10px;
+      border: 14px solid $darkorange !important;
+      border-radius: 28px;
+    }
+  }
+
+  &__bold-checkbox {
+    .prime-checkbox {
+      .p-checkbox {
+        &-label {
+          font-family: "GT Walsheim Pro Medium";
+          font-size: 18px;
+          line-height: 35px;
+          color: #000;
+          letter-spacing: 0.64px;
+        }
+      }
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    top: 3px;
+    right: 150px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    width: 256px;
+    max-height: 181px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: $white;
+    border: 1px solid $orange;
+    border-radius: 8px;
+    box-shadow: 0 3px 28px rgba(0, 0, 0, 0.26);
+
+    &.report {
+      top: 30px !important;
+      right: 0 !important;
+    }
+
+    &.last {
+      top: inherit !important;
+      bottom: 100%;
+    }
+
+    &.centred {
+      right: 0;
+    }
+
+    &__item {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 45px;
+      margin: 0;
+      padding: 11px 13px;
+      border-bottom: 1px solid $lightgrayWhite;
+      cursor: pointer;
+
+      &:hover {
+        background: $border;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &-icon {
+        width: 23px;
+        height: 100%;
+      }
+
+      &-text {
+        margin-left: 15px;
+        font-family: GT Walsheim Pro Medium;
+        font-size: 16px;
+        line-height: 150%;
+        font-weight: 500;
+        text-transform: none;
+        font-style: normal;
+      }
+    }
+  }
+
+  // RANGE
+  &__range {
+    z-index: 2;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    border-radius: 29px;
+    cursor: pointer;
+    appearance: none;
+
+    &.disabled {
+      cursor: not-allowed;
+      pointer-events: none;
+
+      &::-webkit-slider-thumb {
+        cursor: not-allowed;
+      }
+    }
+
+    &::-webkit-slider-thumb {
+      z-index: 5;
+      width: 24px;
+      height: 24px;
+      background: $white;
+      border: 4px solid $orange;
+      border-radius: 50%;
+      cursor: grab;
+      appearance: none;
+    }
+
+    &::-moz-range-thumb {
+      z-index: 5;
+      width: 24px;
+      height: 24px;
+      background: $white;
+      border: 4px solid $orange;
+      border-radius: 50%;
+      cursor: grab;
+      appearance: none;
+    }
+  }
+
+  // RANGE LEGEND
+  &__range-legend {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 102%;
+    min-height: 20px;
+    margin: 0;
+    padding: 0;
+
+    &__element {
+      @include regular-14;
+
+      position: relative;
+      width: 30px;
+      list-style: none;
+      text-align: center;
+
+      &.disabled {
+        color: $lightgray !important;
+      }
+    }
+  }
+
+  // RANGE SCALE
+  &__range-scale {
+    position: absolute;
+    top: -4px;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0;
+    padding: 0 4px;
+
+    &__element {
+      position: relative;
+      width: 16px;
+      height: 16px;
+      list-style: none;
+      background: $white;
+      border: 4px solid $border;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &.disabled {
+        cursor: not-allowed;
+      }
+
+      &.active {
+        border: 4px solid $orange;
+      }
+    }
+  }
+
+  //RANGE TRACK
+  &__range-track {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    height: 8px;
+    margin: 0;
+    padding: 0 8px;
+
+    &__element {
+      position: relative;
+      width: 100%;
+      height: 8px;
+      list-style: none;
+      background: $border;
+
+      &.active {
+        background: $orange;
+      }
+    }
+  }
+}
+
+.p-inputtext.ng-touched.ng-invalid.ng-dirty {
+  position: relative;
+  background-color: $errorbackground;
+  border: 1px solid $errorred;
+
+  & + .c-common__form-field__error-icon {
+    position: absolute;
+    top: 17px;
+    right: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 22px;
+    height: 22px;
+    color: white;
+    background-color: $errorred;
+    border-radius: 13px;
+  }
+}
+
+.blur {
+  opacity: 0.5;
+}
+
+.noblur {
+  opacity: 1 !important;
+}
+
+.list {
+  padding: 0 20px;
+
+  &-element {
+    margin-bottom: 5px;
+  }
+}
+
+.title {
+  @include medium-18;
+}
+
+.italic {
+  @include regular-oblique-14;
+}
+
+.flex {
+  display: flex;
+}
+
+.display-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.width-100 {
+ width: 100%;
+}
+
+.m-bottom-32 {
+  margin-bottom: 32px;
+}
+
+.m-top-24 {
+  margin-top: 24px;
+}
+
+.m-bottom-24 {
+  margin-bottom: 24px;
+}
+
+.m-auto {
+  margin: 0 auto;
+}
+
+.m-left-16 {
+  margin-left: 16px;
+}
+
+.flex-center-center-class {
+  @include flex-center-center;
+}
+
+.flex-center-column-class {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

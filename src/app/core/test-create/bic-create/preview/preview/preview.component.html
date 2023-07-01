@@ -1,0 +1,52 @@
+<div *ngIf="concept && test && translations">
+  <div class="c-preview">
+    <div class="c-preview__header">
+      <h3 class="c-preview__header__title">
+        {{ "test-steps.preview" | translate }}
+      </h3>
+      <button class="c-confirmation-dialog__button c-common__button c-common__button--icon"
+              (click)="close()">
+        <img src="../../../../../../assets/images/svg/ic_close-modal.svg" />
+      </button>
+    </div>
+    <div #container
+         class="c-preview__container">
+
+      <div *ngIf="isScreening(translatedRespondentRequirements$ | async)">
+        <app-preview-category-screening [respondentRequirements]="translatedRespondentRequirements$ | async">
+        </app-preview-category-screening>
+      </div>
+      <div *ngIf="concept.consumerInsight ||
+          concept.benefits.length ||
+          concept.reasons.length ||
+          concept.moodboard?.items?.length"
+           #preview1
+           class="c-preview__first">
+        <app-preview-one [concept]="concept"
+                         [showImages]="true"
+                         [showText]="true"></app-preview-one>
+      </div>
+      <div #preview2>
+        <app-preview-two [test]="test"></app-preview-two>
+      </div>
+      <div *ngIf="test.customAssociations?.length || test.testAssociations?.length"
+           #preview3>
+        <app-preview-three [test]="test"></app-preview-three>
+      </div>
+      <div *ngIf="
+          test.feedbackLike ||
+          test.feedbackThink ||
+          test.testConceptRelevance ||
+          test.customQuestions.length ||
+          test.wordsLikesEnabled ||
+            concept.consumerInsight ||
+              concept.benefits.length ||
+              concept.reasons.length ||
+          (test.imageLikesEnabled && concept.moodboard?.items?.length)"
+           #preview4>
+        <app-preview-four [concept]="concept"
+                          [test]="test"></app-preview-four>
+      </div>
+    </div>
+  </div>
+</div>

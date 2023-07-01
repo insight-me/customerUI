@@ -1,0 +1,152 @@
+<header class="c-header" [class.dark]="!isDashboardMode">
+  <div class="c-header__logo">
+    <div class="c-common__logo"
+         routerLink="/personal-area/dashboard" [class.light-text]="!isDashboardMode">InsightMe.
+    </div>
+  </div>
+  <div class="c-header__nav">
+    <a
+      class="c-header__nav-item desktop"
+      [class.light-text]="!isDashboardMode"
+      routerLink="/personal-area/dashboard">
+      {{'header.dashboard' | translate}}
+    </a>
+    <a
+      class="c-header__nav-item desktop"
+      [class.light-text]="!isDashboardMode"
+      routerLink="/personal-area/product-selection">
+      {{'header.new-test' | translate}}
+    </a>
+    <a class="c-header__nav-item desktop"
+       [class.light-text]="!isDashboardMode"
+       routerLink="/personal-area/test-library">
+      {{'header.library' | translate}}
+    </a>
+    <!--            Disable language changes by task 2755-->
+    <!--    <div class="c-header__language">-->
+    <!--      <div class="c-header__language__image">-->
+    <!--        <img *ngIf="selectedLanguage.lang === LanguageEnum.ENGLISH.toUpperCase()"-->
+    <!--             class="c-header__language__image-image"-->
+    <!--             src="../../../../assets/images/languages/united-kingdom.svg" alt="en">-->
+    <!--        <img *ngIf="selectedLanguage.lang === LanguageEnum.SWEDEN.toUpperCase()"-->
+    <!--             class="c-header__language__image-image"-->
+    <!--             src="../../../../assets/images/languages/se.svg" alt="se">-->
+    <!--      </div>-->
+    <!--      <div class="c-header__nav-item c-base__dropdown-invisible" [class.c-base__dropdown-dark]="!isDashboardMode">-->
+    <!--        <p-dropdown [(ngModel)]="selectedLanguage" [options]="languages" optionLabel="lang"-->
+    <!--                    (onChange)="onChangeLanguage()"></p-dropdown>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <div class="c-header__nav-item c-header__nav-item-menu desktop">
+      <app-header-menu *ngIf="!isDashboardMode; else whiteMenuHeader" [theme]="'white'"></app-header-menu>
+      <ng-template #whiteMenuHeader>
+        <app-header-menu></app-header-menu>
+      </ng-template>
+    </div>
+    <div class="mobile" (click)="openMenu()">
+      <app-icon [iconType]="IconsType.Menu"></app-icon>
+    </div>
+  </div>
+</header>
+<div #burger class="c-header__burger-container">
+  <div class="c-header__burger-container__menu">
+    <div>
+      <div class="c-header__burger-container__menu__close" (click)="openMenu()">
+        <img class="c-header__burger-container__menu__close-img" src="../../../../assets/images/svg/ic_close-white.svg"
+             alt="close">
+      </div>
+
+      <ul class="c-header__burger-container__menu-nav" (click)="openMenu()">
+        <li class="c-header__burger-container__menu-nav__item">
+          <a
+            class="c-header__burger-container__menu-nav__item-link"
+            routerLinkActive="active"
+            routerLink="/personal-area/dashboard">
+            {{'header.dashboard' | translate}}
+          </a>
+        </li>
+        <li class="c-header__burger-container__menu-nav__item">
+          <a
+            class="c-header__burger-container__menu-nav__item-link"
+            routerLinkActive="active"
+            routerLink="/personal-area/product-selection">
+            {{'header.new-test' | translate}}
+          </a>
+        </li>
+        <li class="c-header__burger-container__menu-nav__item">
+          <a
+            class="c-header__burger-container__menu-nav__item-link"
+            routerLinkActive="active"
+            routerLink="/personal-area/test-library">
+            {{'header.library' | translate}}
+          </a>
+        </li>
+        <li *ngIf="isNotManager" class="c-header__burger-container__menu-nav__item">
+          <a
+            class="c-header__burger-container__menu-nav__item-link"
+            routerLinkActive="active"
+            routerLink="/personal-area/invoices">
+            {{'invoices.Order Library' | translate}}
+          </a>
+        </li>
+
+      </ul>
+
+      <ul class="c-header__burger-container__menu-nav no-border" (click)="openMenu()">
+        <li class="c-header__burger-container__menu-nav__item">
+          <a
+            class="c-header__burger-container__menu-nav__item-link"
+            routerLinkActive="active"
+            routerLink="/personal-area/my-profile/personal">
+            {{'my-profile.personal-info' | translate}}
+          </a>
+        </li>
+        <li class="c-header__burger-container__menu-nav__item">
+          <a
+            class="c-header__burger-container__menu-nav__item-link"
+            routerLinkActive="active"
+            routerLink="/personal-area/my-profile/company">
+            {{'my-profile.company-info' | translate}}
+          </a>
+        </li>
+        <li *ngIf="isNotManager" class="c-header__burger-container__menu-nav__item">
+          <a
+            class="c-header__burger-container__menu-nav__item-link"
+            routerLinkActive="active"
+            routerLink="/personal-area/custom-segmentation">
+            {{'header.my-segmentation' | translate}}
+          </a>
+        </li>
+        <li *ngIf="isNotManager" class="c-header__burger-container__menu-nav__item">
+          <a
+            class="c-header__burger-container__menu-nav__item-link"
+            routerLinkActive="active"
+            routerLink="/personal-area/my-profile/settings">
+            {{'my-profile.settings' | translate}}
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+    <div class="c-header__burger-container__logout" (click)="logout()">
+      <div class="c-header__burger-container__logout__about">
+        <div class="c-header__burger-container__logout__about__photo">
+          <img src="../../../../assets/images/ic_profile.svg"
+               class="c-header__burger-container__logout__about__photo-image">
+        </div>
+        <div class="c-header__burger-container__logout__about__name">
+          <span
+            class="c-header__burger-container__logout__about__name-name">
+            {{userName.length > 26 ? (userName.substr(0, 27) + '...') : userName }}</span>
+          <span
+            class="c-header__burger-container__logout__about__name-email">
+            {{currentUser?.email.length > 26 ? (currentUser?.email.substr(0, 27) + '...') : currentUser?.email}}</span>
+        </div>
+      </div>
+      <div class="c-header__burger-container__logout__icon"><img src="../../../../assets/images/png/logout.png"></div>
+    </div>
+  </div>
+
+</div>
+

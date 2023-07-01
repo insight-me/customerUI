@@ -1,0 +1,61 @@
+@import "variables";
+@import "mixins";
+
+.c-dashboard {
+  width: 100%;
+  background: $background;
+
+  &-cards {
+    padding: 20px 0 0 20px;
+  }
+
+  &__gradient {
+    background: linear-gradient(180deg, #ADD9F4 0%, #FBFAFD 100%);
+    border-radius: 8px;
+  }
+
+  &-with-projects {
+    margin: 0 0 20px;
+
+    &__header {
+      padding: 5px 0;
+
+      &.no-projects {
+        padding: 40px;
+      }
+
+      &-welcome {
+        @include medium-24;
+
+        margin: 0 0 12px;
+        color: $blue;
+      }
+
+      &-start-text {
+        @include medium-18;
+
+        margin: 0;
+        color: $blue;
+      }
+    }
+
+    &__tests {
+      height: 390px;
+    }
+  }
+
+  &__create-test {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px;
+  }
+}
+
+@media #{$mobile} {
+  .c-dashboard {
+    &__create-test {
+      flex-direction: column;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<div class="app-dashboard bt"
+     [class.opened]="isOpened">
+
+   <!--Brand health overview-->
+   <div class="app-dashboard__element"
+        [ngStyle]="gridStyle(0)"
+        *ngIf="btRSS.brandHealthOverviewDataSet$ | async as dataSet">
+      <app-brand-health-overview [dataSet]="dataSet"
+                                 (zoom)="toggleZoom(0)"
+                                 aspectRatio="0.6"
+                                 [penetrationInMonthes]="penetrationInMonthes">
+      </app-brand-health-overview>
+   </div>
+
+   <!--Brand performance over time-->
+   <div class="app-dashboard__element"
+        [ngStyle]="gridStyle(1)"
+        *ngIf="btRSS.brandPerformanceOverTime$ | async as dataSet">
+      <app-brand-performance-over-time [dataSet]="dataSet"
+                                       (zoom)="toggleZoom(1)"
+                                       [aspectRatio]="btRSS.dashboardExpandedCharts.has(1) ? 0.4 : 0.6"
+                                       [isExpanded]="btRSS.dashboardExpandedCharts.has(1)"></app-brand-performance-over-time>
+   </div>
+
+   <!--Target group performance over time-->
+   <div class="app-dashboard__element"
+        [ngStyle]="gridStyle(2)"
+        *ngIf="btRSS.targetGroupPerformanceOverTime$ | async as dataSet">
+      <app-target-group-performance-over-time [dataSet]="dataSet"
+                                              (zoom)="toggleZoom(2)"
+                                              [aspectRatio]="btRSS.dashboardExpandedCharts.has(2) ? 0.4 : 0.6"
+                                              [isExpanded]="btRSS.dashboardExpandedCharts.has(2)"></app-target-group-performance-over-time>
+   </div>
+
+   <!--Competitors performance over time-->
+   <div class="app-dashboard__element"
+        [ngStyle]="gridStyle(3)"
+        *ngIf="btRSS.competitorsPerformanceOverTime$ | async as dataSet">
+      <app-competitors-performance-over-time [dataSet]="dataSet"
+                                             (zoom)="toggleZoom(3)"
+                                             [aspectRatio]="btRSS.dashboardExpandedCharts.has(3) ? 0.4 : 0.6"
+                                             [isExpanded]="btRSS.dashboardExpandedCharts.has(3)"></app-competitors-performance-over-time>
+   </div>
+</div>

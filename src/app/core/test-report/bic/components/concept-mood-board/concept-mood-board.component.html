@@ -1,0 +1,31 @@
+<div class="app-concept-mood-board">
+
+  <div
+    *ngFor="let images of data"
+    class="app-concept-mood-board__column"
+  >
+    <div
+      *ngFor="let image of images"
+      class="app-concept-mood-board__column-image"
+    >
+      <img [src]="image.path">
+      <div class="app-concept-mood-board__column-image-info">
+        <div class="likes-container">
+          <app-icon
+            [iconType]="IconsType.Like"
+            color="#8ED08A"
+          ></app-icon>
+          <span>{{image.likes}}</span>
+        </div>
+        <div class="likes-container">
+          <app-icon
+            [iconType]="IconsType.Dislike"
+            color="#FF776F"
+          ></app-icon>
+          <span>{{image.dislikes}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

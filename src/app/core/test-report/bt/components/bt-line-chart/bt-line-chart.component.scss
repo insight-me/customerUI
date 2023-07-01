@@ -1,0 +1,115 @@
+@import "variables";
+
+.ngx-charts-tooltip-content.type-tooltip {
+  @include flex-column-stretch;
+
+  padding: 9px 14px !important;
+  background-color: $darkviolet !important;
+  border-radius: 5px !important;
+  box-shadow: 0 7px 12px 0 rgba(0,0,0,0.35);
+}
+
+.ngx-charts-tooltip-content.type-tooltip .tooltip-caret.position-top {
+  top: 95% !important;
+  border-top: transparent !important;
+  border-right: 10px solid transparent !important;
+  border-bottom: 10px solid $darkviolet !important;
+  border-left: 10px solid transparent !important;
+  transform: rotate(-45deg);
+}
+
+.ngx-charts-tooltip-content.type-tooltip .tooltip-caret.position-right {
+  border-right: 10px solid $darkviolet !important;
+}
+
+.ngx-charts-tooltip-content.type-tooltip .tooltip-caret.position-bottom {
+  border-bottom: 10px solid $darkviolet !important;
+}
+
+.ngx-charts-tooltip-content.type-tooltip .tooltip-caret.position-left {
+  border-left: 10px solid $darkviolet !important;
+}
+
+svg {
+  g .tick {
+    text {
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 14px !important;
+      fill: $lightgray$lightgray;
+    }
+  }
+
+  .gridline-path-vertical {
+    display: none;
+    //stroke-dasharray: 5,5;
+  }
+
+  g.line-chart > g:last-of-type > g:nth-child(n) g.line-series > path {
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+}
+
+
+.ngx-charts-line-chart-tooltip {
+  @include flex-space-between-center;
+
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 20px;
+  line-height: 150%;
+  letter-spacing: 0.005em;
+
+  &:first-child {
+    padding-bottom: 12px;
+  }
+
+  div {
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: uppercase;
+  }
+
+  div:first-child {
+    max-width: 100px;
+    margin-right: 12px;
+    text-align: left;
+  }
+
+  div:last-child {
+    color: $orange;
+  }
+}
+
+.ngx-charts-line-chart-series-tooltip {
+  @include flex-space-between-center;
+
+  margin: 10px 0;
+  font-family: "GT Walsheim Pro Regular";
+  font-size: 12px;
+  line-height: 150%;
+  letter-spacing: 0.005em;
+
+  &-legend {
+    @include flex-start-nowrap;
+
+    margin-right: 10px;
+
+    &-circle {
+      width: 16px;
+      height: 16px;
+      margin-right: 10px;
+      border-radius: 50%;
+    }
+
+    &-label {
+      max-width: 150px;
+      text-align: left;
+      text-transform: uppercase;
+    }
+  }
+
+  &-value {
+    font-family: "GT Walsheim Pro Medium";
+    color: $orange;
+  }
+}

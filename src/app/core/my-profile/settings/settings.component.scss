@@ -1,0 +1,212 @@
+@import "./src/assets/styles/variables.scss";
+@import './src/assets/styles/common.scss';
+
+.c-settings {
+  &__icon {
+    margin-left: 12px;
+  }
+
+  &__mobile__header {
+    display: none;
+  }
+
+  &__mobile__card {
+    display: none;
+  }
+
+  &__table {
+    @include card-shadow;
+
+    display: grid;
+    grid-template-columns: minmax(127px, 1.8fr) minmax(117px, 1.88fr) minmax(110px, 1.88fr) minmax(110px, 3fr);
+    width: 100%;
+    overflow: hidden;
+    background: $white;
+    border-radius: 8px;
+
+    &__contents {
+      display: contents;
+
+      &__header {
+        @include regular-14;
+
+        display: flex;
+        align-items: center;
+        padding: 14px;
+        color: $gray;
+        border-bottom: 1px solid #D6D6D6;
+      }
+
+      &__th {
+        @include regular-14;
+
+        padding: 20px;
+
+        .pending {
+          color: $darkorange;
+        }
+
+        .active {
+          color: $green;
+        }
+
+        .blocked {
+          color: $dislike;
+        }
+
+        &.colored {
+          background-color: $table-highlight;
+        }
+      }
+
+      &__icons {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        max-width: 130px;
+      }
+    }
+  }
+}
+
+.desktop {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tablet {
+  display: none;
+}
+
+@media #{$mobile} {
+  .desktop {
+    display: none;
+  }
+
+  .tablet {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .c-settings {
+    &__invite {
+      width: 100%;
+      max-width: 355px;
+    }
+
+    &__table {
+      display: none;
+
+      &__contents__icons {
+        justify-content: center;
+      }
+    }
+
+    &__mobile__header {
+      display: grid;
+      grid-template-columns: minmax(130px, 2fr) minmax(98px, 1fr);
+      width: 100%;
+      margin-top: 19px;
+
+      &-item {
+        @include regular-14;
+
+        display: flex;
+        padding: 20px 14px;
+        color: $gray !important;
+
+        &.flex-end {
+          justify-content: flex-end;
+        }
+      }
+    }
+
+    &__mobile__card {
+      display: block;
+      width: 100%;
+      min-height: 144px;
+      margin-bottom: 20px;
+      background: $white;
+      border-radius: 8px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+
+      &__buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 14px 22px;
+      }
+
+      &__tr {
+        display: grid;
+        grid-template-columns: minmax(130px, 1fr) minmax(98px, 2fr);
+
+        &-item {
+          @include regular-14;
+
+          padding: 14px 22px;
+
+          &.background {
+            background: $table-highlight;
+          }
+
+          &.right {
+            text-align: right;
+          }
+        }
+      }
+
+      &__sub-tr {
+        display: grid;
+        grid-template-columns: minmax(140px, 2fr) minmax(130px, 1fr);
+
+        &__contents {
+          display: contents;
+
+          &__header {
+            @include regular-14;
+
+            padding: 14px 22px;
+            color: $gray !important;
+
+            &.background {
+              background: $table-highlight;
+            }
+          }
+
+          &__item {
+            @include regular-14;
+
+            padding: 13px 0;
+
+            &.background {
+              background: $table-highlight;
+            }
+
+            &.report {
+              @include flex-space-between-center;
+
+              height: 50px;
+              padding: 14px 60% 14px 0;
+            }
+          }
+        }
+
+        &__delete {
+          @include flex-center;
+
+          &-item {
+            @include flex-space-between-center;
+            @include regular-14;
+
+            width: 110px;
+            padding: 13px 0;
+            color: $gray !important;
+          }
+        }
+      }
+    }
+  }
+}

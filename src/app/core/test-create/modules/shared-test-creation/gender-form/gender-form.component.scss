@@ -1,0 +1,13 @@
+@import "../../../../../../assets/styles/variables";
+
+.c-gender-form__gender-block {
+  min-width: 350px;
+  padding-top: 27px;
+}
+
+@media #{$mobile} {
+  .c-gender-form__gender-block {
+    min-width: 328px;
+    padding-top: 0;
+  }
+}

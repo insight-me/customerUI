@@ -1,0 +1,31 @@
+<div class="c-incident-rate">
+  <div class="c-incident-rate__tip">
+    <p class="c-incident-rate__tip-item">{{'BIC.The percentage of your population (age and gender) that are eligible to participate in the study based on your category screening criteria’s.' | translate}}</p>
+    <p class="c-incident-rate__tip-item">{{'BIC.For example, in a study of American juice consumers, if the eligibility of research is defined as consuming juice every month or more often, then the IR will be the percentage of Americans who consumes juice on a monthly basis, out of the total number of Americans (meaning out of all Americans within the selected age and gender).' | translate}}</p>
+    <ng-container *ngIf="(categoryName | async) as selectedCategory">
+      <p *ngIf="selectedCategory.irLevel" class="c-incident-rate__tip-item example">{{'BIC.IR level for' | translate}}{{selectedCategory.name}} -
+        {{(getIRLevel(selectedCategory.irLevel)?.name | translate) + getIRLevel(selectedCategory.irLevel)?.procents}}</p>
+    </ng-container>
+  </div>
+    <div *ngIf="IRForm.controls[0]" class="c-incident-rate__container">
+      <div class="c-common__field">
+        <label
+          class="c-common__form-label">{{ 'BIC.Estimate category incident rate' | translate}}</label>
+        <input
+          type="number"
+          name="ir"
+          pInputText
+          [placeholder]="'%'"
+          value=""
+          [formControl]="getAsFormControl(getAsFormGroup(IRForm.controls[0]).controls.ir)"
+          (blur)="emitValue($event, getAsFormControl(getAsFormGroup(IRForm.controls[0]).controls.ir))"
+          class="c-common__input"/>
+        <small
+          *ngIf="getAsFormControl(getAsFormGroup(IRForm.controls[0]).controls.ir).touched
+          && getAsFormControl(getAsFormGroup(IRForm.controls[0]).controls.ir).invalid"
+          class="p-error c-common__form-field-error">
+          {{'BIC.Incident rate between 1 and 100 is required' | translate}}
+        </small>
+      </div>
+    </div>
+</div>

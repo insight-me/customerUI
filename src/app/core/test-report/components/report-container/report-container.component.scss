@@ -1,0 +1,88 @@
+@import "../../../../../assets/styles/variables";
+
+.report-container {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 45px;
+    padding: 0 22.5px 0 0;
+    background-color: $blue;
+
+    &-title {
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 14px;
+      color: $associations-table;
+
+      &.sub {
+        margin-left: 10px;
+        font-weight: 500;
+        color: $white;
+      }
+    }
+
+    &-menu {
+      @include flex-center;
+
+      height: 45px;
+      padding-left: 22.5px;
+      border-left: 1px solid $lightgray;
+    }
+
+    &-info {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .item {
+        @include flex-center;
+
+        height: 45px;
+        padding: 14px;
+        border-right: 1px solid $lightgray;
+      }
+
+      &-logo {
+        @include flex-wrap;
+
+        width: 50px;
+        cursor: pointer;
+        gap: 3px;
+
+        /* .logo {
+          width: 9px;
+          height: 9px;
+          border-radius: 50%;
+
+          &-1 {
+            border: 1px solid #add9f4;
+          }
+
+          &-2 {
+            border: 1px solid #8ed08a;
+          }
+
+          &-3 {
+            border: 1px solid #f7c8d0;
+          }
+
+          &-4 {
+            border: 1px solid #ffa56f;
+          }
+        } */
+      }
+    }
+  }
+
+  .test-report-container {
+    min-height: calc(100vh - 105px);
+    padding: 0 19px 20px 0;
+    background: $background;
+
+    &-bic {
+      padding: 17px 19px 20px 20px;
+    }
+  }
+
+
+}

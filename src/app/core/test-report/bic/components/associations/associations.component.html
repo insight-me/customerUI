@@ -1,0 +1,34 @@
+<div class="app-concept-definitions">
+  <!--  Associations score (%) per concept in population-->
+  <div class="app-concept-definitions__card">
+    <app-association-per-concept
+      [dataSet]="bicRSS.whatDrivesDataSet$ | async"
+      [tooltipTexts]="tooltipTexts"
+      [tooltipType]="tooltipType"
+      [title]="'report.Associations score (%) per concept in population'">
+    </app-association-per-concept>
+  </div>
+
+  <!--  Associations score (%) per concept in population importance -->
+  <div *ngIf="bicRSS.concepts.length > 1" class="app-concept-definitions__card">
+    <app-association-per-concept-importance
+      [dataSet]="bicRSS.whatDrivesDataSet$ | async"
+      [tooltipTexts]="tooltipTexts"
+      [tooltipType]="tooltipType"
+      [title]="'report.Associations score (%) per concept in population'">
+    </app-association-per-concept-importance>
+  </div>
+
+  <!--  Association score (%) and importance to drive relevance (y)-->
+  <div *ngIf="bicRSS.concepts.length > 1" class="app-concept-definitions__card">
+    <app-score-and-importance-table
+      [dataSet]="bicRSS.whatDrivesDataSet$ | async"
+      [tooltipTexts]="tooltipTexts"
+      [tooltipType]="tooltipType"></app-score-and-importance-table>
+    <div class="app-concept-definitions__card-footer">
+      <div class="app-concept-definitions__card-footer-info">
+        {{"associations.associations-score-footer-gamma-description" | translate}}
+      </div>
+    </div>
+  </div>
+</div>

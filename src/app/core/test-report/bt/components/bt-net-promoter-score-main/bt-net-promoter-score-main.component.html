@@ -1,0 +1,85 @@
+<div class="bt-test-report__header">
+  <div class="bt-test-report__header-title">{{"report.Net promoter score" | translate}}
+    <app-question-tooltip
+      [customText]="tooltipText | translate"
+      [isCustomContent]="true"
+    ></app-question-tooltip>
+  </div>
+  <app-multi-select-filter *ngIf="filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           allLabel="report.All brands"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+
+<app-warning-message *ngIf="lowNumbers"
+                     [text]="'BT.Warning! Amount of respondents is too low (<60)'"
+                     [isCentered]="true"
+                     [color]="'#585858'"></app-warning-message>
+
+<div *ngIf="service.switcher$ | async" [ngStyle]="{display: 'flex', justifyContent: 'center'}">
+  <div *ngIf="dataSet$ | async as dataSet"
+       [style]="btStyle.content"
+       [ngStyle]="pdfVersion ? {margin: '50px 50px 25px 50px'} : {maxWidth: '1000px'}">
+    <table class="bt-net-promoter-score__grid-table bt-net-promoter-score-grid-table-template-tree">
+      <thead class="bt-net-promoter-score__grid-table-head">
+      <th class="bt-net-promoter-score__grid-table-head-item">{{'report.Brand name' | translate}}</th>
+      <th class="bt-net-promoter-score__grid-table-head-item"></th>
+      <th class="bt-net-promoter-score__grid-table-head-item">{{'report.NPS score' | translate}}</th>
+      </thead>
+      <tbody class="bt-net-promoter-score__grid-table-body">
+      <tr class="bt-net-promoter-score__grid-table-body-row">
+        <td class="brands">
+          <div class="brands-container">
+            <div *ngFor="let brand of dataSet" class="brand">{{brand.name}}</div>
+          </div>
+        </td>
+        <td class="bt-net-promoter-score__grid-table-body-item">
+          <ngx-charts-bar-horizontal-stacked
+            [view]="graphContainer"
+            [scheme]="colorScheme"
+            [results]="dataSet"
+            [xAxis]="true"
+            [showGridLines]="true"
+            [xAxisTicks]="xAxisTicks"
+            [xAxisTickFormatting]="xAxisTickFormatting"
+            [barPadding]="20">
+            <ng-template #tooltipTemplate let-model="model">
+              <div class="ngx-charts-line-chart-tooltip">
+                <span>{{model.name}}</span>
+              </div>
+              <div class="ngx-charts-line-chart-tooltip">
+                <div>{{model.series | translate}}:</div>
+                <div>{{Math.round(model.value)}}%</div>
+              </div>
+            </ng-template>
+          </ngx-charts-bar-horizontal-stacked>
+          <div *ngIf="noData" class="no-data">
+            <app-warning-message
+              [text]="'report.There is no data for selected segment'"
+              [color]="'#585858'"
+              [backgroundColor]="'#E3F2FD'"
+            ></app-warning-message>
+          </div>
+        </td>
+        <td class="brands">
+          <div class="brands-container">
+            <div *ngFor="let brand of dataSet" class="brand">{{Math.round(brand.series[0].nps)}}%</div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div
+      [style]="style.footer"
+      [ngStyle]="pdfVersion ? {borderTop: '1px solid #E9E9E9', paddingTop: '20px'} : {}">
+    <span
+      *ngFor="let item of dataSet[0].series; index as i"
+      [style]="style.legend">
+      <i [style]="style.icon" [style.background]="colors[i]"></i>
+      <div>{{('report.' + item.name) | translate}}</div>
+    </span>
+    </div>
+  </div>
+</div>

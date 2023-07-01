@@ -1,0 +1,133 @@
+<div *ngIf="brands.length && step || step === 1">
+
+  <div>
+    <!--    <div *ngIf="category">-->
+    <div class="c-preview__section">
+      <div [ngSwitch]="step">
+        <ng-template ngSwitchCase="3">
+          <div class="c-preview__section__header-text">
+            {{'consideration.title' | translateCustom : { category: translatedSelectedSubcategories } }}
+          </div>
+          <div class="c-preview__section__header-tiny">
+            {{'consideration.sub-title' | translateCustom : { category: translatedSelectedSubcategories } }}
+          </div>
+        </ng-template>
+        <ng-template ngSwitchCase="4">
+          <div class="c-preview__section__header-text">
+            {{'preferences.title' | translateCustom }}
+          </div>
+          <div class="c-preview__section__header-tiny">
+            {{'preferences.sub-title' | translateCustom }}
+          </div>
+        </ng-template>
+        <ng-template ngSwitchCase="5">
+          <div class="c-preview__section__header-text">
+            {{('penetration.Which brands have you bought during the last?' | translateCustom) +  (penetrationTitle ? penetrationTitle + '?' : '') }}
+          </div>
+          <div class="c-preview__section__header-tiny">
+            {{('penetration.Please select all brands you bought during the period' | translateCustom)}}
+          </div>
+        </ng-template>
+        <ng-template ngSwitchCase="6">
+          <div class="c-preview__section__header-text">
+            {{'commercials.title' | translateCustom }}
+          </div>
+        </ng-template>
+        <ng-template ngSwitchCase="7">
+          <ng-container>
+            <div class="c-preview__section__header-text c-preview-slider__recommendation-title">
+              {{'preview.How likely is it that you would recommend this brand to a friend?' | translateCustom }}
+            </div>
+            <div class="c-preview__section__header-tiny bottom-32">
+              {{'preview.Please rate from 0 to 10 where 0 = very unlikely , 10 = very likely' | translateCustom }}
+            </div>
+            <div class="c-survey__list-container">
+              <app-brand-img-list [test]="test"
+                                  [imagesList]="[brands[0]]">
+              </app-brand-img-list>
+            </div>
+            <div class="c-preview-feedback__desktop">
+              <div class="c-preview-feedback__scale">
+                <input type="range"
+                       [min]="1"
+                       [max]="10"
+                       [step]="1"
+                       [readonly]="true"
+                       [value]="1"
+                       disabled
+                       [style.cursor]="'default'"
+                       class="c-base__range c-preview-feedback__range">
+                <ul class="c-base__range-legend width-100">
+                  <li *ngFor="let item of options"
+                      class="c-base__range-legend__element">{{item}}</li>
+                </ul>
+                <ul class="c-base__range-track">
+                  <li *ngFor="let i of options;"
+                      class="c-base__range-track__element"></li>
+                </ul>
+                <ul class="c-base__range-scale">
+                  <li *ngFor="let item of options; let i = index; let isFirst = first;"
+                      class="c-base__range-scale__element"></li>
+                </ul>
+              </div>
+              <div class="c-preview-slider__card-slider__legend">
+                <span class="c-preview-slider__card-slider__legend-element width">{{ 'preview.0 - very unlikely' | translateCustom }}</span>
+                <span class="c-preview-slider__card-slider__legend-element right width">{{ 'preview.10 - very likely' | translateCustom }}</span>
+              </div>
+            </div>
+            <div class="c-preview-feedback__mob top-32">
+              <div class="c-preview-slider__card-slider__legend">
+                <span class="c-preview-slider__card-slider__legend-element left width">{{ 'preview.0 - very unlikely' | translateCustom }}</span>
+              </div>
+              <div class="c-preview-feedback__mob-container">
+                <div *ngFor="let item of options; let i = index; let isFirst = first;"
+                     class="c-preview-feedback__circle"
+                     [ngClass]="{ firstCircle: isFirst }">
+                  {{i}}
+                </div>
+              </div>
+              <div class="c-preview-slider__card-slider__legend right">
+                <span class="c-preview-slider__card-slider__legend-element right width">{{ 'preview.10 - very likely' | translateCustom }}</span>
+              </div>
+            </div>
+            <div>
+              <div class="c-preview__section__header-text top">
+                {{'preview.What is the primary reason for your score?' | translateCustom }}
+              </div>
+              <div class="c-preview__section__header-tiny bottom">
+                {{'feedback.explanation-text' | translateCustom }}
+              </div>
+            </div>
+            <div class="c-preview-feedback__textarea m-top-24">
+              <p class="c-preview-feedback__textarea-placeholder">
+                {{'feedback.placeholder' | translateCustom }}
+              </p>
+            </div>
+            <div *ngIf="brands.length && brands.length !== 1"
+                 class="c-preview-slider__card-number">
+              1 / {{brands.length}}
+            </div>
+          </ng-container>
+        </ng-template>
+      </div>
+      <div [ngSwitch]="step">
+        <ng-template ngSwitchCase="6">
+          <div class="c-preview__section__header-tiny">
+            {{'commercials.sub-title' | translateCustom }}
+          </div>
+        </ng-template>
+      </div>
+      <div *ngIf="step === 3 || step === 4 || step === 5 || step === 6"
+           class="c-survey__list-container">
+        <app-brand-img-list [imagesList]="brands"></app-brand-img-list>
+      </div>
+
+      <div *ngIf="step === 3 || step === 6"
+           class="c-survey__list-container">
+        <div class="c-preview__text">{{'preview.Other:' | translateCustom }}</div>
+        <app-brand-name-list></app-brand-name-list>
+      </div>
+      <app-none-checkbox *ngIf="step !== 1 && step !== 2 && step !== 7"></app-none-checkbox>
+    </div>
+  </div>
+</div>

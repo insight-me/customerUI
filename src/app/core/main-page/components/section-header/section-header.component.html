@@ -1,0 +1,16 @@
+<link rel="preload" as="image" href="assets/images/png/research-background.png">
+<link rel="preload" as="image" href="assets/images/png/about-us-background.png">
+<section *ngIf="sectionInfo" class="c-section-header"
+         [style.background-image]="'url(assets/images/png/' + sectionInfo.backgroundImage + '.png)'">
+  <div class="c-section-header__nav">
+    <div>
+      <a routerLink="/"><img src="../../../../../assets/images/svg/home.svg"/></a>
+    </div>
+    <div>/</div>
+    <div>
+      {{ sectionInfo.title | translate }}
+    </div>
+  </div>
+  <div class="c-section-header__category">{{sectionInfo.category | translate}}</div>
+  <div class="c-section-header__title">{{sectionInfo.title | translate | titlecase}}</div>
+</section>

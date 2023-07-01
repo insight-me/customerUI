@@ -1,0 +1,43 @@
+<section *ngFor="let items of shownProductList" class="c-product-list__table">
+  <div class="card"
+       [style.grid-template-columns]="'repeat(' + columns + ', 1fr)'">
+    <div *ngFor="let product of items; let isFirst=first" class="card-number">{{product.categoryNumber}}</div>
+  </div>
+  <div class="card"
+       [style.grid-template-columns]="'repeat(' + columns + ', 1fr)'">
+    <div *ngFor="let product of items; let isFirst=first" class="card-text">
+      <div class="card-title">{{product.categoryTitle | translate}}</div>
+      <div class="card-description">{{product.categoryDescription | translate}}</div>
+    </div>
+  </div>
+  <div class="card"
+       [style.grid-template-columns]="'repeat(' + columns + ', 1fr)'">
+    <div *ngFor="let product of items; let isFirst=first"
+         class="card-divider">{{isFirst ? ('landing.Research tests' | translate | uppercase) : ''}}</div>
+  </div>
+  <div class="card"
+       [style.grid-template-columns]="'repeat(' + columns + ', 1fr)'">
+    <div *ngFor="let product of items; let isFirst=first">
+      <div *ngFor="let test of product.products" class="card-product" (click)="onNavigateTest(test.name)">{{test.value | translate}}</div>
+    </div>
+  </div>
+</section>
+<section class="c-product-list__list">
+  <div
+    class="c-product-list__list-title">{{'landing.InsightMe contains all key research tests you need to build and track your brand, create and validate innovations and drive your business' | translate}}</div>
+  <div class="c-product-list__list-tests">
+    <div *ngFor="let test of list" [id]="test.link" class="test">
+      <div class="test-title">{{test.title | translate}}</div>
+      <div *ngIf="!test.custom; else customContainer" class="test-description">{{test.description | translate}}.</div>
+      <ng-template #customContainer>
+        <div>
+          <span class="test-description">{{'landing.Assessment of brand strength understanding:' | translate}}</span>
+          <ul class="test-description list">
+            <li *ngFor="let text of customCardDescriptionTexts"
+                class="">{{text | translate}}</li>
+          </ul>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</section>

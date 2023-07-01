@@ -1,0 +1,153 @@
+<div class="app-grouped-vertical-bar-chart">
+  <div *ngIf="!pdfVersion" class="app-grouped-vertical-bar-chart__header">
+    <div class="app-grouped-vertical-bar-chart__title">
+      {{ title }}
+      <app-question-tooltip
+        [texts]="getTooltipTexts()"
+        [type]="tooltipType"
+      ></app-question-tooltip>
+    </div>
+    <div *ngIf="isFirstBarChart">
+      <div class="app-concept-definitions__filter">
+        <span class="app-concept-definitions__filter-label"
+        >{{ "report.Show" | translate }}:</span
+        >
+        <span>{{ 'report.' + selectedKPI | translate }}</span>
+        <app-expand-button
+          class="app-concept-definitions__filter-expand-button"
+          [matMenuTriggerFor]="kpiFilter"
+          (menuClosed)="showConcepts()"
+          (menuOpened)="showConcepts()"
+          [active]="isChooseConceptActive"
+        ></app-expand-button>
+      </div>
+      <mat-menu #kpiFilter>
+        <li
+          *ngFor="let filter of kpiFilters"
+          mat-menu-item
+          class="c-custom-question-preview__popup-item"
+          (click)="selectedFilter(filter, $event)"
+        >
+          {{'report.' + filter | translate }}
+        </li>
+      </mat-menu
+      >
+    </div>
+  </div>
+
+  <!--Chart-->
+  <div #chartRef class="app-grouped-vertical-bar-chart__container">
+    <!--Horizontal Sub-axis-->
+    <div
+      *ngFor="let axis of horizontalAxis"
+      class="app-grouped-vertical-bar-chart__container-axis"
+      [style.top]="100 - axis * 10 + '%'"
+    >
+      <span *ngIf="showSubAxisLabel(axis)"
+      >{{ axis * 10 }}{{ axis === 10 ? "%" : "" }}</span
+      >
+    </div>
+
+    <!--Benchmark-->
+    <div
+      *ngIf="benchmark"
+      class="app-grouped-vertical-bar-chart__container-benchmark"
+      [style.top]="100 - benchmark + '%'"
+    >
+      <span>{{ benchmark }}</span>
+    </div>
+
+    <!--Chart Bars-->
+    <div class="app-grouped-vertical-bar-chart__container-content">
+      <!--Dataset bars-->
+      <div
+        #datasetContainerRef
+        class="app-grouped-vertical-bar-chart__container-content-dynamic"
+      >
+        <!--Population group-->
+        <div
+          class="app-grouped-vertical-bar-chart__container-content-dynamic-group"
+        >
+          <div
+            *ngFor="let population of populationBarDataSet.values; index as i"
+            class="item-chart-bar"
+            [style]="groupStyle(population, i)"
+          >
+            <!--Tooltip-->
+            <div *ngIf="!pdfVersion" class="vertical-bar-chart-tooltip">
+              <div class="vertical-bar-chart-tooltip-content">
+                <!--Label-->
+                <div class="vertical-bar-chart-tooltip-content-title">
+                  {{ "report.Population" | translate }}
+                </div>
+                <!--Value-->
+                <div class="vertical-bar-chart-tooltip-content-values">
+                  <span>{{ population.label | uppercase }}:</span>
+                  <span>{{ population.value }}%</span>
+                </div>
+              </div>
+
+              <div class="vertical-bar-chart-tooltip-arrow"></div>
+            </div>
+            <div *ngIf="pdfVersion" class="pdf-value">
+              {{ population.value }}%
+            </div>
+          </div>
+          <div
+            class="app-grouped-vertical-bar-chart__container-content-dynamic-group-label"
+          >
+            {{ populationBarDataSet.label | uppercase }}
+          </div>
+        </div>
+
+        <!--Other groups-->
+        <div
+          *ngFor="let group of dataSet"
+          class="app-grouped-vertical-bar-chart__container-content-dynamic-group"
+        >
+          <div
+            *ngFor="let concept of group.values; index as i"
+            class="item-chart-bar"
+            [style]="groupStyle(concept, i)"
+          >
+            <!--Tooltip-->
+            <div *ngIf="!pdfVersion" class="vertical-bar-chart-tooltip">
+              <div class="vertical-bar-chart-tooltip-content">
+                <!--Label-->
+                <div class="vertical-bar-chart-tooltip-content-title">
+                  {{ group.label }}
+                </div>
+                <!--Value-->
+                <div class="vertical-bar-chart-tooltip-content-values">
+                  <span>{{ concept.label | uppercase }}:</span>
+                  <span>{{ concept.value }}%</span>
+                </div>
+              </div>
+
+              <div class="vertical-bar-chart-tooltip-arrow"></div>
+            </div>
+            <div *ngIf="pdfVersion" class="pdf-value">{{ concept.value }}%</div>
+          </div>
+          <div
+            class="app-grouped-vertical-bar-chart__container-content-dynamic-group-label"
+          >
+            {{ group.label | uppercase }}
+          </div>
+        </div>
+      </div>
+
+      <!--Benchmark bar-->
+      <div
+        *ngIf="benchmark"
+        class="app-grouped-vertical-bar-chart__container-content-static"
+      >
+        <div class="chart-bar" [style.height]="benchmark + '%'">
+          <div *ngIf="pdfVersion" class="pdf-value">{{ benchmark }}%</div>
+        </div>
+        <div class="chart-bar-label">
+          {{ "report.Benchmark" | translate | uppercase }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

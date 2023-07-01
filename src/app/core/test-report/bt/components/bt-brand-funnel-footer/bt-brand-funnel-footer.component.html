@@ -1,0 +1,159 @@
+<div [style]="btStyle.footer">
+  <div [class.footer-wrapper]="!pdfVersion" [style]="pdfVersion ? {display: 'flex'} : {}"
+       [class.opened]="isOpened">
+    <div [style]="btStyle.footerInfo" [class.footer-width]="!pdfVersion" [ngStyle]="pdfVersion ? {width: '49%'} : {}">
+      <div>{{"report.Conversion rates" | translate}}:</div>
+      <div [style]="{'font-family': 'GT Walsheim Pro Regular', marginTop: '8px', 'font-size': '14px', marginBottom: '20px'}">{{"report.conversion_rate_paragraph" | translate}}</div>
+      <div [style]="{'font-family': 'GT Walsheim Pro Regular', marginTop: '8px', 'font-size': '14px'}">{{"report.The conversion rates are an average of all brand conversions for all quarters. If the average is >10% higher than average the color code is green. If < than 10% the color code is orange. If between lower and higher average the color code is yellow." | translate}}</div>
+    </div>
+
+    <div [class.footer-width]="!pdfVersion" [ngStyle]="pdfVersion ? {width: '51%', height: '200px', paddingLeft: '40px'} : {}">
+      <div [style]="btStyle.row" [style.margin-bottom.px]="12">
+        <div [style]="{width: '33%', marginRight: pdfVersion? '-5px' : '0', height: pdfVersion? '40px' : 'auto'}" [ngStyle]="btStyle.svgWrapper">
+          <span
+            [style]="{position: 'absolute'}"
+            class="footer-title"
+            [ngStyle]="pdfVersion ? {top: '7px', left: '40px', 'font-size': '14px'} : {}"
+          >{{"report.Aided awareness to consideration" | translate}}</span>
+          <ng-container *ngTemplateOutlet="legendSingleArrow"></ng-container>
+        </div>
+
+        <div [style]="{width: '33%', marginRight: pdfVersion? '-5px' : '0', height: pdfVersion? '40px' : 'auto'}" [ngStyle]="btStyle.svgWrapper">
+          <span
+            [style]="{position: 'absolute'}"
+            class="footer-title"
+            [ngStyle]="pdfVersion ? {top: '7px', left: '50px', 'font-size': '14px'} : {}"
+          >{{"report.Consideration to preference" | translate}}</span>
+          <ng-container *ngTemplateOutlet="legendDoubleArrow"></ng-container>
+        </div>
+
+        <div [style]="{width: '33%', marginLeft: pdfVersion? '-10px' : '0',height: pdfVersion? '40px' : 'auto'}" [ngStyle]="btStyle.svgWrapper">
+          <span
+            [style]="{position: 'absolute'}"
+            class="footer-title"
+            [ngStyle]="pdfVersion ? {top: '7px', left: '50px', 'font-size': '14px'} : {}"
+          >{{"report.Aided awareness to penetration" | translate}}</span>
+          <ng-container *ngTemplateOutlet="legendDoubleArrow"></ng-container>
+        </div>
+      </div>
+      <div [style]="btStyle.row" [style.margin-bottom.px]="12">
+        <div [style]="{width: '33%', marginRight: pdfVersion? '-17px' : '0'}" [ngStyle]="btStyle.svgWrapper">
+          <span
+            [style]="{position: 'absolute', padding: '10px'}"
+            [ngStyle]="pdfVersion ? {left: '40%'} : {}"
+          >{{greenLabel('aidedAwarenessToConsideration')}}</span>
+          <ng-container *ngTemplateOutlet="legendGreen"></ng-container>
+        </div>
+
+        <div [style]="{width: '33%', marginRight: pdfVersion? '-17px' : '0'}" [ngStyle]="btStyle.svgWrapper">
+           <span
+             [style]="{position: 'absolute', padding: '10px'}"
+             [ngStyle]="pdfVersion ? {left: '40%'} : {}"
+           >{{greenLabel('considerationToPreference')}}</span>
+          <ng-container *ngTemplateOutlet="legendGreen"></ng-container>
+        </div>
+
+        <div [style]="{width: '33%'}" [ngStyle]="btStyle.svgWrapper">
+           <span
+             [style]="{position: 'absolute', padding: '10px'}"
+             [ngStyle]="pdfVersion ? {left: '40%'} : {}"
+           >{{greenLabel('aidedAwarenessToPenetration')}}</span>
+          <ng-container *ngTemplateOutlet="legendGreen"></ng-container>
+        </div>
+      </div>
+      <div [style]="btStyle.row" [style.margin-bottom.px]="12">
+        <div [style]="{width: '33%', marginRight: pdfVersion? '-17px' : '0'}" [ngStyle]="btStyle.svgWrapper">
+           <span
+             [style]="{position: 'absolute', padding: '10px'}"
+             [ngStyle]="pdfVersion ? {left: '40%'} : {}"
+           >{{yellowLabel('aidedAwarenessToConsideration')}}</span>
+          <ng-container *ngTemplateOutlet="legendYellow"></ng-container>
+        </div>
+
+        <div [style]="{width: '33%', marginRight: pdfVersion? '-17px' : '0'}" [ngStyle]="btStyle.svgWrapper">
+           <span
+             [style]="{position: 'absolute', padding: '10px'}"
+             [ngStyle]="pdfVersion ? {left: '40%'} : {}"
+           >{{yellowLabel('considerationToPreference')}}</span>
+          <ng-container *ngTemplateOutlet="legendYellow"></ng-container>
+        </div>
+
+        <div [style]="{width: '33%'}" [ngStyle]="btStyle.svgWrapper">
+           <span
+             [style]="{position: 'absolute', padding: '10px'}"
+             [ngStyle]="pdfVersion ? {left: '40%'} : {}"
+           >{{yellowLabel('aidedAwarenessToPenetration')}}</span>
+          <ng-container *ngTemplateOutlet="legendYellow"></ng-container>
+        </div>
+      </div>
+      <div [style]="btStyle.row" [style.margin-bottom.px]="12">
+        <div [style]="{width: '33%', marginRight: pdfVersion? '-17px' : '0'}" [ngStyle]="btStyle.svgWrapper">
+           <span
+             [style]="{position: 'absolute', padding: '10px'}"
+             [ngStyle]="pdfVersion ? {left: '40%'} : {}"
+           >{{orangeLabel('aidedAwarenessToConsideration')}}</span>
+          <ng-container *ngTemplateOutlet="legendOrange"></ng-container>
+        </div>
+
+        <div [style]="{width: '33%', marginRight: pdfVersion? '-17px' : '0'}" [ngStyle]="btStyle.svgWrapper">
+           <span
+             [style]="{position: 'absolute', padding: '10px'}"
+             [ngStyle]="pdfVersion ? {left: '40%'} : {}"
+           >{{orangeLabel('considerationToPreference')}}</span>
+          <ng-container *ngTemplateOutlet="legendOrange"></ng-container>
+        </div>
+
+        <div [style]="{width: '33%'}" [ngStyle]="btStyle.svgWrapper">
+           <span
+             [style]="{position: 'absolute', padding: '10px'}"
+             [ngStyle]="pdfVersion ? {left: '40%'} : {}"
+           >{{orangeLabel('aidedAwarenessToPenetration')}}</span>
+          <ng-container *ngTemplateOutlet="legendOrange"></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ng-template #legendGreen>
+  <svg width="128" height="40" viewBox="0 0 128 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1.41421 3.41421C0.154282 2.15428 1.04662 0 2.82843 0H107.172C107.702 0 108.211 0.210714 108.586 0.585786L126.586 18.5858C127.367 19.3668 127.367 20.6332 126.586 21.4142L108.586 39.4142C108.211 39.7893 107.702 40 107.172 40H2.82843C1.04662 40 0.154284 37.8457 1.41421 36.5858L16.5858 21.4142C17.3668 20.6332 17.3668 19.3668 16.5858 18.5858L1.41421 3.41421Z" fill="#AFEBAB"/>
+  </svg>
+</ng-template>
+
+<ng-template #legendYellow>
+  <svg width="128" height="40" viewBox="0 0 128 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1.41421 3.41421C0.154282 2.15428 1.04662 0 2.82843 0H107.172C107.702 0 108.211 0.210714 108.586 0.585786L126.586 18.5858C127.367 19.3668 127.367 20.6332 126.586 21.4142L108.586 39.4142C108.211 39.7893 107.702 40 107.172 40H2.82843C1.04662 40 0.154284 37.8457 1.41421 36.5858L16.5858 21.4142C17.3668 20.6332 17.3668 19.3668 16.5858 18.5858L1.41421 3.41421Z" fill="#F9EF9A"/>
+  </svg>
+</ng-template>
+
+<ng-template #legendOrange>
+  <svg width="128" height="40" viewBox="0 0 128 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1.41421 3.41421C0.154282 2.15428 1.04662 0 2.82843 0H107.172C107.702 0 108.211 0.210714 108.586 0.585786L126.586 18.5858C127.367 19.3668 127.367 20.6332 126.586 21.4142L108.586 39.4142C108.211 39.7893 107.702 40 107.172 40H2.82843C1.04662 40 0.154284 37.8457 1.41421 36.5858L16.5858 21.4142C17.3668 20.6332 17.3668 19.3668 16.5858 18.5858L1.41421 3.41421Z" fill="#FFA56F"/>
+  </svg>
+</ng-template>
+
+
+<ng-template #legendSingleArrow>
+  <svg *ngIf="!pdfVersion" viewBox="0 0 199 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 4C0 1.79086 1.79086 0 4 0H168.343C169.404 0 170.421 0.421427 171.172 1.17157L197.172 27.1716C198.734 28.7337 198.734 31.2663 197.172 32.8284L171.172 58.8284C170.421 59.5786 169.404 60 168.343 60H4C1.79086 60 0 58.2091 0 56V4Z" fill="#B8B2EA"/>
+  </svg>
+
+  <svg *ngIf="pdfVersion" width="287" height="40" viewBox="0 0 287 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 4C0 1.79086 1.79086 0 4 0H258.789C259.579 0 260.351 0.233752 261.008 0.671799L285.008 16.6718C287.383 18.2551 287.383 21.7449 285.008 23.3282L261.008 39.3282C260.351 39.7663 259.579 40 258.789 40H4C1.79086 40 0 38.2091 0 36V4Z" fill="#B8B2EA"/>
+  </svg>
+</ng-template>
+
+<ng-template #legendDoubleArrow>
+  <svg *ngIf="!pdfVersion" viewBox="0 0 194 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1.99678 6.85684C-0.562342 4.34891 1.21337 0 4.7965 0H161.82C162.845 0 163.831 0.393706 164.575 1.09983L191.947 27.0998C193.607 28.6769 193.607 31.3231 191.947 32.9002L164.575 58.9002C163.831 59.6063 162.845 60 161.82 60H4.79649C1.21336 60 -0.562332 55.6511 1.99679 53.1432L22.6971 32.8568C24.2975 31.2885 24.2975 28.7115 22.6971 27.1432L1.99678 6.85684Z" fill="#B8B2EA"/>
+  </svg>
+
+  <svg *ngIf="pdfVersion" width="268" height="40" viewBox="0 0 268 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2.24795 7.34866C-1.08135 5.17352 0.458881 0 4.43575 0H238.257C239.015 0 239.757 0.215218 240.397 0.6206L265.663 16.6206C268.143 18.1911 268.143 21.8089 265.663 23.3794L240.397 39.3794C239.757 39.7848 239.015 40 238.257 40H4.43574C0.458874 40 -1.08134 34.8265 2.24796 32.6513L16.4867 23.3487C18.903 21.77 18.903 18.23 16.4867 16.6513L2.24795 7.34866Z" fill="#B8B2EA"/>
+  </svg>
+</ng-template>
+

@@ -1,0 +1,42 @@
+@import "mixins";
+
+.c-predesigned-screening {
+  &__title {
+    @include medium-18;
+
+    max-width: 666px;
+    margin: 32px 0 20px;
+  }
+
+  &__warning {
+    max-width: 666px;
+    margin-bottom: 32px;
+  }
+
+  &__category {
+    max-width: 666px;
+
+    &-name {
+      @include medium-16;
+
+      margin: 20px 0;
+    }
+
+    &-range {
+      margin-bottom: 32px;
+    }
+  }
+
+  &__engage {
+    max-width: 615px;
+    margin-left: 52px;
+  }
+}
+
+@media #{$mobile} {
+  .c-predesigned-screening {
+    &__engage {
+      margin-left: 0;
+    }
+  }
+}

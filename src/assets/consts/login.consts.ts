@@ -1,0 +1,14 @@
+export const EMAIL_MIN_LENGTH = 6;
+export const EMAIL_MAX_LENGTH = 320;
+export const PASSWORD_MIN_LENGTH = 8;
+export const PASSWORD_MAX_LENGTH = 128;
+export const NAME_MIN_LENGTH = 3;
+export const NAME_MAX_LENGTH = 50;
+export const COMPANY_NAME_MIN_LENGTH = 3;
+export const COMPANY_NAME_MAX_LENGTH = 120;
+export const STREET_MIN_LENGTH = 3;
+export const STREET_MAX_LENGTH = 250;
+export const POSTAL_CODE_MIN_LENGTH = 3;
+export const POSTAL_CODE_MAX_LENGTH = 20;
+export const CITY_MIN_LENGTH = 3;
+export const CITY_MAX_LENGTH = 50;

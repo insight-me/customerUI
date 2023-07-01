@@ -1,0 +1,80 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-subheader-bt {
+  @include flex-space-between-center;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  height: 45px;
+  background-color: $white;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+
+  &__nav {
+    @include flex-start-center;
+
+    height: 20px;
+  }
+
+  &__swiper {
+    .swiper-slide {
+      width: fit-content !important;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .swiper-wrapper {
+      padding: 0;
+    }
+  }
+
+  &__additional {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: fit-content;
+
+    &-preview {
+      padding: 0 20px;
+    }
+  }
+}
+
+@media #{$tablet} {
+  .c-subheader-bt {
+    flex-direction: column;
+    height: 97px;
+    padding: 0 12px;
+
+    &__nav {
+      @include flex-space-between-center;
+
+      width: 100%;
+      padding: 23px 0;
+      border-bottom: 1px solid rgba(111, 110, 112, 0.1);
+    }
+
+    &__additional {
+      justify-content: space-between;
+      width: 100%;
+      max-width: 100%;
+      padding: 7px 0;
+
+      &-time {
+        padding: 0;
+        border-left: none;
+      }
+
+      &-preview {
+        padding: 0;
+      }
+    }
+  }
+}
+
+@media #{$tablet} {
+  .c-subheader-bt {
+    height: 92px;
+  }
+}

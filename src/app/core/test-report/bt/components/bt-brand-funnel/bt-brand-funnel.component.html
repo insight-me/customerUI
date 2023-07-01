@@ -1,0 +1,31 @@
+<div class="bt-test-report bt-widget-wrapper">
+
+  <div class="bt-test-report__header">
+    <div class="bt-test-report__header-title">{{"report.Brand funnel" | translate}}</div>
+    <app-multi-select-filter *ngIf="filterForm"
+                             [filterModel]="filterModel"
+                             [filterForm]="filterForm"
+                             allLabel="report.All brands"
+                             (applyFilters)="applyFilters()"></app-multi-select-filter>
+  </div>
+  <app-warning-message *ngIf="lowNumbers"
+                       [text]="'BT.Warning! Amount of respondents is too low (<60)'"
+                       [isCentered]="true"
+                       [color]="'#585858'"></app-warning-message>
+
+  <ng-container *ngIf="service.switcher$ | async">
+    <ng-container *ngIf="service.brandFunnelFooterTableAverage$ | async as average">
+      <div [style]="btStyle.content"
+           [ngStyle]="{overflow: 'auto'}"
+           *ngIf="service.brandFunnelDataSet$ | async">
+        <ng-container *ngIf="dataSet$ | async as dataSet">
+          <app-bt-brand-funnel-table [dataSet]="dataSet"
+                                     [average]="average"></app-bt-brand-funnel-table>
+        </ng-container>
+
+      </div>
+
+      <app-bt-brand-funnel-footer [average]="average"></app-bt-brand-funnel-footer>
+    </ng-container>
+  </ng-container>
+</div>

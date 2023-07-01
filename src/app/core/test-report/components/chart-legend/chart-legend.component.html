@@ -1,0 +1,15 @@
+<div class="app-vertical-bar-chart-footer-legend">
+        <span *ngFor="let item of columnsData; index as i">
+          <i
+            [style.background]="getBackground(item.position ? item.position : i)"
+            class="likes-icon"
+          ></i>
+          <div class="legend-label">{{item.value | translate}}</div>
+          <div class="legend-label-tooltip">
+            <div class="legend-label-tooltip-content">
+              <div class="legend-label-tooltip-content-title">{{item.value | translate}}</div>
+            </div>
+            <div class="legend-label-tooltip-arrow"></div>
+          </div>
+        </span>
+</div>

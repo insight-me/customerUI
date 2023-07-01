@@ -1,0 +1,47 @@
+<link rel="preload" as="image" href="assets/images/3.jpg">
+<link rel="preload" as="image" href="assets/images/4.jpg">
+<link rel="preload" as="image" href="assets/images/1_blur.jpg">
+<link rel="preload" as="image" href="assets/images/2_blur.jpg">
+<link rel="preload" as="image" href="assets/images/3_blur.jpg">
+<link rel="preload" as="image" href="assets/images/4_blur.jpg">
+
+<div class="app-first-card" *ngIf="background$ | async as backgroundIndex">
+
+  <as-split direction="horizontal" gutterSize="0">
+    <as-split-area [size]="50">
+      <div
+        class="app-first-card__screen"
+        [style.background-image]="'url(assets/images/' + backgroundIndex + '.jpg)'"
+      ></div>
+    </as-split-area>
+    <as-split-area [size]="50">
+      <div
+        class="app-first-card__screen"
+        [style.background-image]="'url(assets/images/' + backgroundIndex + '_blur.jpg)'"
+      >
+        <div
+          class="app-first-card__screen-cover"
+          [style.background-color]="getColor(backgroundIndex)"
+        ></div>
+      </div>
+    </as-split-area>
+  </as-split>
+
+  <div class="app-first-card__tablet-mobile">
+    <div
+      class="app-first-card__screen"
+      [style.background-image]="'url(assets/images/' + backgroundIndex + '_blur.jpg)'"
+    >
+      <div
+        class="app-first-card__screen-cover"
+        [style.background-color]="getColor(backgroundIndex)"
+      ></div>
+    </div>
+  </div>
+
+
+  <div
+    class="app-first-card__label"
+    [style.color]="color$ | async"
+  >{{label$ | async | translate | uppercase}}</div>
+</div>

@@ -1,0 +1,363 @@
+<div class="c-test-library">
+  <!--  Page header-->
+  <div class="c-test-library__header">
+    <h2 class="c-test-library__title">{{ "header.library" | translate }}</h2>
+    <div [class.invisible]="!testLibrarySS.initTestsLength"
+         class="c-test-library__header__search">
+      <span class="p-input-icon-left c-test-library__header__search">
+        <i class="pi pi-search"></i>
+        <input #librarySearch
+               pInputText
+               type="text"
+               class="c-common__input c-test-library__header__search-input"
+               [placeholder]="'library.search' | translate" />
+      </span>
+    </div>
+  </div>
+  <!--  Tests-->
+  <div *ngIf="(testLibrarySS.tests | async) as initTests">
+    <div *ngIf="testLibrarySS.initTestsLength; else noTests"
+         class="c-test-library__table tablet">
+      <div class="c-test-library__table__contents">
+        <div *ngFor="let item of tableHeader"
+             class="c-test-library__table__contents__header"
+             [ngClass]="setHeaderClasses(item)">
+          {{ item.name | translate }}
+          <div *ngIf="item.sorting"
+               class="c-common__sort"
+               [class.up]="isSortingUp(item.fieldName)"
+               [class.down]="isSortingDown(item.fieldName)"
+               (click)="sort(item.fieldName)"></div>
+          <div *ngIf="item.filtering"
+               class="c-common__filter"
+               #menuOption="matMenuTrigger"
+               [class.fill]="isActiveFilter(item.fieldName) || menuOption.menuOpen"
+               [matMenuTriggerFor]="filterMenu">
+            <div class="c-library__filter">
+              <mat-menu #filterMenu
+                        class="filter"
+                        (closed)="emitedCloseMenu = !emitedCloseMenu">
+                <app-table-filter #filterListRef
+                                  [menuOpen]="emitedCloseMenu"
+                                  [list]="item.filterList"
+                                  (filtered)="filter($event, item.fieldName)"></app-table-filter>
+              </mat-menu>
+            </div>
+          </div>
+        </div>
+        <div class="c-test-library__table__contents__header tablet-sticky"></div>
+      </div>
+
+      <div *ngFor="let test of initTests | paginate: testLibrarySS.config; let i = index"
+           class="c-test-library__table__contents">
+        <div class="c-test-library__table__contents__th"
+             [class.background]="i % 2 !== 0"
+             [class.pointer]="test.status === statusEnum.Draft"
+             [class.attention]="test.status === statusEnum.StartFailed"
+             (click)="test.status === statusEnum.Draft ? navigateToTest(test) : false">{{ test.testName }}
+          <div class="c-test-library__error-message">
+            <app-error-message [texts]="['library.Unfortunately, we seem to have an issue with our data provider. We will contact you soon']"></app-error-message>
+          </div>
+        </div>
+        <div [class.background]="i % 2 !== 0"
+             class="c-test-library__table__contents__th">
+          {{ ProductName[test.productName] }}
+        </div>
+        <div [class.background]="i % 2 !== 0"
+             class="c-test-library__table__contents__th">
+          {{ test.publishDate ? (test.publishDate | date: "dd.MM.yyyy") : "-" }}
+        </div>
+        <div [class.background]="i % 2 !== 0"
+             class="c-test-library__table__contents__th">
+          {{ test.startDate ? (test.startDate | date: "dd.MM.yyyy") : "-" }}
+        </div>
+        <div [class.background]="i % 2 !== 0"
+             class="c-test-library__table__contents__th">
+          {{ this.isBT(test.testType) ? "-" : test.endDate ? (test.endDate | date: "dd.MM.yyyy") : "-" }}
+        </div>
+        <div [class.background]="i % 2 !== 0"
+             class="c-test-library__table__contents__th">
+          {{ this.isBT(test.testType) ? "-" : test.resultDate ? (test.resultDate | date: "dd.MM.yyyy") : "-" }}
+        </div>
+        <div [class.background]="i % 2 !== 0"
+             class="c-test-library__table__contents__th">
+          {{ getProgress(test)}}
+        </div>
+        <div class="c-test-library__table__contents__th tablet-sticky first-column"
+             [class.background]="i % 2 !== 0">
+          <app-library-item-status [statusName]="{status: test.status, libraryType: LibraryTypes.TestLibrary}"
+                                   [isMobile]="false"></app-library-item-status>
+        </div>
+        <div class="c-test-library__table__contents__th desktop"
+             [class.background]="i % 2 !== 0">
+          <div *ngIf="
+              (test.status === statusEnum.Finished || test.status === statusEnum.Ongoing) && test.answeredNumber;
+              else noReportBlock
+            "
+               class="c-test-library__table__contents__th__report">
+            <button [pTooltip]="'library.view-tooltip' | translate"
+                    tooltipPosition="bottom"
+                    class="c-test-library__table__contents__th__report-item c-common__button c-common__button--icon"
+                    (click)="viewReport(test)">
+              <img src="../../../assets/images/png/view.png" />
+            </button>
+            <app-library-action *ngIf="test.status === statusEnum.Finished"
+                                [pTooltip]="'library.download-report' | translate"
+                                tooltipPosition="bottom"
+                                [showDots]="false"
+                                [actions]="!isBT(test.testType)? actionsObj.actionsForReport : actionsObj.actionsForReportBT"
+                                (downloadPDF)="downloadReport(test)"
+                                (downloadExcel)="downloadExcel(test.id, test.testType)"
+                                (downloadCalculatedData)="downloadCalculatedData(test.id)"></app-library-action>
+          </div>
+          <ng-template #noReportBlock>
+            <div>-</div>
+          </ng-template>
+        </div>
+        <div class="c-test-library__table__contents__th pointer desktop"
+             [class.background]="i % 2 !== 0">
+          <ng-container *ngIf="test.status === statusEnum.Draft; else copyTestBlock">
+            <app-library-action [actions]="actionsObj.actionsForDraftTest"
+                                (copyTest)="copyTest(test)"
+                                (deleteTest)="deleteTest(test)"></app-library-action>
+          </ng-container>
+          <ng-template #copyTestBlock>
+            <button class="c-common__button c-common__button--icon"
+                    [pTooltip]="'library.Copy test' | translate"
+                    tooltipPosition="bottom">
+              <img src="../../../assets/images/svg/copy-gray.svg"
+                   (click)="copyTest(test)" />
+            </button>
+          </ng-template>
+        </div>
+        <div *ngIf="test.status === statusEnum.Finished || test.status === statusEnum.Ongoing; else deleteBlock"
+             class="c-test-library__table__contents__th tablet tablet-sticky"
+             [class.background]="i % 2 !== 0">
+          <app-library-action *ngIf="test.status === statusEnum.Finished"
+                              [actions]="
+              !isBT(test.testType)
+                ? actionsObj.actionsForBICTablet
+                : actionsObj.actionsForBTTablet
+            "
+                              (viewReport)="viewReport(test)"
+                              (copyTest)="copyTest(test)"
+                              (downloadPDF)="downloadReport(test)"
+                              (downloadExcel)="downloadExcel(test.id)"
+                              (downloadCalculatedData)="downloadCalculatedData(test.id)"></app-library-action>
+          <app-library-action *ngIf="test.status === statusEnum.Ongoing && test.answeredNumber"
+                              [actions]="actionsObj.actionsForOngoingTablet"
+                              (viewReport)="viewReport(test)"
+                              (copyTest)="copyTest(test)"></app-library-action>
+          <app-library-action *ngIf="test.status === statusEnum.Ongoing && !test.answeredNumber"
+                              [actions]="actionsObj.actionsCopy"
+                              (copyTest)="copyTest(test)"></app-library-action>
+        </div>
+        <ng-template #deleteBlock>
+          <div class="c-test-library__table__contents__th tablet tablet-sticky"
+               [class.background]="i % 2 !== 0">
+            <app-library-action [actions]="actionsObj.actionsForDraftTest"
+                                (copyTest)="copyTest(test)"
+                                (deleteTest)="deleteTest(test)"></app-library-action>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <!--  MOBILE-->
+    <div *ngIf="testLibrarySS.initTestsLength"
+         class="c-test-library__mobile__header">
+      <div class="c-test-library__mobile__header-item">
+        {{ "library.name" | translate }}
+        <div class="c-common__sort"
+             [class.up]="isSortingUp(tableHeader[0].fieldName)"
+             [class.down]="isSortingDown(tableHeader[0].fieldName)"
+             (click)="sort(tableHeader[0].fieldName)"></div>
+      </div>
+      <div class="c-test-library__mobile__header-item flex-end">
+        {{ "library.status" | translate }}
+        <div class="c-common__sort"
+             [class.up]="isSortingUp('status')"
+             [class.down]="isSortingDown('status')"
+             (click)="sort('status')"></div>
+        <div class="c-common__filter"
+             #menuOption="matMenuTrigger"
+             [class.fill]="isActiveFilter(headerStatusItem.fieldName) || menuOption.menuOpen"
+             [matMenuTriggerFor]="filterMenu">
+          <div class="c-library__filter">
+            <mat-menu #filterMenu
+                      class="filter">
+              <app-table-filter [list]="headerStatusItem.filterList"
+                                (filtered)="filter($event, headerStatusItem.fieldName)"></app-table-filter>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div *ngFor="let test of initTests; let i = index"
+           class="c-test-library__mobile__card">
+        <div class="c-test-library__mobile__card__tr">
+          <div class="c-test-library__mobile__card__tr-item"
+               [class.attention]="test.status === statusEnum.StartFailed"
+               (click)="test.status === statusEnum.Draft ? navigateToTest(test) : false">
+            {{ test.testName }}
+            <div class="c-test-library__error-message">
+              <app-error-message [texts]="['library.Unfortunately, we seem to have an issue with our data provider. We will contact you soon']"></app-error-message>
+            </div>
+          </div>
+          <div class="c-test-library__mobile__card__tr-item status">
+            <app-library-item-status [statusName]="{status: test.status, libraryType: LibraryTypes.TestLibrary}"
+                                     [isMobile]="true"></app-library-item-status>
+          </div>
+        </div>
+        <div class="c-test-library__mobile__card__sub-tr">
+          <!--        TEST TYPE-->
+          <div class="c-test-library__mobile__card__sub-tr__contents">
+            <div class="c-test-library__mobile__card__sub-tr__contents__header background">
+              {{ "library.type" | translate }}
+            </div>
+            <div class="c-test-library__mobile__card__tr-item background">
+              {{ ProductName[test.productName] }}
+            </div>
+          </div>
+          <!--        NOT DRAFT -->
+          <!--        PUBLISH DATE -->
+          <div *ngIf="test.status !== statusEnum.Draft"
+               class="c-test-library__mobile__card__sub-tr__contents">
+            <div class="c-test-library__mobile__card__sub-tr__contents__header">
+              {{ "library.date" | translate }}
+            </div>
+            <div class="c-test-library__mobile__card__sub-tr__contents__item">
+              {{
+              test.publishDate ? (test.publishDate | date: "dd.MM.yyyy") : "-"
+              }}
+            </div>
+          </div>
+          <!--        START DATE -->
+          <div *ngIf="test.status !== statusEnum.Draft"
+               class="c-test-library__mobile__card__sub-tr__contents">
+            <div class="c-test-library__mobile__card__sub-tr__contents__header background">
+              {{ "library.start-date" | translate }}
+            </div>
+            <div class="c-test-library__mobile__card__sub-tr__contents__item background">
+              {{ test.startDate ? (test.startDate | date: "dd.MM.yyyy") : "-" }}
+            </div>
+          </div>
+          <!--        END DATE -->
+          <div *ngIf="test.status !== statusEnum.Draft"
+               class="c-test-library__mobile__card__sub-tr__contents">
+            <div class="c-test-library__mobile__card__sub-tr__contents__header">
+              {{ "library.end-date" | translate }}
+            </div>
+            <div class="c-test-library__mobile__card__sub-tr__contents__item">
+              {{ this.isBT(test.testType) ? "-" : test.endDate ? (test.endDate | date: "dd.MM.yyyy") : "-" }}
+            </div>
+          </div>
+          <!--        RESULT DATE -->
+          <div *ngIf="test.status !== statusEnum.Draft"
+               class="c-test-library__mobile__card__sub-tr__contents">
+            <div class="c-test-library__mobile__card__sub-tr__contents__header background">
+              {{ "library.result-date" | translate }}
+            </div>
+            <div class="c-test-library__mobile__card__sub-tr__contents__item background">
+              {{ this.isBT(test.testType) ? "-" : test.resultDate ? (test.resultDate | date: "dd.MM.yyyy") : "-"}}
+            </div>
+          </div>
+          <!--        RESPONDENTS -->
+          <div *ngIf="test.status !== statusEnum.Draft"
+               class="c-test-library__mobile__card__sub-tr__contents">
+            <div class="c-test-library__mobile__card__sub-tr__contents__header">
+              {{ "library.respondents" | translate }}
+            </div>
+            <div class="c-test-library__mobile__card__sub-tr__contents__item">
+              {{getProgress(test)}}
+            </div>
+          </div>
+          <!--        REPORT -->
+          <div *ngIf="test.status !== statusEnum.Draft && test.answeredNumber"
+               class="c-test-library__mobile__card__sub-tr__contents">
+            <div class="c-test-library__mobile__card__sub-tr__contents__header background">
+              {{ "library.report" | translate }}
+            </div>
+            <div class="c-test-library__mobile__card__sub-tr__contents__item report background">
+              <button class="c-test-library__table__contents__th__report-item c-common__button c-common__button--icon"
+                      (click)="viewReport(test)">
+                <img src="../../../assets/images/png/view.png" />
+              </button>
+              <app-library-action *ngIf="test.status === statusEnum.Finished"
+                                  [pTooltip]="'library.download-report' | translate"
+                                  tooltipPosition="bottom"
+                                  [showDots]="false"
+                                  [actions]="
+                  test.productName === 'Brand & Innovation Concept test'
+                    ? actionsObj.actionsForReport
+                    : actionsObj.actionsForReportBT
+                "
+                                  (downloadPDF)="downloadReport(test)"
+                                  (downloadExcel)="downloadExcel(test.id)"
+                                  (downloadCalculatedData)="downloadCalculatedData(test.id)"></app-library-action>
+            </div>
+          </div>
+        </div>
+        <!--        DRAFT -->
+        <div *ngIf="test.status === statusEnum.Draft && test.paymentStatus !== 7"
+             class="c-test-library__mobile__card__sub-tr__delete">
+          <div class="c-test-library__mobile__card__sub-tr__delete-item"
+               (click)="deleteTest(test)">
+            <button class="c-common__button c-common__button--icon">
+              <img src="../../../assets/images/png/delete.png" />
+            </button>
+            {{ "library.delete-test" | translate }}
+          </div>
+          <div class="c-test-library__mobile__card__sub-tr__delete-item"
+               (click)="copyTest(test)">
+            <button class="c-common__button c-common__button--icon">
+              <img src="../../../assets/images/svg/copy-gray.svg" />
+            </button>
+            {{ "library.Copy test" | translate }}
+          </div>
+        </div>
+        <!--        Ongoing -->
+        <div *ngIf="
+            test.status === statusEnum.Ongoing ||
+            test.status === statusEnum.Finished || test.status === statusEnum.StartFailed
+          "
+             [class.background]="!test.answeredNumber"
+             class="c-test-library__mobile__card__sub-tr__delete">
+          <div class="c-test-library__mobile__card__sub-tr__delete-item"
+               (click)="copyTest(test)">
+            <button class="c-common__button c-common__button--icon">
+              <img src="../../../assets/images/svg/copy-gray.svg" />
+            </button>
+            {{ "library.Copy test" | translate }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-pagination *ngIf="(testLibrarySS.tests | async).length"
+                  [config]="testLibrarySS.config"
+                  (changedPages)="changePage($event)"></app-pagination>
+</div>
+<ng-template #noTests>
+  <app-no-tests-library></app-no-tests-library>
+</ng-template>
+
+<div class="export-pdf">
+  <!--BIC-->
+  <app-export-container *ngIf="bicExportRequest | async"
+                        (exportReady)="bicExportReady($event)"></app-export-container>
+
+  <!--BT no PDF, will be implemented later -->
+  <!--  <app-export-pdf-->
+  <!--    *ngIf="btExportRequest | async"-->
+  <!--    (exportReady)="btExportReady($event)"-->
+  <!--  ></app-export-pdf>-->
+</div>
+<div *ngIf="copiedTestId"
+     class="c-common__modal">
+  <div class="c-common__modal-window c-test-library__modal">
+    <app-set-test-name [isCopy]="true"
+                       [test]="copiedTestId"
+                       (onClose)="onCloseCopy()"></app-set-test-name>
+  </div>
+</div>

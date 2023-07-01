@@ -1,0 +1,28 @@
+<div *ngIf="isFailPayment$ | async" class="c-payment-success">
+  <div class="c-payment-success__message">
+    <button class="c-payment-success__close c-common__button c-common__button--icon" (click)="close()">
+      <img src="../../../../assets/images/svg/ic_close-modal.svg">
+    </button>
+
+    <div class="c-payment-success__message__image">
+      <img class="c-payment-success__message__img"
+           [src]="failedImage">
+    </div>
+
+    <div class="c-payment-success__message__title">
+      {{'payment.Payment failed :(' | translate}}
+    </div>
+    <div class="c-payment-success__message__text">
+      <p>{{'payment.Sorry, the payment failed.' | translate}}</p>
+      <p>{{'payment.Please try again or contact InsightMe support.' | translate}}</p>
+    </div>
+
+    <div class="c-payment-success__message__close">
+      <div class="c-payment-success__button">
+        <button class="c-common__button--filled c-common__button"
+                (click)="close()">{{'buttons.close' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

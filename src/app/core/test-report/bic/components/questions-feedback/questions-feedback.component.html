@@ -1,0 +1,9 @@
+<div class="app-questions-feedback">
+  <div class="app-questions-feedback__title">{{dataSet.label}}</div>
+  <div class="app-questions-feedback__content">
+    <app-questions-feedback-item
+      *ngFor="let question of dataSet.feedback"
+      [question]="question"
+    ></app-questions-feedback-item>
+  </div>
+</div>

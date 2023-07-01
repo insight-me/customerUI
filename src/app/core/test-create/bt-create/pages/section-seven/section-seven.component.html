@@ -1,0 +1,57 @@
+<div *ngIf="test"
+     class="c-section">
+  <div class="c-test__card start-date">
+    <div class="c-section-two__market">
+      <div class="c-test__card__title tooltip-custom-position">
+        {{"BT-start-date.Start date" | translate }}
+        <span class="market-tip-medium"><app-question-tooltip [texts]="['BT-start-date.You will commit to a period of 12 month (365 days). After 12 months the tracker will continue automatically but with a notice period of three months (90 days).',
+           'BT-start-date.Even if you are committed during 12 months you will be able to do adjustments in your tracker continuously for the next coming month.']"
+                                [arrowShift]="41"></app-question-tooltip></span>
+      </div>
+      <div class="start-date__title-calendar">
+        {{"BT-start-date.Select a date to start" | translate }}
+      </div>
+      <div class="prime__calendar date">
+        <p-calendar [dateFormat]="'dd/mm/yy'"
+                    [disabledDates]="disabledDates"
+                    [disabledDays]="disabledDays"
+                    [minDate]="disabledDates[0]"
+                    firstDayOfWeek="1"
+                    [formControl]="startDateControl"
+                    [inputStyleClass]="startDateControl.touched && (isLateStartDate() || isValidStartDate() || isValidStartDateFormat()) ? 'error' : ''"
+                    (onSelect)="updateStartDate()"
+                    placeholder="dd/mm/yyyy"
+                    ngDefaultControl
+                    readonlyInput="true"
+                    class="date"
+                    panelStyleClass="date"></p-calendar>
+      </div>
+      <ng-container *ngIf="startDateControl.touched">
+        <div *ngIf="isLateStartDate()"
+             class="c-test-duration-form__error">
+          <small class="p-error c-common__form-field-error">{{'BT-start-date.Start date can not be in the past' | translate}}</small>
+        </div>
+        <div *ngIf="isValidStartDate()"
+             class="c-test-duration-form__error">
+          <small class="p-error c-common__form-field-error">{{'BT-start-date.Start date is required' | translate}}</small>
+        </div>
+        <div *ngIf="isValidStartDateFormat()"
+             class="c-test-duration-form__error">
+          <small class="p-error c-common__form-field-error">{{'BT-start-date.Please select a new date' | translate}}</small>
+        </div>
+      </ng-container>
+    </div>
+    <div class="c-section__subtext market-medium">
+      <div class="start-date__text">
+        {{"BT-start-date.You will commit to a period of 12 month (365 days). After 12 months the tracker will continue automatically but with a notice period of three months (90 days)." | translate }}
+      </div>
+      <div>
+        {{"BT-start-date.Even if you are committed during 12 months you will be able to do adjustments in your tracker continuously for the next coming month." | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="c-test-create__footer-wrapper">
+    <app-next-button [nextSection]="'section-8'"
+                     [testType]="TestType.BT"></app-next-button>
+  </div>
+</div>

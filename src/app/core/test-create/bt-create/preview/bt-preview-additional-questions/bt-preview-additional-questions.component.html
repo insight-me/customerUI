@@ -1,0 +1,7 @@
+<div *ngIf="test">
+  <div *ngIf="test?.customQuestions?.length">
+    <app-preview-feedback
+      [customQuestions]="test.customQuestions"
+    ></app-preview-feedback>
+  </div>
+</div>

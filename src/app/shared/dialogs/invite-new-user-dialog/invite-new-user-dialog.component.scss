@@ -1,0 +1,113 @@
+@import "./src/assets/styles/variables.scss";
+
+.c-invite-new-user {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 320px;
+    max-height: 90vh;
+  }
+
+  &__button {
+    &-wrapper {
+      //display: flex;
+      //justify-content: space-between;
+      //margin-top: 20px;
+      & > button {
+        //border-radius: 4px;
+        //width: 144px;
+        //font-weight: bold;
+        //font-size: 18px;
+        //letter-spacing: 0.5px;
+      }
+    }
+  }
+}
+
+.с-change-password-dialog {
+  width: 617px;
+  height: 100%;
+  max-height: 90vh;
+  margin-top: 100px;
+  background-color: #FFF;
+  border-radius: 8px;
+  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.1);
+
+  &__header {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 78px;
+    overflow-x: none;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: #f9f9fd;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 20px;
+      background-color: $light-orange-second;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      margin-top: 10px;
+      background-color: #f9f9fd;
+      border-radius: 5px;
+    }
+
+    &__label {
+      margin: 0 0 10px;
+      font-family: "GT Walsheim Pro Medium";
+      font-size: 14px;
+      line-height: 16px;
+      color: $black;
+      letter-spacing: 0.4px;
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 20px;
+
+      &-size {
+        min-width: 165px;
+        max-width: 165px;
+      }
+    }
+  }
+}
+
+@media #{$mobile} {
+  .с-change-password-dialog {
+    width: 350px;
+
+    &__content {
+      padding: 5px;
+
+      &__buttons {
+        justify-content: space-between;
+
+        &-size {
+          min-width: 122px;
+          max-width: 122px;
+          height: 37px;
+        }
+      }
+    }
+  }
+}

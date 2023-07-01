@@ -1,0 +1,32 @@
+<div *ngIf="test?.brands[0]?.name"
+     class="c-preview__section c-preview__section__content">
+  <div>
+    <div class="c-preview__section__header-text flex">
+      {{'aided-awareness.title' | translateCustom: { category: customTranslateService.isTranslatedSelectedSubcategories() } }}
+    </div>
+    <div class="c-preview__description">{{categoryService.categoryDescriptionControl.value}}</div>
+    <div class="c-preview__section__header-tiny">{{'aided-awareness.sub-title'| translateCustom}}</div>
+  </div>
+  <div class="c-preview__section__image-container">
+    <div class="c-images-list">
+      <div *ngFor="let brand of test.brands"
+           class="c-images-list__element flex-center-center-class">
+        <div *ngIf="brand.image || brand.imageData; else text"
+             class="c-preview__img-container">
+          <img [src]="brand.image? brand.image: brand.imageData"
+               [alt]="brand.name"
+               class="c-images-list__element__image">
+        </div>
+        <ng-template #text>
+          <div class="c-preview__section__image-container">
+            {{brand.name}}
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="c-preview__block__flex">
+    <div class="c-preview__block__square"></div>
+    <div class="c-preview__block__subtext">{{'spontaneous-awareness.none'| translateCustom}}</div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div *ngIf="title || text" class="c-why-add">
+  <h3 *ngIf="title" class="c-why-add__title">{{title | translate}}</h3>
+  <p *ngFor="let paragraph of text" class="c-why-add__text">{{paragraph | translate}}</p>
+</div>
+<div class="c-why-add-mobile">
+  <app-mobile-why-add [title]="title" [text]="text"></app-mobile-why-add>
+</div>

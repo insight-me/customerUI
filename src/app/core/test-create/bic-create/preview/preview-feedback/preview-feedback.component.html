@@ -1,0 +1,133 @@
+<div class="c-preview__section__header">
+  <p *ngIf="like || think"
+     class="c-preview__section__header-text">{{'preview.header-feedback' | translateCustom }}</p>
+</div>
+<div class="c-preview__section">
+  <div *ngIf="like">
+    <h3 class="c-preview__section__header-text c-preview-feedback__title">
+      {{'BIC.What do you like most about the idea?' | translateCustom }}
+    </h3>
+    <p class="c-preview-feedback__subtitle">
+      {{'feedback.explanation-text' | translateCustom }}
+    </p>
+
+    <div class="c-preview-feedback__textarea">
+      <p class="c-preview-feedback__textarea-placeholder">{{'feedback.placeholder' | translateCustom }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="think">
+    <h3 class="c-preview__section__header-text c-preview-feedback__title c-preview-feedback__second-title">
+      {{'BIC.What do you think can be improved with the idea?'| translateCustom }}
+    </h3>
+    <p class="c-preview-feedback__subtitle">
+      {{'feedback.explanation-text' | translateCustom }}
+    </p>
+
+    <div class="c-preview-feedback__textarea">
+      <p class="c-preview-feedback__textarea-placeholder">{{'feedback.placeholder' | translateCustom }}</p>
+    </div>
+  </div>
+  <div *ngIf="customQuestions.length">
+    <div *ngFor="let question of customQuestions"
+         class="c-preview-feedback__custom-question">
+      <div class="c-preview__section__header-text c-preview-feedback__title">
+        {{question.value}}
+      </div>
+      <div *ngIf="question.type === CustomQuestionType.Open"
+           class="c-preview-feedback__subtitle">
+        {{'feedback.explanation-text'
+        | translateCustom }}
+      </div>
+      <div *ngIf="getExplanationText(question.type, question.answerType)"
+           class="c-preview-feedback__subtitle desktop">
+        {{ getExplanationText(question.type, question.answerType) | translateCustom }}
+      </div>
+      <div class="c-preview-feedback__subtitle mobile">
+        {{ getMobileExplanationText(question.type, question.answerType) | translateCustom }}
+      </div>
+
+      <ng-container *ngIf="question.image">
+        <div class="c-preview-feedback__image-container">
+          <img [src]="question.image"
+               class="c-preview-feedback__image-container-image">
+        </div>
+      </ng-container>
+
+      <div class="c-preview-feedback__subtitle mobile"
+           *ngIf="question.answerType === 1">
+        {{ 'BIC.Swipe to complete all options'| translateCustom}}
+      </div>
+      <!--      TEXT-->
+      <div *ngIf="question.type === CustomQuestionType.Open"
+           class="c-preview-feedback__textarea">
+        <p class="c-preview-feedback__textarea-placeholder">{{'feedback.placeholder' | translateCustom }}</p>
+      </div>
+
+      <!--      SCALE-->
+      <ng-container *ngIf="question.type === CustomQuestionType.Scale">
+        <div class="c-preview-feedback__scale">
+          <input type="range"
+                 [min]="1"
+                 [max]="7"
+                 [step]="1"
+                 [readonly]="true"
+                 [value]="1"
+                 disabled
+                 [style.cursor]="'default'"
+                 class="c-base__range c-preview-feedback__range">
+          <ul class="c-base__range-legend width-100">
+            <li *ngFor="let item of options"
+                class="c-base__range-legend__element">{{item}}</li>
+          </ul>
+          <ul class="c-base__range-track">
+            <li *ngFor="let i of options;"
+                class="c-base__range-track__element"></li>
+          </ul>
+          <ul class="c-base__range-scale">
+            <ng-container *ngFor="let item of options; let i = index; let isFirst = first;">
+              <li class="c-base__range-scale__element"></li>
+            </ng-container>
+
+          </ul>
+        </div>
+        <div class="c-preview-slider__card-slider__legend">
+          <span class="c-preview-slider__card-slider__legend-element">{{ 'preview.1 is low' | translateCustom }}</span>
+          <span class="c-preview-slider__card-slider__legend-element right">{{ 'preview.7 is hight' | translateCustom }}</span>
+        </div>
+        <div class="c-preview-feedback__checkbox">
+          <div class="c-preview-feedback__checkbox-label">{{'preview.Do not know' | translateCustom }}</div>
+        </div>
+      </ng-container>
+      <!--      Single Choice-->
+      <ng-container *ngIf="question.type === CustomQuestionType.Single
+      && question.answerType === AnswerCustomQuestionType.Default">
+        <div *ngFor="let answer of question.answers">
+          <div class="c-preview-feedback__radio">
+            <div class="c-preview-feedback__radio-label">{{answer.value}}</div>
+          </div>
+        </div>
+      </ng-container>
+      <!--      Multi Choice-->
+      <ng-container *ngIf="question.type === CustomQuestionType.Multi
+      && question.answerType === AnswerCustomQuestionType.Default">
+        <div *ngFor="let answer of question.answers">
+          <div class="c-preview-feedback__checkbox">
+            <div class="c-preview-feedback__checkbox-label">{{answer.value}}</div>
+          </div>
+        </div>
+      </ng-container>
+      <!--      Multi Grid Choice-->
+      <ng-container *ngIf="(question.type === CustomQuestionType.Multi || question.type === CustomQuestionType.Single)
+      && question.answerType === AnswerCustomQuestionType.Grid">
+        <app-open-questions-preview [columns]="question.columns"
+                                    [rows]="question.answers"
+                                    [type]="question.type"
+                                    [columnsOrder]="question.columnsOrder"
+                                    [answersOrder]="question.answersOrder"
+                                    [includeDoNotKnow]="question.isDontKnowOption"
+                                    [isOpenedPreview]="true"></app-open-questions-preview>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="app-tree-multiselect">
+  <div #ref>
+    <p-multiSelect
+      [options]="options"
+      [formControl]="control"
+      class="c-base__p-multiselect-small"
+      [filter]="false"
+      [group]="true"
+      [defaultLabel]="defaultLabel | translate"
+      [displaySelectedLabel]="false"
+      (onChange)="multiSelectChange($event)"
+      (onPanelHide)="onPanelHide()"
+    >
+      <ng-template let-group pTemplate="group">
+        <div class="p-d-flex p-ai-center">
+          <div class="p-field-checkbox c-common__checkbox-wrapper">
+            <p-checkbox
+              [(ngModel)]="selected[group.value]"
+              binary="true"
+              [label]="group.label"
+              class="c-common__checkbox small"
+              (onChange)="toggleGroup(group.value)"
+            ></p-checkbox>
+          </div>
+        </div>
+      </ng-template>
+    </p-multiSelect>
+  </div>
+</div>

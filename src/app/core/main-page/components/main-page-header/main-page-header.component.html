@@ -1,0 +1,190 @@
+<div
+  class="app-start-page-header"
+  [class.visible]="!visibleHeader"
+  [class.expanded]="isExpanded"
+>
+  <app-icon
+    (click)="onLogoClick()"
+    class="logo"
+    [iconType]="IconsType.Logo"
+  ></app-icon>
+
+  <div class="app-start-page-header-menu">
+<!--    was removed by 2842 task -->
+<!--    <button-->
+<!--      class="app-start-page-header-menu-item padding-top"-->
+<!--      mat-button-->
+<!--      [matMenuTriggerFor]="product"-->
+<!--      (menuOpened)="productMenuOpened()"-->
+<!--      (menuClosed)="productMenuClosed()"-->
+<!--      [class.expand]="matMenuProductExpand"-->
+<!--      #productMenuTrigger="matMenuTrigger"-->
+<!--    >-->
+<!--      {{ "landing.Product" | translate }}-->
+<!--      <img-->
+<!--        src="../../../../../assets/images/svg/ic_small_chevron.svg"-->
+<!--        class="app-start-page-header-menu-item-arrow-image"-->
+<!--        [class.rotate]="matMenuProductExpand"-->
+<!--      />-->
+<!--    </button>-->
+<!--    <mat-menu class="product-sub-menu" #product>-->
+<!--      &lt;!&ndash;      <button mat-menu-item>{{ "landing.How it works" | translate }}</button>&ndash;&gt;-->
+<!--      <button mat-menu-item (click)="scrollToTop()" routerLink="products">-->
+<!--        {{ "landing.Research tests" | translate }}-->
+<!--      </button>-->
+<!--    </mat-menu>-->
+
+    <button
+      class="app-start-page-header-menu-item padding-top"
+      mat-button
+      [matMenuTriggerFor]="company"
+      (menuOpened)="companyMenuOpened()"
+      (menuClosed)="companyMenuClosed()"
+      [class.expand]="matMenuCompanyExpand"
+      #companyMenuTrigger="matMenuTrigger"
+    >
+      {{ "landing.Company" | translate }}
+      <img
+        src="../../../../../assets/images/svg/ic_small_chevron.svg"
+        class="app-start-page-header-menu-item-arrow-image"
+        [class.rotate]="matMenuCompanyExpand"
+      />
+    </button>
+    <mat-menu class="product-sub-menu" #company>
+      <button mat-menu-item (click)="scrollToTop()" routerLink="about-us">
+        {{ "landing.About us" | translate }}
+      </button>
+    </mat-menu>
+
+    <div
+      class="app-start-page-header-menu-item get-a-demo"
+      (click)="navigateToContactUs()"
+    >
+      {{ "landing.Get a demo" | translate }}
+    </div>
+  </div>
+
+  <div class="app-start-page-header-buttons">
+    <div
+      class="app-start-page-header-buttons-transparent login"
+      routerLink="auth/login"
+    >
+      {{ "landing.log in" | translate | uppercase }}
+    </div>
+<!--    routerLink="auth/register"-->
+    <button
+      class="c-common__button c-common__button--border get-started"
+      (click)="navigateToContactUs()"
+    >
+      {{ "landing.Get started" | translate | uppercase }}
+      <app-icon
+        [iconType]="IconsType.SmallRightArrow"
+        color="#FFA56F"
+      ></app-icon>
+    </button>
+  </div>
+
+  <div class="tablet-mobile-menu">
+    <div class="tablet-mobile-menu-nav">
+      <div class="tablet-mobile-menu-nav-trigger" (click)="toggleMenu()">
+        <div
+          class="tablet-mobile-menu-nav-trigger-burger"
+          [class.expanded]="isExpanded"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="app-start-page-table-header" [class.expanded]="isExpanded">
+  <div class="app-start-page-table-header-second">
+    <div class="app-start-page-table-header-second-buttons">
+      <button
+        class="c-common__button c-common__button--regular"
+        routerLink="auth/login"
+      >
+        {{ "landing.log in" | translate | uppercase }}
+      </button>
+<!--      routerLink="auth/register"-->
+      <button
+        class="c-common__button c-common__button--border get-started"
+        (click)="navigateToContactUs();toggleMenu()"
+      >
+        {{ "landing.Get started" | translate | uppercase }}
+        <app-icon
+          [iconType]="IconsType.SmallRightArrow"
+          color="#FFA56F"
+        ></app-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<div
+  id="app-start-page-mobile-header"
+  class="app-start-page-mobile-header"
+  [class.expanded]="isExpanded"
+>
+  <div class="app-start-page-mobile-header-menu">
+    <mat-accordion>
+<!--    was removed by 2842 task -->
+<!--      <mat-expansion-panel>-->
+<!--        <mat-expansion-panel-header>-->
+<!--          <mat-panel-title class="app-start-page-mobile-header-menu-item">-->
+<!--            {{ "landing.Product" | translate | uppercase }}-->
+<!--          </mat-panel-title>-->
+<!--          <mat-panel-description></mat-panel-description>-->
+<!--        </mat-expansion-panel-header>-->
+<!--        <div class="app-start-page-mobile-header-menu-item-container">-->
+<!--          &lt;!&ndash;          <div class="app-start-page-mobile-header-menu-item-sub-item">&ndash;&gt;-->
+<!--          &lt;!&ndash;            {{ "landing.How it works" | translate }}&ndash;&gt;-->
+<!--          &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--          <div-->
+<!--            class="app-start-page-mobile-header-menu-item-sub-item"-->
+<!--            routerLink="products"-->
+<!--            (click)="toggleMenu()"-->
+<!--          >-->
+<!--            {{ "landing.Research tests" | translate }}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </mat-expansion-panel>-->
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title class="app-start-page-mobile-header-menu-item">
+            {{ "landing.Company" | translate | uppercase }}
+          </mat-panel-title>
+          <mat-panel-description></mat-panel-description>
+        </mat-expansion-panel-header>
+        <div
+          class="app-start-page-mobile-header-menu-item-sub-item"
+          routerLink="about-us"
+          (click)="toggleMenu()"
+        >
+          {{ "landing.About us" | translate }}
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div
+      class="app-start-page-mobile-header-menu-item get-a-demo"
+      (click)="navigateToContactUs(); toggleMenu()">
+      {{ "landing.Get a demo" | translate | uppercase }}
+    </div>
+  </div>
+  <div class="app-start-page-mobile-header-buttons">
+    <button
+      class="c-common__button c-common__button--border get-started"
+      routerLink="auth/register"
+      (click)="navigateToContactUs();toggleMenu()">
+      {{ "landing.Get started" | translate | uppercase }}
+      <app-icon
+        [iconType]="IconsType.SmallRightArrow"
+        color="#FFA56F"
+      ></app-icon>
+    </button>
+    <button
+      class="c-common__button c-common__button--regular"
+      routerLink="auth/login"
+    >
+      {{ "landing.log in" | translate | uppercase }}
+    </button>
+  </div>
+</div>

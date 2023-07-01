@@ -1,0 +1,90 @@
+<!-- <ng-container *ngIf="showContent">
+  <div *ngIf="!isBt && !isInvoicePayment; else paymentTable"
+       class="c-payment-selection">
+    <ng-container *ngIf="test">
+      <div class="c-payment-selection__card">
+        <div class="back">
+          <span class="link"
+                (click)="closeSection.emit()"><img src="../../../../../../assets/images/svg/payment/back-to-test.svg" /><span class="link-text">{{
+              "payment.Back to test" | translate
+              }}</span></span>
+        </div>
+        <div class="c-payment-selection__card-content">
+          <h3 class="title">{{ "payment.Payment Options" | translate }}</h3>
+          <p class="cost">
+            {{ "payment.Total cost" | translate }} - {{ cost }}
+            <span *ngIf="currencyCost"
+                  class="currency">({{ currencyCost }})</span>
+          </p>
+          <div *ngFor="let choice of paymentChoice"
+               class="input"
+               [class.active]="isActiveInput(choice)"
+               [class.disabled]="getIsDisabledPayment(choice)"
+               (click)="
+              !getIsDisabledPayment(choice) && paymentControl.setValue(choice)
+            ">
+            <div class="input-select">
+              <input class="c-common__radiobutton"
+                     type="radio"
+                     [formControl]="paymentControl"
+                     [value]="choice"
+                     [attr.disabled]="
+                  getIsDisabledPayment(choice) ? 'disabled' : null
+                "
+                     [id]="choice.label" />
+              <label class="c-common__radiobutton-label"
+                     [class.disabled]="
+                  getIsDisabledPayment(choice) ? 'disabled' : null
+                "
+                     [for]="choice.label">{{ "payment." + choice.label | translate }}</label>
+            </div>
+            <div class="input-info">
+              <ng-container *ngIf="choice.label === PaymentType.Invoice; else cardInfo">
+                <ng-container *ngIf="getIsDisabledPayment(choice)">
+                  <p class="text back">
+                    {{
+                    "payment.Please contact InsightMe support to activate the invoicing."
+                    | translate
+                    }}
+                    <a class="link-text"
+                       href="mailto:customerservice@insightme.se"
+                       (click)="$event.stopPropagation()">{{ "payment.Contact" | translate }}</a>
+                  </p>
+                </ng-container>
+              </ng-container>
+              <ng-template #cardInfo>
+                <img *ngFor="let img of choice.cards"
+                     [src]="
+                    '../../../../../assets/images/svg/payment/' + img + '.svg'
+                  "
+                     class="image" />
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="c-payment-selection__card-button">
+          <button class="c-common__button c-common__button--gradient normal button"
+                  [disabled]="!paymentControl.value"
+                  (click)="onSelectPayment()">
+            {{ "payment.Continue" | translate }}
+            <app-icon [iconType]="IconsType.RightArrow"
+                      [color]="'#FFFFFF'"
+                      class="icon-right"></app-icon>
+          </button>
+        </div>
+        <div *ngIf="showCardPayment"
+             class="c-payment-selection__show-card">
+          {{ "confirm-test.do-nothing" | translate }}
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container> -->
+<ng-container *ngTemplateOutlet="paymentTable"></ng-container>
+
+
+<ng-template #paymentTable>
+  <app-invoice-payment [test]="test"></app-invoice-payment>
+</ng-template>
+<app-export-invoice *ngIf="exportInvoiceS.exportRequest | async"></app-export-invoice>
+<!--    <app-payment-block></app-payment-block>-->

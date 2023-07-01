@@ -1,0 +1,108 @@
+@import "./src/assets/styles/variables.scss";
+
+.app-demography-filter {
+  display: grid;
+  display: none;
+  grid-column-gap: 21px;
+  grid-template-columns: repeat(2, 1fr);
+  font-family: "GT Walsheim Pro Medium";
+
+  @media #{$mobile} {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  &__column {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+
+    &-container {
+      @include flex-wrap;
+
+      &-item {
+        @include flex-column-stretch;
+
+        margin: 20px 70px 20px 0;
+
+        &.max-width-335 {
+          flex-grow: 1;
+          max-width: 335px;
+        }
+
+        &-title {
+          margin-bottom: 10px;
+          font-size: 16px;
+          line-height: 18px;
+          letter-spacing: 0;
+        }
+
+        &-element {
+          @include flex-wrap;
+
+          align-items: center;
+
+          span {
+            margin-right: 10px;
+            font-size: 16px;
+            line-height: 18px;
+            color: $lightgray;
+            font-style: oblique;
+            letter-spacing: 0;
+          }
+
+          &-input-container {
+            margin-right: 20px;
+          }
+        }
+      }
+    }
+
+  }
+
+}
+
+.demography-filter {
+  @include flex-wrap;
+
+  font-family: "GT Walsheim Pro Medium";
+
+  &-item {
+    @include flex-column-stretch;
+
+    margin: 20px 70px 20px 0;
+
+    &.age {
+      width: 250px;
+    }
+
+    &.max-width-335 {
+      flex-grow: 1;
+      max-width: 335px;
+    }
+
+    &-title {
+      margin-bottom: 10px;
+      font-size: 16px;
+      line-height: 18px;
+      letter-spacing: 0;
+    }
+
+    &-element {
+      @include flex-wrap;
+
+      align-items: center;
+
+      span {
+        margin-right: 10px;
+        font-size: 16px;
+        line-height: 18px;
+        color: $lightgray;
+        font-style: oblique;
+        letter-spacing: 0;
+      }
+
+      &-input-container {
+        margin-right: 20px;
+      }
+    }
+  }
+}

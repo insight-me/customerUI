@@ -1,0 +1,115 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.app-first-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-top: 100px;
+  transition: background-image 1s ease-in-out;
+
+  &__label {
+    position: absolute;
+    top: calc(50% - 230px);
+    left: calc(50% - 325px);
+    z-index: 2;
+    width: 650px;
+    font-family: "GT Walsheim Pro Medium";
+    font-size: 120px;
+    line-height: 130px;
+    text-align: center;
+    letter-spacing: 0.005em;
+  }
+
+  &__screen {
+    width: 100%;
+    height: calc(100% - 98px);
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    transition: background-image 1s ease-in-out;
+
+    &-cover {
+      width: 100%;
+      height: 100%;
+      transition: background 1s ease-in-out;
+    }
+  }
+
+  as-split {
+    ::ng-deep .as-split-gutter {
+      position: relative;
+      align-items: flex-end !important;
+      height: calc(100% - 98px);
+      background-color: $white !important;
+
+      & > .as-split-gutter-icon {
+        @include buttons-shadow;
+
+        border-radius: 30px;
+        transition: all 0.3s;
+        pointer-events: all;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+
+    &.as-horizontal ::ng-deep .as-split-gutter-icon {
+      position: absolute;
+      bottom: -18px;
+      z-index: 3;
+      width: 36px;
+      height: 36px;
+      background-color: $white;
+      background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAgEASABIAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAAIABQDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDU/ZA/4f8AH/D6T9u7+1/+GCP+G7/+FMWf9kf8Nkf8Ni/8Kc/4Y1/4WZpH9nf8Mdf8KH/4oL/hVH/CZf8ACCf2p/wnv/Fy/wDhIPtH2r/ir/8AhclAH63/ALU3/ERx/wAMx/tG/wDDRP8Aw4J/4Z+/4UR8Xv8Ahen2T/h5p9q/4U5/wr7xD/ws77N/wiX/ABVX2j/hCv7b8n/hGf8AioPM2/2N/wATH7NQB8Ef8ERP+IkL/h3x8Lf+Fbf8Mgf8KR/tDVv+Gf8A/htj/hdP/C2P+FMfY9I/4RD/AIRv/hE/+Jn/AMKg3/2l/wAKt/4Tz/iq/wDhGvJ/s7/i33/CDUAA/9k=') !important;
+      cursor: ew-resize;
+    }
+  }
+
+  &__tablet-mobile {
+    display: none;
+  }
+}
+
+
+@media #{$mobile-main-page} {
+  .app-first-card {
+    height: 100%;
+
+    &__screen {
+      height: calc(100% - 60px);
+    }
+
+    as-split {
+      display: none;
+    }
+
+    &__tablet-mobile {
+      display: block;
+      height: 100%;
+    }
+
+    &__label {
+      top: calc(50% - 112px);
+      left: 10%;
+      width: 80%;
+      height: 112px;
+      font-size: 11vw;
+      line-height: 10vw;
+    }
+
+    &__screen {
+      background-attachment: scroll;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .app-first-card {
+    margin-top: 64px;
+  }
+}

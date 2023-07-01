@@ -1,0 +1,24 @@
+@import "./src/assets/styles/variables.scss";
+
+:host {
+  width: 100%;
+  max-width: 1440px;
+}
+
+.c-legal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+  max-width: 1440px;
+  margin: 20px;
+
+  &__logo {
+    font-size: 24px;
+  }
+
+  &__back {
+    position: relative;
+    right: 14px;
+  }
+}

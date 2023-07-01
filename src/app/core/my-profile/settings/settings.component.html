@@ -1,0 +1,246 @@
+<div class="c-personal-information">
+  <div class="c-common__profile__header">
+    <div class="c-common__profile__header-title">{{'header.settings' | translate}}</div>
+    <div class="c-settings__invite">
+      <button type="button" class="c-common__button--border normal c-common__button stretch" (click)="inviteNewUser()">
+        <img src="../../../../assets/images/svg/ic_plus_mini.svg"
+             class="icon">{{'my-profile.invite-new-user' | translate}}
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="users.length; else noUsersBlock" class="c-settings__table">
+    <div class="c-settings__table__contents">
+      <div class="c-settings__table__contents__header">{{'my-profile.user' | translate }}
+        <div class="c-common__sort"
+             [class.up]="isUserOrder === 1"
+             [class.down]="isUserOrder === 2"
+             (click)="sortByUser()">
+        </div>
+      </div>
+      <div class="c-settings__table__contents__header">{{'my-profile.status' | translate }}
+        <div class="c-common__sort"
+             [class.up]="isStatusOrder === 1"
+             [class.down]="isStatusOrder === 2"
+             (click)="sortByStatus()">
+        </div>
+      </div>
+      <div class="c-settings__table__contents__header">{{'my-profile.access-right' | translate }}
+        <div class="c-common__sort"
+             [class.up]="isRightOrder === 1"
+             [class.down]="isRightOrder === 2"
+             (click)="sortByRight()">
+        </div>
+      </div>
+      <div class="c-settings__table__contents__header"></div>
+    </div>
+    <div *ngFor="let user of users; let i = index" class="c-settings__table__contents">
+      <div class="c-settings__table__contents__th" [class.colored]="i % 2">{{getFullName(user)}}</div>
+      <div class="c-settings__table__contents__th" [class.colored]="i % 2">
+        <span *ngIf="!user.isRegistrationConfirmed"
+              class="pending">{{'my-profile.invitation-pending' | translate }}</span>
+        <span *ngIf="user.isRegistrationConfirmed && !user.isLocked"
+              class="active">{{'my-profile.ACTIVE' | translate }}</span>
+        <span *ngIf="user.isRegistrationConfirmed && user.isLocked"
+              class="blocked">{{'my-profile.Blocked' | translate }}</span>
+      </div>
+      <div class="c-settings__table__contents__th" [class.colored]="i % 2">{{getUserRole(user)}}</div>
+      <!--      MENU-->
+      <div class="c-settings__table__contents__th tablet" [class.colored]="i % 2">
+        <button class="c-common__button c-common__button--icon" (click)="openPopup(i)">
+          <img src="../../../../assets/images/svg/ic_more.svg">
+          <ul *ngIf="showPopup[i]" class="c-base__menu" [class.last]="i === users.length - 1">
+            <li
+              *ngIf="!user.isRegistrationConfirmed"
+              class="c-base__menu__item"
+              (click)="onReVerification(user.id)">
+              <button class="c-common__button c-common__button--icon">
+                <img src="../../../../assets/images/svg/email.svg">
+              </button>
+              <div class="c-base__menu__item-text">
+                {{'my-profile.send-invitation' | translate }}
+              </div>
+            </li>
+            <li
+              *ngIf="user.isRegistrationConfirmed && isNotManager"
+              class="c-base__menu__item"
+              (click)="onEditUser(user)">
+              <button class="c-common__button c-common__button--icon">
+                <img src="../../../../assets/images/svg/edit-gray.svg">
+              </button>
+              <div class="c-base__menu__item-text">
+                {{'my-profile.change-access' | translate }}
+              </div>
+            </li>
+            <li
+              *ngIf="user.isRegistrationConfirmed && isNotManager && !user.isLocked"
+              class="c-base__menu__item"
+              (click)="onLockUser(user.email, user)">
+              <button class="c-common__button c-common__button--icon">
+                <img src="../../../../assets/images/svg/block.svg">
+              </button>
+              <div class="c-base__menu__item-text">
+                {{'my-profile.block' | translate }}
+              </div>
+            </li>
+            <li
+              *ngIf="user.isRegistrationConfirmed && isNotManager && user.isLocked"
+              class="c-base__menu__item"
+              (click)="onUnLockUser(user)">
+              <button class="c-common__button c-common__button--icon">
+                <img src="../../../../assets/images/svg/unblock.svg">
+              </button>
+              <div class="c-base__menu__item-text">
+                {{'my-profile.unblock' | translate }}
+              </div>
+            </li>
+            <li
+              class="c-base__menu__item"
+              (click)="onDeleteUser(user)">
+              <button class="c-common__button c-common__button--icon">
+                <img src="../../../../assets/images/png/delete.png">
+              </button>
+              <div class="c-base__menu__item-text">
+                {{'my-profile.remove' | translate }}
+              </div>
+            </li>
+          </ul>
+        </button>
+      </div>
+
+      <div class="c-settings__table__contents__th desktop" [class.colored]="i % 2">
+        <div class="c-settings__table__contents__icons">
+          <div *ngIf="!user.isRegistrationConfirmed"
+               class="c-settings__icon"
+               (click)="onReVerification(user.id)">
+            <button class="c-common__button c-common__button--icon"
+                    [pTooltip]="'my-profile.send-invitation' | translate"
+                    tooltipEvent="hover"
+                    tooltipPosition="left">
+              <img src="../../../../assets/images/svg/email.svg" alt="'my-profile.send-invitation' | translate">
+            </button>
+          </div>
+          <button *ngIf="user.isRegistrationConfirmed && isNotManager && !(isAdmin && getUserRole(user) === 'Manager')"
+                  class="c-common__button c-common__button--icon c-settings__icon"
+                  (click)="onEditUser(user)"
+                  [pTooltip]="'my-profile.change-access' | translate"
+                  tooltipEvent="hover"
+                  tooltipPosition="bottom">
+            <img src="../../../../assets/images/svg/edit-gray.svg" alt="'my-profile.change-access' | translate">
+          </button>
+          <button *ngIf="user.isRegistrationConfirmed && !user.isLocked"
+                  class="c-common__button c-common__button--icon c-settings__icon"
+                  (click)="onLockUser(user.email, user)"
+                  [pTooltip]="'my-profile.block' | translate"
+                  tooltipEvent="hover"
+                  tooltipPosition="bottom">
+            <img src="../../../../assets/images/svg/block.svg" alt="'my-profile.block' | translate">
+          </button>
+          <button *ngIf="user.isRegistrationConfirmed && user.isLocked"
+                  class="c-common__button c-common__button--icon c-settings__icon"
+                  (click)="onUnLockUser(user)"
+                  [pTooltip]="'my-profile.unblock' | translate"
+                  tooltipEvent="hover"
+                  tooltipPosition="bottom">
+            <img src="../../../../assets/images/svg/unblock.svg" alt="'my-profile.unblock' | translate">
+          </button>
+          <button class="c-common__button c-common__button--icon c-settings__icon"
+                  (click)="onDeleteUser(user)"
+                  [pTooltip]="'my-profile.remove' | translate"
+                  tooltipEvent="hover"
+                  tooltipPosition="bottom">
+            <img src="../../../../assets/images/png/delete.png" alt="'my-profile.remove' | translate">
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--      MOBILE-->
+  <div *ngIf="users.length; else noUsersBlock">
+    <div *ngIf="users.length" class="c-settings__mobile__header">
+      <div class="c-settings__mobile__header-item">{{'my-profile.user' | translate }}
+        <div class="c-common__sort"
+             [class.up]="isUserOrder === 1"
+             [class.down]="isUserOrder === 2"
+             (click)="sortByUser()">
+        </div>
+      </div>
+      <div class="c-settings__mobile__header-item flex-end">{{'my-profile.status' | translate }}
+        <div class="c-common__sort"
+             [class.up]="isStatusOrder === 1"
+             [class.down]="isStatusOrder === 2"
+             (click)="sortByStatus()">
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let user of users; let i = index" class="c-settings__mobile__card">
+      <div class="c-settings__mobile__card__tr">
+        <div class="c-settings__mobile__card__tr-item">{{getFullName(user)}}</div>
+        <div class="c-settings__mobile__card__tr-item c-settings__table__contents__th right">
+        <span *ngIf="!user.isRegistrationConfirmed"
+              class="pending">{{'my-profile.invitation-pending' | translate }}</span>
+          <span *ngIf="user.isRegistrationConfirmed && !user.isLocked"
+                class="active">{{'my-profile.ACTIVE' | translate }}</span>
+          <span *ngIf="user.isRegistrationConfirmed && user.isLocked"
+                class="blocked">{{'my-profile.Blocked' | translate }}</span>
+        </div>
+        <div class="c-settings__mobile__card__sub-tr__contents">
+          <div
+            class="c-settings__mobile__card__sub-tr__contents__header background">{{'my-profile.access-right' | translate }}</div>
+          <div
+            class="c-settings__mobile__card__tr-item background">{{getUserRole(user)}}</div>
+        </div>
+      </div>
+      <div class="c-settings__mobile__card__buttons">
+        <div class="c-settings__table__contents__icons">
+          <div *ngIf="!user.isRegistrationConfirmed"
+               class="c-settings__icon"
+               (click)="onReVerification(user.id)">
+            <button class="c-common__button c-common__button--icon"
+                    [pTooltip]="'my-profile.send-invitation' | translate"
+                    tooltipEvent="hover"
+                    tooltipPosition="left">
+              <img src="../../../../assets/images/svg/email.svg" alt="'my-profile.send-invitation' | translate">
+            </button>
+          </div>
+          <button *ngIf="user.isRegistrationConfirmed && isNotManager && !(isAdmin && getUserRole(user) === 'Manager')"
+                  class="c-common__button c-common__button--icon c-settings__icon"
+                  (click)="onEditUser(user)"
+                  [pTooltip]="'my-profile.change-access' | translate"
+                  tooltipEvent="hover"
+                  tooltipPosition="bottom">
+            <img src="../../../../assets/images/svg/edit-gray.svg" alt="'my-profile.change-access' | translate">
+          </button>
+          <button *ngIf="user.isRegistrationConfirmed && !user.isLocked"
+                  class="c-common__button c-common__button--icon c-settings__icon"
+                  (click)="onLockUser(user.email, user)"
+                  [pTooltip]="'my-profile.block' | translate"
+                  tooltipEvent="hover"
+                  tooltipPosition="bottom">
+            <img src="../../../../assets/images/svg/block.svg" alt="'my-profile.block' | translate">
+          </button>
+          <button *ngIf="user.isRegistrationConfirmed && user.isLocked"
+                  class="c-common__button c-common__button--icon c-settings__icon"
+                  (click)="onUnLockUser(user)"
+                  [pTooltip]="'my-profile.unblock' | translate"
+                  tooltipEvent="hover"
+                  tooltipPosition="bottom">
+            <img src="../../../../assets/images/svg/unblock.svg" alt="'my-profile.unblock' | translate">
+          </button>
+          <button class="c-common__button c-common__button--icon c-settings__icon"
+                  (click)="onDeleteUser(user)"
+                  [pTooltip]="'my-profile.remove' | translate"
+                  tooltipEvent="hover"
+                  tooltipPosition="bottom">
+            <img src="../../../../assets/images/png/delete.png" alt="'my-profile.remove' | translate">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #noUsersBlock>
+</ng-template>

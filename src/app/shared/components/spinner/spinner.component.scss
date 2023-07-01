@@ -1,0 +1,40 @@
+@import "../../../../assets/styles/variables.scss";
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.c-spinner {
+  &__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2001;
+    display: flex;
+    width: 102%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: rgb(60, 55, 104, 0.4);
+    cursor: wait;
+  }
+
+  &__loader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    margin: auto;
+    background-image: url(../../../../assets/images/svg/spinner.svg);
+    background-size: contain;
+    animation: spin 1s ease-in-out infinite;
+    animation: spin 1s linear infinite;
+  }
+}

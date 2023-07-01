@@ -1,0 +1,58 @@
+<div class="c-preview__section__header">
+  <p *ngIf="!isHideHeader; else step4"
+     class="c-preview__section__header-text">
+    {{ "preview.header-one" | translateCustom }}
+  </p>
+  <ng-template #step4>
+    <p class="c-preview__section__header-text">
+      {{ getTextForLikesDislikes(false) | translateCustom }}
+    </p>
+    <p class="c-preview__section__header-subtext">
+      {{ getTextForLikesDislikes(true) | translateCustom }}
+    </p>
+  </ng-template>
+</div>
+<div *ngIf="concept"
+     class="c-preview__section">
+  <div *ngIf="showImages">
+    <div *ngIf="concept.moodboard?.items?.length"
+         class="c-preview__section__moodboard">
+      <app-moodboard-preview [moodboard]="concept.moodboard"></app-moodboard-preview>
+    </div>
+  </div>
+
+  <div *ngIf="showText"
+       class="c-preview__section__text">
+    <div class="c-preview__section__text-item">
+      <ng-contaner *ngIf="concept.consumerInsight; else defaultPreviewText">
+        <div *ngFor="let insight of getConsumerInsight(concept.consumerInsight)">
+          <br *ngIf="!insight.length" />
+          <p class="c-preview__section__text-item__text">{{ insight }}</p>
+        </div>
+      </ng-contaner>
+      <ng-template #defaultPreviewText>
+        <div>
+          <p class="c-preview__section__text-item__text default">
+            {{
+            "preview.You have not yet added the text that will be displayed in this place"
+            | translateCustom
+            }}
+          </p>
+        </div>
+      </ng-template>
+    </div>
+
+    <div *ngIf="concept.benefits.length"
+         class="c-preview__section__text-item">
+      <p class="c-preview__section__text-item__text">{{ getBenefits() }}</p>
+    </div>
+
+    <div *ngIf="concept.reasons.length"
+         class="c-preview__section__text-item">
+      <p *ngFor="let reason of concept.reasons"
+         class="c-preview__section__text-item__text">
+        {{ getReason(reason.value) }}
+      </p>
+    </div>
+  </div>
+</div>

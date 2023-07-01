@@ -1,0 +1,144 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/preview.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-preview {
+  position: relative;
+  width: 95vw;
+  max-width: 1044px;
+  height: 90vh;
+  padding: 20px;
+  background-color: $white;
+
+  &__header {
+    @include flex-space-between-center;
+
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 91vw;
+    max-width: 997px;
+    height: 55px;
+    padding: 0 0 25px 34px;
+    background-color: $white;
+
+
+    &__title {
+      @include medium-20;
+
+      letter-spacing: 0.71px !important;
+    }
+
+    &__exit-btn {
+      cursor: pointer;
+    }
+  }
+
+  &__container {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 113px);
+    padding: 0 20px;
+    overflow-x: auto;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      height: 5px;
+      background-color: $light-orange-second;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-track-piece {
+      background-color: $lightgrayWhite;
+    }
+
+    &::-webkit-scrollbar-track {
+      margin-bottom: 15px;
+      background-color: $lightgrayWhite;
+      border-radius: 5px;
+    }
+  }
+
+
+  &__text {
+    margin-top: 50px;
+  }
+
+  &__no-concept {
+    margin-bottom: 50px;
+  }
+
+  &__word {
+    @include medium-20;
+
+    margin: 0;
+    text-align: justify;
+    letter-spacing: 0.2px !important;
+  }
+
+  &__section {
+    margin-bottom: 15px;
+    background-color: $white;
+  }
+}
+
+@media #{$mobile} {
+  .c-preview {
+    width: 90vw;
+    height: 86vh;
+    padding: 10px 5px;
+
+    &__header {
+      width: 88vw;
+      height: 44px;
+      padding: 0 0 10px 10px;
+
+      &__title {
+        @include medium-18;
+      }
+    }
+
+    &__container {
+      height: calc(100% - 50px);
+      padding: 0 5px;
+
+      &::-webkit-scrollbar-thumb {
+        height: 5px;
+        border-radius: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        margin-bottom: 5px;
+      }
+    }
+
+    // NO redaction
+    //&__text {
+    //  margin-top: 50px;
+    //}
+    //
+    //&__no-concept {
+    //  margin-bottom: 50px;
+    //}
+    //
+    //&__word {
+    //  margin: 0;
+    //  @include medium-20;
+    //  letter-spacing: 0.2px !important;
+    //  text-align: justify;
+    //}
+    //
+    //&__section {
+    //  margin-bottom: 15px;
+    //  background-color: $white;
+    //}
+  }
+}

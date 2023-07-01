@@ -1,0 +1,43 @@
+@import "variables";
+@import "mixins";
+@import "preview";
+
+.c-preview-one {
+  &__no-image {
+    @include flex-center;
+
+    background-color: $errorbackground;
+
+    &__image {
+      width: 300px;
+    }
+  }
+}
+
+.c-preview {
+  &__section {
+    &__text-item {
+      &__text {
+        @include regular-16;
+
+        margin-bottom: 15px;
+
+        &.default {
+          @include light(16);
+
+          text-align: center;
+          color: $dark-gray;
+          font-style: italic;
+        }
+      }
+    }
+
+  }
+}
+
+.c-preview__section__header-subtext {
+  margin: 0;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #585858 !important
+}

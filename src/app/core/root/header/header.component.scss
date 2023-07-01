@@ -1,0 +1,220 @@
+@import '../../../../assets/styles/variables.scss';
+@import '../../../../assets/styles/mixins.scss';
+
+.c-header {
+  @include flex-space-between-center;
+
+  height: 45px;
+  padding: 9px 22px 8px 19px;
+  background: $background;
+
+  &__logo {
+    width: 76px;
+    height: 40px;
+    padding: 10px 0;
+    cursor: pointer;
+  }
+
+  &__language {
+    display: flex;
+    align-items: center;
+    padding: 0 0 0 20px;
+    border-right: 1px solid $light-border;
+    border-left: 1px solid $light-border;
+
+    &__image {
+      width: 16px;
+      height: 16px;
+      margin-right: 8px;
+      overflow: hidden;
+      border-radius: 50%;
+
+      &-image {
+        width: inherit;
+        height: inherit;
+      }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+
+    &-item {
+      @include medium-14;
+
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    & > * {
+      margin: 0 20px;
+    }
+
+    &-item-menu {
+      margin-right: 0 !important;
+    }
+  }
+
+  &__burger-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 101;
+    display: none;
+    background: rgba(0, 0, 0, 0.4);
+
+    &__logout {
+      @include flex-space-between-center;
+
+      padding: 0 0 0 20px;
+
+      &__icon {
+        width: 19px;
+        height: 20px;
+      }
+
+      &__about {
+        display: flex;
+        align-items: center;
+
+        &__photo {
+          width: 40px;
+          height: 40px;
+
+          &-image {
+            width: 40px;
+            height: 40px;
+          }
+        }
+
+        &__name {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+          align-items: flex-start;
+          width: fit-content;
+          margin-left: 15px;
+
+          &-name {
+            @include medium-16;
+
+            color: $white !important;
+          }
+
+          &-email {
+            @include regular-14;
+
+            color: rgba(255, 255, 255, 0.55) !important;
+          }
+        }
+      }
+    }
+
+    &__menu {
+      @include flex-column;
+
+      z-index: 50;
+      justify-content: space-between;
+      width: 350px;
+      height: 100%;
+      min-height: 350px;
+      padding: 20px;
+      background-color: $blue;
+
+      &__close {
+        display: flex;
+        justify-content: flex-end;
+        height: 25px;
+
+        &-img {
+          width: 25px;
+          height: 25px;
+        }
+      }
+
+      &-nav {
+        @include flex-column;
+
+        align-items: flex-start;
+        margin: 0;
+        padding: 0 0 20px;
+        border-bottom: 2px solid $light-border;
+
+        &__item {
+          @include regular-18;
+
+          width: 100%;
+          padding: 12px 0 12px 20px;
+          list-style-type: none;
+          color: $white !important;
+
+          &-link {
+            color: $white;
+            text-decoration: none;
+
+            &.active {
+              display: block;
+              width: 100%;
+              margin-left: -20px;
+              padding: 12px 0 12px 20px;
+              background: rgba(255, 255, 255, 0.15);
+              border-radius: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.dark {
+  background-color: $blue;
+}
+
+.no-border {
+  border-bottom: none;
+}
+
+.visible {
+  display: none;
+}
+
+.light-text {
+  color: white;
+}
+
+.mobile {
+  display: none;
+}
+
+@media #{$mobile} {
+  .desktop {
+    display: none;
+  }
+
+  .visible {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .c-header {
+    padding: 15px 12px;
+
+    &__nav {
+      & > * {
+        margin: 0;
+      }
+    }
+  }
+
+  .mobile {
+    @include flex-center;
+
+    padding-left: 12px;
+  }
+}

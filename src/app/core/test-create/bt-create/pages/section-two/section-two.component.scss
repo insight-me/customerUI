@@ -1,0 +1,134 @@
+@import "mixins";
+
+.c-section-two {
+  margin-top: 20px;
+  padding: 0 20px 20px;
+  font-family: "GT Walsheim Pro";
+
+  &__label {
+    @include medium-16-grey;
+
+    margin-bottom: 8px;
+  }
+
+  &__market {
+    margin-right: 60px;
+  }
+
+  &__content {
+    &__form {
+      width: 100%;
+    }
+  }
+
+  &__form-field {
+    width: 666px;
+  }
+
+  &__textarea {
+    width: 100%;
+    height: 150px;
+    overflow: auto;
+    resize: none;
+  }
+
+  &__gender-block {
+    margin-left: 60px;
+  }
+
+  &__category-screening {
+    width: 100%;
+  }
+
+  &__age-gender-block {
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+
+  &__title {
+    @media (max-width: 1300px) {
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &__tip {
+    &-mob {
+      display: none;
+
+      @media (max-width: 1300px) {
+        display: block;
+      }
+    }
+
+    &-desk {
+      display: block;
+
+      @media (max-width: 1300px) {
+        display: none;
+      }
+    }
+  }
+}
+
+.market-tip {
+  display: none;
+
+  @media (max-width: 1500px) {
+    display: inline;
+  }
+}
+
+.category_title {
+  @include regular-16;
+}
+
+.category_text {
+  @include regular-16;
+
+  width: 360px;
+  margin: 0;
+  color: $dark-gray !important;
+
+  &:not(:first-child) {
+    margin-top: 15px;
+  }
+}
+
+@media #{$tablet} {
+  .c-section-two {
+    &__title {
+      flex-direction: column;
+    }
+
+    &__form-field {
+      width: 100%;
+      max-width: 602px;
+      padding: 0;
+    }
+
+    &__gender-block {
+      margin-left: 0;
+    }
+
+    &__age-gender-block {
+      justify-content: space-between !important;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-section-two {
+    &__age-gender-block {
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+  }
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}

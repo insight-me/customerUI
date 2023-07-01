@@ -1,0 +1,246 @@
+@import "preview";
+@import "variables";
+@import "mixins";
+
+
+
+
+.c-preview-feedback {
+  &__title {
+    margin: 0;
+    margin-bottom: 8px;
+    word-break: break-word;
+
+    &.center {
+      text-align: center;
+    }
+  }
+
+  &__table {
+    max-height: 100% !important;
+    margin-bottom: 40px;
+  }
+
+  &__custom-question {
+    &:first-of-type {
+      margin-bottom: 40px;
+    }
+
+    &:not(:last-of-type):not(:first-of-type) {
+      margin: 40px 0;
+    }
+  }
+
+  &__second-title {
+    margin-top: 20px;
+  }
+
+  &__subtitle {
+    @include regular-12;
+
+    margin: 8px 0 24px;
+    color: $dark !important;
+
+    &.mobile {
+      display: none;
+    }
+  }
+
+  &__textarea {
+    @include regular-16;
+
+    width: 100%;
+    height: 200px;
+    // margin: 32px auto;
+    padding: 14px 16px;
+    border: 1px solid $light-orange-second;
+    border-radius: 5px;
+    box-shadow: none;
+    resize: none;
+
+    &-placeholder {
+      @include regular-oblique-16-lightgray;
+
+      text-align: justify;
+      cursor: context-menu;
+    }
+  }
+
+  &__image-container {
+    width: 100%;
+    max-width: 275px;
+    height: 100%;
+    max-height: 275px;
+    margin: 24px 0;
+    overflow: hidden;
+
+    &-image {
+      max-width: 275px;
+      max-height: 275px;
+      object-fit: contain;
+    }
+  }
+
+  &__scale {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    margin: 40px 0 10px;
+  }
+
+  &__range {
+    &::-webkit-slider-thumb {
+      cursor: default !important;
+    }
+  }
+
+  &__checkbox {
+    max-width: 400px;
+    margin-top: 40px;
+
+    &:last-of-type {
+      margin-bottom: 40px;
+    }
+
+    &-label {
+      @include medium-16;
+
+      position: relative;
+      margin-left: 60px;
+      color: $dark !important;
+      word-break: break-word;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: calc(50% - 20px);
+        left: -60px;
+        width: 36px;
+        height: 36px;
+        background-color: $input-background;
+        border: 2px solid $light-orange-second;
+        border-radius: 3px;
+      }
+    }
+  }
+
+  &__radio {
+    max-width: 400px;
+    margin-top: 40px;
+
+    &:last-of-type {
+      margin-bottom: 40px;
+    }
+
+    &-label {
+      @include medium-16;
+
+      position: relative;
+      margin-left: 60px;
+      color: $dark !important;
+      word-break: break-word;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: calc(50% - 20px);
+        left: -60px;
+        width: 36px;
+        height: 36px;
+        background-color: $input-background;
+        border: 2px solid $light-orange-second;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &__desktop {
+    display: block;
+  }
+
+  &__mob {
+    display: none;
+  }
+}
+
+@media #{$mobile} {
+  .c-preview-feedback {
+    &__table {
+      display: flex;
+
+      .row {
+        display: grid;
+        grid-template-columns: minmax(180px, 2fr) 1fr;
+      }
+    }
+
+    &__subtitle {
+      &.mobile {
+        display: block;
+      }
+
+      &.desktop {
+        display: none;
+      }
+    }
+
+    &__desktop {
+      display: none;
+    }
+
+    &__mob {
+      //display: block;
+      display: flex;
+      flex-direction: column;
+      max-width: 573px;
+      margin: 0 auto;
+
+      &-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+    }
+
+    &__circle {
+      @include flex-center;
+      @include medium-16;
+
+      width: 42px;
+      height: 42px;
+      //margin: 2px 5px 2px 5px;
+      margin: 2px 5px 2px 0;
+      color: $black;
+      border: 2px solid $darkorange;
+      border-radius: 50px;
+
+      &.firstCircle:first-child {
+        color: $white;
+        background: $darkorange;
+      }
+    }
+  }
+}
+
+@media #{$mobileMedium} {
+  .c-preview-feedback {
+    &__mob {
+      max-width: 311px;
+
+      &.top-32 {
+        margin-top: 32px;
+      }
+    }
+  }
+}
+
+@media #{$mobilemin} {
+  .c-preview-feedback {
+    &__circle {
+      margin: 2px 5px 2px 0;
+    }
+  }
+}

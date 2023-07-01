@@ -1,0 +1,88 @@
+@import "mixins";
+
+.mat-menu {
+  &-panel {
+    @include open-dropdown-shadow;
+
+    max-height: 260px !important;
+    background: $white;
+    border: 1px solid $orange;
+    border-radius: 8px !important;
+
+    &::-webkit-scrollbar-track {
+      margin: 8px 0;
+    }
+
+    &.product-sub-menu {
+      margin-top: 4px;
+      border: none;
+
+      & .mat-menu-item{
+        min-width: 180px;
+      }
+    }
+  }
+
+  &-item {
+    @include flex-start-center;
+    @include medium-16;
+
+    display: flex !important;
+    min-width: 256px;
+    border-bottom: 1px solid $lightgrayWhite !important;
+    gap: 10px;
+
+    &[disabled] {
+      pointer-events: auto !important;
+    }
+
+    &:last-of-type {
+      border-bottom: none !important;
+    }
+
+    .menu-element {
+      @include flex-start-center;
+
+      .image {
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+.mat-expansion {
+  &-panel {
+    border-bottom: 1px solid $border;
+    border-radius: 0 !important;
+
+    &-header {
+      // margin: 10px 0;
+      min-height: 76px;
+      padding: 0 5px 0 0 !important;
+    }
+  }
+
+  &-indicator {
+    &::after {
+      color: $black;
+    }
+  }
+}
+
+.filter {
+  &.mat-menu-panel {
+    width: 240px;
+  }
+}
+
+.c-m-s-filter {
+  &__panel {
+    max-height: 430px;
+  }
+}
+
+.c-overlay-tip__backdrop {
+  background: rgba(51, 47, 91, 0.4);
+}
+
+

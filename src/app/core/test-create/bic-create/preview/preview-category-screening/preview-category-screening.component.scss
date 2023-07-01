@@ -1,0 +1,53 @@
+@import "preview";
+@import "breakpoint-slicer";
+
+h3 {
+  margin: 0
+}
+
+.c-preview-feedback__custom-question {
+  margin-top: 20px;
+
+  @include to(m) {
+    margin-top: 10px;
+  }
+}
+
+.c-preview-category-screening {
+  &__subtitle {
+    @include regular-12;
+
+    margin: 8px 0 24px;
+    color: $dark-gray;
+
+    &.mobile {
+      display: none;
+    }
+  }
+
+  &__description {
+    margin-bottom: calc(20px + 10 * ((100vw - 375px) / 1065));
+
+    &-text {
+      @include regular-16;
+
+      margin: 0;
+      text-align: justify;
+      word-break: break-word;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-preview-category-screening {
+    &__subtitle {
+      &.mobile {
+        display: block;
+      }
+
+      &.desktop {
+        display: none;
+      }
+    }
+  }
+}

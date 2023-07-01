@@ -1,0 +1,169 @@
+<div class="c-section__wrapper c-section-one">
+  <div class="c-test-create__nav-wrapper">
+    <div class="c-test-create__nav"
+         [ngStyle]="{'margin-top': -scrollY + 'px'}">
+      <span
+        class="c-section__nav-title">{{'BIC.Create your concept by filling in information within the five areas' | translate}}</span>
+      <a (click)="navigateToSection('#section1')"
+         class="c-section__nav-item"
+         [class.active]="isScrollOnStep(section1)">1. {{'test-concept.name-this-cocept' | translate}}</a>
+      <a (click)="navigateToSection('#section2')"
+         class="c-section__nav-item"
+         [class.active]="isScrollOnStep(section2)">2. {{'test-concept.consumer-insights' | translate}}</a>
+      <a (click)="navigateToSection('#section3')"
+         class="c-section__nav-item"
+         [class.active]="isScrollOnStep(section3)">3. {{'test-concept.benefits' | translate}}</a>
+      <a (click)="navigateToSection('#section4')"
+         class="c-section__nav-item"
+         [class.active]="isScrollOnStep(section4)">4. {{'test-concept.reason-to-believe' | translate}}</a>
+      <a (click)="navigateToSection('#section5')"
+         class="c-section__nav-item"
+         [class.active]="isScrollOnStep(section5)">5. {{'test-concept.moodboard' | translate}}</a>
+      <div class="c-section__nav-button">
+        <ng-container *ngTemplateOutlet="addConceptButton"></ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="c-section__content c-section-one__content">
+    <div class="c-section__nav-button mobile">
+      <ng-container *ngTemplateOutlet="addConceptButton"></ng-container>
+    </div>
+    <form *ngIf="conceptForm"
+          [formGroup]="conceptForm"
+          class="c-section">
+      <!--      SECTION 1-->
+      <div #section1
+           id="section1"
+           class="c-section__block-wrapper">
+        <div class="c-test__card column">
+          <h3 class="c-test__card__title mandatory">
+            <span class="c-test__card__number">1</span> {{'test-concept.name-this-cocept' | translate}}
+          </h3>
+          <p class="c-test__card__optional">{{'BIC.This name will be displayed to respondents' | translate}}</p>
+          <div class="c-section-one__concept-form">
+            <div class="c-common__form-field c-section-one__form-field">
+              <input type="text"
+                     pInputText
+                     [placeholder]="'BIC.Please write a name (5-50 characters)' | translate"
+                     formControlName="conceptName"
+                     class="c-common__input"
+                     (blur)="trimValue('conceptName')" />
+              <small *ngIf="controlHasError('conceptName') && !conceptForm.controls.conceptName.errors.checkExist"
+                     class="p-error c-common__form-field-error">{{'test-concept.error-concept-name' | translate}}</small>
+              <small *ngIf="controlHasError('conceptName') && conceptForm.controls.conceptName.errors.checkExist"
+                     class="p-error c-common__form-field-error">{{'test-concept.error-exist-concept-name' | translate}}</small>
+            </div>
+            <button class="c-common__button c-common__button--border c-section-one__save-button"
+                    [disabled]="disabledButton('conceptName')"
+                    (click)="!currentConcept?.id ? saveConcept() : saveTest()">{{'test-concept.save' | translate}}</button>
+          </div>
+        </div>
+      </div>
+      <!--      SECTION 2-->
+      <div #section2
+           id="section2"
+           class="c-section__block-wrapper">
+        <div class="c-test__card column">
+          <h3 class="c-test__card__title mandatory">
+            <span class="c-test__card__number">2</span> {{'test-concept.consumer-insights' | translate}}
+          </h3>
+          <p
+            class="c-test__card__optional">{{'BIC.A text that gives the respondents the context and information needed in order to relate and react to the concept' | translate}}
+            <app-overlay-tip [content]="tooltipText.consumerInsight | translate"
+                             [title]="'test-concept.consumer-insight-help-header' | translate"></app-overlay-tip>
+          </p>
+          <div class="c-section__field-with-text">
+            <div class="c-section-one__row">
+              <div class="c-common__form-field c-section__form-field c-section-one__textarea">
+                <app-textarea-tags [control]="conceptForm.controls.consumerInsight"
+                                   [highlightTexts]="highlightTexts"></app-textarea-tags>
+                <small *ngIf="controlHasError('consumerInsight')"
+                       class="p-error c-common__form-field-error">{{'test-concept.error-concept-insight' | translate}}</small>
+              </div>
+              <button class="c-common__button c-common__button--border c-section-one__save-button"
+                      [disabled]="disabledButton('consumerInsight')"
+                      (click)="saveTest()">{{'test-concept.save' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div #section3
+           id="section3"
+           class="c-section__block-wrapper">
+        <div class="c-test__card column">
+          <h3 class="c-test__card__title">
+            <span class="c-test__card__number">3</span> {{'BIC.Describe concept benefits' | translate}}
+          </h3>
+          <p
+            class="c-test__card__optional">{{'BIC.Short sentences that sum up the benefit of the concept with regards to the consumer insight context' | translate}}
+            <app-overlay-tip [content]="tooltipText.benefits | translate"
+                             [title]="'test-concept.benefit-help-header' | translate"></app-overlay-tip></p>
+          <div class="c-section__field-with-text">
+            <div class="c-test__card__wrapper">
+              <div class="c-section__field-with-text">
+                <div class="c-section__field">
+                  <app-list-items [items]="currentConcept?.benefits"
+                                  dataType="Benefits"
+                                  [max]="maxListLength"
+                                  [isLimitExceeded]="isLimitExceeded(conceptForm?.controls?.benefits.value)"
+                                  (updateItems)="updateBenefits($event)"></app-list-items>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div #section4
+           id="section4"
+           class="c-section__block-wrapper">
+        <div class="c-test__card column">
+          <h3 class="c-test__card__title">
+            <span class="c-test__card__number">4</span> {{'BIC.Give the reason to believe' | translate}}
+          </h3>
+          <p
+            class="c-test__card__optional">{{'BIC.Short sentences that sum up the reason to believe the concept has the benefits listed above' | translate}}
+            <app-overlay-tip [content]="tooltipText.RTB | translate"
+                             [title]="'test-concept.reason-to-believe-help-header' | translate"></app-overlay-tip></p>
+          <div class="c-section__field-with-text">
+            <div class="c-test__card__wrapper c-section-one__card">
+              <div class="c-section__field-with-text">
+                <div class="c-section__field">
+                  <app-list-items [items]="currentConcept?.reasons"
+                                  dataType="Reasons to belive"
+                                  [max]="maxListLength"
+                                  [isLimitExceeded]="isLimitExceeded(conceptForm?.controls?.reasons.value)"
+                                  (updateItems)="updateReasons($event)"></app-list-items>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div #section5
+           id="section5"
+           class="c-section__block-wrapper">
+        <div class="c-test__card column">
+          <h3 class="c-test__card__title">
+            <span class="c-test__card__number">5</span> {{'BIC.Include Mood board or Key Visual' | translate}}
+          </h3>
+          <app-moodboard-upload [moodBoard]="moodBoard"
+                                (updateMoodBoard)="updateMoodBoard($event)"></app-moodboard-upload>
+        </div>
+      </div>
+    </form>
+    <app-next-button [nextSection]="'section-2'"
+                     [testType]="TestType.BIC"></app-next-button>
+  </div>
+</div>
+
+<ng-template #addConceptButton>
+  <button class="c-common__button c-common__button--regular normal stretch"
+          [disabled]="isDisabledAddConcept"
+          (click)="onAddConcept()"><img
+    class="icon"
+    src="../../../../../../assets/images/svg/ic_plus_mini.svg">{{'test-concept.add-concept' | translate}}</button>
+  <div
+    class="c-section__nav-title c-section-one__error">{{'test-concept.add-concept-error' | translate}}</div>
+</ng-template>

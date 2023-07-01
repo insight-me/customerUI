@@ -1,0 +1,101 @@
+@import "./src/assets/styles/variables.scss";
+
+.app-report-content {
+  @include flex-column-stretch;
+
+  app-export-container { // remove to see pdf
+    height: 0;
+    overflow: hidden;
+  }
+
+  &__swiper {
+    .swiper-slide {
+      width: fit-content !important;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .swiper-wrapper {
+      padding: 0;
+    }
+  }
+
+  &__tabs {
+    @include flex-space-between-center;
+
+    position: relative;
+    border-bottom: 1px solid $divider;
+    user-select: none;
+
+    &.bt {
+      padding: 15px 0 10px;
+    }
+
+    &-prev {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 50px;
+    }
+
+    //&:before {
+    //  content: "";
+    //  display: block;
+    //  height: 100%;
+    //  width: 25px;
+    //  top: 0;
+    //  background-image: linear-gradient(to right, rgba(255, 255, 255, 0), #fff 92%);
+    //  position: absolute;
+    //  right: 0;
+    //  z-index: 5;
+    //}
+
+    &-navigation {
+      display: flex;
+      width: 100%;
+
+      &-item {
+        width: fit-content !important;
+        margin-right: 30px;
+        padding: 0 0 5px;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 14px;
+        line-height: 18px;
+        color: $lightgray;
+        letter-spacing: -0.06px;
+        cursor: pointer;
+
+        &.active {
+          font-weight: bold;
+          color: $black;
+          border-bottom: 1px solid $black;
+        }
+      }
+    }
+  }
+}
+
+.export-pdf {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.app-report-content__tabs-export {
+  @include flex-start-nowrap;
+
+  position: relative;
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.06px;
+  word-break: normal;
+  cursor: pointer;
+  user-select: none;
+
+  app-expand-button {
+    margin-left: 8px;
+  }
+}
+

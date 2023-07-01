@@ -1,0 +1,175 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+
+.c-dropdown {
+  //max-width: 399px;
+  height: 52px;
+
+  &__button {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background: $white;
+    border: 1px solid $light-orange-second;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+
+    &:focus {
+      @include button-orange-shadow;
+
+      background: $light-background;
+      outline: none;
+    }
+
+    &:hover {
+      border: 1px solid $darkorange;
+    }
+
+    &.error {
+      background: $errorbackground;
+      border: 1px solid $errorred;
+    }
+
+    &::after {
+      content: url(../../../../assets/images/svg/open-dropdown.svg);
+      position: absolute;
+      top: 15px;
+      right: 15px;
+    }
+
+    &.show {
+      &::after {
+        content: url(../../../../assets/images/svg/ic_dropdown-open.svg);
+        position: absolute;
+        top: 15px;
+        right: 15px;
+      }
+    }
+
+    &-text {
+      @include cut-text;
+
+      max-width: 80%;
+      margin: 0;
+      padding-left: 10px;
+      font-family: 'GT Walsheim Pro Regular';
+      font-size: 16px;
+      line-height: 150%;
+      font-weight: 400;
+      text-align: left;
+      color: $black;
+      font-style: normal;
+    }
+
+    .c-dropdown__content {
+      position: absolute;
+      top: 52px;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      height: 0;
+      overflow: hidden;
+
+      &.show {
+        z-index: 6;
+        box-sizing: border-box;
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        padding-bottom: 10px;
+        overflow-y: auto;
+        overflow-y: auto;
+        background: $white;
+        border: 1px solid $darkorange;
+        border-radius: 8px;
+        box-shadow: 0 3px 28px rgba(0, 0, 0, 0.26);
+        //transition:max-height 2s;
+        transition: box-shadow 0.2s, max-height 0.2s;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          width: 0;
+          height: 0;
+        }
+      }
+
+      &__item {
+        @include medium-16;
+
+        z-index: 3;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        min-height: 45px;
+        margin-bottom: 0 !important;
+        padding: 11px 22px;
+        text-align: left;
+        border-bottom: 1px solid $divider2;
+        cursor: pointer;
+
+        &.disabled {
+          cursor: default;
+          opacity: 0.5;
+        }
+
+        &:hover {
+          background: $border;
+        }
+
+        &.selected {
+          background: #E3F2FD;
+        }
+      }
+
+      &__group {
+        display: flex;
+      }
+
+      &__ir {
+        @include medium-16;
+
+        width: fit-content;
+        min-width: 80px;
+        text-align: right;
+      }
+    }
+  }
+}
+
+.italic {
+  font-style: italic;
+}
+
+@media #{$mobile} {
+  .c-dropdown {
+    width: 100%;
+    min-width: 242px;
+    max-width: 350px;
+    height: 42px;
+
+    &__button {
+      &::after {
+        top: 10px;
+      }
+
+      &.show {
+        &::after {
+          top: 10px;
+        }
+      }
+
+      .c-dropdown__content {
+        &.show {
+          top: 42px;
+        }
+      }
+    }
+  }
+}

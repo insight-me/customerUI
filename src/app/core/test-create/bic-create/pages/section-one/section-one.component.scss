@@ -1,0 +1,99 @@
+@import "variables";
+@import "mixins";
+
+.c-section-one {
+  padding: 20px;
+  font-family: "GT Walsheim Pro";
+
+  &__textarea {
+    margin-bottom: 20px !important;
+  }
+
+  &__subtext {
+    @include regular-16;
+
+    margin: 0;
+  }
+
+  &__row {
+    width: 100%;
+  }
+
+  &__field {
+    width: 100%;
+
+    &-with-text {
+      display: flex;
+    }
+  }
+
+  &__error {
+    margin-top: 15px !important;
+    font-size: 12px !important;
+    font-style: normal !important;
+  }
+
+  &__button {
+    max-width: 200px;
+  }
+
+  &__form-field {
+    max-width: 424px;
+    margin-right: 24px;
+  }
+
+  &__concept-form {
+    display: flex;
+    align-items: flex-start;
+  }
+}
+
+@media #{$mobile} {
+  .c-section-one {
+    padding: 20px;
+    font-family: "GT Walsheim Pro";
+
+    &__save-button {
+      width: 100%;
+      max-width: 424px;
+    }
+
+    &__row {
+      width: 100%;
+    }
+
+    &__concept {
+      &-button {
+        margin-top: 20px;
+      }
+    }
+
+    &__field {
+      width: 100%;
+
+      &-with-text {
+        display: flex;
+      }
+    }
+
+    &__error {
+      margin-top: 15px !important;
+      font-size: 12px !important;
+      font-style: normal !important;
+    }
+
+    &__button {
+      max-width: 200px;
+    }
+
+    &__form-field {
+      max-width: 424px;
+      margin-right: 24px;
+    }
+
+    &__concept-form {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}

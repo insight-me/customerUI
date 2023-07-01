@@ -1,0 +1,150 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+@import "../../../modules/shared-test-creation/why-add/why-add.component";
+@import "breakpoint-slicer";
+
+
+@include custom-tooltip-position;
+
+::ng-deep .section-one-wrapper {
+  @include to(xs) {
+    .tooltip {
+      &.tooltip {
+        /* stylelint-disable-next-line declaration-no-important */
+        left: -104px !important;
+      }
+    }
+  }
+}
+
+.c-section-three {
+  @include flex-column;
+
+  position: relative;
+  padding: 20px;
+
+  &__limit {
+    margin: -28px 0 32px !important;
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    &-item {
+      width: 100%;
+    }
+  }
+
+  &__add {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  &__added {
+    display: block;
+    margin: 20px 0 0 !important;
+    font-style: normal !important;
+  }
+}
+
+.section-one-position_title {
+  display: flex;
+  margin: 0;
+  font-family: "GT Walsheim Pro Medium";
+  font-size: 20px;
+  line-height: 150%;
+  font-weight: 500;
+  color: #000;
+  font-style: normal;
+  letter-spacing: 0.005em;
+}
+
+@media (max-width: 1300px) {
+  .c-section-three {
+    &__wrapper {
+      flex-direction: column-reverse;
+    }
+  }
+}
+
+@media #{$desktopSmall} {
+  .section-one-position {
+    position: static;
+  }
+}
+
+@media #{$mobile} {
+  .c-section-three {
+    &__limit {
+      margin: -14px 0 20px !important;
+    }
+
+    &__add {
+      flex-direction: column-reverse;
+    }
+
+    &__add-btn {
+      width: 100%;
+      margin-bottom: 32px;
+    }
+
+    &__added {
+      display: none;
+    }
+  }
+}
+
+.space-between {
+  display: flex;
+  align-items: center;
+}
+
+.section-three-info {
+  display: none;
+}
+
+.market-tip {
+  display: none;
+
+  @media (max-width: 1300px) {
+    display: inline;
+  }
+}
+
+.section {
+  &__subtext {
+    @include regular-16;
+
+    margin-bottom: 25px;
+    padding-left: 60px;
+    color: $dark-gray;
+
+    @media (max-width: 1300px) {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 1300px) {
+  .section-three {
+    display: none;
+  }
+
+  .section-three-info {
+    display: block;
+  }
+}
+
+@media #{$mobileminimum} {
+  .section-one-wrapper {
+    display: block !important;
+  }
+
+  .space-between {
+    display: flex;
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,45 @@
+@import "./src/assets/styles/variables.scss";
+
+.app-consumer-insight__summary {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  margin: 0 40px;
+
+  &-row {
+    display: grid;
+    grid-column-gap: 2px;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 2px;
+    font-family: "GT Walsheim Pro Medium";
+    font-size: 12px;
+    line-height: 12px;
+    text-align: center;
+    color: $dark;
+    letter-spacing: 0.5px;
+
+    &.pdf {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media #{$mobile} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &-element {
+      @include flex-space-between-center;
+
+      padding: 24px 20px;
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: 0;
+
+      &.green-like {
+        background: $like-background;
+      }
+
+      &.red-dislike {
+        background: $dislike-background;
+      }
+    }
+  }
+}

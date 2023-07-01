@@ -1,0 +1,22 @@
+<div class="c-preview__section__header">
+  <div class="c-preview__section__header-text">{{'preview.Please read the question below and fill in your answer properly.' | translateCustom }}</div>
+</div>
+<div class="c-preview__section c-preview__section__content">
+  <div>
+    <div class="c-preview__section__header-text"> {{'spontaneous-awareness.title' | translateCustom : { category: selectedSubCategories$ | async } }}</div>
+    <div class="c-preview__description">{{categoryService.categoryDescriptionControl.value}}</div>
+    <div class="c-preview__section__header-tiny">{{'spontaneous-awareness.sub-title' | translateCustom }}</div>
+  </div>
+  <div>
+    <div *ngFor="let item of previewBlock ; let isFirst = first; let isLast = last"
+         class="c-preview__block"
+         [class.margin-bottom]="isLast"
+         [class.margin-top]="isFirst">
+      <div class="c-preview__block__inner">{{'spontaneous-awareness.placeholder' | translateCustom }}</div>
+    </div>
+  </div>
+  <div class="c-preview__block__flex">
+    <div class="c-preview__block__square"></div>
+    <div class="c-preview__block__subtext">{{'spontaneous-awareness.none' | translateCustom }}</div>
+  </div>
+</div>

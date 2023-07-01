@@ -1,0 +1,88 @@
+<div *ngIf="questions.length"
+     class="c-added-questions">
+  <p class="c-added-questions__title"
+     [style.margin-top]="'10px'">{{ 'additional.already-added-additional-questions' | translate }}</p>
+  <table class="c-common__table">
+    <tbody class="c-common__table-body">
+      <tr *ngFor="let question of questions; let i = index"
+          class="c-common__table-body-row c-added-questions__tr">
+        <td class="c-common__table-body-item">
+          <div *ngIf="question.imageBase || question.image"
+               class="mobile-visible">
+            <ng-container *ngTemplateOutlet="image; context: {question: question}"></ng-container>
+          </div>
+          <div>
+            <span class="c-added-questions__label">{{ 'BIC.Question:' | translate }}</span>
+            <p class="c-added-questions__text">{{ question.value }}</p>
+          </div>
+          <div>
+            <span class="c-added-questions__label">{{ 'BIC.Answer type:' | translate }}</span>
+            <p class="c-added-questions__text">{{ getType(question) | translate }}
+              <span *ngIf="question.type === CustomQuestionType.Scale"
+                    class="c-added-questions__text">{{ 'BIC.(Min value - 1; Max value - 7)' | translate }}</span>
+              <span *ngIf="question.answerType === AnswerCustomQuestionType.Default && (question.type === CustomQuestionType.Single || question.type === CustomQuestionType.Multi)"
+                    class="c-added-questions__text">{{ '(' + getAnswers(question) + ')' }}</span>
+              <span *ngIf="question.answerType === AnswerCustomQuestionType.Grid && (question.type === CustomQuestionType.Single || question.type === CustomQuestionType.Multi)"
+                    class="c-added-questions__text">
+                {{ '(' + ('BIC.Columns:' | translate) + getColumns(question) + '. ' + ('BIC.Rows:' | translate) + getAnswers(question) + ')' }}</span>
+            </p>
+          </div>
+          <div *ngIf="isScreens">
+            <span class="c-added-questions__label">{{ 'BIC.Defining answers:' | translate }}</span>
+            <ng-container *ngIf="question.approveAnswers?.length; else singleAnswer">
+              <div class="c-added-questions__text">
+                <div *ngFor="let answer of question.approveAnswers"
+                     class="c-added-questions__checkbox">
+                  <div class="item"
+                       [class.checked]="true"></div>
+                  <span>{{getAnswerText(question, answer)}}</span>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #singleAnswer>
+              <div class="c-added-questions__text">
+                <div *ngFor="let answer of question.answers"
+                     class="c-added-questions__checkbox">
+                  <div class="item"
+                       [class.checked]="answer.isApproved"></div>
+                  <span>{{answer.value}}</span>
+                </div>
+              </div>
+            </ng-template>
+            <div *ngIf="question.answerType === AnswerCustomQuestionType.Grid"
+                 class="c-added-questions__label">
+              {{ ('BIC.Respondents must engage with' | translate) + ' ' }}<span *ngIf="question.categoryScreeningType === CategoryScreeningType.All; else oneMustEngage">
+                <span><b>{{('BIC.ALL' | translate) + ' '}}</b>
+                  {{'BIC.rows as per your selected answer alternatives to qualify for the survey' | translate }}</span>
+              </span>
+              <ng-template #oneMustEngage>
+                <span>{{'BIC.At least' | translate | lowercase}}<b>{{('BIC.ONE' | translate) + ' '}}</b>
+                  {{'BIC.of the rows as per your selected answer alternatives to qualify for the survey' | translate }}</span>
+              </ng-template>
+            </div>
+          </div>
+        </td>
+        <td class="c-common__table-body-item mobile-none">
+          <ng-container *ngIf="question.imageBase || question.image">
+            <ng-container *ngTemplateOutlet="image; context: {question: question}"></ng-container>
+          </ng-container>
+        </td>
+        <td class="c-common__table-body-item delete">
+          <button class="c-common__button c-common__button--icon"
+                  (click)="deleteQuestion(i)">
+            <app-icon [iconType]="IconsType.DeleteGray"
+                      [height]="24"></app-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #image
+             let-question="question">
+  <div class="c-added-questions__image">
+    <img [src]="question.imageBase || question.image"
+         class="image">
+  </div>
+</ng-template>

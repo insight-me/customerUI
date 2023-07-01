@@ -1,0 +1,16 @@
+<div [style]="{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between'}">
+  <div
+    *ngFor="let group of dataSet"
+    class="association-element"
+    [style.width]="pdfVersion ? '45%' : ''"
+  >
+    <app-bt-bar-chart
+      [dataSet]="group.values"
+      [label]="getGroupLabel(group.label)"
+      secondColorSchema="true"
+      thirdColorSchema="true"
+      aspectRatio="0.4"
+      [pdfVersion]="pdfVersion"
+    ></app-bt-bar-chart>
+  </div>
+</div>

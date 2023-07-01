@@ -1,0 +1,49 @@
+<div class="app-concept-definitions">
+  <!--  Score per concept-->
+  <div class="app-concept-definitions__card">
+    <app-kpi-score-per-concept
+      [dataSet]="bicRSS.scorePerSegmentDataSet$ | async"
+      [tooltipTexts]="tooltipTexts"
+      [tooltipType]="tooltipType"
+      [kpi]="bicRSS.kpiMap | async"
+      [title]="'report.KPI score per concept in population' | translate">
+    </app-kpi-score-per-concept>
+
+    <div class="app-concept-definitions__card-footer">
+      <div class="app-concept-definitions__card-footer-info">
+        {{ "report.T3B: Share selecting 5-7 on scale 1-7" | translate }}
+      </div>
+    </div>
+  </div>
+  <!--  Score per Segment-->
+  <div *ngIf="bicRSS.segmentOptions | async" class="app-concept-definitions__card">
+    <app-kpis-score-per-segment
+      [dataSet]="bicRSS.scorePerSegmentDataSet$ | async"
+      [tooltipTexts]="tooltipTexts"
+      [tooltipType]="tooltipType"
+      [title]="'report.Score per Segment' | translate">
+    </app-kpis-score-per-segment>
+
+    <div class="app-concept-definitions__card-footer">
+      <div class="app-concept-definitions__card-footer-info">
+        {{ "report.T3B: Share selecting 5-7 on scale 1-7" | translate }}
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="purchaseFrequenciesDataSet$ | async as purchaseFrequenciesDataSet">
+    <div *ngIf="purchaseFrequenciesDataSet.length"
+         class="app-concept-definitions__card">
+      <app-kpi-purchase-frequancy
+        [title]="'report.Purchase frequency per concept in population' | translate"
+        [dataSet]="purchaseFrequenciesDataSet"
+        [tooltipTexts]="tooltipTextsPF"
+        [tooltipType]="tooltipTypePF">
+      </app-kpi-purchase-frequancy>
+      <app-chart-legend
+        [columnsData]="purchaseFrequenciesChart"
+      ></app-chart-legend>
+    </div>
+  </ng-container>
+
+</div>

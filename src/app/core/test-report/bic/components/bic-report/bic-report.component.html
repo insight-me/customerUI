@@ -1,0 +1,37 @@
+<div *ngIf="test$ | async as test"
+     class="app-base-report"
+     [style.flex-direction]="'row'">
+
+  <div class="app-base-report__filters"
+       [style.flex-direction]="'column'"
+       [style.border-bottom]="0">
+    <!--Filters-->
+    <app-bic-global-filter></app-bic-global-filter>
+
+    <!--Compare with previous projects button-->
+    <div class="app-base-report__filters-action"></div>
+
+    <app-export-report></app-export-report>
+  </div>
+
+  <div *ngIf="(activeFilter | async) !== ActiveFilterType.None"
+       class="app-base-report__filter-body">
+    <!--Concepts Filter-->
+    <app-concepts-filter *ngIf="(activeFilter | async) === ActiveFilterType.Concepts"></app-concepts-filter>
+
+    <!--Demographics Filter-->
+    <app-demography-filter *ngIf="(activeFilter | async) === ActiveFilterType.Demographics"
+                           [min]="bicRSS.min"
+                           [max]="bicRSS.max"
+                           [form]="bicRSS.form"
+                           [genderOptions]="bicRSS.genderOptions | async"
+                           [filterSource]="bicRSS.filterSource"
+                           [marketOptions]="bicRSS.marketOptions | async"
+                           [segmentOptions]="bicRSS.segmentOptions | async"
+                           [purchaseFrequenciesOptions]="bicRSS.purchaseFrequenciesOptions | async"
+                           [purchaseFrequencyCategoryId]="bicRSS.purchaseFrequencyCategoryId"></app-demography-filter>
+  </div>
+
+  <app-report-content [style]="{flex: 1}"></app-report-content>
+
+</div>

@@ -1,0 +1,213 @@
+//Default colors
+$white: #fff;
+$black: #000;
+$dark: #2e2c2c;
+$tooltip: rgba(46, 44, 44, 0.9);
+$dark-gray: #585858;
+$gray: #979797;
+$border: #e9ecef;
+$shadow: rgb(151, 151, 151, 0.4);
+$light-border: rgba(255, 255, 255, 0.1);
+$light-background: #fffaf6;
+$lightgrayWhite: #e9e9e9;
+$lightvioletWhite: #f4f3fe;
+$lightgray: #8e8e93;
+$hover-button: #ffeee3;
+$hover-button-blue: #e6e2f8;
+$light-orange-second: #ffcbad;
+$lightornge: #ffc9a8;
+$darkorange: #ff9859;
+$orange: #ffa56f;
+$lighterviolet: #dddaf9;
+$lightviolet-second: #d1cbff;
+$darkviolet: #332f5b;
+$light-violet-logo: #4f498d;
+$errorred: #ff6f6f;
+$errorbackground: #feefee;
+$blue: #3c3768;
+$green: #8ed08a;
+$gradient-auth: linear-gradient(
+  180deg,
+  rgba(247, 200, 208, 0.1) 0%,
+  #faf9fc 14%,
+  #fff 51%,
+  rgba(184, 178, 234, 0.2) 100%
+);
+$gray-border: #e9e9e9;
+$background: #fbfafd;
+$divider: #e1e1e1;
+$input-background: #fffaf7;
+$chart-benchmark: #e0e0e0;
+$chart-axis: #d0d0d0;
+$sub-axis: #f5f5f5;
+$benchmark-bar: #f4f4f4;
+$tab-nav: #f6f5fc;
+$like: #afebab;
+$dislike: #ff776f;
+$like-background: #ddf0db;
+$dislike-background: #ffd6d3;
+$divider2: #e4e4e4;
+$table-grey: #f7f7fc;
+$table-highlight: #f6f5fc;
+$violet-table: #7975a6;
+$violet-background: rgba(51, 47, 91, 0.9);
+$benchmark-bg: #e9ecef;
+$total-odd: #e6e2f8;
+$total-even: #e8e6f8;
+$value-even: #b8b2ea;
+$associations-table: #b8b2ea;
+$dark-violet: #7875a5;
+$light-blue: #add9f4;
+$yellow: #f9ef9a;
+$pink: #f7c8d0;
+$purple: #867bdb;
+
+//Backgrounds
+$background-gradient: linear-gradient(
+    180deg,
+    rgba(247, 200, 208, 0.1) 0.01%,
+    rgba(246, 200, 208, 0.100839) 11.8%,
+    rgba(245, 199, 209, 0.103241) 21.39%,
+    rgba(243, 198, 210, 0.10704) 29.13%,
+    rgba(239, 197, 211, 0.112065) 35.34%,
+    rgba(236, 196, 213, 0.118148) 40.37%,
+    rgba(231, 194, 215, 0.12512) 44.56%,
+    rgba(226, 193, 217, 0.132812) 48.25%,
+    rgba(221, 191, 219, 0.141055) 51.76%,
+    rgba(216, 189, 221, 0.14968) 55.44%,
+    rgba(210, 187, 223, 0.158519) 59.63%,
+    rgba(205, 185, 226, 0.167401) 64.66%,
+    rgba(199, 183, 228, 0.17616) 70.88%,
+    rgba(194, 181, 230, 0.184625) 78.62%,
+    rgba(189, 180, 232, 0.192628) 88.21%,
+    rgba(184, 178, 234, 0.2) 100%
+  ),
+  #fff;
+$mobilemin: "only screen and (max-width: 410px)";
+$mobileMedium: "only screen and (max-width: 650px)";
+$mobile: "only screen and (max-width: 767px)";
+$tablet: "only screen and (max-width: 1024px)";
+$desktop: "only screen and (max-width: 1439px)";
+$desktoplarge: "only screen and (min-width: 1440px)";
+$middle: "only screen and (max-width: 1152px)";
+$desktopSmall: "only screen and (max-width: 1300px)";
+$mobileminimum: "only screen and (max-width: 417px)";
+$mobilemax: "only screen and (max-width: 840px)";
+$mobilemidle: "only screen and (max-width: 507px)";
+$mobile-main-page: "only screen and (max-width: 743px)";
+$mobileV2: "only screen and (max-width: 375px)";
+$tabletV2: "only screen and (max-width: 744px)";
+$desktopV2: "only screen and (min-width: 745px)";
+
+@font-face {
+  font-family: "GT Walsheim Pro Medium";
+  font-weight: normal;
+  font-style: normal;
+  src: local("GT Walsheim Pro Medium"),
+    url(/assets/fonts/GTWalsheimPro-Medium.ttf);
+}
+
+@font-face {
+  font-family: "GT Walsheim Pro Regular";
+  font-weight: normal;
+  font-style: normal;
+  src: local("GT Walsheim Pro Regular"),
+    url(/assets/fonts/GTWalsheimPro-Regular.ttf);
+}
+
+@font-face {
+  font-family: "HelveticaNeueCyr-Medium";
+  font-weight: normal;
+  font-style: normal;
+  src: local("HelveticaNeueCyr-Medium"),
+    url(/assets/fonts/HelveticaNeueCyr-Medium.ttf);
+}
+
+@font-face {
+  font-family: "HelveticaNeueCyr-Light";
+  font-weight: normal;
+  font-style: normal;
+  src: local("HelveticaNeueCyr-Light"),
+    url(/assets/fonts/HelveticaNeueCyr-Light.ttf);
+}
+
+@font-face {
+  font-family: "HelveticaNeueCyr-Roman";
+  font-weight: normal;
+  font-style: normal;
+  src: local("HelveticaNeueCyr-Roman"),
+    url(/assets/fonts/HelveticaNeueCyr-Roman.ttf);
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-weight: normal;
+  font-style: normal;
+  src: local("Source Serif Pro"), url(/assets/fonts/SourceSerifPro-Regular.ttf);
+}
+
+@font-face {
+  font-family: "Source Serif Pro Semibold";
+  font-weight: normal;
+  font-style: normal;
+  src: local("Source Serif Pro Semibold"),
+    url(/assets/fonts/SourceSerifPro-Semibold.ttf);
+}
+
+@mixin flex-space-between-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-start-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@mixin flex-column-stretch {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@mixin flex-start-nowrap {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+@mixin flex-content-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-end-center {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin flex-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

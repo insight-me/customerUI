@@ -1,0 +1,52 @@
+@import "variables";
+
+.app-base-report {
+  @include flex-column-stretch;
+
+  &__filters {
+    @include flex-space-between-center;
+
+    padding-bottom: 17px;
+    border-bottom: 1px solid $divider;
+
+    &-content {
+      @include flex-wrap;
+
+      align-items: center;
+
+      &-item {
+        @include flex-start-nowrap;
+
+        margin-right: 72px;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 14px;
+        line-height: 18px;
+        color: $lightgray;
+        letter-spacing: -0.06px;
+        user-select: none;
+
+        &-button {
+          @include flex-start-nowrap;
+
+          margin-left: 11px;
+          font-weight: bold;
+          color: $black;
+          cursor: pointer;
+
+          app-expand-button {
+            margin-left: 8px;
+          }
+        }
+
+      }
+    }
+  }
+
+  &__filter-body {
+    border-bottom: 1px solid $divider;
+
+    &-container {
+      padding: 20px 0;
+    }
+  }
+}

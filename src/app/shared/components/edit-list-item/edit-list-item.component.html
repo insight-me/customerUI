@@ -1,0 +1,52 @@
+<!--Desktop-->
+<ng-container>
+  <td *ngIf="editFormControl" class="c-common__grid-table-body-item c-common__bold desktop">
+    <div class="c-edit-list-item__control-wrapper">
+      <ng-container *ngTemplateOutlet="inputForEdit"></ng-container>
+      <ng-container *ngTemplateOutlet="editButton; context: {isModal: false}"></ng-container>
+    </div>
+  </td>
+  <td class="c-common__grid-table-body-item c-edit-list-item__tr">
+    <ng-container *ngTemplateOutlet="cancelButton"></ng-container>
+  </td>
+  <td *ngIf="!hideAdditional" class="c-common__grid-table-body-item actions">
+  </td>
+</ng-container>
+<!--MOBILE-->
+<ng-container>
+  <div *ngIf="editFormControl" class="c-common__modal c-edit-list-item-mobile">
+    <div class="c-common__modal-window c-edit-list-item__modal-window">
+      <h3 class="c-edit-list-item__text">{{ 'BIC.Edit associations' | translate}}</h3>
+      <ng-container *ngTemplateOutlet="inputForEdit"></ng-container>
+      <div class="c-edit-list-item__btn-container">
+        <ng-container *ngTemplateOutlet="cancelButton"></ng-container>
+        <ng-container *ngTemplateOutlet="editButton; context: {isModal: true}"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #cancelButton>
+  <button class="c-common__button c-common__button--text normal"
+          (click)="cancelEditMode.emit()">{{'KPI.cancel' | translate}}</button>
+</ng-template>
+
+<ng-template #editButton let-isModal="isModal">
+  <button class="c-common__button c-edit-list-item__edit-btn"
+          [ngClass]="{'c-common__button--gradient': isModal, 'c-common__button--border': !isModal}"
+          [disabled]="isDisabledSaveButton()"
+          (click)="editValue()">{{'test-concept.save' | translate}}</button>
+</ng-template>
+
+<ng-template #inputForEdit>
+  <div class="c-common__form-field c-edit-list-item__input">
+    <input type="text"
+           pInputText
+           [formControl]="editFormControl"
+           (keydown.enter)="isDisabledSaveButton()? false : editValue()"
+           class="c-common__input"/>
+    <small *ngIf="editFormControl.touched && editFormControl.invalid">
+      <small class="p-error c-common__form-field-error">{{getError(editFormControl.errors)}}</small>
+    </small>
+  </div>
+</ng-template>

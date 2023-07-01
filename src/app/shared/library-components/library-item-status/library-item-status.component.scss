@@ -1,0 +1,9 @@
+@import "./src/assets/styles/mixins.scss";
+
+.c-library-item-status {
+  @include regular-14;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

@@ -1,0 +1,57 @@
+<div *ngIf="test"
+     class="c-section-three">
+  <div class="c-test__card column">
+    <h3 class="c-test__card__title">
+      {{"BT-KPIs.Standard tracking KPIs (mandatory)" | translate }}
+    </h3>
+    <div class="c-section-three__card">
+      <!--    DESKTOP -->
+      <table class="c-common__grid-table c-common-grid-table-template-one">
+        <thead class="c-common__grid-table-head">
+          <th class="c-common__grid-table-head-item">{{"BT-KPIs.KPI" | translate }}</th>
+          <th class="c-common__grid-table-head-item">{{"BT-KPIs.Question (for respondents)" | translate }}</th>
+          <th class="c-common__grid-table-head-item"></th>
+          <th class="c-common__grid-table-head-item"></th>
+        </thead>
+        <tbody class="c-common__grid-table-body">
+          <tr *ngFor="let statement of btTestKpis$ | async"
+              class="c-base__grid-table-body-row">
+            <td class="c-common__grid-table-body-item c-common__medium">{{statement.title}}</td>
+            <td class="c-common__grid-table-body-item c-common__normal">{{statement.title === 'Penetration' ? statement.question.replace(penetrationSelectedTimePeriod, penetrationQuestion) : statement.question}}</td>
+            <td class="c-common__grid-table-body-item"></td>
+            <td class="c-common__grid-table-body-item"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <p class="c-section-three__selectTime">{{"BT-KPIs.Select penetration time period" | translate }}</p>
+        <div class="kpi-dropdown">
+          <app-dropdown [items]="periodKpi"
+                        [withMultiselect]="false"
+                        [dataType]="DropdownDataType.Regions"
+                        [selectedItem]="penetrationItem"
+                        [maxHeight]="145"
+                        (getSelectedItem)="onChangePeriod($event)"></app-dropdown>
+        </div>
+      </div>
+      <!--    MOBILE -->
+      <div class="c-test__table-mobile">
+        <div *ngFor="let statement of btTestKpis$ | async"
+             class="c-test__table-mobile__card">
+          <div class="c-test__table-mobile__card-tr">
+            <div class="c-test__table-mobile__card-tr__name"><span>{{"BT-KPIs.KPI" | translate }}</span></div>
+            <div class="c-test__table-mobile__card-tr__text"><span>{{statement.title}}</span></div>
+          </div>
+
+          <div class="c-test__table-mobile__card-tr colored">
+            <div class="c-test__table-mobile__card-tr__name"><span>{{"BT-KPIs.Question (for respondents)" | translate}}</span></div>
+            <div class="c-test__table-mobile__card-tr__text"><span>{{statement.title === 'Penetration' ? statement.question.replace(penetrationSelectedTimePeriod, penetrationQuestion) : statement.question}}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-next-button [nextSection]="'section-5'"
+                   [testType]="TestType.BT"></app-next-button>
+</div>

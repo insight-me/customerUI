@@ -1,0 +1,37 @@
+<div class="bt-test-report__header">
+  <div class="bt-test-report__header-title">{{"report.Performance over time" | translate}}</div>
+  <app-multi-select-filter *ngIf="filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           [chartName]="'performanceOverTime'"
+                           allLabel="report.All KPIs"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+
+<app-warning-message *ngIf="lowNumbers"
+                     [text]="'BT.Warning! Amount of respondents is too low (<60)'"
+                     [isCentered]="true"
+                     [color]="'#585858'"></app-warning-message>
+
+<div *ngIf="service.switcher$ | async"
+     [ngStyle]="{display: 'flex', justifyContent: 'center'}">
+  <div *ngIf="dataSet$ | async as dataSet"
+       [style]="btStyle.content"
+       [ngStyle]="pdfVersion ? {margin: '50px 50px 25px 50px'} : {minHeight: '496px', maxWidth: '1000px'}">
+    <ng-container *ngIf="dataSet.dataset.length">
+      <app-bt-line-chart [dataSet]="dataSet.dataset"
+                         [style]="{flexGrow: 1}"
+                         [pdfVersion]="pdfVersion"></app-bt-line-chart>
+    </ng-container>
+
+    <div [style]="style.footer"
+         [ngStyle]="pdfVersion ? {borderTop: '1px solid #E9E9E9', paddingTop: '20px'} : {}">
+      <span *ngFor="let item of dataSet.dataset; index as i"
+            [style]="style.legend">
+        <i [style]="style.icon"
+           [style.background]="getBackground(i)"></i>
+        <div>{{item.name | translate}}</div>
+      </span>
+    </div>
+  </div>
+</div>

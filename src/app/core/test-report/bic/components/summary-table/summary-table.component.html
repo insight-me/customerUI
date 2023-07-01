@@ -1,0 +1,32 @@
+<div class="app-consumer-insight__summary">
+  <div class="app-consumer-insight__summary-row"
+    [class.pdf]="pdfVersion">
+    <p *ngIf="likeConfig.like">{{"report.likes" | translate | uppercase}}</p>
+    <p *ngIf="likeConfig.dislike">{{"report.dislikes" | translate | uppercase}}</p>
+  </div>
+
+  <div *ngFor="let dataSet of accumulatedLikes"
+    class="app-consumer-insight__summary-row"
+    [class.pdf]="pdfVersion">
+    <ng-container *ngIf="likeConfig.like">
+      <div class="app-consumer-insight__summary-row-element"
+        [class.green-like]="dataSet.likes">
+        <ng-container *ngIf="dataSet.likes">
+          <span>{{dataSet.word | titlecase}}</span>
+          <span>{{dataSet.likes}}</span>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="likeConfig.dislike">
+    <div class="app-consumer-insight__summary-row-element"
+      [class.red-dislike]="dataSet.dislikes">
+      <ng-container *ngIf="dataSet.dislikes">
+        <span>{{dataSet.word | titlecase}}</span>
+        <span>{{dataSet.dislikes}}</span>
+      </ng-container>
+    </div>
+    </ng-container>
+  </div>
+
+</div>

@@ -1,0 +1,129 @@
+<div class="app-respondent-overview__container">
+  <div class="app-respondent-overview__container-title">{{"report.Respondent overview" | translate}}</div>
+  <div
+    *ngIf="bicRSS.categoryData$ | async as categoryData"
+    class="app-respondent-overview"
+    [class.pdf]="pdfVersion"
+  >
+    <div *ngIf="bicRSS.appliedRespondentOverview | async as appliedValues" class="app-respondent-overview__respondent">
+      <p class="app-respondent-overview__card-title">{{"report.Applied filter" | translate}}</p>
+      <div
+        class="app-respondent-overview__card"
+        [class.card-pdf]="pdfVersion"
+      >
+        <div class="app-respondent-overview__card-option">
+          <div class="app-respondent-overview__card-option-name">{{"report.Time" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value">{{appliedValues.timePeriodForTesting.split(' ').slice(0, 2).join(' ')}}</div>
+        </div>
+        <div *ngIf="appliedValues.markets" class="app-respondent-overview__card-option market">
+          <div class="app-respondent-overview__card-option-name">{{"report.Markets" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value" [innerHTML]="appliedValues.markets"></div>
+        </div>
+        <div *ngIf="appliedValues.genders" class="app-respondent-overview__card-option">
+          <div class="app-respondent-overview__card-option-name">{{"report.Genders" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value">{{appliedValues.genders}}</div>
+        </div>
+        <div class="app-respondent-overview__card-option">
+          <div class="app-respondent-overview__card-option-name">{{"report.Age groups" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value">{{appliedValues.age}}</div>
+        </div>
+        <div *ngIf="appliedValues.segments" class="app-respondent-overview__card-option">
+          <div class="app-respondent-overview__card-option-name">{{"report.Consumer segments" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value">{{appliedValues.segments}}</div>
+        </div>
+        <div class="app-respondent-overview__card-option">
+          <div class="app-respondent-overview__card-option-name">{{"report.Nr of respondents" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value">
+            <ng-container
+              *ngTemplateOutlet="respondentPerCountries; context:{countries: appliedValues.segmentsPerCountries}"></ng-container>
+          </div>
+        </div>
+        <div class="app-respondent-overview__card-option">
+          <div class="app-respondent-overview__card-option-name">{{"report.Data collected" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value">{{appliedValues.nrOfRespondents}}</div>
+        </div>
+        <div class="app-respondent-overview__card-option">
+          <div class="app-respondent-overview__card-option-name">{{"report.Category" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value">{{categoryData.categoryName }}</div>
+        </div>
+        <div *ngIf="categoryData.subCategoryName" class="app-respondent-overview__card-option">
+          <div class="app-respondent-overview__card-option-name">{{"report.Sub-category" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value">{{categoryData.subCategoryName}}</div>
+        </div>
+        <div *ngIf="appliedValues.isActualIR" class="app-respondent-overview__card-option">
+          <div class="app-respondent-overview__card-option-name">{{"report.Actual IR" | translate}}:</div>
+          <div class="app-respondent-overview__card-option-value">{{appliedValues.actualIR}}%</div>
+        </div>
+<!--        <div *ngIf="appliedValues.purchaseUsageFrequency" class="app-respondent-overview__card-option">-->
+<!--          <div class="app-respondent-overview__card-option-name">{{"report.Purchase frequency" | translate}}:</div>-->
+<!--          <div class="app-respondent-overview__card-option-value">{{appliedValues.purchaseUsageFrequency}}</div>-->
+<!--        </div>-->
+      </div>
+    </div>
+
+    <div *ngIf="bicRSS.definedRespondentOverview | async as definedValues" class="app-respondent-overview__respondent">
+      <p class="app-respondent-overview__card-title">{{"report.Defined respondents" | translate}}</p>
+      <div class="app-respondent-overview__card">
+        <div>
+          <div class="app-respondent-overview__card-option">
+            <div class="app-respondent-overview__card-option-name">{{"report.Time" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value">{{definedValues.timePeriodForTesting.split(' ').slice(0, 2).join(' ')}}</div>
+          </div>
+          <div *ngIf="definedValues.markets" class="app-respondent-overview__card-option market">
+            <div class="app-respondent-overview__card-option-name">{{"report.Markets" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value" [innerHTML]="definedValues.markets"></div>
+          </div>
+          <div *ngIf="definedValues.genders" class="app-respondent-overview__card-option">
+            <div class="app-respondent-overview__card-option-name">{{"report.Genders" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value">{{definedValues.genders}}</div>
+          </div>
+          <div class="app-respondent-overview__card-option">
+            <div class="app-respondent-overview__card-option-name">{{"report.Age groups" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value">{{definedValues.age}}</div>
+          </div>
+          <div *ngIf="definedValues.segments" class="app-respondent-overview__card-option">
+            <div class="app-respondent-overview__card-option-name">{{"report.Consumer segments" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value">{{definedValues.segments}}</div>
+          </div>
+          <div class="app-respondent-overview__card-option">
+            <div class="app-respondent-overview__card-option-name">{{"report.Nr of respondents" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value">
+              <ng-container
+                *ngTemplateOutlet="respondentPerCountries; context:{countries: definedValues.segmentsPerCountries}"></ng-container>
+            </div>
+          </div>
+          <div class="app-respondent-overview__card-option">
+            <div class="app-respondent-overview__card-option-name">{{"report.Data collected" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value">{{definedValues.nrOfRespondents}}</div>
+          </div>
+          <div class="app-respondent-overview__card-option">
+            <div class="app-respondent-overview__card-option-name">{{"report.Category" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value">{{categoryData.categoryName }}</div>
+          </div>
+          <div *ngIf="categoryData.subCategoryName" class="app-respondent-overview__card-option">
+            <div class="app-respondent-overview__card-option-name">{{"report.Sub-category" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value">{{categoryData.subCategoryName}}</div>
+          </div>
+          <div *ngIf="definedValues.isActualIR" class="app-respondent-overview__card-option">
+            <div class="app-respondent-overview__card-option-name">{{"report.Actual IR" | translate}}:</div>
+            <div class="app-respondent-overview__card-option-value">{{definedValues.actualIR}}%</div>
+          </div>
+<!--          <div *ngIf="definedValues.purchaseUsageFrequency" class="app-respondent-overview__card-option">-->
+<!--            <div class="app-respondent-overview__card-option-name">{{"report.Purchase frequency" | translate}}:</div>-->
+<!--            <div class="app-respondent-overview__card-option-value">{{definedValues.purchaseUsageFrequency}}</div>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #respondentPerCountries let-countries="countries">
+  <div *ngFor="let country of countries">
+    <span>{{country.country}} - {{country.numberOfResp}}</span>
+    <ul class="app-respondent-overview__list" *ngIf="country.segments.length">
+      <li *ngFor="let segment of country.segments" class="app-respondent-overview__list-item">{{segment}}</li>
+    </ul>
+  </div>
+</ng-template>
+

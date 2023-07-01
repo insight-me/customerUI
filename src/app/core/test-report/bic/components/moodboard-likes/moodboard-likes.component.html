@@ -1,0 +1,43 @@
+<div class="app-concept-definitions">
+  <div *ngIf="bicRSS.test?.imageLikesEnabled"
+       class="app-concept-definitions__card">
+    <div class="app-concept-definitions__container">
+      <div
+        class="app-concept-definitions__card-title">{{"report.Likes and dislikes of concept mood board/image(s) in population" | translate}}</div>
+      <app-multi-select-filter *ngIf="bicRSS.concepts.length > 1 && filterForm"
+                               [filterModel]="filterModel"
+                               [filterForm]="filterForm"
+                               allLabel="report.All concepts"
+                               [needApplyBtn]="false"
+                               (applyFilters)="applyFilters()"></app-multi-select-filter>
+    </div>
+    <ng-container *ngIf="dataSet$ | async as moodBoard">
+      <div class="c-moodboard-like__title">{{moodBoard.concept.conceptName}}</div>
+      <app-concept-mood-board [dataSet]="moodBoard"></app-concept-mood-board>
+    </ng-container>
+
+
+    <div class="app-concept-definitions__card-footer">
+      <div class="app-concept-definitions__card-footer-legend">
+        <span>
+          <app-icon
+            [iconType]="IconsType.Like"
+            color="#8ED08A"
+            height="17"
+            width="17"
+          ></app-icon>
+          {{"report.likes" | translate | titlecase}}
+        </span>
+        <span>
+         <app-icon
+           [iconType]="IconsType.Dislike"
+           color="#FF776F"
+           height="17"
+           width="17"
+         ></app-icon>
+          {{"report.dislikes" | translate | titlecase}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

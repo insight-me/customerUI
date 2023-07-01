@@ -1,0 +1,207 @@
+@import "mixins";
+
+.container-for-sticky {
+  position: relative;
+  background: $white;
+}
+
+.c-grid-table__table-body {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+
+  &__row {
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+}
+
+
+.c-open-question {
+  &__table {
+    display: none !important;
+  }
+
+  &__center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 130px;
+    border-bottom: 1px solid $border;
+
+    &:last-of-type {
+      border-bottom: none !important;
+    }
+  }
+
+  &__options-container {
+    margin-top: 24px;
+  }
+}
+
+//.c-grid-table {
+//  &__table {
+//    max-height: 100% !important;
+//
+//    &-body {
+//      max-height: 100% !important;
+//    }
+//  }
+//}
+
+@media #{$tablet} {
+  .c-open-questions-preview__table-container {
+    display: none;
+  }
+
+  .c-open-question {
+    &__table {
+      display: flex;
+      box-sizing: border-box;
+      width: 100%;
+      border: 1px solid $border;
+      border-radius: 8px;
+
+      &.mobile {
+        display: flex !important;
+        border-radius: 8px;
+      }
+
+      &-header {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 130px;
+        padding: 6px;
+        border-bottom: 1px solid $border;
+        border-radius: 8px;
+
+        &__text {
+          max-width: 100%;
+          margin: 0;
+          font-family: GT Walsheim Pro Regular;
+          font-size: 14px;
+          line-height: 150%;
+          font-weight: bold;
+          text-align: center;
+          color: $black;
+          font-style: normal;
+          word-wrap: break-word;
+
+          &.page {
+            height: 130px;
+          }
+        }
+
+        &__container {
+          display: flex;
+          align-items: center;
+          max-width: 100%;
+          height: 100%;
+          word-wrap: break-word;
+        }
+
+        &__progress {
+          position: relative;
+          width: 100%;
+          max-width: 50vw;
+          height: 6px;
+          padding: 3px 6px;
+          background: $border;
+          border-radius: 3px;
+
+          &-done {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background-color: $orange;
+            border-radius: 3px;
+          }
+        }
+      }
+
+      &_col {
+        position: relative;
+        width: 37vw;
+
+        &_element {
+          width: 37vw;
+          height: auto;
+          min-height: 130px;
+          padding: 6px;
+          border-right: 1px solid $border;
+          border-bottom: 1px solid $border;
+
+          &:last-of-type {
+            border-bottom: none !important;
+          }
+
+          &.text {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            font-family: GT Walsheim Pro Regular;
+            font-size: 14px;
+            line-height: 150%;
+            font-weight: bold;
+            text-align: left;
+            color: $black;
+            font-style: normal;
+            letter-spacing: 0.005em;
+          }
+        }
+      }
+    }
+
+    &__center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 130px;
+      border-bottom: 1px solid $border;
+
+      &:last-of-type {
+        border-bottom: none !important;
+      }
+    }
+
+    &__image-container {
+      width: 100%;
+      max-width: 275px;
+      height: 100%;
+      max-height: 275px;
+      margin: 24px 0;
+      overflow: hidden;
+
+      &-image {
+        max-width: 275px;
+        max-height: 275px;
+        object-fit: contain;
+      }
+    }
+
+    &__container-table {
+      display: none;
+    }
+
+    &__scale {
+      position: relative;
+      display: flex;
+      width: 100%;
+      min-height: 48px;
+      margin: 40px 0 10px;
+    }
+
+    &__options-container {
+      margin-top: 24px;
+    }
+
+    &__none {
+      width: fit-content;
+      margin: 10px 0;
+    }
+  }
+}

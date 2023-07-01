@@ -1,0 +1,98 @@
+@import "./src/assets/styles/variables.scss";
+@import "../../../modules/shared-test-creation/why-add/why-add.component";
+@import "breakpoint-slicer";
+
+::ng-deep .fourth .tooltip {
+  left: 126% !important;
+
+  @include to(xs) {
+    left: -88px !important;
+  }
+}
+
+
+::ng-deep .custom .tooltip {
+  left: -88px !important;
+}
+
+.c-section-four {
+  margin-top: 20px;
+  padding: 0 20px 20px;
+  font-family: "GT Walsheim Pro";
+
+  &__market {
+    //margin-right: 60px;
+  }
+
+  &__checkbox-item {
+    margin-bottom: 20px;
+  }
+
+  &__part-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      &-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 141px;
+        padding: 12px 0 34px 25px;
+      }
+    }
+  }
+
+  &__form-field {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  &__textarea {
+    height: 200px;
+  }
+
+  &__button-add {
+    width: 165px;
+    margin-top: 30px;
+  }
+
+  &__table {
+    &-row {
+      display: flex;
+      margin-left: 40px;
+      background: none !important;
+
+      &--type {
+        display: flex;
+        margin-left: 20px;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.market-tip {
+  display: none;
+
+  @media (max-width: 1500px) {
+    display: inline;
+  }
+}
+
+@media #{$mobilemin} {
+  .space-between {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.width-100 {
+  width: 100%;
+}

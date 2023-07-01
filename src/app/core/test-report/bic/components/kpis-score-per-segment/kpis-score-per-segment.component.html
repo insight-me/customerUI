@@ -1,0 +1,20 @@
+<div class="app-concept-definitions__container">
+  <div class="app-concept-definitions__card-title">
+    {{ title | translate }}
+    <app-question-tooltip
+      [texts]="tooltipTexts"
+      [type]="tooltipType"
+    ></app-question-tooltip>
+  </div>
+  <app-multi-select-filter *ngIf="bicRSS.concepts.length > 1 && filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           allLabel="report.All concepts"
+                           [needApplyBtn]="false"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+<app-score-per-segment
+  *ngFor="let concept of dataSet$ | async"
+  [dataSet]="concept"
+  [kpi]="bicRSS.kpiMap | async"
+></app-score-per-segment>

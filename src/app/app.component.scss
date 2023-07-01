@@ -1,0 +1,13 @@
+@import "./src/assets/styles/variables.scss";
+
+.c-app {
+  //min-width: 1440px;
+}
+
+@media #{$desktop} {
+  .c-app {
+    width: 100%;
+    min-width: 100%;
+  }
+
+}

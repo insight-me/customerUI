@@ -1,0 +1,432 @@
+@import "./src/assets/styles/variables.scss";
+@import "./src/assets/styles/mixins.scss";
+@import "./src/assets/styles/test.scss";
+
+.app-bubble-chart {
+  @include flex-column-stretch;
+
+  &__title {
+    display: flex;
+    font-family: "GT Walsheim Pro Medium";
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0;
+  }
+
+  &__footer {
+    margin-top: 60px;
+    border-top: 1px solid $divider2;
+
+    &-legend {
+      display: grid;
+      justify-content: space-between;
+      align-items: center;
+      grid-gap: 0 20px;
+      grid-template-columns: repeat(auto-fill, 250px);
+      padding: 40px 20% 10px;
+
+      &.default {
+        padding: 30px 10px 0;
+      }
+
+      span {
+        @include flex-start-nowrap;
+
+        position: relative;
+        margin: 0 0 10px;
+        font-size: 14px;
+        line-height: 18px;
+        letter-spacing: 0;
+        cursor: pointer;
+
+        &:hover .legend-label-tooltip {
+          z-index: 2;
+          visibility: visible;
+          transition: 0.5s;
+          transition-delay: 0.1s;
+        }
+
+        .legend-label-tooltip {
+          position: absolute;
+          bottom: 30px;
+          left: 11px;
+          width: fit-content;
+          visibility: hidden;
+
+          &-arrow {
+            position: absolute;
+            bottom: -8px;
+            left: 10px;
+            width: 0;
+            height: 0;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid #333;
+            border-left: 10px solid transparent;
+            transform: rotate(180deg);
+          }
+
+          &-content {
+            @include flex-column;
+
+            align-items: center;
+            padding: 4px 8px;
+            background-color: #333;
+            border-radius: 2px;
+
+            &-title {
+              @include regular-12;
+
+              color: $white !important;
+            }
+          }
+        }
+
+        i {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          margin-right: 11px;
+          border-radius: 50%;
+
+          &.likes-icon {
+            background: $like-background;
+          }
+
+          &.dislikes-icon {
+            background: $dislike-background;
+          }
+        }
+
+        app-icon {
+          margin-right: 11px;
+          margin-bottom: -5px;
+        }
+
+        .legend-label {
+          @include medium-14;
+
+          width: 200px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    &-info {
+      margin: 18px 0 0 40px;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 14px;
+      line-height: 18px;
+      color: $lightgray;
+      font-style: oblique;
+      letter-spacing: 0;
+    }
+  }
+
+  &__zoom {
+    @include flex-end-center;
+
+    cursor: pointer;
+
+    @media #{$mobile} {
+      display: none;
+    }
+
+    span {
+      margin-right: 12px;
+      font-family: "GT Walsheim Pro Medium";
+      font-size: 12px;
+      line-height: 12px;
+      color: $lightgray;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  &__container {
+    position: relative;
+    margin: 28px 45px 20px 59px;
+    border-bottom: 2px solid $chart-axis;
+    border-left: 2px solid $chart-axis;
+
+    &.pdf {
+      margin: 28px 45px 45px 59px;
+    }
+
+    &-item {
+      @include flex-center-center;
+
+      position: absolute;
+      box-sizing: border-box;
+      width: 40px;
+      height: 40px;
+      margin: 0 0 -20px -21px;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 16px;
+      color: $black;
+      border-radius: 50%;
+      box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+
+      &.cluster {
+        margin: 0 0 -30px -30px;
+      }
+
+      &:hover {
+        z-index: 1;
+        border: 2px solid $white;
+      }
+
+      &:hover {
+        .bubble-chart-tooltip {
+          z-index: 2;
+          opacity: 1;
+          transition: 0.5s;
+          transition-delay: 0.1s;
+        }
+
+        .bubble-chart-tooltip-arrow {
+          z-index: 2;
+          opacity: 1;
+          transition: 0.5s;
+          transition-delay: 0.1s;
+        }
+      }
+
+      .bubble-chart-tooltip {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+
+        &.right {
+          left: 70px;
+        }
+
+        &.left {
+          right: 70px;
+        }
+
+        &.top-left {
+          right: 0;
+          bottom: 49px;
+        }
+
+        &.top-right {
+          bottom: 49px;
+          left: 0;
+        }
+
+        &-content {
+          display: flex;
+          background-color: $darkviolet;
+          border-radius: 5px;
+          box-shadow: 0 7px 12px 0 rgba(0, 0, 0, 0.35);
+
+          &-container {
+            display: grid;
+            grid-column-gap: 32px;
+            grid-row-gap: 8px;
+            grid-template-rows: min-content;
+            width: 100%;
+            min-width: 200px;
+            padding: 12px;
+
+            &-item {
+              display: flex;
+              flex-direction: column;
+              justify-content: flex-end;
+              border-top: 1px solid $purple;
+
+              &.top-row {
+                border-top: none;
+              }
+            }
+          }
+
+          &-title {
+            margin-top: 8px;
+            margin-bottom: 5px;
+            font-size: 20px;
+            line-height: 23px;
+            color: $white;
+          }
+
+          &-values {
+            @include flex-space-between-center;
+
+            flex-wrap: nowrap;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 12px;
+            color: $white;
+            letter-spacing: 0.5px;
+
+            span {
+              white-space: nowrap;
+
+              &:first-child {
+                margin-right: 14px;
+              }
+
+              &:last-child {
+                font-size: 14px;
+                line-height: 12px;
+                color: $darkorange;
+                letter-spacing: 0.58px;
+              }
+            }
+          }
+
+          &-divider {
+            margin: 8px 0;
+            border-bottom: 1px solid $purple;
+          }
+        }
+      }
+
+      .bubble-chart-tooltip-arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-right: 10px solid transparent;
+        border-bottom: 10px solid $darkviolet;
+        border-left: 10px solid transparent;
+        opacity: 0;
+
+        &.right {
+          top: 25px;
+          right: -21px;
+          border-bottom-left-radius: 5px;
+          transform: rotate(45deg);
+        }
+
+        &.left {
+          top: 25px;
+          right: 57px;
+          border-bottom-right-radius: 5px;
+          transform: rotate(-45deg);
+        }
+
+        &.top-left {
+          top: -15px;
+          right: 11px;
+          border-bottom-right-radius: 5px;
+          box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
+          transform: rotate(45deg);
+        }
+
+        &.top-right {
+          top: -15px;
+          right: 6px;
+          border-bottom-left-radius: 5px;
+          box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
+          transform: rotate(-45deg);
+        }
+      }
+
+      &__cluster-title {
+        position: absolute;
+        display: flex;
+        width: 60%;
+        height: 60%;
+        background: $white;
+        border-radius: 50%;
+
+        div {
+          margin: auto;
+        }
+      }
+    }
+
+    &-benchmark {
+      position: absolute;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 12px;
+      line-height: 12px;
+      color: $lightgray;
+      letter-spacing: 0.5px;
+
+      &.x-axis {
+        height: 100%;
+        border-left: 1px dashed $chart-benchmark;
+      }
+
+      &.y-axis {
+        width: 100%;
+        border-top: 1px dashed $chart-benchmark;
+      }
+
+      .x-benchmark-label {
+        padding-left: 6px;
+      }
+
+      .y-benchmark-label {
+        text-align: right;
+
+        &:first-child {
+          padding-top: 5px;
+        }
+      }
+    }
+
+    &-arrow {
+      position: absolute;
+      display: inline-block;
+      padding: 3px;
+      border: solid $chart-axis;
+      border-width: 0 2px 2px 0;
+
+      &.y-arrow {
+        top: 0;
+        left: -5px;
+        transform: rotate(-135deg);
+      }
+
+      &.x-arrow {
+        right: 0;
+        bottom: -5px;
+        transform: rotate(-45deg);
+      }
+    }
+
+    &-label {
+      position: absolute;
+      z-index: 1;
+      font-family: "GT Walsheim Pro Medium";
+      font-size: 12px;
+      line-height: 12px;
+      color: $black;
+      letter-spacing: 0.5px;
+
+      &.y-label {
+        top: 0;
+        left: 12px;
+      }
+
+      &.x-label {
+        right: 0;
+        bottom: 8px;
+      }
+    }
+
+    &-pdf-axis {
+      position: absolute;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 14px;
+      color: $dark;
+      letter-spacing: 0;
+
+      .pdf-y-value {
+        position: absolute;
+        top: -8px;
+        left: -35px;
+      }
+
+      .pdf-x-value {
+        position: absolute;
+        right: -15px;
+        bottom: -20px;
+      }
+    }
+  }
+}

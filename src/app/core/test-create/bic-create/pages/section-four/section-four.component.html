@@ -1,0 +1,258 @@
+<app-prompt (onChanged)="goTo('section-5')"
+            (onClose)="toggleIsPromptOpen($event)"></app-prompt>
+
+<div class="c-section__wrapper c-section-four">
+  <div class="c-test-create__nav-wrapper">
+    <div class="c-test-create__nav"
+         [ngStyle]="{'margin-top': -scrollY + 'px'}">
+      <a (click)="navigateToSection('#section1')"
+         class="c-section__nav-item"
+         [class.active]="!activeElement?isScrollOnStep(section1):activeElement === '#section1'">1. {{'additional.like-dislike' | translate}}</a>
+      <a (click)="navigateToSection('#section2')"
+         class="c-section__nav-item"
+         [class.active]="!activeElement?isScrollOnStep(section2):activeElement === '#section2'">2. {{'additional.open-feedback' | translate}}</a>
+      <a (click)="navigateToSection('#section3')"
+         class="c-section__nav-item"
+         [class.active]="!activeElement?isScrollOnStep(section3):activeElement === '#section3'">3. {{'additional.relevance' | translate}}</a>
+      <!-- <a (click)="navigateToSection('#section4')"
+         class="c-section__nav-item"
+         [class.active]="!activeElement?isScrollOnStep(section4):activeElement === '#section4'">4. {{'BIC.Purchase frequency' | translate}}</a> -->
+      <a (click)="navigateToSection('#section5')"
+         class="c-section__nav-item"
+         [class.active]="!activeElement?isScrollOnStep(section5):activeElement === '#section5'">4. {{'BIC.Custom questions' | translate}}</a>
+    </div>
+  </div>
+
+  <div class="c-section__content c-section-four__content">
+    <form *ngIf="form"
+          [formGroup]="form"
+          class="c-section">
+      <div #section1
+           id="section1"
+           class="c-section__block-wrapper">
+        <div class="c-test__card space-between fourth">
+          <div class="c-section-four__market">
+            <div class="c-test__card__title space-between">
+              <div>
+                <span class="c-test__card__number">1</span>
+                {{'additional.like-dislike' | translate}}
+              </div>
+              <div>
+                <span class="market-tip"><app-question-tooltip [title]="'additional.why-add-this'"
+                                        [texts]="['additional.likes-about']"
+                                        additionalClass="mobileMin"
+                                        [arrowShift]="marketArrowShiftBetween"></app-question-tooltip></span>
+              </div>
+            </div>
+            <p class="c-test__card__optional">{{'BIC.Optional' | translate}}</p>
+            <div class="c-section__field-with-text">
+              <div class="c-section-four__part-content__content">
+                <div class="c-common__checkbox-wrapper c-section-four__checkbox-item">
+                  <p-checkbox class="c-common__checkbox"
+                              formControlName="wordsLikesEnabled"
+                              [binary]="true"></p-checkbox>
+                  <label class="c-common__checkbox-label">{{'BIC.Which words do you like or dislike in the text?' | translate}}</label>
+                </div>
+                <div class="c-common__checkbox-wrapper c-section-four__checkbox-item">
+                  <p-checkbox class="c-common__checkbox"
+                              [disabled]="isDisabledImagesLikes"
+                              formControlName="imageLikesEnabled"
+                              [binary]="true"></p-checkbox>
+                  <label [class.disabled]="isDisabledImagesLikes"
+                         class="c-common__checkbox-label">{{'BIC.Which images do you like or dislike?' | translate}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="c-section__subtext market">
+            <div class="c-why-add__title">
+              {{ "additional.why-add-this" | translate }}
+            </div>
+            <p class="c-why-add__text">
+              {{ "additional.likes-about" | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <div #section2
+           id="section2"
+           class="c-section__block-wrapper">
+        <div class="c-test__card space-between fourth">
+          <div class="c-section-four__market">
+            <div class="c-test__card__title space-between">
+              <div>
+                <span class="c-test__card__number">2</span>
+                {{'additional.open-feedback' | translate}}
+              </div>
+              <div>
+                <span class="market-tip">
+                  <app-question-tooltip [title]="'additional.why-add-this'"
+                                        [texts]="['additional.feedback-about']"
+                                        additionalClass="mobileMin"
+                                        [arrowShift]="marketArrowShiftBetween"></app-question-tooltip></span>
+              </div>
+            </div>
+            <p class="c-test__card__optional">{{'BIC.Optional' | translate}}</p>
+            <div class="c-section__field-with-text">
+              <div class="c-section-four__part-content">
+                <div class="c-section-four__part-content__content">
+                  <div class="c-common__checkbox-wrapper c-section-four__checkbox-item">
+                    <p-checkbox class="c-common__checkbox"
+                                formControlName="feedbackLike"
+                                [binary]="true"></p-checkbox>
+                    <label class="c-common__checkbox-label">{{'BIC.What do you like most about the idea?' | translate}}</label>
+                  </div>
+                  <div class="c-common__checkbox-wrapper c-section-four__checkbox-item">
+                    <p-checkbox class="c-common__checkbox"
+                                formControlName="feedbackThink"
+                                [binary]="true"></p-checkbox>
+                    <label class="c-common__checkbox-label">{{'BIC.What do you think can be improved with the idea?' | translate}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="c-section__subtext market">
+            <div class="c-why-add__title">
+              {{ "additional.why-add-this" | translate }}
+            </div>
+            <p class="c-why-add__text">
+              {{ "additional.feedback-about" | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div #section3
+           id="section3"
+           class="c-section__block-wrapper">
+        <div class="c-test__card space-between custom">
+          <div class="c-section-five__market">
+            <div class="c-test__card__title">
+              <span class="c-test__card__number">3</span>
+              {{'additional.relevance-title' | translate}}
+              <span class="market-tip">
+                <app-question-tooltip [title]="'additional.why-add-this'"
+                                      [texts]="['explanation.Find out how relevant different parts of your concept is.']"
+                                      additionalClass="market middle"
+                                      [arrowShift]="marketArrowShift"></app-question-tooltip></span>
+            </div>
+            <div class="c-section__field-with-text">
+              <div class="c-section-four__part-content">
+                <div class="c-section-four__part-content__content">
+                  <div class="c-section-four__form-field">
+                    <input class="c-common__radiobutton"
+                           type="radio"
+                           formControlName="testConceptRelevance"
+                           [value]="true"
+                           id="yes">
+                    <label class="c-common__radiobutton-label"
+                           for="yes">{{'additional.yes' | translate}}</label>
+                  </div>
+                  <div class="c-section-four__form-field">
+                    <input class="c-common__radiobutton"
+                           type="radio"
+                           formControlName="testConceptRelevance"
+                           [value]="false"
+                           checked=true
+                           id="no">
+                    <label class="c-common__radiobutton-label"
+                           for="no">{{'additional.no' | translate}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="c-section__subtext market">
+            <div class="c-why-add__title">
+              {{ "additional.why-add-this" | translate }}
+            </div>
+            <p class="c-why-add__text">
+              {{ "explanation.Find out how relevant different parts of your concept is." | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- <div #section4
+           id="section4"
+           class="c-section__block-wrapper">
+        <div class="c-test__card column">
+          <h3 class="c-test__card__title">
+            <span class="c-test__card__number">4</span> {{'BIC.Do you want to test how often the respondents would purchase your product/service?' | translate}}
+          </h3>
+          <div class="c-section__field-with-text">
+            <div class="c-section-four__part-content">
+              <div class="c-section-four__part-content__content">
+                <div class="c-section-four__form-field">
+                  <input class="c-common__radiobutton"
+                         type="radio"
+                         formControlName="purchaseFrequencyEnabled"
+                         [value]="true"
+                         id="yesPF">
+                  <label class="c-common__radiobutton-label"
+                         for="yesPF">{{'additional.yes' | translate}}</label>
+                </div>
+                <div class="c-section-four__form-field">
+                  <input class="c-common__radiobutton"
+                         type="radio"
+                         formControlName="purchaseFrequencyEnabled"
+                         [value]="false"
+                         id="noPF">
+                  <label class="c-common__radiobutton-label"
+                         for="noPF">{{'additional.no' | translate}}</label>
+                </div>
+              </div>
+            </div>
+            <app-why-add [title]="translateService.instant('additional.why-add-this')"
+                         text="explanation.Find out how relevant different parts of your concept is.">
+            </app-why-add>
+          </div>
+        </div>
+      </div> -->
+      <div #section5
+           id="section5"
+           class="c-section__block-wrapper">
+        <div class="c-test__card space-between fourth">
+          <div class="c-section-four__market width-100">
+            <div class="c-test__card__title space-between">
+              <div>
+                <span class="c-test__card__number">4</span>
+                {{'BIC.Custom questions' | translate}}
+              </div>
+              <div>
+                <span class="market-tip">
+                  <app-question-tooltip [title]="'additional.why-add-this'"
+                                        [texts]="['explanation.Create your own questions in order to get insights of other thoughts that matters to you.']"
+                                        additionalClass="mobileMin"
+                                        [arrowShift]="marketArrowShiftBetween"></app-question-tooltip></span>
+              </div>
+            </div>
+            <div>
+              <p class="c-test__card__optional">{{'BIC.Optional' | translate}}</p>
+              <p class="c-test__card__optional">{{'BIC.Maximum 5 custom questions are allowed' | translate}}</p>
+            </div>
+            <div class="c-section__field-with-text">
+              <app-open-questions [test]="test"
+                                  (updateCustomQuestions)="updateCustomQuestions($event)"
+                                  (deleteCustomQuestion)="deleteCustomQuestion($event)"></app-open-questions>
+            </div>
+          </div>
+          <div class="c-section__subtext market">
+            <div class="c-why-add__title">
+              {{ "additional.why-add-this" | translate }}
+            </div>
+            <p class="c-why-add__text">
+              {{ "explanation.Create your own questions in order to get insights of other thoughts that matters to you." | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </form>
+    <app-next-button [nextSection]="'section-5'"
+                     [testType]="TestType.BIC"></app-next-button>
+  </div>
+</div>

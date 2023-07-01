@@ -1,0 +1,35 @@
+<ul
+  *ngIf="formArray.length"
+  class="c-table-filter__list"
+  (click)="$event.stopPropagation()"
+>
+  <li
+    *ngFor="let item of list; let i = index"
+    class="c-table-filter__list-item c-common__checkbox-wrapper base"
+    (click)="getFormControl(i).value ? getFormControl(i).setValue(null): getFormControl(i).setValue(item)"
+  >
+    <input
+      type="checkbox"
+      class="c-common__checkbox base"
+      [formControl]="getFormControl(i)"
+      [value]="item"
+    />
+    <label class="c-common__checkbox-label"></label>
+    <p [style.margin]="0">{{ "invoices." + item | translate }}</p>
+  </li>
+</ul>
+<div class="c-table-filter__buttons">
+  <button
+    class="c-common__button c-common__button--text extra-small"
+    (click)="reset()"
+    [style.color]="'#8E8E93'"
+  >
+    {{ "invoices.clear" | translate | uppercase }}
+  </button>
+  <button
+    class="c-common__button c-common__button--border extra-small"
+    (click)="filter()"
+  >
+    {{ "invoices.filter" | translate | uppercase }}
+  </button>
+</div>

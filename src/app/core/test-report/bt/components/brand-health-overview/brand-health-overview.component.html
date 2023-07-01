@@ -1,0 +1,91 @@
+<div class="bt-test-report">
+
+  <div *ngIf="!pdfVersion"
+       class="bt-test-report__header"
+       [style.margin-bottom]="'8px'">
+    <div class="bt-test-report__header-title">{{"report.Brand health overview" | translate}}</div>
+    <div class="bt-test-report__header-filter">
+      <app-multi-select-filter [filterModel]="filterModel"
+                               [filterForm]="filterForm"
+                               (applyFilters)="applyFilters()"></app-multi-select-filter>
+    </div>
+  </div>
+  <div class="period">{{'global_filter.period' | translate}}: {{ getIntervals()}}</div>
+
+  <app-warning-message *ngIf="lowNumbers"
+                       [text]="'BT.Warning! Amount of respondents is too low (<60)'"
+                       [isCentered]="true"
+                       [color]="'#585858'"></app-warning-message>
+
+  <ng-container *ngIf="service.switcher$ | async">
+    <div #chartRef
+         [style]="btStyle.content"
+         [ngStyle]="brandHealthOverview.content"
+         *ngIf="currentDataSet$ | async as currentDataSet">
+      <div [style]="brandHealthOverview.row">
+        <div *ngFor="let kpi of kpisList"
+             [style]="brandHealthOverview.item">
+          <div [style]="brandHealthOverview.circle">
+            <div [style]="brandHealthOverview.value"
+                 class="bt-test-report-circle-value"
+                 [ngStyle]="pdfVersion ? {'font-size': '60px', width: '170px', 'text-align': 'center', top: '30px'} : {}">{{getValue(kpi, currentDataSet)}}%
+            </div>
+            <svg width="100"
+                 height="100"
+                 viewBox="0 0 101 100"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50.4805"
+                      cy="50"
+                      r="50"
+                      [attr.fill]="circleFill(kpi)" />
+            </svg>
+          </div>
+
+          <div [style]="brandHealthOverview.label"
+               class="bt-test-report-circle-label"
+               [ngStyle]="pdfVersion ? {'font-size': '14px'} : {}">
+            <app-icon [iconType]="iconTypeByDifference(getDifference(kpi, currentDataSet))"
+                      [style]="{'margin-right': '10px'}"></app-icon>
+            <div [ngStyle]="kpi === 'penetrations' || kpi === 'togglePenetrations' ? {'display': 'flex', 'align-items':'center', 'word-break': 'keep-all'} : {}">{{kpiByTitle(kpi) | translate}}
+              <ng-container *ngIf="kpi === 'penetrations' || kpi === 'togglePenetrations'">
+                <app-question-tooltip [style.margin-left]="'10px'"
+                                      [arrowShift]="42"
+                                      [texts]="[('penetration.tooltip_text' | translate) +  ' ' + penetrationTitle(penetrationInMonthes, ts)]">
+                </app-question-tooltip>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </ng-container>
+
+  <div [style]="brandHealthOverview.footer"
+       [ngStyle]="pdfVersion ? {justifyContent: 'flex-start'} : {}">
+    <div [style]="brandHealthOverview.label"
+         [ngStyle]="pdfVersion ? {marginRight: '100px'} : {}">
+      <app-icon [iconType]="IconsType.UpArrow"
+                [style]="{'margin': '0 10px'}"></app-icon>
+      <div>{{("report.Higher than previous" | translate) + ("report." + calendarMode | translate)}}</div>
+    </div>
+
+    <div [style]="brandHealthOverview.label"
+         [ngStyle]="pdfVersion ? {marginRight: '100px'} : {}">
+      <app-icon [iconType]="IconsType.HorizontalArrow"
+                [style]="{'margin': '0 10px'}"></app-icon>
+      <div>{{("report.No difference than previous" | translate) + ("report." + calendarMode | translate)}}</div>
+    </div>
+
+    <div [style]="brandHealthOverview.label"
+         [ngStyle]="pdfVersion ? {marginRight: '100px'} : {}">
+      <app-icon [iconType]="IconsType.DownArrow"
+                [style]="{'margin': '0 10px'}"></app-icon>
+      <div>{{("report.Lower than previous" | translate) + ("report." + calendarMode | translate)}}</div>
+    </div>
+  </div>
+
+</div>

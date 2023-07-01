@@ -1,0 +1,26 @@
+<ng-container *ngIf="categoryScreeningFormControl">
+  <div
+    *ngFor="let elem of categoryScreeningElements"
+    class="c-category-screening__element"
+  >
+    <input
+      class="c-common__radiobutton"
+      type="radio"
+      [formControl]="categoryScreeningFormControl"
+      [value]="elem.id"
+      name="screeningOptions"
+      [id]="elem.id"
+      (change)="onChangeCategoryScreening()"
+    />
+    <label class="c-common__radiobutton-label" [for]="elem.id">{{
+      "BIC." + elem.title | translate
+    }}</label>
+  </div>
+</ng-container>
+<ng-container [ngSwitch]="categoryScreeningFormControl.value">
+    <app-predesigned-screening *ngSwitchCase="CategoryScreening.Predesigned"
+                               [respondentRequirements]="bicRespondentsService.respondentRequirements$ | async"></app-predesigned-screening>
+    <app-custom-screening *ngSwitchCase="CategoryScreening.Customized"
+                          [respondentRequirements]="bicRespondentsService.respondentRequirements$ | async"
+                          [testType]="testType"></app-custom-screening>
+</ng-container>

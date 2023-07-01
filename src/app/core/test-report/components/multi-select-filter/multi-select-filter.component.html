@@ -1,0 +1,97 @@
+<div class="c-m-s-filter__filter">
+  <span>{{"report.Graph options" | translate}}</span>
+  <div class="c-m-s-filter__filter-button"
+       cdkOverlayOrigin
+       #trigger="cdkOverlayOrigin"
+       (click)="isFilterActive ? close() : open()">
+    <app-expand-button [active]="isFilterActive"></app-expand-button>
+  </div>
+  <ng-template cdkConnectedOverlay
+               [cdkConnectedOverlayOrigin]="trigger"
+               [cdkConnectedOverlayOpen]="isFilterActive"
+               [cdkConnectedOverlayPositions]="positionPairs"
+               [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+               cdkConnectedOverlayPanelClass="c-m-s-filter__panel"
+               cdkConnectedOverlayHasBackdrop
+               cdkConnectedOverlayPush
+               cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+               (backdropClick)="onBackdropClick()"
+               (detach)="onBackdropClick()">
+    <div class="c-m-s-filter__container"
+         [@overlay]>
+      <div class="c-m-s-filter__filter-panel-double"
+           [formGroup]="filterForm">
+        <div *ngFor="let filter of filterModel"
+             class="c-m-s-filter__filter-panel-double-element">
+          <div *ngIf="filterModel.length > 1"
+               class="c-m-s-filter__filter-panel-double-element-title">{{"report." + filter.filterName | translate}}</div>
+          <div class="c-m-s-filter__filter-panel-double-element-scroll"
+               [class.single]="filterModel.length === 1">
+            <div class="p-d-flex p-ai-center c-m-s-filter__filter-panel-items">
+              <ng-container [ngSwitch]="filter.isMulti">
+                <ng-container *ngSwitchCase="true">
+                  <div class="p-field-checkbox c-common__checkbox-wrapper p-d-flex p-ai-center c-m-s-filter__filter-panel-item">
+                    <ng-container *ngIf="filter.isAll || !isSomeChecked(filter.selected)">
+                      <p-checkbox [(ngModel)]="filter.isAll"
+                                  [ngModelOptions]="{standalone: true}"
+                                  binary="true"
+                                  label="{{allLabel || filter.allLabel | translate}}"
+                                  class="c-common__checkbox small"
+                                  (onChange)="toggle('all', filter)">
+                      </p-checkbox>
+                    </ng-container>
+                    <ng-container *ngIf="isSomeChecked(filter.selected) && !filter.isAll">
+                      <input type="checkbox"
+                             class="c-common__multiselect"
+                             [checked]="true">
+                      <label class="c-common__checkbox-label"
+                             (click)="checkAll(filter)">{{allLabel || filter.allLabel | translate}}</label>
+                    </ng-container>
+                  </div>
+
+                  <div *ngFor="let option of filter.options"
+                       class="p-d-flex p-ai-center c-m-s-filter__filter-panel-item">
+                    <div class="p-field-checkbox c-common__checkbox-wrapper c-m-s-filter__checkbox">
+                      <p-checkbox [(ngModel)]="filter.selected[option?.id]"
+                                  [ngModelOptions]="{standalone: true}"
+                                  [label]="option.value | translate"
+                                  binary="true"
+                                  [pTooltip]="option.value | translate"
+                                  tooltipEvent="hover"
+                                  tooltipPosition="top"
+                                  class="c-common__checkbox small"
+                                  (onChange)="toggle(option.id, filter)"></p-checkbox>
+                    </div>
+                  </div>
+                </ng-container>
+
+                <app-radio-button *ngSwitchCase="false"
+                                  [formGroup]="filterForm"
+                                  [controlName]="filter.formControlName"
+                                  [options]="filter.options"
+                                  [customStyle]="true"
+                                  [withTooltip]="true"></app-radio-button>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="needApplyBtn"
+           class="c-m-s-filter__filter-panel-actions">
+        <button class="c-base__button c-base__button--regular c-m-s-filter__filter-panel-actions-btn"
+                (click)="onReset()">
+          <app-icon [iconType]="IconsType.Refresh"
+                    [style.margin-right.px]="10"></app-icon>
+          {{"report.reset" | translate | uppercase}}
+        </button>
+        <button class="c-base__button c-base__button--border c-m-s-filter__filter-panel-actions-btn"
+                (click)="onApply()">
+          {{"report.apply filter" | translate | uppercase}}
+          <app-icon [iconType]="IconsType.RightArrow"
+                    color="#FFA56F"
+                    [style.margin-left.px]="10"></app-icon>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>

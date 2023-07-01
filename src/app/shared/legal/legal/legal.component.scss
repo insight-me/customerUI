@@ -1,0 +1,238 @@
+@import "./src/assets/styles/variables.scss";
+
+.c-legal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+  background: $white;
+  border-radius: 8px;
+
+  &-scroll {
+    height: 77vh;
+    margin-bottom: 40px;
+    overflow-y: auto;
+    border-radius: 8px;
+  }
+}
+
+.margin {
+  margin: 15px 0;
+}
+
+.c-legal {
+  width: 90vw;
+  max-width: 1440px;
+  margin: 20px auto;
+  padding: 20px 40px;
+  background: $white;
+
+  &__main-title {
+    font-family: "GT Walsheim Pro Medium";
+    font-size: 24px;
+    line-height: 32px;
+    color: $black;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  &__title {
+    font-family: "GT Walsheim Pro Medium";
+    font-size: 20px;
+    line-height: 32px;
+    color: $black;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  &__text {
+    margin: 20px 0;
+    font-family: "GT Walsheim Pro Regular";
+    font-size: 16px;
+    line-height: 22px;
+    color: $black;
+    letter-spacing: 1px;
+  }
+
+  &__table {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr) minmax(120px, 1fr);
+    width: 100%;
+    margin: 10px 0;
+    border: 1px solid $border;
+    border-radius: 8px;
+
+    &__tr {
+      display: contents;
+    }
+
+    &__line {
+      border-right: 1px solid $border;
+      border-bottom: 1px solid $border;
+
+      &.no-line {
+        border-bottom: none;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    &__th {
+      padding: 10px;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 16px;
+      line-height: 22px;
+      text-align: left;
+      color: $black;
+      letter-spacing: 1px;
+    }
+
+    &__th-body {
+      padding: 10px;
+      font-family: "GT Walsheim Pro Regular";
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: normal;
+      text-align: left;
+      color: $black;
+      letter-spacing: 1px;
+
+      &.no-padding {
+        padding: 0 10px;
+      }
+
+      &.padding-bottom {
+        padding: 0 10px 10px;
+      }
+    }
+  }
+
+  &__table-subcontractors {
+    position: relative;
+    right: 15px;
+    grid-template-columns: minmax(90px, 1fr) minmax(90px, 1fr) minmax(100px, 1fr);
+  }
+
+  &__list {
+    padding-inline-start: 60px;
+
+    &.margin {
+      margin-left: 50px;
+    }
+
+    &-elem {
+      font-family: "GT Walsheim Pro Medium";
+      font-size: 16px;
+      line-height: 30px;
+      color: $black;
+      letter-spacing: 1px;
+
+      &.no-style {
+        position: relative;
+        list-style: none;
+        font-family: "GT Walsheim Pro Regular";
+        line-height: 25px;
+      }
+
+      &.alphabetic {
+        list-style-type: lower-latin;
+        font-family: "GT Walsheim Pro Regular";
+      }
+
+      &.lower-roman {
+        list-style-type: lower-roman;
+      }
+
+      &-marker {
+        position: absolute;
+        top: -2px;
+        left: -107px;
+        font-family: "GT Walsheim Pro Regular";
+        font-size: 16px;
+        line-height: 30px;
+        color: $black;
+        letter-spacing: 1px;
+        unicode-bidi: isolate;
+        font-variant-numeric: tabular-nums;
+
+        &.big {
+          left: -111px;
+        }
+      }
+    }
+  }
+}
+
+@media #{$tablet} {
+  .c-legal {
+    padding: 20px;
+
+    &__list {
+      padding-inline-start: 48px;
+    }
+  }
+}
+
+@media #{$mobile} {
+  .c-legal {
+    margin: 8px;
+    padding: 10px;
+
+    &__main-title {
+      font-size: 22px;
+    }
+
+    &__mobile-table {
+      width: 75vw;
+      margin: 0 auto;
+      overflow-x: scroll;
+      border: 1px solid $border;
+      border-radius: 8px;
+    }
+
+    &__mobile-subtable {
+      border: 1px solid $border !important;
+      border-radius: 8px;
+    }
+
+    &__title {
+      font-size: 18px;
+    }
+
+    &__text {
+      font-size: 14px;
+    }
+
+    &__table {
+      border: none;
+
+      &__th {
+        font-size: 12px;
+      }
+
+      &__th-body {
+        font-size: 12px;
+      }
+    }
+
+    &__list {
+      padding-inline-start: 29px;
+
+      &-elem {
+        font-size: 14px;
+
+        &-marker {
+          left: -63px;
+          font-size: 14px;
+
+          &.big {
+            left: -72px;
+          }
+        }
+      }
+    }
+  }
+}

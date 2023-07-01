@@ -1,0 +1,41 @@
+<div class="app-concept-definitions__container">
+  <div>
+    <div class="app-concept-definitions__card-title">
+      {{ title | translate }}
+      <app-question-tooltip
+        [texts]="tooltipTexts"
+        [type]="tooltipType"
+      ></app-question-tooltip>
+    </div>
+    <div class="app-concept-definitions__card-sub-title">
+      {{ "report.Sorted by importance (y) in descending order" | translate }}
+    </div>
+  </div>
+
+  <app-multi-select-filter *ngIf="bicRSS.concepts.length > 1 && filterForm"
+                           [filterModel]="filterModel"
+                           [filterForm]="filterForm"
+                           (applyFilters)="applyFilters()"></app-multi-select-filter>
+</div>
+<ng-container *ngIf="dataSet$ | async as data">
+  <app-grouped-horizontal-bar-chart
+    [dataSet]="data"
+  ></app-grouped-horizontal-bar-chart>
+  <div class="app-concept-definitions__card-footer">
+    <div class="app-concept-definitions__card-footer-legend">
+        <span *ngFor="let item of data[0].values; index as i">
+          <i [style.background]="getBackground(i, true)" class="likes-icon"></i>
+          <div class="legend-label">{{ item.label }}</div>
+          <div class="legend-label-tooltip">
+            <div class="legend-label-tooltip-content">
+              <div class="legend-label-tooltip-content-title">
+                {{ item.label }}
+              </div>
+            </div>
+            <div class="legend-label-tooltip-arrow"></div>
+          </div>
+        </span>
+    </div>
+  </div>
+</ng-container>
+

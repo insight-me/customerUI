@@ -1,0 +1,37 @@
+<form class="c-market-section__form-group">
+  <ng-container class="c-section-five__form-field">
+    <div [formGroup]="market"
+         class="c-market">
+      <div class="c-market__form-group">
+        <div class="c-market__market">
+          <div class="c-common__form-field c-common__form-field__country">
+            <div class="c-common__form-field--with-icon c-market__form-field">
+              <app-dropdown [items]="countries"
+                            [dataType]="DropdownDataType.Countires"
+                            [defaultLabel]="'respondents.choose-country'"
+                            [isError]="controlHasError('country')"
+                            [withMultiselect]="false"
+                            [selectedItem]="market.controls.country.value ? market.controls.country.value.countryName : ''"
+                            (getSelectedItem)="onChangeCountry($event)"></app-dropdown>
+            </div>
+            <small *ngIf="controlHasError('country')"
+                   class="p-error c-common__form-field-error">{{'respondents.error-required-country' | translate}}</small>
+          </div>
+
+          <div class="c-common__form-field c-common__form-field__country">
+            <div class="c-common__form-field--with-icon c-market__form-field">
+              <app-dropdown [items]="getRegions()"
+                            [withMultiselect]="true"
+                            [dataType]="DropdownDataType.Regions"
+                            [isError]="controlHasError('subdivisions')"
+                            [selectedItems]="market.controls.subdivisions.value"
+                            (getSelectedItems)="onChangeRegions($event)"></app-dropdown>
+            </div>
+            <small *ngIf="getRegions().length && controlHasError('subdivisions')"
+                   class="p-error c-common__form-field-error">{{'respondents.error-required-region' | translate}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</form>

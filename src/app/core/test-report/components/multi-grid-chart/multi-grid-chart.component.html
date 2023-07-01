@@ -1,0 +1,57 @@
+<div class="app-vertical-bar-chart">
+  <div class="app-vertical-bar-chart__title c-multi-grid-chart__title">{{title}}</div>
+  <!--Chart-->
+  <div #chartRef class="app-vertical-bar-chart__container c-multi-grid-chart__container">
+    <!--Horizontal Sub-axis-->
+    <div *ngFor="let axis of horizontalAxis; let isOdd=odd"
+      class="app-vertical-bar-chart__container-axis"
+      [style.top]="(100 - axis * 10) + '%'">
+      <span *ngIf="isOdd">{{axis * 10}}%</span>
+    </div>
+
+    <!--Chart Bars-->
+    <div class="app-vertical-bar-chart__container-content">
+
+      <!--Dataset bars-->
+      <div
+        #datasetContainerRef
+        class="app-vertical-bar-chart__container-content-dynamic c-multi-grid-chart__container-content-dynamic">
+        <div
+          *ngFor="let chart of dataSet"
+          class="app-vertical-bar-chart__container-content-dynamic-container">
+          <div
+            class="item-chart-bar"
+            [style.background]="getBackground(chart.index)"
+            [style.height]="(chart.value || 1) + '%'">
+
+            <div class="item-chart-bar-label" #datasetLabels>
+              <span>{{chart.label | uppercase}}</span>
+            </div>
+
+            <div class="app-vertical-bar-chart__label">
+              <span>{{Math.round(chart.value) + '%'}}</span>
+            </div>
+
+            <!--GRID LABELS-->
+            <div class="app-vertical-bar-chart__single-legend">
+              <div class="legend-element tooltip">
+                <div class="legend-element-item">
+                  <span class="item">{{ chart.label }}</span>
+                </div>
+                <div class="legend-label-tooltip">
+                  <div class="legend-label-tooltip-content">
+                    <div
+                      class="legend-label-tooltip-content-title">{{chart.label}}</div>
+                  </div>
+                  <div class="legend-label-tooltip-arrow"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

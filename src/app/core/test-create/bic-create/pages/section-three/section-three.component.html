@@ -1,0 +1,166 @@
+<div class="c-section-three">
+  <div class="c-test__card section-one-wrapper">
+    <div>
+      <div>
+        <div class="section-one-position_title space-between">
+          <div>
+            {{'associations.intro' | translate}}
+          </div>
+          <div class="tooltip-custom-position">
+            <span class="market-tip">
+              <app-question-tooltip [title]="'explanation.Tips!'"
+                                    [texts]="['explanation.We recommend to include associations that are top preference drivers in your category. We also recommend to include associations that reflects your brand strategy and capture different parts of your concept.']"
+                                    additionalClass="mobileminimum"
+                                    [arrowShift]="marketArrowShiftBetween">
+              </app-question-tooltip></span>
+          </div>
+        </div>
+        <div class="c-test__card__title">
+          {{'BIC.Add associations to see how your concept is precepted.' | translate}}
+        </div>
+        <div>
+          <p class="c-test__card__optional c-section-three__limit">{{'associations.limit' | translate}}</p>
+        </div>
+      </div>
+      <div class="section-three-info">
+        <app-section-three-info></app-section-three-info>
+      </div>
+      <div class="c-section-three__wrapper">
+        <div class="c-section-three__wrapper-item">
+          <div class="c-section-three__add">
+            <app-list-items [items]="customAssociations"
+                            [isHideAdded]="true"
+                            max="40"
+                            [allAssociations]="allAssociations"
+                            [associations]="associations"
+                            [isLimitExceeded]="getIsLimitExceeded()"
+                            dataType="Associations"
+                            inputMaxLength=50
+                            [disabledField]="editedAssociationIndex !== null"
+                            (addDefaultAssociation)="addAssociationFromList($event)"
+                            (updateItems)="updateCustomAssociations($event)"></app-list-items>
+            <button type="button"
+                    class="c-common__button--border normal c-common__button c-section-three__add-btn"
+                    [disabled]="getIsDisabledButtons() || editedAssociationIndex !== null"
+                    (click)="getIsDisabledButtons()?false:addAssociation()">
+              <img src="../../../../../../assets/images/svg/ic_plus_mini.svg"
+                   class="icon">{{'associations.add-more' | translate}}
+            </button>
+          </div>
+          <p class="c-test__card__optional c-section-three__added">{{'associations.already-added' | translate}}</p>
+          <!-- DESKTOP-->
+          <table *ngIf="showAssociations"
+                 class="c-common__grid-table c-common-grid-table-template-tree">
+            <thead class="c-common__grid-table-head">
+              <th class="c-common__grid-table-head-item"></th>
+              <th class="c-common__grid-table-head-item"></th>
+              <th class="c-common__grid-table-head-item"></th>
+              <th class="c-common__grid-table-head-item"></th>
+            </thead>
+            <tbody class="c-common__grid-table-body">
+              <tr *ngFor="let association of associations.concat(customAssociations); let i = index"
+                  class="c-common__grid-table-body-row">
+                <td *ngIf="editedAssociationIndex !== i"
+                    class="c-common__grid-table-body-item c-common__bold">
+                  <div class="c-section-three__table-col">
+                    <span class="c-section-three__table-col__text">{{association.text ? association.text : association.value}}</span>
+                  </div>
+                </td>
+                <td *ngIf="editedAssociationIndex !== i"
+                    class="c-common__grid-table-body-item"
+                    [ngClass]="associationEnum[association.type]?.toLowerCase()">
+                  {{associationEnum[association.type] |
+                  translate}}
+                </td>
+                <td *ngIf="editedAssociationIndex !== i"
+                    class="c-common__grid-table-body-item actions">
+                  <button *ngIf="isCustomAssociation(association.text ? association.text : association.value)"
+                          class="c-common__button c-common__button--icon"
+                          [disabled]="editedAssociation !== null && editedAssociationIndex !== i"
+                          (click)="openEditMode(i, association)">
+                    <app-icon [iconType]="IconsType.Edit"
+                              [height]="24"></app-icon>
+                  </button>
+                </td>
+                <ng-container *ngIf="editedAssociationIndex === i">
+                  <ng-container *ngTemplateOutlet="editListItem; context:{association: association}"></ng-container>
+                </ng-container>
+                <td class="c-common__grid-table-body-item actions">
+                  <button [disabled]="editedAssociation !== null && editedAssociationIndex !== i"
+                          class="c-common__button c-common__button--icon"
+                          (click)="removeAssociation(association)">
+                    <app-icon [iconType]="IconsType.DeleteGray"
+                              [height]="24"></app-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!--    MOBILE -->
+          <div class="c-test__table-mobile">
+            <div *ngFor="let association of associations.concat(customAssociations); let i = index"
+                 class="c-test__table-mobile__card">
+              <div class="c-test__table-mobile__card-tr">
+                <div class="c-test__table-mobile__card-tr__name">
+                  <span>{{'bt-associations.associations' | translate}}</span>
+                </div>
+                <div class="c-test__table-mobile__card-tr__text"><span>{{association.text ? association.text :
+                    association.value}}</span></div>
+              </div>
+
+              <ng-container *ngIf="editedAssociationIndex === i">
+                <ng-container *ngTemplateOutlet="editListItem; context:{association: association}"></ng-container>
+              </ng-container>
+
+              <div *ngIf="association.type"
+                   class="c-test__table-mobile__card-tr colored">
+                <div class="c-test__table-mobile__card-tr__name"><span>{{'KPI.type' | translate}}</span></div>
+                <div class="c-test__table-mobile__card-tr__text"
+                     [ngClass]="associationEnum[association.type]?.toLowerCase()"><span>{{associationEnum[association.type] |
+                    translate}}</span></div>
+              </div>
+
+              <div class="c-test__table-mobile__card-centred"
+                   [class.colored]="!association.type">
+                <button *ngIf="isCustomAssociation(association.text ? association.text : association.value)"
+                        class="c-common__button c-common__button--icon"
+                        [disabled]="editedAssociation !== null && editedAssociationIndex !== i"
+                        (click)="openEditMode(i, association)">
+                  <app-icon [iconType]="IconsType.Edit"
+                            [height]="24"></app-icon>
+                </button>
+                <button class="c-common__button c-common__button--icon"
+                        [disabled]="editedAssociation !== null && editedAssociationIndex !== i"
+                        (click)="removeAssociation(association)"><img src="../../../../assets/images/png/delete.png"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section__subtext market">
+        <div class="c-why-add__title">
+          {{ "explanation.Tips!" | translate }}
+        </div>
+        <p class="c-why-add__text">
+          {{ "explanation.We recommend to include associations that are top preference drivers in your category. We also recommend to include associations that reflects your brand strategy and capture different parts of your concept." | translate }}
+        </p>
+      </div>
+      <div class="section-three">
+        <app-section-three-info></app-section-three-info>
+      </div>
+    </div>
+  </div>
+  <app-next-button [nextSection]="'section-4'"
+                   [testType]="TestType.BIC"></app-next-button>
+</div>
+
+<ng-template #editListItem
+             let-association='association'>
+  <app-edit-list-item [association]="association"
+                      [associations]="associations.concat(customAssociations)"
+                      (editAssociation)="editAssociation($event)"
+                      (cancelEditMode)="cancelEditMode()"></app-edit-list-item>
+</ng-template>

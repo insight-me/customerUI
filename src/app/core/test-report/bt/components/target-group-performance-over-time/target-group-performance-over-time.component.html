@@ -1,0 +1,65 @@
+<ng-container *ngIf="btRSS.segmentOptions | async; else noSegmentDataBlock">
+  <div *ngIf="currentDataSet$ | async as dataSet"
+       class="bt-test-report">
+
+    <div class="bt-test-report__header"
+         *ngIf="!pdfVersion">
+      <div class="bt-test-report__header-title">{{"report.Target group performance over time" | translate}}</div>
+      <app-multi-select-filter *ngIf="filterForm"
+                               [filterModel]="filterModel"
+                               [filterForm]="filterForm"
+                               allLabel="report.All segments"
+                               (applyFilters)="applyFilters()"></app-multi-select-filter>
+    </div>
+    <app-warning-message *ngIf="lowNumbers"
+                         [text]="'BT.Warning! Amount of respondents is too low (<60)'"
+                         [isCentered]="true"
+                         [color]="'#585858'"></app-warning-message>
+
+    <ng-container *ngIf="service.switcher$ | async">
+      <div appResizeChart
+           #chartRef
+           [style]="btStyle.content"
+           [ngStyle]="pdfVersion ? {margin: '50px 50px 25px 50px'} : {}">
+        <app-bt-line-chart *ngIf="switcher | async"
+                           [dataSet]="dataSet"
+                           [style]="{flexGrow: 1}"
+                           [pdfVersion]="pdfVersion"></app-bt-line-chart>
+      </div>
+    </ng-container>
+
+    <div [style]="style.footer"
+         [ngStyle]="pdfVersion ? {borderTop: '1px solid #E9E9E9', paddingTop: '20px'} : {}">
+      <span *ngFor="let item of dataSet; index as i"
+            [style]="style.legend">
+        <i [style]="style.icon"
+           [style.background]="getBackground(i)"></i>
+        <div>{{item.name}}</div>
+      </span>
+    </div>
+    <div class="bt-test-report-zoom"
+         *ngIf="!pdfVersion">
+      <div class="bt-test-report-zoom-button"
+           (click)="toggleZoom(); refreshChart()">
+        <span>{{(isExpanded ? "report.Zoom Out" : "report.Zoom In") | translate}}</span>
+        <app-icon [iconType]="IconsType.Zoom"
+                  color="#8E8E93"></app-icon>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #noSegmentDataBlock>
+  <div class="bt-test-report">
+    <div class="bt-test-report__header"
+         *ngIf="!pdfVersion">
+      <div class="bt-test-report__header-title">{{"report.Target group performance over time" | translate}}</div>
+    </div>
+    <div class="bt-test-report__message-wrapper">
+      <div class="message">
+        <app-warning-message [text]="'report.This graph is only available if you have included a segmentation model in your tracking set-up'"
+                             [color]="'#585858'"
+                             [backgroundColor]="'#E3F2FD'"></app-warning-message>
+      </div>
+    </div>
+  </div>
+</ng-template>

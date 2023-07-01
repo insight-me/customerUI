@@ -1,0 +1,16 @@
+<div class="c-header-bt">
+  <div class="c-header-bt__container">
+    <div class="c-header-bt__container__logo" routerLink="/personal-area/dashboard">
+      <app-icon [iconType]="IconsType.Menu"></app-icon>
+    </div>
+    <div class="c-header-bt__container__panel-names">
+      <span class="type" [pTooltip]="'BT-create.Brand tracker' | translate">{{
+        "BT-create.Brand tracker" | translate
+        }}</span>
+      <p [pTooltip]="testName" class="test-name">{{ testName }}</p>
+    </div>
+  </div>
+  <div class="c-header-bt__menu">
+    <app-header-menu [theme]="'white'"></app-header-menu>
+  </div>
+</div>

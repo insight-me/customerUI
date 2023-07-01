@@ -1,0 +1,17 @@
+<div class="c-preview__section__header">
+  <p class="c-preview__section__header-text">{{'preview.header-three' | translateCustom }}</p>
+  <p class="c-preview__section__header-subtext">{{'preview.subheader-three' | translateCustom }}</p>
+</div>
+<div *ngIf="test"
+     class="c-preview__section">
+  <div class="c-preview-three__block">
+    <div *ngFor="let association of associations">
+      <div>
+        <div class="c-preview-three__block-item">{{association.text ? association.text : association.value}}</div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
